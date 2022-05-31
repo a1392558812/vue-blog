@@ -47,11 +47,11 @@
 </template>
 
 <script>
-import { ref, nextTick, onBeforeMount, computed, onMounted } from 'vue'
+import { ref, nextTick, onBeforeMount, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import axios from '@/common/axios.js'
-import { markdownTypeCheck, imgTypeCheck, preloadMusic } from '@/common/methods'
+import { markdownTypeCheck, imgTypeCheck } from '@/common/methods'
 import list from '@/static/list.js'
 import leftSidebarProps from '@/common/left-sidebar-props'
 
@@ -59,7 +59,6 @@ import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
 import markdownType from '@/components/home/markdown-type'
 import otherType from '@/components/home/other-type'
 import imageType from '@/components/home/image-type'
-import { useStore } from 'vuex'
 
 export default {
   name: 'Home',
@@ -73,9 +72,6 @@ export default {
     ...leftSidebarProps
   },
   setup (props) {
-    const store = useStore()
-    const musicList = computed(() => store.state.musicList)
-
     const htmlMD = ref('')
     const title = ref('ReadMe-前言')
     const type = ref('')
@@ -217,14 +213,6 @@ export default {
       } else {
         hsaNotParams()
       }
-    })
-
-    onMounted(() => {
-      // 预加载 /music页面的music
-      nextTick(() => musicList.value.forEach(item => {
-        preloadMusic(item.url)
-        preloadMusic(item.image)
-      })).then()
     })
 
     return {
