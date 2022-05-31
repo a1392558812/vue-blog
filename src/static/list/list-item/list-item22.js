@@ -147,7 +147,7 @@ export default {
     },
     {
       name: '08.一个基于markdown的文档静态网站',
-      link: 'https://github.com/a1392558812/myShare.io/tree/master/22.%E6%97%A5%E5%B8%B8%E5%88%86%E4%BA%AB-Vue/08.%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Emarkdown%E7%9A%84%E6%96%87%E6%A1%A3%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99'
+      link: 'https://gitee.com/a1392558812/vue-blog'
     },
     {
       name: 'image',

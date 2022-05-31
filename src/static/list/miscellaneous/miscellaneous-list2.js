@@ -2,6 +2,8 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '24.Vue和React对比学习之Hooks.md' },
+    { name: '23.数组排序.md' },
     { name: '22.常用git操作.md' },
     { name: '21.npm-run-xxx执行了什么.md' },
     { name: '20.vue3配置externals引入外部CDN.md' },
