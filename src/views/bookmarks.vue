@@ -1,10 +1,18 @@
+<!--
+ * @Author: Awen 1392558812@qq.com
+ * @Date: 2022-06-17 10:43:38
+ * @LastEditors: Awen 1392558812@qq.com
+ * @LastEditTime: 2022-06-17 13:37:24
+ * @FilePath: \vue-blog\src\views\bookmarks.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
-  <div class="width100 height100 overflow-auto bookmarks" v-loading="str === ''">
-    <div v-if="!ifDestroy" class="display-none html-str" v-html="str"></div>
-    <div class="tips" >
-      <span class="cursor-pointer" @click="spreadOut">{{`[${ifShowAll ? '关闭' : ''}全部展开]`}}</span>
+  <div v-loading="str === ''" class="width100 height100 overflow-auto bookmarks">
+    <div v-if="!ifDestroy" class="display-none html-str" v-html="str" />
+    <div class="tips">
+      <span class="cursor-pointer" @click="spreadOut">{{ `[${ifShowAll ? '关闭' : ''}全部展开]` }}</span>
     </div>
-    <book-marks-item :data="htmlJson"></book-marks-item>
+    <book-marks-item :data="htmlJson" />
   </div>
 </template>
 
@@ -16,7 +24,7 @@ import { htmlToJson } from '@/common/methods'
 import throttle from '@/common/util/throttle'
 
 export default {
-  name: 'bookmarks',
+  name: 'Bookmarks',
   components: {
     bookMarksItem
   },
@@ -51,7 +59,7 @@ export default {
 
     axios.get('./bookmarks.html').then(res => { str.value = res.data })
 
-    watch(str, () => nextTick(() => {
+    watch(str, () => nextTick().then(() => {
       htmlJson.value = htmlToJson($('.html-str').children('dl').children('dt'), true, true)
       ifDestroy.value = true
     }))

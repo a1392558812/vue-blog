@@ -1,16 +1,26 @@
 <template>
   <div style="font-size: 16px" class="flex flex-direction-column">
-    <div class="not-find margin-top-50 flex justify-content-center">404</div>
-    <router-link class="margin-top-50 flex justify-content-center" replace to="/">返回首页</router-link>
-    <div class="margin-top-50 flex justify-content-center">假装这里有张404插画</div>
+    <div class="not-find margin-top-50 flex justify-content-center">
+      404
+    </div>
+    <router-link class="margin-top-50 flex justify-content-center" replace to="/">
+      返回首页
+    </router-link>
+    <div class="margin-top-50 flex justify-content-center">
+      假装这里有张404插画
+    </div>
 
     <a class="margin-top-50 cursor-pointer flex justify-content-center" href="https://github.com/chokcoco/CSS-Inspiration">下面css动画来自大佬：chokcoco</a>
-    <div class="flex justify-content-center">https://github.com/chokcoco/CSS-Inspiration</div>
-    <div class="flex justify-content-center">觉得有意思，就拿来用了</div>
+    <div class="flex justify-content-center">
+      https://github.com/chokcoco/CSS-Inspiration
+    </div>
+    <div class="flex justify-content-center">
+      觉得有意思，就拿来用了
+    </div>
 
     <div class="margin-top-50 flex justify-content-center overflow-hidden">
       <div class="ananimationt-wrap relative">
-        <div class="ananimationt"></div>
+        <div class="ananimationt" />
       </div>
     </div>
   </div>

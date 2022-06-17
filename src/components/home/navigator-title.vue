@@ -1,18 +1,22 @@
 <template>
   <div
+    v-if="articleTitles.length"
     :style="{
       right: `${barWidth}px`,
       height: articleTitlesHeight + 'px'
     }"
     class="fixed markdown-title"
-    v-if="articleTitles.length">
+  >
     <div class="width100 height100 markdown-title-inner">
-      <div class="width100 text-align-center markdown-title-navigator">标题导航</div>
+      <div class="width100 text-align-center markdown-title-navigator">
+        标题导航
+      </div>
       <div
         v-for="(anchor, index) in articleTitles"
+        :key="index"
         class="markdown-title-item"
         :style="{ padding: `10px 0 10px ${anchor.indent * 20}px` }"
-        :key="index">
+      >
         <a style="cursor: pointer" @click="handleAnchorClick(anchor)">{{ anchor.title }}</a>
       </div>
     </div>
@@ -22,7 +26,7 @@
 <script>
 import { onMounted, ref } from 'vue'
 export default {
-  name: 'navigator-title',
+  name: 'NavigatorTitle',
   props: {
     ifLarger: {
       type: Boolean,

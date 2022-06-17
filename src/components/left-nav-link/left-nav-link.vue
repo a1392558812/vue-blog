@@ -2,11 +2,13 @@
   <div
     v-if="!ifLarger"
     :class="showNavLink ? 'translateX-0' : 'translateX-100'"
-    class="absolute height100 bg-white left-nav-link">
+    class="absolute height100 bg-white left-nav-link"
+  >
     <common-nav-link
+      :if-larger="ifLarger"
       @goHome="goHome"
       @toggleShowNavLink="toggleShowNavLink"
-      :ifLarger="ifLarger"></common-nav-link>
+    />
   </div>
 </template>
 
@@ -14,7 +16,7 @@
 import commonNavLink from '@/components/common/nav-link'
 import useGoHome from '@/hook/common/useGoHome'
 export default {
-  name: 'left-nav-link',
+  name: 'LeftNavLink',
   components: {
     commonNavLink
   },

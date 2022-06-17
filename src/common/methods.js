@@ -51,7 +51,8 @@ export const htmlToJson = ($dt, ifRender = false, ifShow = false) => {
         name: $a.text(),
         href: $a.attr('href'),
         ...($a.attr('icon') ? { icon: $a.attr('icon') } : {})
-      }) : null
+      })
+      : null
   }
   const h3 = $h3.text()
   const arr = []

@@ -3,7 +3,7 @@ import { ref, watch, nextTick, onMounted } from 'vue'
 import navigatorTitle from './navigator-title'
 
 export default {
-  name: 'markdown',
+  name: 'Markdown',
   components: {
     navigatorTitle
   },
@@ -61,7 +61,7 @@ export default {
     }
 
     // 锚点标题动态设定
-    watch(() => props.htmlMD, () => nextTick(() => {
+    watch(() => props.htmlMD, () => nextTick().then(() => {
       articleTitlesInit()
     }))
 
@@ -122,33 +122,37 @@ export default {
       <>
         <div
           style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})` } : { width: '100%' }}
-          className="title flex align-items-center justify-content-center">
+          className='title flex align-items-center justify-content-center'>
           { this.title }
         </div>
         <div
-          className="relative markdown"
+          className='relative markdown'
           style={{ minHeight: this.markdownMinHeight }}
           v-loading={this.loading}>
           {
-            !this.loading ? (
-              <div className="flex height100">
-                <v-md-preview
-                  style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})` } : { width: '100%' }}
-                  onClick={this.handelClick}
-                  onCopy-code-success={this.handleCopyCodeSuccess}
-                  ref="preview"
-                  text={this.htmlMD}/>
-                {
-                  this.ifLarger ? (
-                    <navigator-title
-                      ifLarger={this.ifLarger}
-                      markdownTitleWidth={this.markdownTitleWidth}
-                      articleTitles={this.articleTitles}
-                      onHandleAnchorClick={(anchor) => { this.handleAnchorClick(anchor) }}/>
-                  ) : null
-                }
-              </div>
-            ) : null
+            !this.loading
+              ? (
+                <div className='flex height100'>
+                  <v-md-preview
+                    style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})` } : { width: '100%' }}
+                    onClick={this.handelClick}
+                    onCopy-code-success={this.handleCopyCodeSuccess}
+                    ref='preview'
+                    text={this.htmlMD}/>
+                  {
+                    this.ifLarger
+                      ? (
+                        <navigator-title
+                          ifLarger={this.ifLarger}
+                          markdownTitleWidth={this.markdownTitleWidth}
+                          articleTitles={this.articleTitles}
+                          onHandleAnchorClick={(anchor) => { this.handleAnchorClick(anchor) }}/>
+                        )
+                      : null
+                  }
+                </div>
+                )
+              : null
           }
         </div>
       </>

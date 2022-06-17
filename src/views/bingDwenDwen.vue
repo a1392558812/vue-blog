@@ -1,29 +1,36 @@
 <template>
   <div class="relative width100 height100 flex flex-direction-row">
     <layout-left-sidebar
-      :leftSidebarW="leftSidebarW"
-      :ifShowMenu="ifShowMenu"
-      :ifLarger="ifLarger"
-      :headerH="headerH"
-      :toggleMenu="toggleMenu"/>
+      :left-sidebar-w="leftSidebarW"
+      :if-show-menu="ifShowMenu"
+      :if-larger="ifLarger"
+      :header-h="headerH"
+      :toggle-menu="toggleMenu"
+    />
     <div class="relative width100 height100 flex align-items-center justify-content-center">
       <div>
-        <div class="width100 notice">这是一个纯css的冰墩墩,掘金大佬做的，</div>
-        <div class="width100 notice">觉得好看就放这里来了。</div>
-        <div class="width100 notice">一时没想好这个页做点啥。</div>
-        <div style="z-index: -1" id="bingdundun">
-          <div class="body"></div>
-          <div class="earLeft"></div>
-          <div class="earRight"></div>
-          <div class="face"></div>
-          <div class="eyeLeft"></div>
-          <div class="eyeLeft eyeRight"></div>
-          <div class="nose"></div>
-          <div class="mouth"></div>
-          <div class="handLeft"></div>
-          <div class="handRight"></div>
-          <div class="footerLeft"></div>
-          <div class="footerLeft footerRight"></div>
+        <div class="width100 notice">
+          这是一个纯css的冰墩墩,掘金大佬做的，
+        </div>
+        <div class="width100 notice">
+          觉得好看就放这里来了。
+        </div>
+        <div class="width100 notice">
+          一时没想好这个页做点啥。
+        </div>
+        <div id="bingdundun" style="z-index: -1">
+          <div class="body" />
+          <div class="earLeft" />
+          <div class="earRight" />
+          <div class="face" />
+          <div class="eyeLeft" />
+          <div class="eyeLeft eyeRight" />
+          <div class="nose" />
+          <div class="mouth" />
+          <div class="handLeft" />
+          <div class="handRight" />
+          <div class="footerLeft" />
+          <div class="footerLeft footerRight" />
         </div>
       </div>
     </div>

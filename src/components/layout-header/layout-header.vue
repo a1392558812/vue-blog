@@ -1,14 +1,19 @@
 <template>
   <div
     :style="{padding: ifLarger ? '0 50px' : '0 20px'}"
-    class="layout-header flex flex-direction-row-reverse justify-content-space-between align-items-center">
+    class="layout-header flex flex-direction-row-reverse justify-content-space-between align-items-center"
+  >
     <div class="relative flex align-items-center justify-content-center bg-white">
-      <common-nav-link v-if="ifLarger" :ifLarger="ifLarger" @goHome="goHome"/>
-      <commonm-btn class="nav" v-else :wave-active="true" @click="toggleShowNavLink">导航</commonm-btn>
+      <common-nav-link v-if="ifLarger" :if-larger="ifLarger" @goHome="goHome" />
+      <commonm-btn v-else class="nav" :wave-active="true" @click="toggleShowNavLink">
+        导航
+      </commonm-btn>
       <div class="relative popup-wrap">
-        <commonm-btn :wave-active="true" @btnClick="showPopup = !showPopup">通知</commonm-btn>
+        <commonm-btn :wave-active="true" @btnClick="showPopup = !showPopup">
+          通知
+        </commonm-btn>
         <!-- 通知栏 -->
-        <notice-popup :ifLarger="ifLarger" v-model:showPopup="showPopup"></notice-popup>
+        <notice-popup v-model:showPopup="showPopup" :if-larger="ifLarger" />
       </div>
     </div>
     <!-- 移动端显示的切换菜单栏按钮 -->
@@ -19,8 +24,9 @@
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        p-id="2096">
-        <path d="M170.667 170.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 1 1 0-85.333z m0 298.666h682.666a42.667 42.667 0 0 1 0 85.334H170.667a42.667 42.667 0 0 1 0-85.334z m0 298.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 0 1 0-85.333z" p-id="2097"></path>
+        p-id="2096"
+      >
+        <path d="M170.667 170.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 1 1 0-85.333z m0 298.666h682.666a42.667 42.667 0 0 1 0 85.334H170.667a42.667 42.667 0 0 1 0-85.334z m0 298.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 0 1 0-85.333z" p-id="2097" />
       </svg>
     </commonm-btn>
   </div>
@@ -36,7 +42,12 @@ import noticePopup from './notice'
 import useGoHome from '@/hook/common/useGoHome'
 
 export default {
-  name: 'layout-header',
+  name: 'LayoutHeader',
+  components: {
+    commonmBtn,
+    commonNavLink,
+    noticePopup
+  },
   props: {
     headerH: {
       type: String,
@@ -54,11 +65,6 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  components: {
-    commonmBtn,
-    commonNavLink,
-    noticePopup
   },
   setup (props, { emit }) {
     const showPopup = ref(false)

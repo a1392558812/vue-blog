@@ -2,28 +2,31 @@
   <div id="page" class="overflow-hidden">
     <layout-header
       v-if="ifShowHeaderComponent"
-      :ifLarger="ifLarger"
-      :headerH="headerH"
-      :showNavLink="showNavLink"
-      :ifShowHeaderPopupBtn="ifShowHeaderPopupBtn"
+      :if-larger="ifLarger"
+      :header-h="headerH"
+      :show-nav-link="showNavLink"
+      :if-show-header-popup-btn="ifShowHeaderPopupBtn"
       @toggleMenu="toggleMenu"
       @toggleShowNavLink="toggleShowNavLink"
-      @refreshView="refreshView"/>
+      @refreshView="refreshView"
+    />
     <div class="relative" :class="ifShowHeaderComponent ? 'content' : ''">
       <left-nav-link
         v-if="ifShowHeaderComponent"
-        :showNavLink="showNavLink"
-        :leftSidebarW="leftSidebarW"
-        :ifLarger="ifLarger"
+        :show-nav-link="showNavLink"
+        :left-sidebar-w="leftSidebarW"
+        :if-larger="ifLarger"
         @toggleShowNavLink="toggleShowNavLink"
-        @refreshView="refreshView"/>
+        @refreshView="refreshView"
+      />
       <router-view
         :key="refreshViewKey"
-        :ifLarger="ifLarger"
-        :headerH="headerH"
-        :ifShowMenu="ifShowMenu"
-        :toggleMenu="toggleMenu"
-        :leftSidebarW="leftSidebarW"/>
+        :if-larger="ifLarger"
+        :header-h="headerH"
+        :if-show-menu="ifShowMenu"
+        :toggle-menu="toggleMenu"
+        :left-sidebar-w="leftSidebarW"
+      />
     </div>
   </div>
 </template>

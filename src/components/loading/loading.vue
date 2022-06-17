@@ -1,11 +1,12 @@
 <template>
-  <div class="loading" v-if="ifShow">
+  <div v-if="ifShow" class="loading">
     <div class="loadEffect">
       <span
         v-for="(item, index) in list"
-        :key='index'
-        :class='`loading-item loading-${index}`'>
-        {{item}}
+        :key="index"
+        :class="`loading-item loading-${index}`"
+      >
+        {{ item }}
       </span>
     </div>
   </div>
@@ -13,7 +14,7 @@
 <script>
 import { ref } from 'vue'
 export default {
-  name: 'loading',
+  name: 'Loading',
   props: {
     showModal: {
       type: Boolean,

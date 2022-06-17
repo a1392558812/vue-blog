@@ -7,7 +7,7 @@ import leftSidebarRenderFactoryFun from './renderFun'
 import leftSidebarSearch from './left-sidebar-search'
 
 export default {
-  name: 'left-sidebar',
+  name: 'LeftSidebar',
   props: {
     ...leftSidebarProps
   },
@@ -34,9 +34,9 @@ export default {
     const renderFun = leftSidebarRenderFactoryFun.bind(this)()
     return (
       <div className={this.sidebarClassName}>
-        <div className="left-sidebar-content">
+        <div className='left-sidebar-content'>
           <leftSidebarSearch
-            className="search"
+            className='search'
             toggleMenu={this.toggleMenu}
             onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
             onSearchItemClick={(url) => { this.$emit('itemClick', url) }}

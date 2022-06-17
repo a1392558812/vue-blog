@@ -1,7 +1,11 @@
 <template>
   <div class="other-type">
-    <div class="downLoad-cell">链接： {{htmlMD}}</div>
-    <div class="downLoad-cell">文件名： {{downloadName}}</div>
+    <div class="downLoad-cell">
+      链接： {{ htmlMD }}
+    </div>
+    <div class="downLoad-cell">
+      文件名： {{ downloadName }}
+    </div>
     <div class="downLoad-cell downLoad-wrap flex">
       <a class="downLoad" :href="htmlMD" :download="downloadName">下载</a>
     </div>
@@ -10,7 +14,7 @@
 
 <script>
 export default {
-  name: 'other-type',
+  name: 'OtherType',
   props: {
     downloadName: {
       type: String,

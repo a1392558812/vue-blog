@@ -1,10 +1,14 @@
 <template>
   <div class="error">
-    <div class="error-tip">你又进行了什么操作才进了这个页面</div>
+    <div class="error-tip">
+      你又进行了什么操作才进了这个页面
+    </div>
     <router-link replace to="/">
       <img class="error-img" :src="imgSrc" alt="">
     </router-link>
-    <router-link class="error-back" replace to="/">返回首页</router-link>
+    <router-link class="error-back" replace to="/">
+      返回首页
+    </router-link>
   </div>
 </template>
 <script setup>

@@ -1,7 +1,7 @@
 <script>
 import { useRouter } from 'vue-router'
 export default {
-  name: 'nav-link',
+  name: 'NavLink',
   props: {
     ifLarger: {
       type: Boolean,
@@ -42,13 +42,13 @@ export default {
             })
           }
           <div
-            className="go-home cursor-pointer nav-link-item flex align-items-center justify-content-start"
+            className='go-home cursor-pointer nav-link-item flex align-items-center justify-content-start'
             onClick={() => { this.goHome() }}>
-            <img className="heishou" src={require('@/static/image/heishou2.jpg')}/>
+            <img className='heishou' src={require('@/static/image/heishou2.jpg')}/>
             <p>首页</p>
           </div>
           <div
-            className="my-info cursor-pointer nav-link-item flex align-items-center justify-content-start"
+            className='my-info cursor-pointer nav-link-item flex align-items-center justify-content-start'
             onClick={() => { this.goHome() }}>
 
           </div>

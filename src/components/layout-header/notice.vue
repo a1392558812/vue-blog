@@ -2,7 +2,7 @@
 import { notice, noticeTitle } from '@/static/notice'
 import { reactive, ref, toRefs } from 'vue'
 export default {
-  name: 'notice',
+  name: 'Notice',
   props: {
     showPopup: {
       type: Boolean,
@@ -30,15 +30,16 @@ export default {
             ? (
               <>
                 <div onClick={this.handelClick} className={`absolute popup ${this.ifLarger ? 'popup-pc' : 'fixed popup-phone'}`}>
-                  <div className="popup-inner flex flex-direction-column">
-                    <p className="title flex align-items-center justify-content-center">{noticeTitle}</p>
-                    <p className="cell">如有疑问联系我QQ:1392558812</p>
-                    { notice.map((item, index) => (<p key={index} className="cell">{index + 1}.{item}</p>)) }
+                  <div className='popup-inner flex flex-direction-column'>
+                    <p className='title flex align-items-center justify-content-center'>{noticeTitle}</p>
+                    <p className='cell'>如有疑问联系我QQ:1392558812</p>
+                    { notice.map((item, index) => (<p key={index} className='cell'>{index + 1}.{item}</p>)) }
                   </div>
                 </div>
-                <div className="mask" onClick={this.handelClick}></div>
+                <div className='mask' onClick={this.handelClick}></div>
               </>
-            ) : null
+              )
+            : null
         }
       </>
     )

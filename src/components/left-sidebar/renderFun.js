@@ -57,33 +57,39 @@ export default function () {
     }
     return (<>
       {
-        (item && item.name) ? (
-          <div
-            className={className()}
-            style={listItemStyle()}
-            onClick={renderList.length ? (e) => {
-              listClick(e)
-            } : (e) => {
-              itemClick(e)
-            }}
-            key={item.index}>
-            {grade === 0 && this.nowActive === firstLevelIndex ? (<div className='list-active'></div>) : null}
-            <div style={titleStyleName()} className='cell-item-title'>
-              {item.link ? (<div className='cell-item-link'>链接</div>) : null}
-              {item.name}
-              {item.topping ? (<div className='topping'>置顶</div>) : null}
+        (item && item.name)
+          ? (
+            <div
+              className={className()}
+              style={listItemStyle()}
+              onClick={renderList.length
+                ? (e) => {
+                    listClick(e)
+                  }
+                : (e) => {
+                    itemClick(e)
+                  }}
+              key={item.index}>
+              {grade === 0 && this.nowActive === firstLevelIndex ? (<div className='list-active'></div>) : null}
+              <div style={titleStyleName()} className='cell-item-title'>
+                {item.link ? (<div className='cell-item-link'>链接</div>) : null}
+                {item.name}
+                {item.topping ? (<div className='topping'>置顶</div>) : null}
+              </div>
+              {ifRender()
+                ? renderList.map((child, childIndex) => {
+                  return (<renderFun
+                    item={child}
+                    list={renderList}
+                    key={childIndex}
+                    ifShow={item.ifShow}
+                    firstLevelIndex={firstLevelIndex}
+                    grade={grade}></renderFun>)
+                })
+                : null }
             </div>
-            {ifRender() ? renderList.map((child, childIndex) => {
-              return (<renderFun
-                item={child}
-                list={renderList}
-                key={childIndex}
-                ifShow={item.ifShow}
-                firstLevelIndex={firstLevelIndex}
-                grade={grade}></renderFun>)
-            }) : null }
-          </div>
-        ) : null
+            )
+          : null
       }
     </>)
   }

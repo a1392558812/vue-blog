@@ -3,9 +3,10 @@
     id="commonBtn"
     :class="type"
     class="common-btn"
-    @click="handelClick">
+    @click="handelClick"
+  >
     <div class="common-btn-inner">
-      <slot></slot>
+      <slot />
     </div>
     <div
       :class="[waveActive ? 'common-btn-wave-active' : '']"
@@ -16,13 +17,14 @@
         height: fields.targetWidth + 'px',
         backgroundColor: 'rgba(0,220,255,0.15)'
       }"
-      class="common-btn-wave-ripple"></div>
+      class="common-btn-wave-ripple"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'common-btn',
+  name: 'CommonBtn',
   props: {
     btnText: {
       type: String,

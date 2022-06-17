@@ -1,46 +1,53 @@
 <template>
   <div class="content-inner overflow-hidden width100 height100 flex flex-direction-row">
     <layout-left-sidebar
-      :leftSidebarW="leftSidebarW"
-      :ifShowMenu="ifShowMenu"
-      :ifLarger="ifLarger"
-      :headerH="headerH"
-      :toggleMenu="toggleMenu"
+      :left-sidebar-w="leftSidebarW"
+      :if-show-menu="ifShowMenu"
+      :if-larger="ifLarger"
+      :header-h="headerH"
+      :toggle-menu="toggleMenu"
       @linkClick="linkClick"
-      @itemClick="itemClick"/>
+      @itemClick="itemClick"
+    />
     <div
       :style="ifLarger ? {
         width: `calc(100% - ${leftSidebarW})`,
       } : {width: '100%'}"
-      class="relative height100">
+      class="relative height100"
+    >
       <!-- 背景图 -->
-      <div class="bg-image width100 height100 absolute"></div>
+      <div class="bg-image width100 height100 absolute" />
       <div class="home relative width100 height100">
         <!-- 标题 -->
         <div
           v-if="!markdownType"
-          class="title width100 flex align-items-center justify-content-center">{{ title }}</div>
+          class="title width100 flex align-items-center justify-content-center"
+        >
+          {{ title }}
+        </div>
         <!-- md格式 -->
         <markdown-type
           v-if="markdownType"
           :title="title"
-          :markdownTitleWidth="markdownTitleWidth"
+          :markdown-title-width="markdownTitleWidth"
           :loading="loading"
-          :ifLarger="ifLarger"
-          :headerH="headerH"
-          :htmlMD="htmlMD"/>
+          :if-larger="ifLarger"
+          :header-h="headerH"
+          :html-m-d="htmlMD"
+        />
         <!-- 图片格式   -->
         <image-type
           v-else-if="imgType"
-          :htmlMD="htmlMD"
+          :html-m-d="htmlMD"
+          :loading="loading"
           @image-load="loading = false"
-          :loading="loading"/>
+        />
         <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
-        <div class="link" v-else-if='linkType'>
-          <a :href="htmlMD">链接： {{htmlMD}}</a>
+        <div v-else-if="linkType" class="link">
+          <a :href="htmlMD">链接： {{ htmlMD }}</a>
         </div>
         <!-- 其他格式 -->
-        <other-type v-else :downloadName="downloadName" :htmlMD="htmlMD"/>
+        <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
       </div>
     </div>
   </div>
@@ -86,9 +93,9 @@ export default {
 
     // 滚动到顶部
     const scrollTop = () => {
-      nextTick(() => {
+      nextTick().then(() => {
         document.querySelector('.home').scrollTop = 0
-      }).then()
+      })
     }
     // 项目点击不同类型回调
     const itemImageTypeClick = (urlLink) => {
