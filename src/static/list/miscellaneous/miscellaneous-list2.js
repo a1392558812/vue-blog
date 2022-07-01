@@ -2,6 +2,7 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '29.批量导入.md' },
     { name: '28.递归函数.md' },
     { name: '27.删除node_modules.md' },
     { name: '26.vue3一个全局提示弹窗.md' },

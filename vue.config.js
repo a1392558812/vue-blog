@@ -1,6 +1,6 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 去掉注释
 const CompressionWebpackPlugin = require('compression-webpack-plugin') // 开启压缩
-const { HashedModuleIdsPlugin, ProvidePlugin } = require('webpack')
+const { ids, ProvidePlugin } = require('webpack')
 const path = require('path')
 const resolve = (dir) => path.resolve(__dirname, dir)
 const isProduction = process.env.NODE_ENV === 'production'
@@ -53,12 +53,12 @@ module.exports = {
       plugins.push(new CompressionWebpackPlugin({
         algorithm: 'gzip',
         test: /\.(js|css)$/, // 匹配文件名
-        threshold: 10000, // 对超过10k的数据压缩
+        threshold: 8000, // 对超过8k的数据压缩
         deleteOriginalAssets: false, // 不删除源文件
         minRatio: 0.8 // 压缩比
       }))
       // 用于根据模块的相对路径生成 hash 作为模块 id, 一般用于生产环境
-      plugins.push(new HashedModuleIdsPlugin())
+      plugins.push(new ids.HashedModuleIdsPlugin())
       // 开启分离js
       config.optimization = {
         runtimeChunk: 'single',
@@ -71,8 +71,10 @@ module.exports = {
               test: /[\\/]node_modules[\\/]/,
               name (module) {
                 // 排除node_modules 然后吧 @ 替换为空 ,考虑到服务器的兼容
-                const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                return `npm.${packageName.replace('@', '')}`
+                const nodeArr = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)
+                if (nodeArr) {
+                  return `npm.${nodeArr[1].replace('@', '')}`
+                }
               }
             }
           }
