@@ -2,6 +2,11 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '34.简易axios封装.md' },
+    { name: '33.动态import()打包后的文件名称定义.md' },
+    { name: '32.常用指令2.md' },
+    { name: '31.工具函数.md' },
+    { name: '30.webpack拆包-关于 splitChunks的几个重点属性解析.md' },
     { name: '29.批量导入.md' },
     { name: '28.递归函数.md' },
     { name: '27.删除node_modules.md' },
