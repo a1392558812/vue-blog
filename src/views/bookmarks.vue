@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import { ref, watch, nextTick } from 'vue'
 import axios from '@/common/axios.js'
-import bookMarksItem from '@/components/bookmarks/item'
 import { htmlToJson } from '@/common/methods'
 import throttle from '@/common/util/throttle'
+import bookMarksItem from '@/components/bookmarks/item'
+import { nextTick, ref, watch } from 'vue'
 
 export default {
   name: 'Bookmarks',
@@ -61,6 +61,7 @@ export default {
 
     watch(str, () => nextTick().then(() => {
       htmlJson.value = htmlToJson($('.html-str').children('dl').children('dt'), true, true)
+      console.log('htmlJson', htmlJson.value)
       ifDestroy.value = true
     }))
 
@@ -76,12 +77,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .bookmarks{
-    .tips{
-      padding: 10px 5px;
-      font-size: 16px;
-      font-weight: bold;
-    }
+.bookmarks {
+  .tips {
+    padding: 10px 5px;
+    font-size: 16px;
+    font-weight: bold;
   }
-
+}
 </style>

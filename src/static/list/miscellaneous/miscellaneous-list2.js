@@ -2,6 +2,10 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '38.vue3v-model修饰符转jsx.md' },
+    { name: '37.啥也不是.md' },
+    { name: '36.Vue3 组件标注TS类型.md' },
+    { name: '35.props更新如何触发子组件重新渲染.md' },
     { name: '34.简易axios封装.md' },
     { name: '33.动态import()打包后的文件名称定义.md' },
     { name: '32.常用指令2.md' },
