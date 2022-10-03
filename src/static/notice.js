@@ -3,4 +3,4 @@ export const notice = [
   '疫情影响，更新断断续续、滴滴答答的...',
   '啥也没更'
 ]
-export const noticeTitle = '2022/4/25更新'
+export const noticeTitle = '某年/某月/某日 更新'

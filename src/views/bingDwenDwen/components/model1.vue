@@ -1,48 +1,33 @@
 <template>
-  <div class="relative width100 height100 flex flex-direction-row">
-    <layout-left-sidebar
-      :left-sidebar-w="leftSidebarW"
-      :if-show-menu="ifShowMenu"
-      :if-larger="ifLarger"
-      :header-h="headerH"
-      :toggle-menu="toggleMenu"
-    />
-    <div class="relative width100 height100 flex align-items-center justify-content-center">
-      <div>
-        <div class="width100 notice">
-          这是一个纯css的冰墩墩,掘金大佬做的，
-        </div>
-        <div class="width100 notice">
-          觉得好看就放这里来了。
-        </div>
-        <div class="width100 notice">
-          一时没想好这个页做点啥。
-        </div>
-        <div id="bingdundun" style="z-index: -1">
-          <div class="body" />
-          <div class="earLeft" />
-          <div class="earRight" />
-          <div class="face" />
-          <div class="eyeLeft" />
-          <div class="eyeLeft eyeRight" />
-          <div class="nose" />
-          <div class="mouth" />
-          <div class="handLeft" />
-          <div class="handRight" />
-          <div class="footerLeft" />
-          <div class="footerLeft footerRight" />
-        </div>
-      </div>
+  <div>
+    <div class="width100 notice">
+      这是一个纯css的冰墩墩,掘金大佬做的，
+    </div>
+    <div class="width100 notice">
+      觉得好看就放这里来了。
+    </div>
+    <div class="width100 notice">
+      一时没想好这个页做点啥。
+    </div>
+    <div id="bingdundun" style="z-index: -1">
+      <div class="body" />
+      <div class="earLeft" />
+      <div class="earRight" />
+      <div class="face" />
+      <div class="eyeLeft" />
+      <div class="eyeLeft eyeRight" />
+      <div class="nose" />
+      <div class="mouth" />
+      <div class="handLeft" />
+      <div class="handRight" />
+      <div class="footerLeft" />
+      <div class="footerLeft footerRight" />
     </div>
   </div>
+
 </template>
-<script setup>
-import { defineProps } from 'vue'
-import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
-import leftSidebarProps from '@/common/left-sidebar-props'
-defineProps(leftSidebarProps)
-</script>
-<style scoped lang="scss">
+<script></script>
+<style scope lang="scss">
   .notice{
     font-size: 15px;
     text-align: center;
