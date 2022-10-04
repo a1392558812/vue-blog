@@ -14,6 +14,7 @@ import 'photo-sphere-viewer/dist/plugins/markers.css'
 import { onMounted } from 'vue'
 export default {
   setup () {
+    const baseUrl = window.location.origin
     const animatedValues = {
       latitude: { start: -Math.PI / 2, end: 0.2 },
       longitude: { start: Math.PI, end: 0 },
@@ -50,7 +51,7 @@ export default {
       }
       const viewer = new Viewer({
         container: document.querySelector('#viewer'),
-        panorama: '/360range/360bg.jpg',
+        panorama: baseUrl + '/360range/360bg.jpg',
         caption: '大风车啊转啊转~',
         defaultLat: animatedValues.latitude.start,
         defaultLong: animatedValues.longitude.start,
@@ -73,51 +74,53 @@ export default {
           'fullscreen'
         ],
         plugins: [
-          [MarkersPlugin, {
+          [
+            MarkersPlugin, {
             // list of markers
-            markers: [
-              {
-                id: 'custom-tooltip-0',
-                tooltip: {
-                  content: `
-                <div class="custom-tooltip-content-wrap">
-                  <div class="custom-tooltip-content">提示：这里是黑手之山！</div>
-                  <img class="line-height-1 custom-tooltip-image" src='${tooltipImg1}'/>
-                </div>
-                `,
-                  className: 'custom-tooltip custom-tooltip-0',
-                  position: 'top',
-                  trigger: 'click'
+              markers: [
+                {
+                  id: 'custom-tooltip-0',
+                  tooltip: {
+                    content: `
+                      <div class="custom-tooltip-content-wrap">
+                        <div class="custom-tooltip-content">提示：这里是黑手之山！</div>
+                        <img class="line-height-1 custom-tooltip-image" src='${tooltipImg1}'/>
+                      </div>
+                      `,
+                    className: 'custom-tooltip custom-tooltip-0',
+                    position: 'top',
+                    trigger: 'click'
+                  },
+                  latitude: 0.11,
+                  longitude: -0.35,
+                  image: baseUrl + '/360range/pin-blue.png',
+                  width: 32,
+                  height: 32,
+                  anchor: 'bottom center'
                 },
-                latitude: 0.11,
-                longitude: -0.35,
-                image: '/360range/pin-blue.png',
-                width: 32,
-                height: 32,
-                anchor: 'bottom center'
-              },
-              {
-                id: 'custom-tooltip-1',
-                tooltip: {
-                  content: `
-                <div class="custom-tooltip-content-wrap">
-                  <div class="custom-tooltip-content">哈哈！这里还是黑手之山！</div>
-                  <img class="line-height-1 custom-tooltip-image" src='${tooltipImg2}'/>
-                </div>
-                `,
-                  className: 'custom-tooltip custom-tooltip-1',
-                  position: 'top',
-                  trigger: 'click'
-                },
-                latitude: 0.11,
-                longitude: 2.55,
-                image: '/360range/pin-blue.png',
-                width: 32,
-                height: 32,
-                anchor: 'bottom center'
-              }
-            ]
-          }]
+                {
+                  id: 'custom-tooltip-1',
+                  tooltip: {
+                    content: `
+                      <div class="custom-tooltip-content-wrap">
+                        <div class="custom-tooltip-content">哈哈！这里还是黑手之山！</div>
+                        <img class="line-height-1 custom-tooltip-image" src='${tooltipImg2}'/>
+                      </div>
+                      `,
+                    className: 'custom-tooltip custom-tooltip-1',
+                    position: 'top',
+                    trigger: 'click'
+                  },
+                  latitude: 0.11,
+                  longitude: 2.55,
+                  image: baseUrl + '/360range/pin-blue.png',
+                  width: 32,
+                  height: 32,
+                  anchor: 'bottom center'
+                }
+              ]
+            }
+          ]
         ]
       })
       viewer.on('ready', () => {
