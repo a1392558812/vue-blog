@@ -40,3 +40,6 @@ const app = createApp(App)
     console.log('app, option', app, option)
   }, { data: '这是一个🐮🍺插件' })
 app.mount('#app')
+app.config.errorHandler = (err, vm, info) => {
+  console.log('🚀🚀🚀[全局Error-log]:', err, vm, info)
+}

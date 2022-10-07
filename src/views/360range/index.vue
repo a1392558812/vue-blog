@@ -14,7 +14,7 @@ import 'photo-sphere-viewer/dist/plugins/markers.css'
 import { onMounted } from 'vue'
 export default {
   setup () {
-    const baseUrl = window.location.origin
+    const baseUrl = window.location.origin + window.location.pathname
     const animatedValues = {
       latitude: { start: -Math.PI / 2, end: 0.2 },
       longitude: { start: Math.PI, end: 0 },
@@ -51,7 +51,7 @@ export default {
       }
       const viewer = new Viewer({
         container: document.querySelector('#viewer'),
-        panorama: baseUrl + '/360range/360bg.jpg',
+        panorama: baseUrl + '360range/360bg.jpg',
         caption: '大风车啊转啊转~',
         defaultLat: animatedValues.latitude.start,
         defaultLong: animatedValues.longitude.start,
@@ -93,7 +93,7 @@ export default {
                   },
                   latitude: 0.11,
                   longitude: -0.35,
-                  image: baseUrl + '/360range/pin-blue.png',
+                  image: baseUrl + '360range/pin-blue.png',
                   width: 32,
                   height: 32,
                   anchor: 'bottom center'
@@ -113,7 +113,7 @@ export default {
                   },
                   latitude: 0.11,
                   longitude: 2.55,
-                  image: baseUrl + '/360range/pin-blue.png',
+                  image: baseUrl + '360range/pin-blue.png',
                   width: 32,
                   height: 32,
                   anchor: 'bottom center'

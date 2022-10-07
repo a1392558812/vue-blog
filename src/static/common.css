@@ -47,6 +47,12 @@ body {
 .height100 {
     height: 100%;
 }
+.height0{
+    height: 0;
+}
+.height-auto{
+    height: auto;
+}
 
 .absolute {
     position: absolute;

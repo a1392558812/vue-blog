@@ -2,6 +2,11 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '39.vue3的effectScope.md' },
+    {
+      name: '01.css视差demo',
+      link: 'https://github.com/a1392558812/myShare/tree/master/02.%E6%9D%82%E9%A1%B9%E6%95%B4%E7%90%86/01.css%E7%AE%80%E5%8D%95%E8%A7%86%E5%B7%AE%E6%95%88%E6%9E%9C'
+    },
     { name: '38.vue3v-model修饰符转jsx.md' },
     { name: '37.啥也不是.md' },
     { name: '36.Vue3 组件标注TS类型.md' },

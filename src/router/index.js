@@ -48,6 +48,14 @@ const routes = [{
   component: () => import(/* webpackChunkName: "music" */ '../views/360range/index.vue')
 },
 {
+  path: '/panorama',
+  name: 'panorama',
+  meta: {
+    ifShowHeaderComponent: false
+  },
+  component: () => import(/* webpackChunkName: "music" */ '../views/panorama/index.vue')
+},
+{
   path: '/404',
   name: '404',
   // route level code-splitting
