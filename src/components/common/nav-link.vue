@@ -23,7 +23,7 @@ export default {
       showDropdown,
       dropdownRefDom,
       linkList: [
-        { name: '冰墩墩', url: '/bingDwenDwen' },
+        { name: '掘金大佬css图片', url: '/bingDwenDwen' },
         { name: 'krpano制作全景跳转', url: '/panorama', newPage: true },
         { name: '360°全景风景', url: '/360range', newPage: true },
         { name: 'ikun集合', url: '/3d-scene', newPage: true },

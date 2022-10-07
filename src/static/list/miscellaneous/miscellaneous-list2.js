@@ -2,6 +2,7 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '40.vue3的一个toast组件.md' },
     { name: '39.vue3的effectScope.md' },
     {
       name: '01.css视差demo',
