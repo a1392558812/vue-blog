@@ -244,7 +244,8 @@ export default {
     font-size: 15px;
     .bg-image{
       background-attachment: fixed;
-      background-image: url("~@/static/image/bingdundun.jpg");
+      background-image: url("~@/static/image/huge.jpg");
+      background-size: calc(864px / 1.7) calc(836px / 1.7);
       background-repeat: no-repeat;
       overflow: scroll;
       background-position: center center;
