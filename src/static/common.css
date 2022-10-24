@@ -16,20 +16,28 @@ body {
     overflow: auto;
 }
 
-.overflow-y-scroll {
-    overflow: scroll;
-}
-
-.overflow-y-auto {
-    overflow: auto;
-}
-
 .overflow-x-scroll {
-    overflow: scroll;
+    overflow-x: scroll;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
 }
 
 .overflow-x-auto {
-    overflow: auto;
+    overflow-x: auto;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.overflow-x-hidden {
+    overflow-x: auto;
+}
+
+.overflow-y-hidden {
+    overflow-y: auto;
 }
 
 .align-items-baseline {

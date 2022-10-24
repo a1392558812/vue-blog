@@ -1,4 +1,12 @@
 import { createApp } from 'vue'
+const isDOM = (dom) => {
+  if (typeof HTMLElement === 'object') {
+    return dom instanceof HTMLElement
+  } else {
+    return dom && typeof dom === 'object' && dom.nodeType === 1 && typeof dom.nodeName === 'string'
+  }
+}
+
 export default function createLoadingLikeDirective (Comp) {
   let instance
   return {
@@ -6,9 +14,7 @@ export default function createLoadingLikeDirective (Comp) {
       const app = createApp(Comp, { showModal: binding.value })
       instance = app.mount(document.createElement('div'))
       el.instance = instance
-      if (binding.value) {
-        append(el)
-      }
+      append(el)
     },
     updated (el, binding) {
       if (binding.value !== binding.oldValue) {
@@ -23,6 +29,6 @@ export default function createLoadingLikeDirective (Comp) {
     el.appendChild(el.instance.$el)
   }
   function remove (el) {
-    el.removeChild(el.instance.$el)
+    isDOM(el.instance.$el) && el.removeChild(el.instance.$el)
   }
 }

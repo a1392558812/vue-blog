@@ -27,12 +27,15 @@ import listItem25 from './list/list-item/list-item25'
 import miscellaneousList1 from './list/miscellaneous/miscellaneous-list1'
 import miscellaneousList2 from './list/miscellaneous/miscellaneous-list2'
 
+import algorithm1 from './list/algorithm/list1'
+
 import interviewList1 from './list/interview/interview-list1'
 import image from './list/list-item/image'
 export default [
   miscellaneousList2,
   miscellaneousList1,
   interviewList1,
+  algorithm1,
   listItem1,
   listItem2,
   listItem3,

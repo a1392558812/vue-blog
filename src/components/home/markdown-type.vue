@@ -1,11 +1,23 @@
 <script>
 import { ref, watch, nextTick, onMounted } from 'vue'
 import navigatorTitle from './navigator-title'
+import VMdPreview from '@kangc/v-md-editor/lib/preview'
+import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
+import hljs from 'highlight.js'
+import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
+import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index'
+import '@kangc/v-md-editor/lib/style/preview.css'
+import '@kangc/v-md-editor/lib/theme/style/github.css'
+import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
+VMdPreview.use(githubTheme, { Hljs: hljs })
+VMdPreview.use(createCopyCodePlugin())
+VMdPreview.use(createLineNumbertPlugin())
 
 export default {
   name: 'Markdown',
   components: {
-    navigatorTitle
+    navigatorTitle,
+    VMdPreview
   },
   props: {
     headerH: {
@@ -118,6 +130,7 @@ export default {
     }
   },
   render () {
+    console.log('this.loading--', this.loading)
     return (
       <>
         <div

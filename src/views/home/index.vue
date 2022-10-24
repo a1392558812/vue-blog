@@ -1,5 +1,6 @@
 <template>
-  <div class="content-inner overflow-hidden width100 height100 flex flex-direction-row">
+  <div
+    class="content-inner overflow-hidden width100 height100 flex flex-direction-row">
     <layout-left-sidebar
       :left-sidebar-w="leftSidebarW"
       :if-show-menu="ifShowMenu"
@@ -26,15 +27,29 @@
           {{ title }}
         </div>
         <!-- md格式 -->
-        <markdown-type
-          v-if="markdownType"
-          :title="title"
-          :markdown-title-width="markdownTitleWidth"
-          :loading="loading"
-          :if-larger="ifLarger"
-          :header-h="headerH"
-          :html-m-d="htmlMD"
-        />
+        <template v-if="markdownType">
+          <Suspense>
+            <markdown-type
+              :title="title"
+              :markdown-title-width="markdownTitleWidth"
+              :loading="loading"
+              :if-larger="ifLarger"
+              :header-h="headerH"
+              :html-m-d="htmlMD"
+            />
+            <template #fallback>
+              <div
+                style="font-size: 30px;font-weight: 900;"
+                class="width100 height100 flex align-items-center justify-content-center">
+                <div> Suspense异步组件加载中</div>
+                <div class="relative loading-wrap">
+                  <loadingComponent style="background: transparent" :showModal="true"/>
+                </div>
+              </div>
+            </template>
+          </Suspense>
+        </template>
+
         <!-- 图片格式   -->
         <image-type
           v-else-if="imgType"
@@ -54,24 +69,33 @@
 </template>
 
 <script>
-import { ref, nextTick, onBeforeMount, computed } from 'vue'
+import { ref, nextTick, onBeforeMount, computed, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import axios from '@/common/axios.js'
 import { markdownTypeCheck, imgTypeCheck } from '@/common/methods'
 import list from '@/static/list.js'
-import leftSidebarProps from '@/common/left-sidebar-props'
 
+import leftSidebarProps from '@/common/left-sidebar-props'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
-import markdownType from '@/components/home/markdown-type'
 import otherType from '@/components/home/other-type'
 import imageType from '@/components/home/image-type'
+import loadingComponent from '@/components/loading/loading.vue'
 
 export default {
   name: 'Home',
   components: {
     layoutLeftSidebar,
-    markdownType,
+    loadingComponent,
+    markdownType: defineAsyncComponent({
+      loader: () => {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(import('@/components/home/markdown-type'))
+          }, 0)
+        })
+      }
+    }),
     otherType,
     imageType
   },
@@ -266,5 +290,10 @@ export default {
       }
     }
   }
-
+  .loading-wrap{
+    width: 100px;
+    height: 100px;
+    font-size: 17px;
+    transform: scale(0.7);
+  }
 </style>

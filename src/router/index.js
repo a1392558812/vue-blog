@@ -37,7 +37,7 @@ const routes = [{
   meta: {
     ifShowHeaderComponent: false
   },
-  component: () => import(/* webpackChunkName: "music" */ '../views/3d-scene/index.vue')
+  component: () => import(/* webpackChunkName: "3d-scene" */ '../views/3d-scene/index.vue')
 },
 {
   path: '/360range',
@@ -45,7 +45,7 @@ const routes = [{
   meta: {
     ifShowHeaderComponent: false
   },
-  component: () => import(/* webpackChunkName: "music" */ '../views/360range/index.vue')
+  component: () => import(/* webpackChunkName: "360range" */ '../views/360range/index.vue')
 },
 {
   path: '/panorama',
@@ -53,7 +53,15 @@ const routes = [{
   meta: {
     ifShowHeaderComponent: false
   },
-  component: () => import(/* webpackChunkName: "music" */ '../views/panorama/index.vue')
+  component: () => import(/* webpackChunkName: "panorama" */ '../views/panorama/index.vue')
+},
+{
+  path: '/waterMarker',
+  name: 'waterMarker',
+  meta: {
+    ifShowHeaderComponent: false
+  },
+  component: () => import(/* webpackChunkName: "waterMarker" */ '../views/waterMarker/index.vue')
 },
 {
   path: '/404',

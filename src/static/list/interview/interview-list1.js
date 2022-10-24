@@ -1,6 +1,12 @@
 export default {
   name: '01.前端圣经',
   children: [
+    { name: '17.MVVM与MVC与MVP.md' },
+    { name: '16.css优化策略.md' },
+    { name: '15.bind与call与apply.md' },
+    { name: '14.目录结构.md' },
+    { name: '13.虚拟DOM.md' },
+    { name: '12.Keep-alive.md' },
     { name: '11.圣经.md' },
     { name: '10.圣经.md' },
     { name: '09.BFC.md' },

@@ -2,6 +2,10 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '45.移动端H5自动播放视频.md' },
+    { name: '44.小溜一下字符串方法.md' },
+    { name: '43.时间复杂度与空间复杂度.md' },
+    { name: '42.函数式编程.md' },
     { name: '41.git修改commit信息.md' },
     { name: '40.vue3的一个toast组件.md' },
     { name: '39.vue3的effectScope.md' },

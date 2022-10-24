@@ -23,7 +23,6 @@ export default {
   },
   setup (props) {
     const ifShow = ref(props.showModal)
-    console.log('ifShow', props.showModal, ifShow.value)
     return {
       list: [
         '🐮', '🐴', '🐮', '🐴', '🐮', '🐴', '🐮', '🐴'
@@ -31,6 +30,7 @@ export default {
       ifShow,
       setShowModal: (value) => {
         ifShow.value = value
+        console.log('setShowModal', value, ifShow.value)
       }
     }
   }

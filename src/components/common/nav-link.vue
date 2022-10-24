@@ -28,6 +28,7 @@ export default {
         { name: '360°全景风景', url: '/360range', newPage: true },
         { name: 'ikun集合', url: '/3d-scene', newPage: true },
         { name: 'listen music', url: '/music', newPage: true },
+        { name: '水印', url: '/waterMarker', newPage: true },
         { name: '书签', url: '/bookmarks' },
         { name: '首页', url: '/', imageUrl: require('@/static/image/heishou2.jpg'), imageClass: 'heishou', onClick: goHome }
       ],
