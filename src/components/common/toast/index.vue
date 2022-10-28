@@ -32,7 +32,7 @@ export default {
     }
     const addToast = ({
       duration = 3000,
-      durationBgColor = '#00aa88',
+      durationBgColor = 'var(--global-primary-color)',
       showCloseBtn = true,
       showDurationLine = true,
       content

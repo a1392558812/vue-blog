@@ -52,7 +52,7 @@ export default {
   flex-shrink: 0;
   font-size: 16px;
   transition: transform 0.3s;
-  border-right: 1px solid #eee;
+  border-right: 1px solid var(--global-border-color);
   padding-left: 20px;
   box-sizing: content-box;
   z-index: 10;

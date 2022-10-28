@@ -75,7 +75,7 @@ export default {
                     <div
                       ref="dropdownRefDom"
                       onClick={() => { this.showDropdown = !this.showDropdown }}
-                      style={this.showDropdown ? { border: '1px solid #00aa88' } : {}}
+                      style={this.showDropdown ? { border: '1px solid var(--global-primary-color)' } : {}}
                       className="go-home select relative cursor-pointer flex align-items-center justify-content-start">
                       <div className="dropdown-content-item width100 flex align-items-center justify-content-space-between" onClick={(e) => {
                         e.stopPropagation()
@@ -136,7 +136,7 @@ export default {
   .go-home{
     margin-right: 30px;
     min-height: 1.5em;
-    color: #00aa88;
+    color: var(--global-primary-color);
     text-decoration: none;
     border: none;
     font-size: 16px;
@@ -154,16 +154,16 @@ export default {
     padding: 15px 0;
     bottom: -10px;
     transform: translateY(100%);
-    border: 1px solid #00aa88;
+    border: 1px solid var(--global-primary-color);
     border-radius: 5px;
-    background: #fff;
+    background: var(--global-background-color);
     max-height: 400px;
     transform-origin: center top;
     transition: all 0.5s;
   }
   .select{
     width: 9em;
-    border: 1px solid #eee;
+    border: 1px solid var(--global-border-color);
     border-radius: 5px;
   }
   .dropdown-content-item{

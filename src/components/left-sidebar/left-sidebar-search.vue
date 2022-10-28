@@ -129,7 +129,7 @@ export default {
 .drop-down{
   padding: 5px;
   width: calc(100% + 4em);
-  border: 1px solid #eee;
+  border: 1px solid var(--global-border-color);
   border-radius: 5px;
   background: white;
   top: 2em;
@@ -140,7 +140,7 @@ export default {
     font-size: 16px;
     padding: 5px 10px;
     &:hover{
-      color: #00aa88;
+      color: var(--global-primary-color);
     }
   }
   .more-content{
@@ -156,7 +156,7 @@ export default {
   border: none;
   outline: 1px solid #454545;
   &:focus-visible{
-    outline: 1px solid #00aa88;
+    outline: 1px solid var(--global-primary-color);
   }
 }
 .icon{

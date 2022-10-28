@@ -27,7 +27,7 @@ textarea:focus {
   height: 300px;
 }
 .link{
-  color: #00aa88;
+  color: var(--global-primary-color);
 }
 @-webkit-keyframes head {
   0% {

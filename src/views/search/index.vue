@@ -83,7 +83,7 @@ watch(route, (newV, oldV) => {
 .search-title {
   padding: 20px 0;
   font-size: 25px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--global-border-color);
 
   .search-total {
     font-size: 13px;

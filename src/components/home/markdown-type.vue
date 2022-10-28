@@ -182,6 +182,7 @@ export default {
   }
   .title{
     box-sizing: border-box;
+    color:var(--global-text-color);
     padding: 20px 30px;
     font-size: 18px;
     font-weight: 600;

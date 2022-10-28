@@ -266,6 +266,7 @@ export default {
 <style lang="scss" scoped>
   .content-inner{
     font-size: 15px;
+    background-color: var(--global-background-color);
     .bg-image{
       background-attachment: fixed;
       background-image: url("~@/static/image/huge.jpg");

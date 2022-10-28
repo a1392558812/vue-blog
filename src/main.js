@@ -12,6 +12,12 @@ import './static/reset.css'
 import loading from './components/loading/loading.vue'
 import createLoadingLikeDirective from './directive/loading'
 
+// 设置主题色
+import { SET_THEME } from './store/actionType'
+import themeType from '@/assets/theme/type'
+const theme = localStorage.getItem('--global-theme')
+store.dispatch(SET_THEME, (theme && themeType[theme]) ? theme : 'light')
+
 const app = createApp(App)
   .directive('loading', createLoadingLikeDirective(loading))
   .use(store)

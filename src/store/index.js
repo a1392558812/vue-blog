@@ -1,4 +1,9 @@
 import { createStore } from 'vuex'
+import getters from './getter'
+import {
+  SET_THEME
+} from './actionType'
+import themeType from '@/assets/theme/type'
 
 export default createStore({
   state: {
@@ -21,12 +26,27 @@ export default createStore({
         image: require('@/assets/music/music-bg2.jpg'),
         url: require('@/assets/music/music2.mp3')
       }
-    ]
+    ],
+    theme: 'light' // light / dark
   },
+  getters,
   mutations: {
+    [SET_THEME] (state, theme) {
+      if (themeType[theme]) {
+        state.theme = theme
+        const body = document.body
+        Object.keys(themeType[theme]).forEach(key => {
+          body.style.setProperty(`${key}`, themeType[theme][key])
+        })
+      }
+    }
   },
   actions: {
+    [SET_THEME] ({ commit }, theme) {
+      commit(SET_THEME, theme)
+    }
   },
   modules: {
+
   }
 })

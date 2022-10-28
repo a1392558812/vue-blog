@@ -63,13 +63,13 @@ export default {
   flex-shrink: 0;
   font-size: 16px;
   transition: transform 0.3s;
-  border-right: 1px solid #eee;
+  border-right: 1px solid var(--global-border-color);
   padding-left: 20px;
   box-sizing: border-box;
   z-index: 10;
   .search{
     padding: 20px 5px 20px 5px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--global-border-color);
   }
   .left-sidebar-content{
     padding-bottom: 30px;
@@ -77,7 +77,7 @@ export default {
       line-height: 1.5;
       .cell-item-title{
         text-indent: 0.5em;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--global-border-color);
       }
       .topping{
         margin: 5px;
@@ -90,13 +90,13 @@ export default {
         white-space:nowrap;
         background-color: #42b983;
         text-indent: 0;
-        color: #fff;
+        color: var(--global-primary-button-text-color);
       }
     }
     ::v-deep(.list-cell){
       position: relative;
       z-index: 0;
-      color: #000;
+      color: var(--global-text-color);
       font-size: 18px;
       font-weight: 600;
       .cell-item-title{
@@ -113,7 +113,7 @@ export default {
           white-space:nowrap;
           text-indent: 0;
           background-color: skyblue;
-          color: #fff;
+          color: var(--global-primary-button-text-color);
         }
       }
       .list-active{
@@ -144,7 +144,7 @@ export default {
           white-space:nowrap;
           text-indent: 0;
           background-color: skyblue;
-          color: #fff;
+          color: var(--global-primary-button-text-color);
         }
       }
       &:hover{

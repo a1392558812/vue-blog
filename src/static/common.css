@@ -135,7 +135,7 @@ body {
 }
 
 .bg-white {
-    background: #fff;
+    background: var(--global-background-color);
 }
 
 .cursor-pointer {

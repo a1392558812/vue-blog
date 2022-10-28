@@ -103,8 +103,8 @@ export default {
     }
   }
   .common-btn-common{
-    background-color: #00aa88;
-    color: #fff;
+    background-color: var(--global-primary-color);
+    color: var(--global-primary-button-text-color);
     border-radius: 5px;
     .common-btn-inner{
       border-radius: 5px;
@@ -117,7 +117,7 @@ export default {
     background-color: #979797;
     padding: 1px;
     .common-btn-inner{
-      background-color: #fff;
+      background-color: var(--global-background-color);
       border-radius: 5px;
       width: 100%;
       height: 100%;

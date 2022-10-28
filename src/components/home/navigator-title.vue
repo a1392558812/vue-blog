@@ -90,7 +90,7 @@ export default {
     top:v-bind(headerH);
     padding: 30px 20px;
     flex-shrink: 0;
-    border-left: 1px solid #eee;
+    border-left: 1px solid var(--global-border-color);
     .markdown-title-inner{
       overflow-y: auto;
       overflow-x: hidden;

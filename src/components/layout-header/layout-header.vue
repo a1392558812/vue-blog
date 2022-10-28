@@ -8,6 +8,9 @@
       <commonm-btn v-else class="nav" :wave-active="true" @click="toggleShowNavLink">
         导航
       </commonm-btn>
+      <commonm-btn class="nav" :wave-active="true" @click="toggleTheme">
+        切换主题
+      </commonm-btn>
       <div class="relative popup-wrap">
         <commonm-btn :wave-active="true" @btnClick="showPopup = !showPopup">
           通知
@@ -34,12 +37,16 @@
 
 <script>
 import { ref, toRefs } from 'vue'
+import { useStore } from 'vuex'
 
 import commonmBtn from '@/components/button'
 import commonNavLink from '@/components/common/nav-link'
 import noticePopup from './notice'
 
 import useGoHome from '@/hook/common/useGoHome'
+
+import { SET_THEME } from '@/store/actionType'
+import themeType from '@/assets/theme/type'
 
 export default {
   name: 'LayoutHeader',
@@ -69,14 +76,34 @@ export default {
   setup (props, { emit }) {
     const showPopup = ref(false)
     const { showNavLink } = toRefs(props)
+    const store = useStore()
     const toggleShowNavLink = () => {
       emit('toggleShowNavLink', !showNavLink.value)
     }
     const { goHome } = useGoHome(emit)
+
+    const toggleTheme = () => {
+      const theme = localStorage.getItem('--global-theme')
+      if (themeType[theme]) {
+        if (theme === 'light') {
+          localStorage.setItem('--global-theme', 'dark')
+          store.dispatch(SET_THEME, 'dark')
+          return
+        }
+        if (theme === 'dark') {
+          localStorage.setItem('--global-theme', 'light')
+          store.dispatch(SET_THEME, 'light')
+        }
+      } else {
+        localStorage.setItem('--global-theme', 'dark')
+        store.dispatch(SET_THEME, 'dark')
+      }
+    }
     return {
       showPopup,
       goHome,
       toggleShowNavLink,
+      toggleTheme,
       menuOpen: () => {
         emit('toggleMenu')
       }
@@ -96,8 +123,8 @@ export default {
   top: 0;
   width: 100vw;
   height: v-bind(headerH);
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
+  background-color: var(--global-background-color);
+  border-bottom: 1px solid var(--global-border-color);
   .nav{
     margin-right: 20px;
   }

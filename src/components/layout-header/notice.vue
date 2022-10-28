@@ -60,9 +60,9 @@ export default {
       top: 0;
       transform: translate(-20px, -50%) rotate(45deg);
       right: 0;
-      background-color: #fff;
-      border-top: 1px solid #eee;
-      border-left: 1px solid #eee;
+      background-color: var(--global-background-color);
+      border-top: 1px solid var(--global-border-color);
+      border-left: 1px solid var(--global-border-color);
       z-index: 1;
     }
   }
@@ -73,8 +73,8 @@ export default {
     transform: translate(-50%, -50%);
   }
   .popup{
-    background-color: #fff;
-    border: 1px solid #eee;
+    background-color: var(--global-background-color);
+    border: 1px solid var(--global-border-color);
     border-radius: 5px;
     .popup-inner{
       position: relative;
@@ -86,7 +86,7 @@ export default {
         padding: 15px 20px;
         font-weight: 600;
         margin: 0;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--global-border-color);
         white-space:nowrap;
       }
       .cell{

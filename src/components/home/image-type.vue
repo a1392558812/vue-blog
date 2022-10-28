@@ -113,7 +113,7 @@ export default {
       top: -50%;
       width: 200%;
       height: 200%;
-      background-color: #fff;
+      background-color: var(--global-background-color);
       background-repeat: no-repeat;
       background-size: 50% 50%;
       background-position: 0 0;
