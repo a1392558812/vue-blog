@@ -1,15 +1,19 @@
 <template>
   <div
-    :style="{padding: ifLarger ? '0 50px' : '0 20px'}"
+    :style="{ padding: ifLarger ? '0 50px' : '0 20px' }"
     class="layout-header flex flex-direction-row-reverse justify-content-space-between align-items-center"
   >
-    <div class="relative flex align-items-center justify-content-center bg-white">
+    <div
+      class="relative flex align-items-center justify-content-center bg-white"
+    >
       <common-nav-link v-if="ifLarger" :if-larger="ifLarger" @goHome="goHome" />
-      <commonm-btn v-else class="nav" :wave-active="true" @click="toggleShowNavLink">
+      <commonm-btn
+        v-else
+        class="nav"
+        :wave-active="true"
+        @click="toggleShowNavLink"
+      >
         导航
-      </commonm-btn>
-      <commonm-btn class="nav" :wave-active="true" @click="toggleTheme">
-        切换主题
       </commonm-btn>
       <div class="relative popup-wrap">
         <commonm-btn :wave-active="true" @btnClick="showPopup = !showPopup">
@@ -20,16 +24,29 @@
       </div>
     </div>
     <!-- 移动端显示的切换菜单栏按钮 -->
-    <commonm-btn v-if="!ifLarger && ifShowHeaderPopupBtn" :wave-active="true" @btnClick="menuOpen">
+    <commonm-btn
+      v-if="!ifLarger && ifShowHeaderPopupBtn"
+      :wave-active="true"
+      @btnClick="menuOpen"
+    >
       <svg
         class="icon"
-        style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+        style="
+          width: 1em;
+          height: 1em;
+          vertical-align: middle;
+          fill: currentColor;
+          overflow: hidden;
+        "
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2096"
       >
-        <path d="M170.667 170.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 1 1 0-85.333z m0 298.666h682.666a42.667 42.667 0 0 1 0 85.334H170.667a42.667 42.667 0 0 1 0-85.334z m0 298.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 0 1 0-85.333z" p-id="2097" />
+        <path
+          d="M170.667 170.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 1 1 0-85.333z m0 298.666h682.666a42.667 42.667 0 0 1 0 85.334H170.667a42.667 42.667 0 0 1 0-85.334z m0 298.667h682.666a42.667 42.667 0 0 1 0 85.333H170.667a42.667 42.667 0 0 1 0-85.333z"
+          p-id="2097"
+        />
       </svg>
     </commonm-btn>
   </div>
@@ -37,16 +54,12 @@
 
 <script>
 import { ref, toRefs } from 'vue'
-import { useStore } from 'vuex'
 
 import commonmBtn from '@/components/button'
 import commonNavLink from '@/components/common/nav-link'
 import noticePopup from './notice'
 
 import useGoHome from '@/hook/common/useGoHome'
-
-import { SET_THEME } from '@/store/actionType'
-import themeType from '@/assets/theme/type'
 
 export default {
   name: 'LayoutHeader',
@@ -76,34 +89,15 @@ export default {
   setup (props, { emit }) {
     const showPopup = ref(false)
     const { showNavLink } = toRefs(props)
-    const store = useStore()
     const toggleShowNavLink = () => {
       emit('toggleShowNavLink', !showNavLink.value)
     }
     const { goHome } = useGoHome(emit)
 
-    const toggleTheme = () => {
-      const theme = localStorage.getItem('--global-theme')
-      if (themeType[theme]) {
-        if (theme === 'light') {
-          localStorage.setItem('--global-theme', 'dark')
-          store.dispatch(SET_THEME, 'dark')
-          return
-        }
-        if (theme === 'dark') {
-          localStorage.setItem('--global-theme', 'light')
-          store.dispatch(SET_THEME, 'light')
-        }
-      } else {
-        localStorage.setItem('--global-theme', 'dark')
-        store.dispatch(SET_THEME, 'dark')
-      }
-    }
     return {
       showPopup,
       goHome,
       toggleShowNavLink,
-      toggleTheme,
       menuOpen: () => {
         emit('toggleMenu')
       }
@@ -113,7 +107,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.layout-header{
+.layout-header {
   z-index: 3;
   padding: 0 50px;
   box-sizing: border-box;
@@ -125,13 +119,13 @@ export default {
   height: v-bind(headerH);
   background-color: var(--global-background-color);
   border-bottom: 1px solid var(--global-border-color);
-  .nav{
+  .nav {
     margin-right: 20px;
   }
-  .popup-wrap{
+  .popup-wrap {
     box-sizing: border-box;
   }
-  .nav-link-small{
+  .nav-link-small {
     width: 60%;
     background-color: red;
     border: 5px solid #000;

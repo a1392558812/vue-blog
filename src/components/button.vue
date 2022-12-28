@@ -1,10 +1,5 @@
 <template>
-  <div
-    id="commonBtn"
-    :class="type"
-    class="common-btn"
-    @click="handelClick"
-  >
+  <div id="commonBtn" :class="type" class="common-btn" @click="handelClick">
     <div class="common-btn-inner">
       <slot />
     </div>
@@ -15,7 +10,7 @@
         left: rippleLeft + 'px',
         width: fields.targetWidth + 'px',
         height: fields.targetWidth + 'px',
-        backgroundColor: 'rgba(0,220,255,0.15)'
+        backgroundColor: 'rgba(0,220,255,0.15)',
       }"
       class="common-btn-wave-ripple"
     />
@@ -32,9 +27,9 @@ export default {
     },
     type: {
       /*
-        * common-btn-cancel
-        * common-btn-common
-        *  */
+       * common-btn-cancel
+       * common-btn-common
+       *  */
       type: String,
       default: 'common-btn-common'
     }
@@ -75,55 +70,56 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .common-btn{
-    position: relative;
-    line-height: 1;
-    padding: 8px 20px;
-    border-radius: 5px;
-    overflow: hidden;
+.common-btn {
+  position: relative;
+  line-height: 1;
+  padding: 8px 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  &-wave-ripple {
+    z-index: 0;
+    position: absolute;
+    border-radius: 100%;
+    background-clip: padding-box;
+    pointer-events: none;
     user-select: none;
-    cursor: pointer;
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    &-wave-ripple{
-      z-index: 0;
-      position: absolute;
-      border-radius: 100%;
-      background-clip: padding-box;
-      pointer-events: none;
-      user-select: none;
-      transform: scale(0);
-      opacity: 1;
-      transform-origin: center;
-    }
-    &-wave-active {
-      opacity: 0;
-      transform: scale(2);
-      transition: opacity 1s linear, transform 0.4s linear;
-    }
+    transform: scale(0);
+    opacity: 1;
+    transform-origin: center;
   }
-  .common-btn-common{
-    background-color: var(--global-primary-color);
-    color: var(--global-primary-button-text-color);
+  &-wave-active {
+    opacity: 0;
+    transform: scale(2);
+    transition: opacity 1s linear, transform 0.4s linear;
+  }
+}
+.common-btn-common {
+  background-color: var(--global-primary-color);
+  color: var(--global-primary-button-text-color);
+  border-radius: 5px;
+  .common-btn-inner {
     border-radius: 5px;
-    .common-btn-inner{
-      border-radius: 5px;
-      margin: 0;
-      width: 100%;
-      height: 100%;
-    }
+    font-size: 14px;
+    margin: 0;
+    width: 100%;
+    height: 100%;
   }
-  .common-btn-cancel{
-    background-color: #979797;
-    padding: 1px;
-    .common-btn-inner{
-      background-color: var(--global-background-color);
-      border-radius: 5px;
-      width: 100%;
-      height: 100%;
-    }
+}
+.common-btn-cancel {
+  background-color: #979797;
+  padding: 1px;
+  .common-btn-inner {
+    background-color: var(--global-background-color);
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
   }
-  .flex-shrink-0{
-    flex-shrink: 0;
-  }
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
 </style>
