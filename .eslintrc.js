@@ -14,10 +14,7 @@ module.exports = {
     jquery: true
   },
 
-  extends: [
-    'plugin:vue/vue3-essential',
-    '@vue/standard'
-  ],
+  extends: ['plugin:vue/vue3-essential', '@vue/standard'],
 
   parserOptions: {
     parser: 'babel-eslint'
@@ -26,13 +23,11 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
+    'new-cap': 'off',
     'vue/no-v-model-argument': 0,
     // 关闭驼峰命名规则
     'vue/multi-word-component-names': 0
   },
 
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
-  ]
+  extends: ['plugin:vue/essential', '@vue/standard']
 }

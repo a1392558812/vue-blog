@@ -55,9 +55,11 @@ export default {
         { name: '掘金大佬css图片', url: '/bingDwenDwen' },
         { name: 'krpano制作全景跳转', url: '/panorama', newPage: true },
         { name: '360°全景风景', url: '/360range', newPage: true },
-        { name: 'ikun集合', url: '/3d-scene', newPage: true },
         { name: 'listen music', url: '/music', newPage: true },
         { name: '水印', url: '/waterMarker', newPage: true },
+        { name: '3D-ikun集合', url: '/3d-scene', newPage: true },
+        { name: '3D-模型', url: '/3d-doctor', newPage: true },
+        { name: '3D-DOA5玛丽罗斯', url: '/3d-Marie-Rose', newPage: true },
         { name: '书签', url: '/bookmarks' },
         {
           name: '首页',

@@ -2,6 +2,10 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '53.压缩图片.md' },
+    { name: '52.uni-app如何实现路由拦截.md' },
+    { name: '51.Vue模式环境配置.md' },
+    { name: '50.微信公众号网页授权.md' },
     { name: '49.uniapp中nvue相关.md' },
     { name: '48.Vue3响应式原理以及依赖模型解析.md' },
     { name: '47.计算字符串宽度.md' },

@@ -1,84 +1,121 @@
-import {
-  createRouter,
-  createWebHashHistory
-} from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-const routes = [{
-  path: '/',
-  name: 'home',
-  component: () => import(/* webpackChunkName: "home" */ '../views/home/index.vue')
-},
-{
-  path: '/bingDwenDwen',
-  name: 'bingDwenDwen',
-  component: () => import(/* webpackChunkName: "bingDwenDwen" */ '../views/bingDwenDwen/index.vue')
-},
-{
-  path: '/search',
-  name: 'search',
-  component: () => import(/* webpackChunkName: "search" */ '../views/search/index.vue')
-},
-{
-  path: '/bookmarks',
-  name: 'bookmarks',
-  component: () => import(/* webpackChunkName: "bookmarks" */ '../views/bookmarks/index.vue')
-},
-{
-  path: '/music',
-  name: 'music',
-  meta: {
-    ifShowHeaderComponent: false
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: () =>
+      import(/* webpackChunkName: "home" */ '../views/home/index.vue')
   },
-  component: () => import(/* webpackChunkName: "music" */ '../views/music/index.vue')
-},
-{
-  path: '/3d-scene',
-  name: '3d-scene',
-  meta: {
-    ifShowHeaderComponent: false
+  {
+    path: '/bingDwenDwen',
+    name: 'bingDwenDwen',
+    component: () =>
+      import(
+        /* webpackChunkName: "bingDwenDwen" */ '../views/bingDwenDwen/index.vue'
+      )
   },
-  component: () => import(/* webpackChunkName: "3d-scene" */ '../views/3d-scene/index.vue')
-},
-{
-  path: '/360range',
-  name: '360range',
-  meta: {
-    ifShowHeaderComponent: false
+  {
+    path: '/search',
+    name: 'search',
+    component: () =>
+      import(/* webpackChunkName: "search" */ '../views/search/index.vue')
   },
-  component: () => import(/* webpackChunkName: "360range" */ '../views/360range/index.vue')
-},
-{
-  path: '/panorama',
-  name: 'panorama',
-  meta: {
-    ifShowHeaderComponent: false
+  {
+    path: '/bookmarks',
+    name: 'bookmarks',
+    component: () =>
+      import(
+        /* webpackChunkName: "bookmarks" */ '../views/bookmarks/index.vue'
+      )
   },
-  component: () => import(/* webpackChunkName: "panorama" */ '../views/panorama/index.vue')
-},
-{
-  path: '/waterMarker',
-  name: 'waterMarker',
-  meta: {
-    ifShowHeaderComponent: false
+  {
+    path: '/music',
+    name: 'music',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(/* webpackChunkName: "music" */ '../views/music/index.vue')
   },
-  component: () => import(/* webpackChunkName: "waterMarker" */ '../views/waterMarker/index.vue')
-},
-{
-  path: '/404',
-  name: '404',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "404" */ '../views/404/index.vue')
-},
-{
-  path: '/error',
-  name: 'Error',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "error" */ '../views/error/index.vue')
-}
+  {
+    path: '/3d-scene',
+    name: '3d-scene',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(/* webpackChunkName: "3d-scene" */ '../views/3d-scene/index.vue')
+  },
+  {
+    path: '/360range',
+    name: '360range',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(/* webpackChunkName: "360range" */ '../views/360range/index.vue')
+  },
+  {
+    path: '/panorama',
+    name: 'panorama',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(/* webpackChunkName: "panorama" */ '../views/panorama/index.vue')
+  },
+  {
+    path: '/waterMarker',
+    name: 'waterMarker',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "waterMarker" */ '../views/waterMarker/index.vue'
+      )
+  },
+  {
+    path: '/3d-doctor',
+    name: '3d-doctor',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "3d-doctor" */ '../views/3d-doctor/index.vue'
+      )
+  },
+  {
+    path: '/3d-Marie-Rose',
+    name: '3d-Marie-Rose',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "3d-Marie-Rose" */ '../views/3d-Marie-Rose/index.vue'
+      )
+  },
+  {
+    path: '/404',
+    name: '404',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "404" */ '../views/404/index.vue')
+  },
+  {
+    path: '/error',
+    name: 'Error',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "error" */ '../views/error/index.vue')
+  }
 ]
 
 const router = createRouter({
@@ -89,7 +126,7 @@ const router = createRouter({
  * 路由守卫
  */
 router.beforeEach((guard) => {
-  if (!routes.filter(item => item.path === guard.path).length) {
+  if (!routes.filter((item) => item.path === guard.path).length) {
     router.replace('/404').then()
   }
 })
