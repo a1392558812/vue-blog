@@ -60,6 +60,7 @@ export default {
         { name: '3D-ikun集合', url: '/3d-scene', newPage: true },
         { name: '3D-模型', url: '/3d-doctor', newPage: true },
         { name: '3D-DOA5玛丽罗斯', url: '/3d-Marie-Rose', newPage: true },
+        { name: 'live-2d', url: '/live-2d', newPage: true },
         { name: '书签', url: '/bookmarks' },
         {
           name: '首页',

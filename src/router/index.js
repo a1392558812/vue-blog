@@ -99,6 +99,17 @@ const routes = [
       )
   },
   {
+    path: '/live-2d',
+    name: 'live-2d',
+    meta: {
+      ifShowHeaderComponent: false
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "live-2d" */ '../views/live-2d/index.vue'
+      )
+  },
+  {
     path: '/404',
     name: '404',
     // route level code-splitting

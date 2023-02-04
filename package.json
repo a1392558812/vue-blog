@@ -16,6 +16,7 @@
     "dat.gui": "^0.7.9",
     "jquery": "^3.6.0",
     "jquery-mousewheel": "^3.1.13",
+    "live2d-widget": "^3.1.4",
     "nprogress": "^0.2.0",
     "photo-sphere-viewer": "^4.7.3",
     "stats.js": "^0.17.0",

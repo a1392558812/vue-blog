@@ -2,6 +2,7 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '54.live2d在vue中引用.md' },
     { name: '53.压缩图片.md' },
     { name: '52.uni-app如何实现路由拦截.md' },
     { name: '51.Vue模式环境配置.md' },
