@@ -105,7 +105,7 @@ export default {
     }
     .markdown-title-item{
       a{
-        color: #42b983;
+        color: var(--global-primary-color);
       }
     }
   }

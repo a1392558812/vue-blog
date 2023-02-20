@@ -51,6 +51,7 @@ export default {
                           height: '1em',
                           verticalAlign: 'middle',
                           fill: 'currentColor',
+                          color: 'var(--global-text-color)',
                           overflow: 'hidden',
                           transition: 'all 0.5s',
                           transform: `rotate(${!level ? true : data.ifShow ? 0 : 180}deg)`
@@ -113,9 +114,9 @@ export default {
       display: inline-block;
       margin: 0 0 0 0.25em;
       line-height: 1.5;
-
+      color: var(--global-text-color);
       &:hover {
-        color: #42b983;
+        color: var(--global-primary-color);
       }
     }
   }
@@ -123,15 +124,10 @@ export default {
   ::v-deep(.title-item) {
     display: inline-block;
     word-spacing: 0.04em;
-    color: #42b983;
+    color: var(--global-primary-color);
     font-weight: bold;
     padding: 5px;
     font-size: 18px;
-  }
-
-  ::v-deep(.drop-down-icon) {
-    display: block;
-    background-color: yellow;
   }
 }
 </style>

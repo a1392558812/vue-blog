@@ -9,7 +9,7 @@
     <div class="width100 notice">
       一时没想好这个页做点啥。
     </div>
-    <div id="bingdundun" style="z-index: -1">
+    <div id="bingdundun" style="z-index: 0">
       <div class="body" />
       <div class="earLeft" />
       <div class="earRight" />

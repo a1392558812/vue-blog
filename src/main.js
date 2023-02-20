@@ -17,7 +17,7 @@ import { SET_THEME } from './store/actionType'
 import themeType from '@/assets/theme/type'
 const theme = localStorage.getItem('--global-theme')
 store.dispatch(SET_THEME, (theme && themeType[theme]) ? theme : 'light')
-
+console.log('router', router)
 const app = createApp(App)
   .directive('loading', createLoadingLikeDirective(loading))
   .use(store)

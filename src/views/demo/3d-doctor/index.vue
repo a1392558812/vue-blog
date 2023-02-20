@@ -166,7 +166,7 @@ export default {
           // 添加模型 FBX加载
           loader = new FBXLoader()
           loader.load(
-            'model/model1.fbx',
+            'demo-static/model/model1.fbx',
             function (fbx) {
               fbxModel = fbx
               console.log('fbx', fbx)
@@ -177,7 +177,7 @@ export default {
               fbxModel.traverse(function (child) {
                 const loader = new THREE.TextureLoader()
                 loader.load(
-                  'model/FBX.fbm/Heart_Bump_B.jpg',
+                  'demo-static/model/FBX.fbm/Heart_Bump_B.jpg',
                   function (texture) {
                     child.material && (child.material.map = texture)
                     child.material && (child.material.needsUpdate = true)
@@ -188,7 +188,7 @@ export default {
                   }
                 )
                 loader.load(
-                  'model/FBX.fbm/Heart_B.jpg',
+                  'demo-static/model/FBX.fbm/Heart_B.jpg',
                   function (texture) {
                     child.material && (child.material.map = texture)
                     child.material && (child.material.needsUpdate = true)

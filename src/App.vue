@@ -10,7 +10,7 @@
       @toggleShowNavLink="toggleShowNavLink"
       @refreshView="refreshView"
     />
-    <div class="relative" :class="ifShowHeaderComponent ? 'content' : ''">
+    <div class="relative bg-white" :class="ifShowHeaderComponent ? 'content' : ''">
       <left-nav-link
         v-if="ifShowHeaderComponent"
         :show-nav-link="showNavLink"
@@ -36,9 +36,9 @@ import { ref, watch } from 'vue'
 import guid from '@/common/util/guid.js'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import { useRoute } from 'vue-router'
-import leftNavLink from '@/components/left-nav-link/left-nav-link.vue'
+import leftNavLink from '@/components/left-nav-link/index.vue'
 
-import layoutHeader from '@/components/layout-header/layout-header.vue'
+import layoutHeader from '@/components/layout-header/index.vue'
 
 export default {
   components: {

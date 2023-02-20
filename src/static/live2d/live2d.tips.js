@@ -269,7 +269,7 @@ export default class Live2d_tips {
     }
 
     const loadModel = async (
-      CDN = window.location.origin + window.location.pathname + 'live2d-model'
+      CDN = window.location.origin + window.location.pathname + 'demo-static/live2d-model'
     ) => {
       if (!this.modelSrc) {
         await loadJSON(CDN)

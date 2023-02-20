@@ -8,7 +8,7 @@ export default {
   setup () {
     const baseUrl = window.location.origin + window.location.pathname
     return {
-      iframeSrc: `${baseUrl}vtour/tour.html`
+      iframeSrc: `${baseUrl}demo-static/vtour/tour.html`
     }
   }
 }

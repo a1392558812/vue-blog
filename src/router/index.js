@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { isArray } from '@/common/util/typeCheck'
 
 const routes = [
   {
@@ -6,14 +7,6 @@ const routes = [
     name: 'home',
     component: () =>
       import(/* webpackChunkName: "home" */ '../views/home/index.vue')
-  },
-  {
-    path: '/bingDwenDwen',
-    name: 'bingDwenDwen',
-    component: () =>
-      import(
-        /* webpackChunkName: "bingDwenDwen" */ '../views/bingDwenDwen/index.vue'
-      )
   },
   {
     path: '/search',
@@ -30,84 +23,121 @@ const routes = [
       )
   },
   {
-    path: '/music',
-    name: 'music',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(/* webpackChunkName: "music" */ '../views/music/index.vue')
-  },
-  {
-    path: '/3d-scene',
-    name: '3d-scene',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(/* webpackChunkName: "3d-scene" */ '../views/3d-scene/index.vue')
-  },
-  {
-    path: '/360range',
-    name: '360range',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(/* webpackChunkName: "360range" */ '../views/360range/index.vue')
-  },
-  {
-    path: '/panorama',
-    name: 'panorama',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(/* webpackChunkName: "panorama" */ '../views/panorama/index.vue')
-  },
-  {
-    path: '/waterMarker',
-    name: 'waterMarker',
-    meta: {
-      ifShowHeaderComponent: false
-    },
+    path: '/demo',
+    name: 'demo',
     component: () =>
       import(
-        /* webpackChunkName: "waterMarker" */ '../views/waterMarker/index.vue'
-      )
-  },
-  {
-    path: '/3d-doctor',
-    name: '3d-doctor',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(
-        /* webpackChunkName: "3d-doctor" */ '../views/3d-doctor/index.vue'
-      )
-  },
-  {
-    path: '/3d-Marie-Rose',
-    name: '3d-Marie-Rose',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(
-        /* webpackChunkName: "3d-Marie-Rose" */ '../views/3d-Marie-Rose/index.vue'
-      )
-  },
-  {
-    path: '/live-2d',
-    name: 'live-2d',
-    meta: {
-      ifShowHeaderComponent: false
-    },
-    component: () =>
-      import(
-        /* webpackChunkName: "live-2d" */ '../views/live-2d/index.vue'
-      )
+        /* webpackChunkName: "demo" */ '../views/demo/index.vue'
+      ),
+    children: [
+      {
+        path: '',
+        name: 'demo-index',
+        component: () =>
+          import(
+            /* webpackChunkName: "demo-index" */ '../views/demo/index/index.vue'
+          )
+      },
+      {
+        path: 'bingDwenDwen',
+        name: 'bingDwenDwen',
+        component: () =>
+          import(
+            /* webpackChunkName: "bingDwenDwen" */ '../views/demo/bingDwenDwen/index.vue'
+          )
+      },
+      {
+        path: 'music',
+        name: 'music',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(/* webpackChunkName: "music" */ '../views/demo/music/index.vue')
+      },
+      {
+        path: '3d-scene',
+        name: '3d-scene',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(/* webpackChunkName: "3d-scene" */ '../views/demo/3d-scene/index.vue')
+      },
+      {
+        path: '360range',
+        name: '360range',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(/* webpackChunkName: "360range" */ '../views/demo/360range/index.vue')
+      },
+      {
+        path: 'panorama',
+        name: 'panorama',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(/* webpackChunkName: "panorama" */ '../views/demo/panorama/index.vue')
+      },
+      {
+        path: 'waterMarker',
+        name: 'waterMarker',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "waterMarker" */ '../views/demo/waterMarker/index.vue'
+          )
+      },
+      {
+        path: '3d-doctor',
+        name: '3d-doctor',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "3d-doctor" */ '../views/demo/3d-doctor/index.vue'
+          )
+      },
+      {
+        path: '3d-Marie-Rose',
+        name: '3d-Marie-Rose',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "3d-Marie-Rose" */ '../views/demo/3d-Marie-Rose/index.vue'
+          )
+      },
+      {
+        path: 'live-2d',
+        name: 'live-2d',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "live-2d" */ '../views/demo/live-2d/index.vue'
+          )
+      },
+      {
+        path: 'parallax-scroll',
+        name: 'parallax-scroll',
+        meta: {
+          ifShowHeaderComponent: false
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "parallax-scroll" */ '../views/demo/parallax-scroll/index.vue'
+          )
+      }
+    ]
   },
   {
     path: '/404',
@@ -136,8 +166,21 @@ const router = createRouter({
 /**
  * 路由守卫
  */
+const ruoterCheck = (list, path, parentPath = '') => {
+  let flag = false
+  for (let index = 0; index < list.length; index++) {
+    const completePath = parentPath ? `${parentPath}/${list[index].path}` : list[index].path
+    flag = completePath === path
+    if (flag) return flag
+    if (isArray(list[index].children)) {
+      flag = ruoterCheck(list[index].children, path, completePath)
+      if (flag) return flag
+    }
+  }
+  return flag
+}
 router.beforeEach((guard) => {
-  if (!routes.filter((item) => item.path === guard.path).length) {
+  if (!ruoterCheck(routes, guard.path)) {
     router.replace('/404').then()
   }
 })

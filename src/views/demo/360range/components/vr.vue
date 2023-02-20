@@ -46,7 +46,7 @@ export default {
             },
             latitude: 0.11,
             longitude: -0.35,
-            image: baseUrl + '360range/pin-blue.png',
+            image: baseUrl + 'demo-static/360range/pin-blue.png',
             width: 32,
             height: 32,
             anchor: 'bottom center'
@@ -69,7 +69,7 @@ export default {
             },
             latitude: 0.11,
             longitude: 2.55,
-            image: baseUrl + '360range/pin-blue.png',
+            image: baseUrl + 'demo-static/360range/pin-blue.png',
             width: 32,
             height: 32,
             anchor: 'bottom center'
@@ -89,7 +89,7 @@ export default {
             },
             latitude: 0.31,
             longitude: -0.15,
-            image: baseUrl + '360range/pin-blue.png',
+            image: baseUrl + 'demo-static/360range/pin-blue.png',
             width: 32,
             height: 32,
             anchor: 'bottom center'
@@ -109,7 +109,7 @@ export default {
             },
             latitude: 0.31,
             longitude: -0.25,
-            image: baseUrl + '360range/pin-blue.png',
+            image: baseUrl + 'demo-static/360range/pin-blue.png',
             width: 32,
             height: 32,
             anchor: 'bottom center'
@@ -118,7 +118,7 @@ export default {
       }
       const viewer = new Viewer({
         container: document.querySelector('#viewer'),
-        panorama: baseUrl + '360range/360bg1.jpg',
+        panorama: baseUrl + 'demo-static/360range/360bg1.jpg',
         caption: '大风车啊转啊转~',
         defaultLat: animatedValues.latitude.start,
         defaultLong: animatedValues.longitude.start,
@@ -153,8 +153,8 @@ export default {
                 {
                   id: '360bg1',
                   name: '全景1',
-                  panorama: baseUrl + '360range/360bg1.jpg',
-                  thumbnail: baseUrl + '360range/preview/preview1.png',
+                  panorama: baseUrl + 'demo-static/360range/360bg1.jpg',
+                  thumbnail: baseUrl + 'demo-static/360range/preview/preview1.png',
                   options: {
                     caption: '大风车啊转啊转~'
                   }
@@ -162,8 +162,8 @@ export default {
                 {
                   id: '360bg2',
                   name: '全景2',
-                  panorama: baseUrl + '360range/360bg2.jpg',
-                  thumbnail: baseUrl + '360range/preview/preview2.png',
+                  panorama: baseUrl + 'demo-static/360range/360bg2.jpg',
+                  thumbnail: baseUrl + 'demo-static/360range/preview/preview2.png',
                   options: {
                     caption: 'caption2'
                   }
@@ -171,8 +171,8 @@ export default {
                 {
                   id: '360bg3',
                   name: '全景3',
-                  panorama: baseUrl + '360range/360bg3.jpg',
-                  thumbnail: baseUrl + '360range/preview/preview3.png',
+                  panorama: baseUrl + 'demo-static/360range/360bg3.jpg',
+                  thumbnail: baseUrl + 'demo-static/360range/preview/preview3.png',
                   options: {
                     caption: 'caption3'
                   }

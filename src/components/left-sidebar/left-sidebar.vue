@@ -88,7 +88,7 @@ export default {
         font-size: 14px;
         line-height: 1;
         white-space:nowrap;
-        background-color: #42b983;
+        background-color: var(--global-primary-color);
         text-indent: 0;
         color: var(--global-primary-button-text-color);
       }
@@ -123,7 +123,7 @@ export default {
         width: 4px;
         border-radius: 200px;
         height: 20px;
-        background-color: #42b983;
+        background-color: var(--global-primary-color);
       }
     }
     ::v-deep(.item-cell){
@@ -148,7 +148,7 @@ export default {
         }
       }
       &:hover{
-        color: #42b983;
+        color: var(--global-primary-color);
       }
     }
     ::v-deep(.link-cell){
@@ -160,11 +160,11 @@ export default {
         padding-bottom: 10px;
       }
       &:hover{
-        color: #42b983;
+        color: var(--global-primary-color);
       }
     }
     ::v-deep(.item-active){
-      color: #42b983;
+      color: var(--global-primary-color);
     }
   }
   ::v-deep(.mCustomScrollBox){

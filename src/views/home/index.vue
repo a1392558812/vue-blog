@@ -1,6 +1,6 @@
 <template>
   <div
-    class="content-inner overflow-hidden width100 height100 flex flex-direction-row">
+    class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row">
     <layout-left-sidebar
       :left-sidebar-w="leftSidebarW"
       :if-show-menu="ifShowMenu"
@@ -78,8 +78,8 @@ import list from '@/static/list.js'
 
 import leftSidebarProps from '@/common/left-sidebar-props'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
-import otherType from '@/components/home/other-type'
-import imageType from '@/components/home/image-type'
+import otherType from './components/home/other-type'
+import imageType from './components/home/image-type'
 import loadingComponent from '@/components/loading/loading.vue'
 
 export default {
@@ -91,7 +91,7 @@ export default {
       loader: () => {
         return new Promise(resolve => {
           setTimeout(() => {
-            resolve(import('@/components/home/markdown-type'))
+            resolve(import('./components/home/markdown-type'))
           }, 0)
         })
       }
@@ -266,7 +266,7 @@ export default {
 <style lang="scss" scoped>
   .content-inner{
     font-size: 15px;
-    background-color: var(--global-background-color);
+    color: var(--global-primary-color);
     .bg-image{
       background-attachment: fixed;
       background-image: url("~@/static/image/huge.jpg");

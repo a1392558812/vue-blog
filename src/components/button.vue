@@ -113,7 +113,6 @@ export default {
   background-color: #979797;
   padding: 1px;
   .common-btn-inner {
-    background-color: var(--global-background-color);
     border-radius: 5px;
     width: 100%;
     height: 100%;

@@ -20,7 +20,7 @@
 import axios from '@/common/axios.js'
 import { htmlToJson } from '@/common/methods'
 import throttle from '@/common/util/throttle'
-import bookMarksItem from '@/components/bookmarks/item'
+import bookMarksItem from './components/bookmarks/item'
 import { nextTick, ref, watch } from 'vue'
 
 export default {
@@ -82,6 +82,7 @@ export default {
     padding: 10px 5px;
     font-size: 16px;
     font-weight: bold;
+    color: var(--global-text-color);
   }
 }
 </style>

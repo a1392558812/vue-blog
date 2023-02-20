@@ -74,6 +74,7 @@ export default {
   }
   .popup{
     background-color: var(--global-background-color);
+    color: var(--global-text-color);
     border: 1px solid var(--global-border-color);
     border-radius: 5px;
     .popup-inner{

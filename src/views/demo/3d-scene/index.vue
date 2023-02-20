@@ -23,7 +23,7 @@
             <Text
               text="we are ikun"
               align="center"
-              font-src="/json/helvetiker_regular.typeface.json"
+              font-src="demo-static/json/helvetiker_regular.typeface.json"
               :size="2"
               :height="1"
               :position="{ x: 0, y: 10, z: 0 }"

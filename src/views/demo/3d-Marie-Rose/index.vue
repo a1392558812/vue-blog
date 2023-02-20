@@ -101,11 +101,11 @@ export default {
       if (!window.Worker) {
         alert('你的电脑不支持web Workers')
       }
-      const myWorker = new Worker('marie/worker.js')
+      const myWorker = new Worker('demo-static/marie/worker.js')
 
       // 创建gltf加载器
       const loader = new GLTFLoader()
-      loader.load('marie/scene.gltf', function (gltf) {
+      loader.load('demo-static/marie/scene.gltf', function (gltf) {
         console.log(gltf)
         gltf.scene.scale.set(0.1, 0.1, 0.1)
         gltf.scene.traverse(function (child) {

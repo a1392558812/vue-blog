@@ -266,7 +266,7 @@ export function loadModel(modelId, modelTexturesId=0) {
         sessionStorage.setItem('modelId', modelId);
         sessionStorage.setItem('modelTexturesId', modelTexturesId);
     } 
-    const url = `${window.location.origin + window.location.pathname + 'live2d-model'}/${modelList[modelId]}/${modelList[modelId]}.model.json`
+    const url = `${window.location.origin + window.location.pathname + 'demo-static/live2d-model'}/${modelList[modelId]}/${modelList[modelId]}.model.json`
     console.log('url',url,modelId)
     loadlive2d('live2d',url)
 }
