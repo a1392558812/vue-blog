@@ -2,6 +2,7 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '59.一个艾特@功能.md' },
     { name: '58.vant的lazyload.md' },
     { name: '57.node文件操作.md' },
     { name: '56.gsap滚动条动画.md' },

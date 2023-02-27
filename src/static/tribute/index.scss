@@ -1,0 +1,19 @@
+.tribute-list-item{
+  .tribute-list-item-inner{
+    padding: 5px;
+    img{
+      width: 33px;
+      height: 36px;
+    }
+    .tribute-list-item-info{
+      margin-left: 10px;
+      p{
+        color: #000;
+        font-weight: bolder;
+      }
+    }
+  }
+}
+.tribute-container li{
+  padding: 0;
+}

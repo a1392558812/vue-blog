@@ -1,6 +1,6 @@
 import './live2d'
 import '@/static/live2d/waifu.scss'
-import '@/static/jquery-ui/jquery-ui.min.js'
+import '@/static/jquery-ui/jquery-ui.js'
 import {isArray} from '@/common/util/typeCheck'
 const modelList = [
     '95type_405',
