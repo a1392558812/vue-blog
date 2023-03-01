@@ -2,6 +2,10 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '63.vue中的createApp与h与render与mount.md' },
+    { name: '62.无感刷新token.md' },
+    { name: '61.项目中如何安装同一依赖的两个版本.md' },
+    { name: '60.vue底层相关补漏.md' },
     { name: '59.一个艾特@功能.md' },
     { name: '58.vant的lazyload.md' },
     { name: '57.node文件操作.md' },
