@@ -1,49 +1,28 @@
 <template>
-  <div
-    class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row">
-    <layout-left-sidebar
-      :left-sidebar-w="leftSidebarW"
-      :if-show-menu="ifShowMenu"
-      :if-larger="ifLarger"
-      :header-h="headerH"
-      :toggle-menu="toggleMenu"
-      @linkClick="linkClick"
-      @itemClick="itemClick"
-    />
-    <div
-      :style="ifLarger ? {
-        width: `calc(100% - ${leftSidebarW})`,
-      } : {width: '100%'}"
-      class="relative height100"
-    >
+  <div class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row">
+    <layout-left-sidebar :left-sidebar-w="leftSidebarW" :if-show-menu="ifShowMenu" :if-larger="ifLarger"
+      :header-h="headerH" :toggle-menu="toggleMenu" @linkClick="linkClick" @itemClick="itemClick" />
+    <div :style="ifLarger ? {
+      width: `calc(100% - ${leftSidebarW})`,
+    } : { width: '100%' }" class="relative height100">
       <!-- 背景图 -->
       <div class="bg-image width100 height100 absolute" />
       <div class="home relative width100 height100">
         <!-- 标题 -->
-        <div
-          v-if="!markdownType"
-          class="title width100 flex align-items-center justify-content-center"
-        >
+        <div v-if="!markdownType" class="title width100 flex align-items-center justify-content-center">
           {{ title }}
         </div>
         <!-- md格式 -->
         <template v-if="markdownType">
           <Suspense>
-            <markdown-type
-              :title="title"
-              :markdown-title-width="markdownTitleWidth"
-              :loading="loading"
-              :if-larger="ifLarger"
-              :header-h="headerH"
-              :html-m-d="htmlMD"
-            />
+            <markdown-type :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading"
+              :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
             <template #fallback>
-              <div
-                style="font-size: 30px;font-weight: 900;"
+              <div style="font-size: 30px;font-weight: 900;"
                 class="width100 height100 flex align-items-center justify-content-center">
                 <div> Suspense异步组件加载中</div>
                 <div class="relative loading-wrap">
-                  <loadingComponent style="background: transparent" :showModal="true"/>
+                  <loadingComponent style="background: transparent" :showModal="true" />
                 </div>
               </div>
             </template>
@@ -51,12 +30,7 @@
         </template>
 
         <!-- 图片格式   -->
-        <image-type
-          v-else-if="imgType"
-          :html-m-d="htmlMD"
-          :loading="loading"
-          @image-load="loading = false"
-        />
+        <image-type v-else-if="imgType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
         <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
         <div v-else-if="linkType" class="link">
           <a :href="htmlMD">链接： {{ htmlMD }}</a>
@@ -264,37 +238,42 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .content-inner{
-    font-size: 15px;
-    color: var(--global-primary-color);
-    .bg-image{
-      background-attachment: fixed;
-      background-image: url("~@/static/image/huge.jpg");
-      background-size: calc(864px / 1.7) calc(836px / 1.7);
-      background-repeat: no-repeat;
-      overflow: scroll;
-      background-position: center center;
-      opacity: 0.15;
-      z-index: 0;
+.content-inner {
+  font-size: 15px;
+  color: var(--global-primary-color);
+
+  .bg-image {
+    background-attachment: fixed;
+    background-image: url("~@/static/image/huge.jpg");
+    background-size: calc(864px / 1.7) calc(836px / 1.7);
+    background-repeat: no-repeat;
+    overflow: scroll;
+    background-position: center center;
+    opacity: 0.15;
+    z-index: 0;
+  }
+
+  .home {
+    overflow-y: scroll;
+
+    .title {
+      box-sizing: border-box;
+      padding: 0 30px;
+      height: 70px;
+      font-size: 18px;
+      font-weight: 600;
     }
-    .home{
-      overflow-y: scroll;
-      .title{
-        box-sizing: border-box;
-        padding: 0 30px;
-        height: 70px;
-        font-size: 18px;
-        font-weight: 600;
-      }
-      .link{
-        padding: 20px;
-      }
+
+    .link {
+      padding: 20px;
     }
   }
-  .loading-wrap{
-    width: 100px;
-    height: 100px;
-    font-size: 17px;
-    transform: scale(0.7);
-  }
+}
+
+.loading-wrap {
+  width: 100px;
+  height: 100px;
+  font-size: 17px;
+  transform: scale(0.7);
+}
 </style>

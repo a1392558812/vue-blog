@@ -53,8 +53,8 @@ export default {
     justify-content: center;
   }
   .loadEffect{
-    width: 100px / $scale;
-    height: 100px / $scale;
+    width: 110px / $scale;
+    height: 110px / $scale;
     position: relative;
     margin: 0 auto;
   }
@@ -62,16 +62,6 @@ export default {
     display: inline-block;
     position: absolute;
     -webkit-animation: load 1.04s ease infinite;
-  }
-  @-webkit-keyframes load{
-    0%{
-      -webkit-transform: scale(1.2);
-      opacity: 1;
-    }
-    100%{
-      -webkit-transform: scale(.3);
-      opacity: 0.5;
-    }
   }
   .loadEffect span:nth-child(1){
     left: 0;
@@ -116,5 +106,15 @@ export default {
     bottom: 14px / $scale;
     left: 14px / $scale;
     -webkit-animation-delay:1.04s;
+  }
+  @keyframes load{
+    0%{
+      -webkit-transform: scale(1.5);
+      opacity: 1;
+    }
+    100%{
+      -webkit-transform: scale(.3);
+      opacity: 0.5;
+    }
   }
 </style>

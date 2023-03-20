@@ -1,5 +1,17 @@
 export const demoList = [
   {
+    path: 'infinite-scroll',
+    name: 'infinite-scroll',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '无限滚动'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "infinite-scroll" */ '../views/demo/children/infinite-scroll/index.vue'
+      )
+  },
+  {
     path: 'office-file-preview',
     name: 'office-file-preview',
     meta: {

@@ -2,6 +2,11 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '68.jsBridge与App交互.md' },
+    { name: '67.理解vue3里effectScope.md' },
+    { name: '66.安卓与ios时间有关bug.md' },
+    { name: '65.父组件插槽透传.md' },
+    { name: '64.循环Promise链式调用.md' },
     { name: '63.vue中的createApp与h与render与mount.md' },
     { name: '62.无感刷新token.md' },
     { name: '61.项目中如何安装同一依赖的两个版本.md' },
