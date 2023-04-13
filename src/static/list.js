@@ -30,12 +30,15 @@ import miscellaneousList2 from './list/miscellaneous/miscellaneous-list2'
 import algorithm1 from './list/algorithm/list1'
 
 import interviewList1 from './list/interview/interview-list1'
+import pythonStudy from './list/python-study/list'
+
 import image from './list/list-item/image'
 export default [
   miscellaneousList2,
   miscellaneousList1,
   interviewList1,
   algorithm1,
+  pythonStudy,
   listItem1,
   listItem2,
   listItem3,

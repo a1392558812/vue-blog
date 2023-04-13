@@ -112,6 +112,10 @@ export default {
             htmlMD.value = '```typescript' + '\n' + response.data + '\n' + '```'
             return
           }
+          if (type.value === 'py') {
+            htmlMD.value = '```python' + '\n' + response.data + '\n' + '```'
+            return
+          }
           if (type.value === 'html') {
             htmlMD.value = '```html' + '\n' + response.data + '\n' + '```'
             return

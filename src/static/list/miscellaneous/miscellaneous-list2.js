@@ -2,6 +2,11 @@ export default {
   name: '02.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '73.vue顶层async.md' },
+    { name: '72.threejs内存管理.md' },
+    { name: '71.node切换版本.md' },
+    { name: '70.vue3+ts中如何指定类型.md' },
+    { name: '69.微信蓝牙使用.md' },
     { name: '68.jsBridge与App交互.md' },
     { name: '67.理解vue3里effectScope.md' },
     { name: '66.安卓与ios时间有关bug.md' },
@@ -56,7 +61,7 @@ export default {
     { name: '21.npm-run-xxx执行了什么.md' },
     { name: '20.vue3配置externals引入外部CDN.md' },
     { name: '19.vue的class过渡.md' },
-    { name: '18.js自定义事件定义与触发' },
+    { name: '18.js自定义事件定义与触发.md' },
     { name: '17.indexDB和离线web.md' },
     { name: '16.IntersectionObserve观察元素.md' },
     { name: '15.关于301永久重定向.md' },

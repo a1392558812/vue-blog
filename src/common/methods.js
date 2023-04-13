@@ -29,7 +29,8 @@ export const markdownTypeCheck = (type) => {
     'js',
     'ts',
     'jsx',
-    'html'
+    'html',
+    'py'
   ].filter(item => item === type).length
 }
 export const imgTypeCheck = (type) => {

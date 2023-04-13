@@ -3,22 +3,19 @@
     <div class="relative width100 height100 flex align-items-center justify-content-space-between">
       <div class="relative">
         <div class="input relative">
-          <svg class="icon absolute align-center-y" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3269"><path d="M416 192C537.6 192 640 294.4 640 416S537.6 640 416 640 192 537.6 192 416 294.4 192 416 192M416 128C256 128 128 256 128 416S256 704 416 704 704 576 704 416 576 128 416 128L416 128zM832 864c-6.4 0-19.2 0-25.6-6.4l-192-192c-12.8-12.8-12.8-32 0-44.8s32-12.8 44.8 0l192 192c12.8 12.8 12.8 32 0 44.8C851.2 864 838.4 864 832 864z" p-id="3270" /></svg>
-          <input
-            v-model="inputValue"
-            class="search-input"
-            type="text"
-            @focus="ifShowSearchDropDown = true"
-          >
+          <svg class="icon absolute align-center-y"
+            style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3269">
+            <path
+              d="M416 192C537.6 192 640 294.4 640 416S537.6 640 416 640 192 537.6 192 416 294.4 192 416 192M416 128C256 128 128 256 128 416S256 704 416 704 704 576 704 416 576 128 416 128L416 128zM832 864c-6.4 0-19.2 0-25.6-6.4l-192-192c-12.8-12.8-12.8-32 0-44.8s32-12.8 44.8 0l192 192c12.8 12.8 12.8 32 0 44.8C851.2 864 838.4 864 832 864z"
+              p-id="3270" />
+          </svg>
+          <input v-model="inputValue" class="search-input" type="text" @focus="ifShowSearchDropDown = true">
         </div>
         <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute drop-down">
-          <li
-            v-for="item in searchResult"
-            :key="item"
-            class="cursor-pointer drop-down-item"
+          <li v-for="item in searchResult" :key="item" class="cursor-pointer drop-down-item"
             :class="item.goSearch ? 'flex align-items-center justify-content-center more-content' : ''"
-            @click="goToDetail(item)"
-          >
+            @click="goToDetail(item)">
             {{ item.name }}
           </li>
         </ul>
@@ -47,7 +44,7 @@ export default {
     },
     toggleMenu: {
       type: Function,
-      default: () => {}
+      default: () => { }
     }
   },
   setup (props, { emit }) {
@@ -126,7 +123,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.drop-down{
+.drop-down {
   padding: 5px;
   width: calc(100% + 4em);
   border: 1px solid var(--global-border-color);
@@ -134,20 +131,24 @@ export default {
   background: white;
   top: 2em;
   z-index: 1;
-  .drop-down-item{
+
+  .drop-down-item {
     background: white;
     font-weight: normal;
     font-size: 16px;
     padding: 5px 10px;
-    &:hover{
+
+    &:hover {
       color: var(--global-primary-color);
     }
   }
-  .more-content{
+
+  .more-content {
     font-size: 14px;
   }
 }
-.search-input{
+
+.search-input {
   display: block;
   margin-right: 1.5em;
   padding: 5px 8px 5px 2.3em;
@@ -155,11 +156,13 @@ export default {
   border-radius: 6000px;
   border: none;
   outline: 1px solid #454545;
-  &:focus-visible{
+
+  &:focus-visible {
     outline: 1px solid var(--global-primary-color);
   }
 }
-.icon{
+
+.icon {
   left: 0.4em;
 }
 </style>
