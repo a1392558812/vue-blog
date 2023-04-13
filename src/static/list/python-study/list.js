@@ -53,27 +53,28 @@ export default {
         }
       ]
     },
+    { name: '06.虚拟环境', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/06.%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83' },
     {
       name: '05.flask',
       children: [
-        { name: '.pytest_cache', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/.pytest_cache' },
-        { name: 'build', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/build' },
-        { name: 'dist', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/dist' },
-        { name: 'flaskr.egg-info', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/flaskr.egg-info' },
-        { name: 'instance', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/instance' },
-        { name: 'venv', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/venv' },
-        { name: '.coverage', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/.coverage' },
-        { name: 'flask.log', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/flask.log' },
-        { name: 'MANIFEST.in', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/MANIFEST.in' },
-        { name: 'setup.cfg', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/setup.cfg' },
+        { name: '.pytest_cache', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/.pytest_cache' },
+        { name: 'build', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/build' },
+        { name: 'dist', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/dist' },
+        { name: 'flaskr.egg-info', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/flaskr.egg-info' },
+        { name: 'instance', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/instance' },
+        { name: 'venv', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/venv' },
+        { name: '.coverage', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/.coverage' },
+        { name: 'flask.log', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/flask.log' },
+        { name: 'MANIFEST.in', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/MANIFEST.in' },
+        { name: 'setup.cfg', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/setup.cfg' },
         { name: 'setup.py' },
         { name: 'readme.md' },
         { name: '补充说明.md' },
         {
           name: 'flaskr',
           children: [
-            { name: '__pycache__', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/flaskr/__pycache__' },
-            { name: 'schema.sql', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/flaskr/schema.sql' },
+            { name: '__pycache__', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/flaskr/__pycache__' },
+            { name: 'schema.sql', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/flaskr/schema.sql' },
             { name: 'static', children: [{ name: 'style.css' }] },
             {
               name: 'templates',
@@ -108,8 +109,8 @@ export default {
         {
           name: 'tests',
           children: [
-            { name: '__pycache__', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/tests/__pycache__' },
-            { name: 'data.sql', link: 'https://github.com/a1392558812/myShare/tree/master/05.flask/tests/data.sql' },
+            { name: '__pycache__', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/tests/__pycache__' },
+            { name: 'data.sql', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/tests/data.sql' },
             { name: 'conftest.py' },
             { name: 'test_auth.py' },
             { name: 'test_blog.py' },
@@ -141,7 +142,7 @@ export default {
             { name: 'page_not_found.html' }
           ]
         },
-        { name: 'venv', link: 'https://github.com/a1392558812/myShare/tree/master/04.flask/venv' },
+        { name: 'venv', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/04.flask/venv' },
         { name: 'app.py' }
       ]
     },
