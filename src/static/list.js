@@ -26,6 +26,7 @@ import listItem25 from './list/list-item/list-item25'
 
 import miscellaneousList1 from './list/miscellaneous/miscellaneous-list1'
 import miscellaneousList2 from './list/miscellaneous/miscellaneous-list2'
+import miscellaneousList3 from './list/miscellaneous/miscellaneous-list3'
 
 import algorithm1 from './list/algorithm/list1'
 
@@ -34,6 +35,7 @@ import pythonStudy from './list/python-study/list'
 
 import image from './list/list-item/image'
 export default [
+  miscellaneousList3,
   miscellaneousList2,
   miscellaneousList1,
   interviewList1,
