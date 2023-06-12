@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { isArray } from '@/common/util/typeCheck'
 import { demoList } from './create-demo-list'
+import routerSwitenLoading from '@/components/router-switch-loading/index'
+const { startLoading, endLoading } = routerSwitenLoading()
 
 const routes = [
   {
@@ -82,11 +84,21 @@ const ruoterCheck = (list, path, parentPath = '') => {
   }
   return flag
 }
+let initialeEntry = true // 是否初次进入博客，展示加载路由动画
 router.beforeEach((guard) => {
-  console.log('guard', guard)
+  console.log('beforeEach', guard)
+  if (initialeEntry) {
+    initialeEntry = false
+  } else {
+    startLoading()
+  }
+
   if (!ruoterCheck(routes, guard.path)) {
     router.replace('/404').then()
   }
 })
-
+router.afterEach((to, from) => {
+  console.log('afterEach')
+  endLoading()
+})
 export default router

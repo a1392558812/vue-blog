@@ -1,32 +1,23 @@
 <template>
   <div id="page" class="overflow-hidden">
-    <layout-header
-      v-if="ifShowHeaderComponent"
-      :if-larger="ifLarger"
-      :header-h="headerH"
-      :show-nav-link="showNavLink"
-      :if-show-header-popup-btn="ifShowHeaderPopupBtn"
-      @toggleMenu="toggleMenu"
-      @toggleShowNavLink="toggleShowNavLink"
-      @refreshView="refreshView"
-    />
+    <layout-header v-if="ifShowHeaderComponent" :if-larger="ifLarger" :header-h="headerH" :show-nav-link="showNavLink"
+      :if-show-header-popup-btn="ifShowHeaderPopupBtn" @toggleMenu="toggleMenu" @toggleShowNavLink="toggleShowNavLink"
+      @refreshView="refreshView" />
     <div class="relative bg-white" :class="ifShowHeaderComponent ? 'content' : ''">
-      <left-nav-link
-        v-if="ifShowHeaderComponent"
-        :show-nav-link="showNavLink"
-        :left-sidebar-w="leftSidebarW"
-        :if-larger="ifLarger"
-        @toggleShowNavLink="toggleShowNavLink"
-        @refreshView="refreshView"
-      />
-      <router-view
-        :key="refreshViewKey"
-        :if-larger="ifLarger"
-        :header-h="headerH"
-        :if-show-menu="ifShowMenu"
-        :toggle-menu="toggleMenu"
-        :left-sidebar-w="leftSidebarW"
-      />
+      <left-nav-link v-if="ifShowHeaderComponent" :show-nav-link="showNavLink" :left-sidebar-w="leftSidebarW"
+        :if-larger="ifLarger" @toggleShowNavLink="toggleShowNavLink" @refreshView="refreshView" />
+      <router-view v-slot="{ Component }">
+        <transition>
+          <component
+            :is="Component"
+            :key="refreshViewKey"
+            :if-larger="ifLarger"
+            :header-h="headerH"
+            :if-show-menu="ifShowMenu"
+            :toggle-menu="toggleMenu"
+            :left-sidebar-w="leftSidebarW"/>
+          </transition>
+      </router-view>
     </div>
   </div>
 </template>
@@ -95,10 +86,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#page{
+#page {
   height: 100vh;
   position: relative;
-  .content{
+  .loading-wrap {
+  width: 100px;
+  height: 100px;
+  font-size: 17px;
+  transform: scale(0.7);
+}
+
+  .content {
     height: calc(100vh - v-bind(headerH));
     margin-top: v-bind(headerH);
   }

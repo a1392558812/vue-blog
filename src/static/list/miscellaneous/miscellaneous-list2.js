@@ -2,7 +2,7 @@ export default {
   name: '02.杂项整理',
   topping: false, // 是否置顶
   children: [
-    { name: '99.vben-admin中的Authority' },
+    { name: '99.vben-admin中的Authority.md' },
     { name: '98.vben-admin自定义表单.md' },
     { name: '97.vben-admin异步组件加载方法封装.md' },
     { name: '96.imgurlToBase64.md' },
