@@ -2,6 +2,8 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '07.极致舒适的Vue高性能列表.md' },
+    { name: '06.vue3杂项备忘.md' },
     { name: '05.uniapp文本超过N行显示展开收起.md' },
     { name: '04.小程序wifi连接设备.md' },
     { name: '03.vben-axios封装.md' },
