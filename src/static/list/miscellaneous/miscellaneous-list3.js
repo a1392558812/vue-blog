@@ -2,6 +2,9 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '19.uniapp一个vIf控制组件.md' },
+    { name: '18.setup语法糖模式.md' },
+    { name: '17.createReusableTemplate.md' },
     { name: '16.ts中遍历相关.md' },
     { name: '15.联合类型和交叉类型理解.md' },
     { name: '14.类型保护工具函数.md' },
