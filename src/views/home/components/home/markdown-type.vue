@@ -52,18 +52,22 @@ export default {
 
     // 锚点标题动态设定
     const articleTitlesInit = () => {
-      const anchors = preview.value.$el.querySelectorAll('h1,h2,h3,h4,h5,h6')
-      const previewTitles = Array.from(anchors).filter((title) => !!title.innerText.trim())
-      if (!previewTitles.length) {
-        articleTitles.value = []
-        return
+      if (preview.value) {
+        const anchors = preview.value.$el.querySelectorAll('h1,h2,h3,h4,h5,h6')
+        const previewTitles = Array.from(anchors).filter((title) => !!title.innerText.trim())
+        if (!previewTitles.length) {
+          articleTitles.value = []
+          return
+        }
+        const hTags = Array.from(new Set(previewTitles.map((title) => title.tagName))).sort()
+        articleTitles.value = previewTitles.map((el) => ({
+          title: el.innerText,
+          lineIndex: el.getAttribute('data-v-md-line'),
+          indent: hTags.indexOf(el.tagName)
+        }))
+      } else {
+        setTimeout(() => { articleTitlesInit() })
       }
-      const hTags = Array.from(new Set(previewTitles.map((title) => title.tagName))).sort()
-      articleTitles.value = previewTitles.map((el) => ({
-        title: el.innerText,
-        lineIndex: el.getAttribute('data-v-md-line'),
-        indent: hTags.indexOf(el.tagName)
-      }))
     }
 
     // markdown部分高度动态设定
@@ -75,7 +79,7 @@ export default {
     // 锚点标题动态设定
     watch(() => props.htmlMD, () => nextTick().then(() => {
       articleTitlesInit()
-    }))
+    }), { immediate: true })
 
     // markdown部分高度动态设定
     watch(() => props.title, () => {

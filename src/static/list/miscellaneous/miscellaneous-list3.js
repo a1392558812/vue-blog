@@ -2,6 +2,9 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '22.uniapp一个横向展开组件.md' },
+    { name: '21.uniapp的一个image组件.md' },
+    { name: '20.uniapp的多列picker组件.md' },
     { name: '19.uniapp一个vIf控制组件.md' },
     { name: '18.setup语法糖模式.md' },
     { name: '17.createReusableTemplate.md' },
