@@ -2,6 +2,12 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '28.github部署路由刷新404问题.md' },
+    { name: '27.customRef应用.md' },
+    { name: '26.vite.config.js配置.md' },
+    { name: '25.github-action部署github-page.md' },
+    { name: '24.css不定高度展开过渡.md' },
+    { name: '23.微信公众号文章打开小程序.md' },
     { name: '22.uniapp一个横向展开组件.md' },
     { name: '21.uniapp的一个image组件.md' },
     { name: '20.uniapp的多列picker组件.md' },
