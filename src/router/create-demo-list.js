@@ -190,6 +190,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "bingDwenDwen" */ '../views/demo/children/bingDwenDwen/index.vue'
       )
+  },
+  {
+    path: 'filmstrip',
+    name: 'filmstrip',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '幻灯片播放'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "filmstrip" */ '../views/demo/children/filmstrip/index.vue'
+      )
   }
 ]
 

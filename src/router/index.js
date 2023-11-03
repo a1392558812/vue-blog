@@ -90,7 +90,7 @@ router.beforeEach((guard) => {
   if (initialeEntry) {
     initialeEntry = false
   } else {
-    startLoading()
+    startLoading({})
   }
 
   if (!ruoterCheck(routes, guard.path)) {

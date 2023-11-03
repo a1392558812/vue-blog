@@ -26,6 +26,7 @@
     "luckyexcel": "^1.0.1",
     "nprogress": "^0.2.0",
     "photo-sphere-viewer": "^4.7.3",
+    "reveal.js": "^5.0.1",
     "stats.js": "^0.17.0",
     "three": "^0.134.0",
     "tributejs": "^5.1.3",

@@ -1,37 +1,76 @@
-<template>
-  <div>
-    <div class="fixed flex align-items-center justify-content-center router-switch-loading" v-if="loading">
-      <div>
-        <div>路由切换加载中...</div>
-        <div class="flex align-items-center justify-content-center spinner-wrap">
-          <div class="sk-folding-cube">
-            <div class="sk-cube1 sk-cube">🐮</div>
-            <div class="sk-cube2 sk-cube">🐮</div>
-            <div class="sk-cube4 sk-cube">🐴</div>
-            <div class="sk-cube3 sk-cube">🐴</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 <script>
 import { ref } from 'vue'
 export default {
   setup (props, { expose }) {
+    // 默认加载中文字
+    const defaultLoadingText = '路由切换加载中...'
+    // 默认加载图标render方法
+    const loadingDefaultIconSlot = () => {
+      return (
+            <div class="flex align-items-center justify-content-center spinner-wrap">
+                <div class="sk-folding-cube">
+                    <div class="sk-cube1 sk-cube">🐮</div>
+                    <div class="sk-cube2 sk-cube">🐮</div>
+                    <div class="sk-cube4 sk-cube">🐴</div>
+                    <div class="sk-cube3 sk-cube">🐴</div>
+                </div>
+            </div>
+      )
+    }
+
+    const loadingTextDefaultStyle = () => ({})
+    const loadingMaskStyle = () => ({})
+    const loadingIconSlot = ref(loadingDefaultIconSlot)
     const loading = ref(false)
-    const startLoading = () => {
+
+    const loadingText = ref(defaultLoadingText)
+    const loadingStyle = ref(loadingTextDefaultStyle())
+    const maskStyle = ref(loadingMaskStyle())
+
+    const startLoading = ({
+      text = '',
+      loadingTextStyle = {},
+      maskWrapStyle = {},
+      loadingIconSlotFun
+    }) => {
+      loadingText.value = text || defaultLoadingText
+      loadingStyle.value = Object.assign(loadingTextDefaultStyle(), loadingTextStyle)
+      maskStyle.value = Object.assign(loadingMaskStyle(), maskWrapStyle)
+      loadingIconSlot.value = loadingIconSlotFun || loadingDefaultIconSlot
       loading.value = true
     }
     const endLoading = () => {
       loading.value = false
     }
+
     expose({ startLoading, endLoading })
     return {
       loading,
+      loadingText,
+      loadingStyle,
+      maskStyle,
       startLoading,
-      endLoading
+      endLoading,
+      loadingIconSlot
     }
+  },
+  render () {
+    return (
+      <div>
+        {
+            this.loading
+              ? (
+                <div style={ this.maskStyle } class="fixed flex align-items-center justify-content-center router-switch-loading">
+                    <div>
+                        <div style={ this.loadingStyle }>{ this.loadingText }</div>
+                        { this.loadingIconSlot() }
+                    </div>
+                </div>
+                )
+              : null
+        }
+      </div>
+    )
   }
 }
 </script>
