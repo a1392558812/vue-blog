@@ -1,15 +1,42 @@
 <template>
     <section data-state="customevent">
-        <h2>State Events</h2>
-        <p>
-            Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-        </p>
-        <pre>
-            <code class="javascript" data-trim contenteditable style="font-size: 18px;">
-            Reveal.on( 'customevent', function() {
+        <!--
+            Reveal.on( 'customevent', function() { // 自定义事件触发
                 console.log( '"customevent" has fired' );
             } );
-            </code>
+         -->
+        <p>
+           插件使用
+        </p>
+        <pre>
+            <code class="javascript" data-trim contenteditable style="font-size: 18px;">{{ htmlStr }}</code>
         </pre>
     </section>
 </template>
+<script setup>
+import { ref } from 'vue'
+const htmlStr = ref(`
+import { VueHtmlToPaper } from 'vue-html-to-paper'
+  export default {
+    directives: {
+      "html-to-paper": VueHtmlToPaper 
+    },
+    methods: {
+      print() {
+        // 打印内容
+        this.$htmlToPaper('printContent')
+      },
+    }
+  }
+
+<template>
+  <div>
+    <div id="printContent">
+      <!-- 打印内容 -->
+    </div>
+    <button @click="print">打印</button>
+  </div>
+</template>
+
+`)
+</script>

@@ -1,8 +1,13 @@
 <template>
     <section>
-        <h2>Take a Moment</h2>
-        <p>
-            Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-        </p>
+        <p>按下B暂停播放演示</p>
+        <p><span class="cursor-pointer" @click="showNotes">显示快捷键</span></p>
     </section>
 </template>
+<script setup>
+import { defineEmits } from 'vue'
+const emit = defineEmits(['showNotes'])
+const showNotes = () => {
+  emit('showHelp', { })
+}
+</script>

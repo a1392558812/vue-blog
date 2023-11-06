@@ -1,9 +1,6 @@
 <template>
     <section style="text-align: left;">
-        <h1>THE END</h1>
-        <p>
-            - <a href="https://slides.com">Try the online editor</a> <br>
-            - <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-        </p>
+        <h1>DEMO_END</h1>
+        <p>瞎演示一下</p>
     </section>
 </template>

@@ -1,12 +1,8 @@
 <template>
     <section>
-        <h2>Much more</h2>
-        <ul>
-            <li>Right-to-left support</li>
-            <li><a href="https://revealjs.com/api/">Extensive JavaScript API</a></li>
-            <li><a href="https://revealjs.com/auto-slide/">Auto-progression</a></li>
-            <li><a href="https://revealjs.com/backgrounds/#parallax-background">Parallax backgrounds</a></li>
-            <li><a href="https://revealjs.com/keyboard/">Custom keyboard bindings</a></li>
-        </ul>
+        <p>
+            script setup默认是不对外界暴露组件实例的，所以在其他组件中通过诸如$refs和$parent都默认无法获取当前组件实例，所有就开始使用defineExpose
+            注： 如果子组件使用的是class模板 ，子组件就不用defineExpose ，正常写就行 ，但父组件还是要进行下面父组件中的步骤。
+        </p>
     </section>
 </template>

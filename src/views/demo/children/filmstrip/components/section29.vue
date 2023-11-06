@@ -1,10 +1,8 @@
 <template>
     <section data-state="make-it-pop">
-        <h2>Global State</h2>
+        <!-- 将一个class应用在根元素上 -->
         <p>
-            Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-            will be added as a class to the document element when the slide is open. This lets you
-            apply broader style changes, like switching the page background.
+            使用Vue实现通过浏览器的 window.print() 方法打印页面的方法也非常简单，只需要在需要打印的页面（组件）主要区域定义一个‘打印’按钮，并在按钮上绑定方法即可。
         </p>
     </section>
 </template>

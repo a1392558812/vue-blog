@@ -8,7 +8,7 @@
             <p class="fragment">尊前作剧莫相笑，</p>
             <p class="fragment">我死诸君思此生。</p>
             <aside class="notes">
-                This slide has fragments which are also stepped through in the notes window.
+                古诗一首，JS中常用的键盘事件与keycode属性
             </aside>
         </section>
         <section>

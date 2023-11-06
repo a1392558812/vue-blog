@@ -1,7 +1,7 @@
 <template>
     <section id="section28">
         <h2>打印为PDF</h2>
-        <p class="cursor-pointer" @click="goToPrint">打印为Pdf一下</p>
+        <p class="cursor-pointer print-btn" @click="goToPrint">打印为Pdf一下</p>
         <div class="fixed flex align-items-center justify-content-center section-toast" @click="toastShow = false" v-if="toastShow">
             <div class="section-toast-btn cursor-pointer" @click="onPrint">开始打印</div>
         </div>
@@ -57,5 +57,10 @@ const goToPrint = () => {
         background: #fff;
         border: 1px solid #eee;
     }
+}
+.print-btn{
+    padding: 10px 20px;
+    border: 1px solid #eee;
+    border-radius: 5px;
 }
 </style>

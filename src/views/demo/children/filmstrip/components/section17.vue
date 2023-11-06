@@ -50,7 +50,7 @@ export default {
           loadingTextStyle: row.loadingTextStyle,
           maskWrapStyle: row.maskWrapStyle
         })
-        asyncLoadCss(props.baseUrl + `demo-static/filmstrip/theme/${row.key}1.css`).then(() => {
+        asyncLoadCss(props.baseUrl + `demo-static/filmstrip/theme/${row.key}.css`).then(() => {
           loading.value = false
           endLoading()
         }, err => {
