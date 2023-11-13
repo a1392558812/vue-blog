@@ -4,7 +4,7 @@
       <div class="line-height-1 demo-view-item" v-for="(item, index) in demoList" :key="index">
         <a
           class="cursor-pointer"
-          @click="navigatorTo(item.path)">{{ item.name }}</a>
+          @click="navigatorTo(item.path)">{{ `${index + 1}、 ` + item.name }}</a>
       </div>
     </div>
   </div>
