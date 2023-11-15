@@ -74,6 +74,10 @@ body {
     display: none;
 }
 
+.display-block{
+    display: block;
+}
+
 .flex {
     display: flex;
 }

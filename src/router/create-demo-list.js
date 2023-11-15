@@ -202,6 +202,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "filmstrip" */ '../views/demo/children/filmstrip/index.vue'
       )
+  },
+  {
+    path: 'load-vue-file',
+    name: 'load-vue-file',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '加载远程vue文件执行'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "load-vue-file" */ '../views/demo/children/load-vue-file/index.vue'
+      )
   }
 ]
 
