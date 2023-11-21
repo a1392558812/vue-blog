@@ -2,6 +2,8 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '31.展开收起组件.md' },
+    { name: '30.Vue3的10个响应式进阶API.md' },
     { name: '29.一个不错的vue-hook动态响应异步变动.md' },
     { name: '28.github部署路由刷新404问题.md' },
     { name: '27.customRef应用.md' },

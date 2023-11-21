@@ -42,6 +42,7 @@ export default {
                         <img class="line-height-1 custom-tooltip-image" src='${tooltipImg1}'/>
                       </div>
                       `,
+              toastContent: 'toastContent1',
               className: 'custom-tooltip custom-tooltip-0',
               position: 'top',
               trigger: 'click'
@@ -65,6 +66,7 @@ export default {
                         <img class="line-height-1 custom-tooltip-image" src='${tooltipImg2}'/>
                       </div>
                       `,
+              toastContent: 'toastContent2',
               className: 'custom-tooltip custom-tooltip-1',
               position: 'top',
               trigger: 'click'
@@ -84,7 +86,8 @@ export default {
               content: '标记custom-tooltip-2'
             },
             tooltip: {
-              content: '场景2的content',
+              content: '场景2的content🥵🥵',
+              toastContent: 'toastContent3',
               className: 'custom-tooltip custom-tooltip-2',
               position: 'top',
               trigger: 'click'
@@ -104,7 +107,8 @@ export default {
               content: '标记custom-tooltip-3'
             },
             tooltip: {
-              content: '场景3的content',
+              content: '场景3的content🥵🥵',
+              toastContent: 'toastContent4',
               className: 'custom-tooltip custom-tooltip-3',
               position: 'top',
               trigger: 'click'
@@ -249,6 +253,15 @@ export default {
     .custom-tooltip-content{
       font-size: 16px;
       padding: 20px 20px;
+    }
+  }
+  #viewer {
+    ::v-deep(.psv-panel-menu-item) {
+        .psv-panel-menu-item-label{
+            .custom-tooltip-image{
+                width: 250px;
+            }
+        }
     }
   }
 </style>
