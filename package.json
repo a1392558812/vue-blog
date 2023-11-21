@@ -9,6 +9,7 @@
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src"
   },
   "dependencies": {
+    "@egjs/vue3-infinitegrid": "^4.10.1",
     "@kangc/v-md-editor": "^2.3.12",
     "@vue-office/docx": "^0.2.1",
     "@vue-office/excel": "^0.2.1",

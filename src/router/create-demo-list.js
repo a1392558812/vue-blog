@@ -214,6 +214,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "load-vue-file" */ '../views/demo/children/load-vue-file/index.vue'
       )
+  },
+  {
+    path: 'infinite-grid',
+    name: 'infinite-grid',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '瀑布流'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "infinite-grid" */ '../views/demo/children/infinite-grid/index.vue'
+      )
   }
 ]
 

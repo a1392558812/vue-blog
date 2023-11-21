@@ -32,12 +32,20 @@ body {
     overflow-y: auto;
 }
 
+.overflow-x-visible {
+    overflow-x: visible;
+}
+
+.overflow-y-visible {
+    overflow-y: visible;
+}
+
 .overflow-x-hidden {
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .overflow-y-hidden {
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .align-items-baseline {
