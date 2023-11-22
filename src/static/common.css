@@ -93,6 +93,14 @@ body {
     flex:1
 }
 
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
 .text-align-center {
     text-align: center;
 }

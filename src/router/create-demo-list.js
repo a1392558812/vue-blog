@@ -226,6 +226,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "infinite-grid" */ '../views/demo/children/infinite-grid/index.vue'
       )
+  },
+  {
+    path: 'auto-animate',
+    name: 'auto-animate',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '动画自动过渡'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "auto-animate" */ '../views/demo/children/auto-animate/index.vue'
+      )
   }
 ]
 
