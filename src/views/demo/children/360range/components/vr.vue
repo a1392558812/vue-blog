@@ -63,7 +63,7 @@ export default {
               content: `
                       <div class="custom-tooltip-content-wrap">
                         <div class="custom-tooltip-content">哈哈！这里还是黑手之山！</div>
-                        <img class="line-height-1 custom-tooltip-image" src='${tooltipImg2}'/>
+                        <img class="line-height-1 display-block custom-tooltip-image" src='${tooltipImg2}'/>
                       </div>
                       `,
               toastContent: 'toastContent2',
@@ -248,7 +248,6 @@ export default {
     .custom-tooltip-image{
       width: 100%;
       border-radius: 4px 4px 0 0;
-      display: block;
     }
     .custom-tooltip-content{
       font-size: 16px;

@@ -43,7 +43,11 @@ export default {
     }
     return {
       linkList: [
-        { name: '书签', newPage: false, url: '/bookmarks' },
+        {
+          name: '书签',
+          newPage: false,
+          url: '/bookmarks'
+        },
         {
           name: '首页',
           newPage: false,
@@ -73,17 +77,19 @@ export default {
   },
   render () {
     const smallScreenClass = 'flex flex-direction-column'
-    const navigatorTo = (item) => {
-      item.onClick ? item.onClick() : this.navigatorTo(item)
+    const navigatorTo = (item, e) => {
+      e && e.preventDefault()
+      item.onClick ? item.onClick(e) : this.navigatorTo(item)
     }
     const createNavBtn = (item) => {
       const commonLink = () => (
-        <div
+        <a
           className={
-            'go-home nav-link-item cursor-pointer flex align-items-center justify-content-start'
+            'go-home display-block cursor-pointer flex align-items-center justify-content-start'
           }
-          onClick={() => {
-            navigatorTo(item)
+          href={`/#${item.url}`}
+          onClick={(e) => {
+            navigatorTo(item, e)
           }}
         >
           {item.imageUrl
@@ -92,7 +98,7 @@ export default {
               )
             : null}
           <p>{item.name}</p>
-        </div>
+        </a>
       )
       const componentBtn = () => (
         <div class="flex">
@@ -137,14 +143,12 @@ export default {
   text-decoration: none;
   border: none;
   font-size: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 1;
 }
 .heishou {
   width: 1em;
   height: 1em;
-}
-.nav-link-item {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  line-height: 1;
 }
 </style>

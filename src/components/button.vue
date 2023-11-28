@@ -118,7 +118,4 @@ export default {
     height: 100%;
   }
 }
-.flex-shrink-0 {
-  flex-shrink: 0;
-}
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="fixed flex flex-direction-row-reverse align-items-center width100 fullpage-header">
-      <button class="line-height-1 fullpage-header-btn" @click="handle1">向上滚1屏幕</button>
-      <button class="line-height-1 fullpage-header-btn" @click="handle2">移动到5屏第3个slide</button>
+      <button class="line-height-1 display-block fullpage-header-btn" @click="handle1">向上滚1屏幕</button>
+      <button class="line-height-1 display-block fullpage-header-btn" @click="handle2">移动到5屏第3个slide</button>
     </div>
     <div id="fullpage" class="relative">
       <div class="height100 flex align-items-center justify-content-center section">第1屏</div>
@@ -101,7 +101,6 @@ export default {
   background: #fff;
   top: 0;
   .fullpage-header-btn{
-    display: block;
     padding: 3px 10px;
     margin-right: 20px;
   }

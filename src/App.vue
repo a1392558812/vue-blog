@@ -42,7 +42,7 @@ export default {
     const ifShowHeaderPopupBtn = ref(false) // 移动端的公用头部组件展开后的左侧【文章抽屉】显影
     const ifShowHeaderComponent = ref(false) // 是否展示公用头部组件
     const ifLarger = useBreakpoints(breakpointsTailwind).greater('sm') // 视口断点 是否大屏
-    const leftSidebarW = ref('320px')
+    const leftSidebarW = ref('330px')
     const refreshViewKey = ref(guid())
     const route = useRoute()
     if (!ifLarger) {

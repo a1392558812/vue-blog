@@ -7,7 +7,7 @@
     } : { width: '100%' }" class="relative height100">
       <!-- 背景图 -->
       <div class="bg-image width100 height100 absolute" />
-      <div class="home relative width100 height100">
+      <div :class="ifLarger ? 'scroll-bar-y' : ''" class="home overflow-y-auto relative width100 height100">
         <!-- 标题 -->
         <div v-if="!markdownType" class="title width100 flex align-items-center justify-content-center">
           {{ title }}
@@ -258,7 +258,6 @@ export default {
   }
 
   .home {
-    overflow-y: scroll;
 
     .title {
       box-sizing: border-box;

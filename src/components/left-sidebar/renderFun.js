@@ -17,6 +17,7 @@ export default function () {
     // 子项点击
     const itemClick = (e) => {
       e.stopPropagation()
+      e.preventDefault()
       if (this.$route.query.indexPage !== item.indexPage) {
         this.nowActive = firstLevelIndex
         list.map(child => {
@@ -37,7 +38,7 @@ export default function () {
       if (item.link) {
         className = `${className} link-cell`
       } else {
-        className = `${className} ${renderList.length ? 'list-cell' : 'item-cell'}`
+        className = `${className} ${renderList.length ? 'list-cell' : 'display-block item-cell'}`
       }
       if (item.itemActive) {
         className = `${className} item-active`
@@ -55,26 +56,41 @@ export default function () {
         item.ifHadRender &&
         'ifShow' in item
     }
+    const tag = renderList.length ? 'div' : 'a'
+    const hrefMap = renderList.length ? {} : { href: `/#/?indexPage=${item.indexPage}` }
     return (<>
       {
         (item && item.name)
           ? (
-            <div
+            <tag
               className={className()}
               style={listItemStyle()}
+              {...hrefMap}
               onClick={renderList.length
                 ? (e) => {
                     listClick(e)
                   }
                 : (e) => {
                     itemClick(e)
-                  }}
+                  }
+              }
               key={item.index}>
               {grade === 0 && this.nowActive === firstLevelIndex ? (<div className='list-active'></div>) : null}
-              <div style={titleStyleName()} className='cell-item-title'>
-                {item.link ? (<div className='cell-item-link'>链接</div>) : null}
-                {item.name}
-                {item.topping ? (<div className='topping'>置顶</div>) : null}
+              <div
+                onClick={
+                  renderList.length
+                    ? (e) => {
+                        listClick(e)
+                      }
+                    : (e) => {
+                        itemClick(e)
+                      }
+                }
+                style={titleStyleName()}
+                className='cell-item-title'>
+                  {item.link ? (<div className='cell-item-link'>链接</div>) : null}
+                  {item.name}
+                  {item.topping ? (<div className='topping'>置顶</div>) : null}
               </div>
               {ifRender()
                 ? renderList.map((child, childIndex) => {
@@ -87,7 +103,7 @@ export default function () {
                     grade={grade}></renderFun>)
                 })
                 : null }
-            </div>
+            </tag>
             )
           : null
       }

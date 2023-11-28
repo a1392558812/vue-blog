@@ -7,7 +7,7 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div v-loading="str === ''" class="width100 height100 overflow-auto bookmarks">
+  <div :class="ifLarger ? 'scroll-bar-y' : ''" v-loading="str === ''" class="width100 height100 overflow-auto bookmarks">
     <div v-if="!ifDestroy" class="display-none html-str" v-html="str" />
     <div class="tips">
       <span class="cursor-pointer" @click="spreadOut">{{ `[${ifShowAll ? '关闭' : ''}全部展开]` }}</span>
@@ -17,16 +17,21 @@
 </template>
 
 <script>
+import { nextTick, ref, watch } from 'vue'
+
 import axios from '@/common/axios.js'
 import { htmlToJson } from '@/common/methods'
+import leftSidebarProps from '@/common/left-sidebar-props'
 import throttle from '@/common/util/throttle'
 import bookMarksItem from './components/bookmarks/item'
-import { nextTick, ref, watch } from 'vue'
 
 export default {
   name: 'Bookmarks',
   components: {
     bookMarksItem
+  },
+  props: {
+    ...leftSidebarProps
   },
   setup (props) {
     const str = ref('')

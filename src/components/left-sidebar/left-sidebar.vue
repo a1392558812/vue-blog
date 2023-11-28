@@ -1,30 +1,31 @@
 <script>
 import list from '@/static/list.js'
-import { reactive, ref, computed, onMounted } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import leftSidebarProps from '@/common/left-sidebar-props'
 import { renderList } from '@/common/methods'
 import leftSidebarRenderFactoryFun from './renderFun'
 import leftSidebarSearch from './left-sidebar-search'
+import dragScroll from '@/directive/drag-scroll'
 
 export default {
   name: 'LeftSidebar',
   props: {
     ...leftSidebarProps
   },
+  directives: {
+    dragScroll: dragScroll()
+  },
   setup (props) {
-    onMounted(() => {
-      $('.left-sidebar').mCustomScrollbar({
-        theme: 'dark',
-        scrollInertia: 300
-      })
-    })
+    console.log('props', props.ifLarger)
     return {
       list: reactive(renderList(list)),
       nowActive: ref(null),
       sidebarClassName: computed(() => {
-        let classname = 'left-sidebar bg-white height100'
+        let classname = 'left-sidebar flex-shrink-0 bg-white height100'
         if (!props.ifLarger) {
-          classname = `${classname} absolute width-auto ${props.ifShowMenu ? 'translateX-0' : 'translateX-100'}`
+          classname = `${classname} absolute ${props.ifShowMenu ? 'translateX-0' : 'translateX-100'}`
+        } else {
+          classname = `${classname}`
         }
         return classname
       })
@@ -34,22 +35,26 @@ export default {
     const renderFun = leftSidebarRenderFactoryFun.bind(this)()
     return (
       <div className={this.sidebarClassName}>
-        <div className='left-sidebar-content'>
+        <div className='flex height100 flex-direction-column left-sidebar-content'>
           <leftSidebarSearch
             className='search'
             toggleMenu={this.toggleMenu}
             onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
             onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
             list={this.list}/>
-          {this.list.map((item, index) => {
-            return <renderFun
-              item={item}
-              key={index}
-              grade={-1}
-              list={this.list}
-              url={[item.name]}
-              firstLevelIndex={index}></renderFun>
-          })}
+          <div vDragScroll={this.ifLarger} className='flex-1 flex-shrink-0 scroll-bar-y overflow-y-auto list-wrap'>
+            <div>
+                {this.list.map((item, index) => {
+                  return <renderFun
+                      item={item}
+                      key={index}
+                      grade={-1}
+                      list={this.list}
+                      url={[item.name]}
+                      firstLevelIndex={index}></renderFun>
+                })}
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -60,15 +65,13 @@ export default {
 <style scoped lang="scss">
 .left-sidebar{
   width: v-bind(leftSidebarW);
-  flex-shrink: 0;
   font-size: 16px;
   transition: transform 0.3s;
   border-right: 1px solid var(--global-border-color);
-  padding-left: 20px;
   box-sizing: border-box;
   z-index: 10;
   .search{
-    padding: 20px 5px 20px 5px;
+    padding: 20px;
     border-bottom: 1px solid var(--global-border-color);
   }
   .left-sidebar-content{
@@ -127,6 +130,7 @@ export default {
       }
     }
     ::v-deep(.item-cell){
+      display: block;
       color: #505d6b;
       font-size: 16px;
       font-weight: 400;
@@ -167,29 +171,8 @@ export default {
       color: var(--global-primary-color);
     }
   }
-  ::v-deep(.mCustomScrollBox){
-    .mCSB_container{
-      margin-right: 15px;
-    }
-    .mCSB_dragger_onDrag{
-      .mCSB_dragger_bar{
-        background-color: rgba(0, 170, 136, 1)!important;
-      }
-    }
-    .mCSB_dragger{
-      &:hover,&:active{
-        .mCSB_dragger_bar{
-          background-color: rgba(120, 120, 120, 1) !important;
-        }
-      }
-      .mCSB_dragger_bar{
-        margin-right: 3px!important;
-        background-color: rgba(120, 120, 120, 0.75) !important;
-      }
-      .mCSB_draggerRail{
-        margin-right: 4px!important;
-      }
-    }
+  .list-wrap {
+    padding: 0 20px;
   }
 }
 </style>

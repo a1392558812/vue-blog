@@ -2,7 +2,7 @@
   <div
     v-if="!ifLarger"
     :class="showNavLink ? 'translateX-0' : 'translateX-100'"
-    class="absolute height100 bg-white left-nav-link"
+    class="absolute height100 bg-white flex-shrink-0 left-nav-link"
   >
     <common-nav-link
       :if-larger="ifLarger"
@@ -49,7 +49,6 @@ export default {
 <style scoped lang="scss">
 .left-nav-link{
   width: v-bind(leftSidebarW);
-  flex-shrink: 0;
   font-size: 16px;
   transition: transform 0.3s;
   border-right: 1px solid var(--global-border-color);

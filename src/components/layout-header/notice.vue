@@ -50,6 +50,7 @@ export default {
 <style scoped lang="scss">
   .popup-pc{
     right: 20px;
+    padding: 10px 0;
     top: calc(100% + 15px);
     &::after{
       display: block;

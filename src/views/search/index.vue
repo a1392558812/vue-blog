@@ -18,14 +18,13 @@
           </p>
         </div>
       </div>
-      <ul class="search-content flex-1">
+      <ul :class="ifLarger ? 'scroll-bar-y' : ''" class="search-content flex-1">
         <li
           v-for="(item, index) in searchResult"
           :key="index"
-          class="search-item cursor-pointer"
-          @click="gotoDetails(item)"
+          class="search-item"
         >
-          {{ item.name }}
+            <a class="search-item-label cursor-pointer" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e){ gotoDetails(item, e) }">{{ item.name }}</a>
         </li>
       </ul>
     </div>
@@ -45,7 +44,8 @@ const searchResult = ref([])
 const route = useRoute()
 const router = useRouter()
 let inputValue = decodeURI(route.query.key)
-const gotoDetails = (item) => {
+const gotoDetails = (item, e) => {
+  e.preventDefault()
   if (item.noResult) return
   if (item.link) return window.open(item.link)
   router.push({
@@ -98,10 +98,11 @@ watch(route, (newV, oldV) => {
   .search-item {
     font-size: 16px;
     padding: 10px 20px;
-
-    &:hover {
-      color: var(--global-primary-color);
-      text-decoration: underline;
+    .search-item-label {
+        &:hover {
+            color: var(--global-primary-color);
+            text-decoration: underline;
+        }
     }
   }
 }

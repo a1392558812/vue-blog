@@ -8,7 +8,7 @@
           type="text"/>
       </vue-tributeVue>
       <div>
-        <div class="tribute-btn">
+        <div class="display-block tribute-btn">
           <span>异步加载</span>
           <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
         </div>
@@ -123,6 +123,5 @@ export default {
   margin: 0 0 1em 1em;
   font-size: 16px;
   padding: 0.5em;
-  display: block;
 }
 </style>

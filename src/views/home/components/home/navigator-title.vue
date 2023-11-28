@@ -5,9 +5,9 @@
       right: `${barWidth}px`,
       height: articleTitlesHeight + 'px'
     }"
-    class="fixed markdown-title"
+    class="fixed flex-shrink-0 markdown-title"
   >
-    <div class="width100 height100 markdown-title-inner">
+    <div :class="ifLarger ? 'scroll-bar-y' : ''" class="width100 height100 markdown-title-inner">
       <div class="width100 text-align-center markdown-title-navigator">
         标题导航
       </div>
@@ -89,7 +89,6 @@ export default {
     width: v-bind(markdownTitleWidth);
     top:v-bind(headerH);
     padding: 30px 20px;
-    flex-shrink: 0;
     border-left: 1px solid var(--global-border-color);
     .markdown-title-inner{
       overflow-y: auto;

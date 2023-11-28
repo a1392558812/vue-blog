@@ -56,6 +56,11 @@ body {
     flex: 1;
 }
 
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+
 .width100 {
     width: 100%;
 }
@@ -179,4 +184,23 @@ body {
 .align-center-y {
     top: 50%;
     transform: translate(0%, -50%);
+}
+
+.scroll-bar-y::-webkit-scrollbar{ /* 滚动条整体部分 */
+    width: 6px;
+}
+.scroll-bar-y::-webkit-scrollbar-button{ /* 滚动条两端的按钮 */
+    display: none;
+}
+.scroll-bar-y::-webkit-scrollbar-track-piece{ /* 内层轨道，滚动条中间部分（除去） */
+    width: 6px;
+}
+.scroll-bar-y::-webkit-scrollbar-thumb{ /* 滚动条里面可以拖动的那个 */
+    width: 6px;
+    border-radius: 3px;
+    background: rgb(182, 182, 182);
+}
+.scroll-bar-y::-webkit-scrollbar-corner{ /* 边角 */
+    width: 6px;
+    border-radius: 3px;
 }

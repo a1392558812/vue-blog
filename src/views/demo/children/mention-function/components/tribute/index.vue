@@ -20,9 +20,9 @@
         </div>
       </div>
       <div>
-        <button class="tribute-btn" @click="handleClick">主动触发@菜单</button>
-        <button class="tribute-btn" @click="handleAddClick1">2500ms后添加新数据方式</button>
-        <button class="tribute-btn" @click="handleAddClick2">显示视图内容</button>
+        <button class="display-block tribute-btn" @click="handleClick">主动触发@菜单</button>
+        <button class="display-block tribute-btn" @click="handleAddClick1">2500ms后添加新数据方式</button>
+        <button class="display-block tribute-btn" @click="handleAddClick2">显示视图内容</button>
       </div>
     </div>
     <toast ref="toastRefDom"></toast>
@@ -116,6 +116,5 @@ export default {
 .tribute-btn{
   margin: 0 0 1em 1em;
   padding: 0.5em;
-  display: block;
 }
 </style>

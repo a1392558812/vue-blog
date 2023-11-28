@@ -6,10 +6,10 @@
       </div>
     </div>
     <div class="flex1">
-      <div class="control-btn">
+      <div class="display-block control-btn">
         <input id="uploadBtn" type="file" @change="loadExcel" />
       </div>
-      <div class="control-btn">
+      <div class="display-block control-btn">
         <span style="margin-right:1em">加载远程文件:</span>
         <select style="margin-right:1em" v-model="selected" @change="selectExcel">
           <option disabled value="">选择远程文件</option>
@@ -18,10 +18,10 @@
           </option>
         </select>
       </div>
-      <button class="control-btn" @click="downloadExcel">下载当前xlsx</button>
-      <button class="control-btn" @click="setCellValue">设置3行4列的数据为69</button>
-      <button class="control-btn" @click="setRangeValue">设置(第3行-第4行)与(第3列-第4列)交界处的数据</button>
-      <button class="control-btn" @click="insertImage">设置(5,5)处插入图片</button>
+      <button class="display-block control-btn" @click="downloadExcel">下载当前xlsx</button>
+      <button class="display-block control-btn" @click="setCellValue">设置3行4列的数据为69</button>
+      <button class="display-block control-btn" @click="setRangeValue">设置(第3行-第4行)与(第3列-第4列)交界处的数据</button>
+      <button class="display-block control-btn" @click="insertImage">设置(5,5)处插入图片</button>
     </div>
     <div v-show="isMaskShow" id="tip">Downloading</div>
   </div>
@@ -336,7 +336,6 @@ onMounted(() => {
 .control-btn{
   font-size: 14px;
   margin-bottom: 20px;
-  display: block;
 }
 
 #uploadBtn {

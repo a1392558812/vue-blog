@@ -7,7 +7,7 @@
       文件名： {{ downloadName }}
     </div>
     <div class="downLoad-cell downLoad-wrap flex">
-      <a class="downLoad" :href="htmlMD" :download="downloadName">下载</a>
+      <a class="display-block downLoad" :href="htmlMD" :download="downloadName">下载</a>
     </div>
   </div>
 </template>
@@ -36,7 +36,6 @@ export default {
     }
     .downLoad-wrap{
       .downLoad{
-        display: block;
         text-decoration: none;
         color: black;
         background-color: var(--global-border-color);

@@ -10,13 +10,12 @@
               d="M416 192C537.6 192 640 294.4 640 416S537.6 640 416 640 192 537.6 192 416 294.4 192 416 192M416 128C256 128 128 256 128 416S256 704 416 704 704 576 704 416 576 128 416 128L416 128zM832 864c-6.4 0-19.2 0-25.6-6.4l-192-192c-12.8-12.8-12.8-32 0-44.8s32-12.8 44.8 0l192 192c12.8 12.8 12.8 32 0 44.8C851.2 864 838.4 864 832 864z"
               p-id="3270" />
           </svg>
-          <input v-model="inputValue" class="search-input" type="text" @focus="ifShowSearchDropDown = true">
+          <input v-model="inputValue" class="display-block search-input" type="text" @focus="ifShowSearchDropDown = true">
         </div>
         <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute drop-down">
           <li v-for="item in searchResult" :key="item" class="cursor-pointer drop-down-item"
-            :class="item.goSearch ? 'flex align-items-center justify-content-center more-content' : ''"
-            @click="goToDetail(item)">
-            {{ item.name }}
+            :class="item.goSearch ? 'flex align-items-center justify-content-center more-content' : ''">
+            <a class="drop-down-item-label" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e) { goToDetail(item, e) }">{{ item.name }}</a>
           </li>
         </ul>
       </div>
@@ -53,8 +52,8 @@ export default {
     const router = useRouter()
     const target = ref(null)
     const ifShowSearchDropDown = ref(false)
-    const goToDetail = (item) => {
-      console.log('item', item)
+    const goToDetail = (item, e) => {
+      e.preventDefault()
       if (item.noResult) return
       if (item.goSearch) return search()
       router.push({
@@ -137,9 +136,8 @@ export default {
     font-weight: normal;
     font-size: 16px;
     padding: 5px 10px;
-
-    &:hover {
-      color: var(--global-primary-color);
+    .drop-down-item-label {
+        color: var(--global-primary-color);
     }
   }
 
@@ -149,7 +147,6 @@ export default {
 }
 
 .search-input {
-  display: block;
   margin-right: 1.5em;
   padding: 5px 8px 5px 2.3em;
   width: 140px;
