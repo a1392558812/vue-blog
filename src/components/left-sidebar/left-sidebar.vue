@@ -1,22 +1,58 @@
 <script>
+import { reactive, ref, computed, onBeforeUnmount, watch, nextTick } from 'vue'
+import BScroll from '@better-scroll/core'
+import ScrollBar from '@better-scroll/scroll-bar'
+import MouseWheel from '@better-scroll/mouse-wheel'
+import ObserveDOM from '@better-scroll/observe-dom'
+
 import list from '@/static/list.js'
-import { reactive, ref, computed } from 'vue'
 import leftSidebarProps from '@/common/left-sidebar-props'
 import { renderList } from '@/common/methods'
 import leftSidebarRenderFactoryFun from './renderFun'
 import leftSidebarSearch from './left-sidebar-search'
-import dragScroll from '@/directive/drag-scroll'
 
+BScroll.use(ScrollBar)
+BScroll.use(MouseWheel)
+BScroll.use(ObserveDOM)
 export default {
   name: 'LeftSidebar',
   props: {
     ...leftSidebarProps
   },
-  directives: {
-    dragScroll: dragScroll()
-  },
   setup (props) {
-    console.log('props', props.ifLarger)
+    let bestScroll = null
+    const initScroll = () => {
+      bestScroll = new BScroll('.list-content', {
+        click: true,
+        observeDOM: true,
+        bounce: false,
+        scrollbar: {
+          fade: false,
+          interactive: true,
+          scrollbarTrackClickable: true
+        },
+        mouseWheel: {
+          speed: 20,
+          invert: false,
+          easeTime: 300
+        }
+      })
+    }
+    const destroyScroll = () => {
+      bestScroll && bestScroll.destroy()
+      bestScroll = null
+    }
+    watch(() => props.ifLarger, (val) => {
+      destroyScroll()
+      if (val) {
+        nextTick().then(() => {
+          initScroll()
+        })
+      }
+    }, { immediate: true })
+    onBeforeUnmount(() => {
+      destroyScroll()
+    })
     return {
       list: reactive(renderList(list)),
       nowActive: ref(null),
@@ -42,17 +78,19 @@ export default {
             onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
             onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
             list={this.list}/>
-          <div vDragScroll={this.ifLarger} className='flex-1 flex-shrink-0 scroll-bar-y overflow-y-auto list-wrap'>
-            <div>
-                {this.list.map((item, index) => {
-                  return <renderFun
-                      item={item}
-                      key={index}
-                      grade={-1}
-                      list={this.list}
-                      url={[item.name]}
-                      firstLevelIndex={index}></renderFun>
-                })}
+          <div key={this.ifLarger} className={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
+            <div className={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
+                <div style={{ padding: '0 0 50px 0' }}>
+                    {this.list.map((item, index) => {
+                      return <renderFun
+                        item={item}
+                        key={index}
+                        grade={-1}
+                        list={this.list}
+                        url={[item.name]}
+                        firstLevelIndex={index}></renderFun>
+                    })}
+                </div>
             </div>
           </div>
         </div>

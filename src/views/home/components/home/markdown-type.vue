@@ -134,7 +134,6 @@ export default {
     }
   },
   render () {
-    console.log('this.loading--', this.loading)
     return (
       <>
         <div
