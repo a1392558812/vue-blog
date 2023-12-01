@@ -62,7 +62,6 @@ export default {
         { name: 'dist', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/dist' },
         { name: 'flaskr.egg-info', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/flaskr.egg-info' },
         { name: 'instance', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/instance' },
-        { name: 'venv', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/venv' },
         { name: '.coverage', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/.coverage' },
         { name: 'flask.log', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/flask.log' },
         { name: 'MANIFEST.in', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/05.flask/MANIFEST.in' },
@@ -142,7 +141,6 @@ export default {
             { name: 'page_not_found.html' }
           ]
         },
-        { name: 'venv', link: 'https://github.com/a1392558812/myShare/tree/master/01.python-study/04.flask/venv' },
         { name: 'app.py' }
       ]
     },

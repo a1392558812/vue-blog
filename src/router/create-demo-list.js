@@ -238,6 +238,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "auto-animate" */ '../views/demo/children/auto-animate/index.vue'
       )
+  },
+  {
+    path: 'markdown编辑器',
+    name: 'markdown-editor',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'markdown-editor'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "markdown-editor" */ '../views/demo/children/markdown-editor/index.vue'
+      )
   }
 ]
 

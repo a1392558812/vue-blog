@@ -89,3 +89,12 @@ export const renderList = (list, parentIndex = 0, url = []) => {
 }
 export const randomXtoY = (x, y) => Math.round(Math.random() * (y - x) + x)
 export const baseUrlFun = () => window.location.origin + window.location.pathname
+export const fileToBase64Async = (file) => {
+  return new Promise(resolve => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = (e) => {
+      resolve(e.target.result)
+    }
+  })
+}
