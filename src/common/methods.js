@@ -98,3 +98,19 @@ export const fileToBase64Async = (file) => {
     }
   })
 }
+export const getRandomColor = (flag = true) => {
+  const arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
+  if (flag) {
+    let str = '#'
+    for (let i = 0; i < 6; i++) {
+      const random = Math.floor(Math.random() * arr.length)
+      str += arr[random]
+    }
+    return str
+  } else {
+    const r = Math.floor(Math.random() * 256)
+    const g = Math.floor(Math.random() * 256)
+    const b = Math.floor(Math.random() * 256)
+    return `rgb(${r},${g},${b})`
+  }
+}

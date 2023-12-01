@@ -16,7 +16,7 @@ import { JustifiedInfiniteGrid } from '@egjs/vue3-infinitegrid'
 import { ref } from 'vue'
 import { useInfiniteScroll } from '@vueuse/core'
 
-import { randomXtoY } from '@/common/methods'
+import { randomXtoY, getRandomColor } from '@/common/methods'
 
 export default {
   components: {
@@ -37,14 +37,15 @@ export default {
         console.log('getList')
         const length = list.value.length
         const listArr = []
-        const bgColor = () => `#${randomXtoY(0, 16).toString(16)}${randomXtoY(0, 16).toString(16)}${randomXtoY(0, 16).toString(16)}${randomXtoY(0, 16).toString(16)}${randomXtoY(0, 16).toString(16)}${randomXtoY(0, 16).toString(16)}`
+
         for (let i = 0; i < 30; i++) {
           listArr.push({
             groupKey: length + i,
-            style: { width: `${randomXtoY(100, 300)}px`, height: `${randomXtoY(100, 300)}px`, background: bgColor() },
+            style: { width: `${randomXtoY(100, 300)}px`, height: `${randomXtoY(100, 300)}px`, background: getRandomColor() },
             key: length + i
           })
         }
+
         list.value = list.value.concat(listArr)
         loading.value = false
       }, 2500)

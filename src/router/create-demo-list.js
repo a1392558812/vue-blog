@@ -240,15 +240,27 @@ export const demoList = [
       )
   },
   {
-    path: 'markdown编辑器',
+    path: 'markdown-editor',
     name: 'markdown-editor',
     meta: {
       ifShowHeaderComponent: false,
-      demoName: 'markdown-editor'
+      demoName: 'markdown编辑器'
     },
     component: () =>
       import(
         /* webpackChunkName: "markdown-editor" */ '../views/demo/children/markdown-editor/index.vue'
+      )
+  },
+  {
+    path: 'virtual-scroller',
+    name: 'virtual-scroller',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '虚拟滚动'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "virtual-scroller" */ '../views/demo/children/virtual-scroller/index.vue'
       )
   }
 ]
