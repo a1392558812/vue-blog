@@ -1,4 +1,6 @@
 import axios from 'axios'
+
+/* 下载 */
 export const downFileByAxios = (href) => {
   axios({
     method: 'get',
@@ -23,6 +25,8 @@ export const downFileByAxios = (href) => {
     window.URL.revokeObjectURL(blobUrl)
   })
 }
+
+/* markdown图片类型 */
 export const markdownTypeCheck = (type) => {
   return [
     'md',
@@ -33,6 +37,8 @@ export const markdownTypeCheck = (type) => {
     'py'
   ].filter(item => item === type).length
 }
+
+/* image图片类型 */
 export const imgTypeCheck = (type) => {
   return [
     'jpg',
@@ -41,6 +47,8 @@ export const imgTypeCheck = (type) => {
     'jpeg'
   ].filter(item => item === type).length
 }
+
+/* html结构转json结构 */
 export const htmlToJson = ($dt, ifRender = false, ifShow = false) => {
   // h3标签为文件夹名称
   const $h3 = $dt.children('h3')
@@ -73,22 +81,14 @@ export const htmlToJson = ($dt, ifRender = false, ifShow = false) => {
   // 返回该对象
   return obj
 }
-export const renderList = (list, parentIndex = 0, url = []) => {
-  return list.map((item, index) => {
-    item.indexPage = parentIndex ? `${parentIndex}-${index}` : `${index}`
-    item.url = url.length ? [...url, item.name] : [item.name]
-    if (item.children) {
-      item.ifShow = false // 是否显示
-      item.ifHadRender = false // 是否已经渲染过
-      renderList(item.children, item.indexPage, item.url)
-    } else {
-      item.itemActive = false
-    }
-    return item
-  })
-}
+
+/* 获取x~y的随机整数 */
 export const randomXtoY = (x, y) => Math.round(Math.random() * (y - x) + x)
+
+/* 获取页面baseUrl */
 export const baseUrlFun = () => window.location.origin + window.location.pathname
+
+/* File转base64 */
 export const fileToBase64Async = (file) => {
   return new Promise(resolve => {
     const reader = new FileReader()
@@ -98,6 +98,8 @@ export const fileToBase64Async = (file) => {
     }
   })
 }
+
+/* 生成随机背景色 */
 export const getRandomColor = (flag = true) => {
   const arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
   if (flag) {

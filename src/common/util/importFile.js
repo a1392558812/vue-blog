@@ -1,3 +1,4 @@
+/* 导入目录下全部*.xxx格式文件 */
 const importAll = (reg = /\.vue$/g) => {
   return context => {
     const map = {}

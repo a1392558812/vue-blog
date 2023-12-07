@@ -5,7 +5,7 @@
         <div id="luckysheet"></div>
       </div>
     </div>
-    <div class="flex1">
+    <div class="flex-1">
       <div class="display-block control-btn">
         <input id="uploadBtn" type="file" @change="loadExcel" />
       </div>

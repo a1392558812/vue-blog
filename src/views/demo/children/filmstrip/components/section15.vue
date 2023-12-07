@@ -18,10 +18,10 @@
             <p class="fragment shrink">千艘已共长江崄，</p>
             <p class="fragment fade-out">百胜安知赤壁焚。</p>
             <p>
-                <span style="display: inline-block;" class="fragment fade-right">觜距</span>
-                <span style="display: inline-block;" class="fragment fade-up">方强</span>
-                <span style="display: inline-block;" class="fragment fade-down">要</span>
-                <span style="display: inline-block;" class="fragment fade-left">一斗，</span>
+                <span class="fragment fade-right display-inline-block">觜距</span>
+                <span class="fragment fade-up display-inline-block">方强</span>
+                <span class="fragment fade-down display-inline-block">要</span>
+                <span class="fragment fade-left display-inline-block">一斗，</span>
             </p>
             <p class="fragment fade-in-then-out">君臣已定势三分。</p>
             <p class="fragment fade-in-then-semi-out">古来伐国须观衅，</p>

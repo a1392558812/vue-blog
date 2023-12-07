@@ -4,7 +4,7 @@
         <div>
             <p>切换主题</p>
             <br/>
-            <p><a href="#/themes" style="margin-right: 30px; display: inline-block;" v-for="(item, index) in themeList" :key="index" @click="onSetTheme(item)">{{ item.theme }}</a></p>
+            <p><a href="#/themes" style="margin-right: 30px;" class="display-inline-block" v-for="(item, index) in themeList" :key="index" @click="onSetTheme(item)">{{ item.theme }}</a></p>
         </div>
     </section>
 </template>

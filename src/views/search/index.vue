@@ -18,7 +18,7 @@
           </p>
         </div>
       </div>
-      <ul :class="ifLarger ? 'scroll-bar-y' : ''" class="search-content flex-1">
+      <ul class="search-content flex-1">
         <li
           v-for="(item, index) in searchResult"
           :key="index"
@@ -35,7 +35,7 @@
 import { defineProps, onBeforeMount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import list from '@/static/list.js'
-import { renderList } from '@/common/methods'
+import renderList from '@/common/util/renderList.js'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
 import leftSidebarProps from '@/common/left-sidebar-props'
 const allList = renderList(list)

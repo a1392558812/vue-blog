@@ -52,7 +52,7 @@ export default {
             })
           }
         </div>
-        <div class='overflow-auto flex1'>
+        <div class='overflow-auto flex-1'>
           <div>
             { this.slotList.map(item => {
               const itemComponent = item.component

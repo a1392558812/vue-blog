@@ -2,6 +2,11 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '36.vite打包.md' },
+    { name: '35.响应式设计.md' },
+    { name: '34.mmd文件加载.md' },
+    { name: '33.websocket的心跳机制.md' },
+    { name: '32.函数式组件.md' },
     { name: '31.展开收起组件.md' },
     { name: '30.Vue3的10个响应式进阶API.md' },
     { name: '29.一个不错的vue-hook动态响应异步变动.md' },

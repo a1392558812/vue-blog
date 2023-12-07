@@ -1,3 +1,4 @@
+/* 异步加载js */
 export const asyncLoadJs = (url) => {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script')
@@ -13,6 +14,8 @@ export const asyncLoadJs = (url) => {
     }
   })
 }
+
+/* 异步加载css */
 export const asyncLoadCss = (linkUrl) => {
   return new Promise((resolve, reject) => {
     const link = document.createElement('link')

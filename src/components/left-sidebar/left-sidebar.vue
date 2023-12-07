@@ -7,7 +7,7 @@ import ObserveDOM from '@better-scroll/observe-dom'
 
 import list from '@/static/list.js'
 import leftSidebarProps from '@/common/left-sidebar-props'
-import { renderList } from '@/common/methods'
+import renderList from '@/common/util/renderList.js'
 import leftSidebarRenderFactoryFun from './renderFun'
 import leftSidebarSearch from './left-sidebar-search'
 
