@@ -2,6 +2,10 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    {
+      name: '02.vitepress部署文档示例',
+      link: 'https://a1392558812.github.io/vitepress-starter/'
+    },
     { name: '36.vite打包.md' },
     { name: '35.响应式设计.md' },
     { name: '34.mmd文件加载.md' },
@@ -38,7 +42,7 @@ export default {
     { name: '03.vben-axios封装.md' },
     {
       name: '01.爬取的一些模板网站',
-      link: 'https%3A%2F%2Fgithub.com%2Fa1392558812%2FmyShare%2Ftree%2Fmaster%2F03.%E6%9D%82%E9%A1%B9%E6%95%B4%E7%90%86%2F01.%E7%88%AC%E5%8F%96%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A8%A1%E6%9D%BF%E7%BD%91%E7%AB%99'
+      link: 'https://github.com/a1392558812/myShare/tree/master/03.%E6%9D%82%E9%A1%B9%E6%95%B4%E7%90%86/01.%E7%88%AC%E5%8F%96%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A8%A1%E6%9D%BF%E7%BD%91%E7%AB%99'
     },
     { name: '02.pnpm.md' },
     { name: '01.全局配置页面缓存.md' }
