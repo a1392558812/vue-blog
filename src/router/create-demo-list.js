@@ -262,6 +262,66 @@ export const demoList = [
       import(
         /* webpackChunkName: "virtual-scroller" */ '../views/demo/children/virtual-scroller/index.vue'
       )
+  },
+  {
+    path: 'word-diff',
+    name: 'word-diff',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '文字diff对比'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "word-diff" */ '../views/demo/children/word-diff/index.vue'
+      )
+  },
+  {
+    path: 'canvas-scroll',
+    name: 'canvas-scroll',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '背景canvas内容随滚动条位置变动'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "canvas-scroll" */ '../views/demo/children/canvas-scroll/index.vue'
+      )
+  },
+  {
+    path: 'video-scroll',
+    name: 'video-scroll',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '背景视频内容随滚动条位置变动'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "video-scroll" */ '../views/demo/children/video-scroll/index.vue'
+      )
+  },
+  {
+    path: 'my-signature',
+    name: 'my-signature',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '个人签名'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "my-signature" */ '../views/demo/children/my-signature/index.vue'
+      )
+  },
+  {
+    path: 'video-player',
+    name: 'video-player',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'video-player'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "video-player" */ '../views/demo/children/video-player/index.vue'
+      )
   }
 ]
 

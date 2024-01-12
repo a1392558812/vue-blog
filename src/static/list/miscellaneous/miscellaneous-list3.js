@@ -2,6 +2,11 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '41.单点登录和单设备登录.md' },
+    { name: '40.为什么要用setTimeout模拟setInterval及如何模拟.md' },
+    { name: '39.插槽透传.md' },
+    { name: '38.小程序隐私协议.md' },
+    { name: '37.tailwind使用.md' },
     {
       name: '02.vitepress部署文档示例',
       link: 'https://a1392558812.github.io/vitepress-starter/'

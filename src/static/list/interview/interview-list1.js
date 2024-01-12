@@ -1,6 +1,7 @@
 export default {
   name: '01.前端圣经',
   children: [
+    { name: '21.vite相关.md' },
     { name: '20.首屏加载优化点.md' },
     { name: '19.闭包.md' },
     { name: '18.Proxy与Object.defineProperty的区别.md' },

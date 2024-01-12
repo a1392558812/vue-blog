@@ -1,15 +1,22 @@
 <script>
 import { ref, watch, nextTick, onMounted } from 'vue'
-import navigatorTitle from './navigator-title'
+
+import Prism from 'prismjs'
+
 import VMdPreview from '@kangc/v-md-editor/lib/preview'
-import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
-import hljs from 'highlight.js'
-import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
-import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index'
 import '@kangc/v-md-editor/lib/style/preview.css'
-import '@kangc/v-md-editor/lib/theme/style/github.css'
+
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
+
+import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
-VMdPreview.use(githubTheme, { Hljs: hljs })
+
+import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index'
+
+import navigatorTitle from './navigator-title'
+
+VMdPreview.use(vuepressTheme, { Prism })
 VMdPreview.use(createCopyCodePlugin())
 VMdPreview.use(createLineNumbertPlugin())
 
@@ -86,6 +93,13 @@ export default {
       setMarkdownMinHeight()
     })
 
+    // 美化滚动条
+    watch(() => props.ifLarger, (val) => {
+      nextTick().then(() => {
+        $('.v-md-pre-wrapper pre[class*=v-md-prism-]')[val ? 'addClass' : 'removeClass']('scroll-bar-x')
+      })
+    }, { immediate: true })
+
     // 初始化markdown部分高度动态设定
     onMounted(setMarkdownMinHeight)
 
@@ -97,10 +111,13 @@ export default {
         let target = $(e.target)
         if (target.hasClass('v-md-copy-code-btn')) {
           let oldNode = target.html()
+          target.css({ whiteSpace: 'nowrap' })
+
           let oldStyle = {
             width: target.width(),
             height: target.height(),
-            lineHeight: target.css('line-height')
+            lineHeight: target.css('line-height'),
+            whiteSpace: 'nowrap'
           }
           target.html('复制成功')
           target.css({ width: '5em', height: '2em', lineHeight: '1.5em', transition: 'all 0.3s' })
@@ -111,7 +128,6 @@ export default {
             oldNode = null
             oldStyle = null
           }, 1000)
-          console.log('点击了button', oldNode, oldStyle)
         } else {
           target = null
         }
@@ -125,8 +141,7 @@ export default {
         if (heading) {
           preview.value.scrollToTarget({
             target: heading,
-            scrollContainer: $('.home')[0],
-            top: 30
+            scrollContainer: $('.home')[0]
           })
         }
         heading = null
@@ -189,5 +204,8 @@ export default {
     padding: 20px 30px;
     font-size: 18px;
     font-weight: 600;
+  }
+  ::v-deep(.v-md-pre-wrapper pre[class*=v-md-prism-]) {
+
   }
 </style>

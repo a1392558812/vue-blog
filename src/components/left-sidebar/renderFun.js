@@ -66,26 +66,12 @@ export default function () {
               className={className()}
               style={listItemStyle()}
               {...hrefMap}
-              onClick={renderList.length
-                ? (e) => {
-                    listClick(e)
-                  }
-                : (e) => {
-                    itemClick(e)
-                  }
-              }
+              title={item.name}
+              onClick={ (e) => { renderList.length ? listClick(e) : itemClick(e) } }
               key={item.index}>
               {grade === 0 && this.nowActive === firstLevelIndex ? (<div className='list-active'></div>) : null}
               <div
-                onClick={
-                  renderList.length
-                    ? (e) => {
-                        listClick(e)
-                      }
-                    : (e) => {
-                        itemClick(e)
-                      }
-                }
+                onClick={ (e) => { renderList.length ? listClick(e) : itemClick(e) } }
                 style={titleStyleName()}
                 className='cell-item-title'>
                   {item.link ? (<div className='cell-item-link'>链接</div>) : null}

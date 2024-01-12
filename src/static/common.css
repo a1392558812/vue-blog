@@ -210,3 +210,22 @@ body {
     width: 6px;
     border-radius: 3px;
 }
+
+.scroll-bar-x::-webkit-scrollbar{ /* 滚动条整体部分 */
+    height: 6px;
+}
+.scroll-bar-x::-webkit-scrollbar-button{ /* 滚动条两端的按钮 */
+    display: none;
+}
+.scroll-bar-x::-webkit-scrollbar-track-piece{ /* 内层轨道，滚动条中间部分（除去） */
+    height: 6px;
+}
+.scroll-bar-x::-webkit-scrollbar-thumb{ /* 滚动条里面可以拖动的那个 */
+    height: 6px;
+    border-radius: 3px;
+    background: rgb(119, 119, 119);
+}
+.scroll-bar-x::-webkit-scrollbar-corner{ /* 边角 */
+    height: 6px;
+    border-radius: 3px;
+}
