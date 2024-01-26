@@ -2,6 +2,10 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '45.requestAnimationFrame.md' },
+    { name: '44.数组fill可能造成的困扰.md' },
+    { name: '43.代码简化.md' },
+    { name: '42.获取文字渲染实际宽度.md' },
     { name: '41.单点登录和单设备登录.md' },
     { name: '40.为什么要用setTimeout模拟setInterval及如何模拟.md' },
     { name: '39.插槽透传.md' },

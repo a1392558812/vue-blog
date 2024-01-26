@@ -322,6 +322,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "video-player" */ '../views/demo/children/video-player/index.vue'
       )
+  },
+  {
+    path: 'canvas-ts-video',
+    name: 'canvas-ts-video',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'ts格式视频播放'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "canvas-ts-video" */ '../views/demo/children/canvas-ts-video/index.vue'
+      )
   }
 ]
 

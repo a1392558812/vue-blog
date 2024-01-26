@@ -1,10 +1,8 @@
 <template>
-  <div class="demo-view">
-    <div>
+  <div class="width100 height100 overflow-auto">
+    <div class="demo-view">
       <div class="line-height-1 demo-view-item" v-for="(item, index) in demoList" :key="index">
-        <a
-          class="cursor-pointer"
-          @click="navigatorTo(item.path)">{{ `${index + 1}、 ` + item.name }}</a>
+        <a class="cursor-pointer" @click="navigatorTo(item.path)">{{ `${index + 1}、 ` + item.name }}</a>
       </div>
     </div>
   </div>
@@ -27,7 +25,7 @@ export default {
     font-size: 16px;
     padding: 5px 0;
     color: var(--global-primary-color);
-    a{
+    a {
       color: var(--global-primary-color);
     }
   }

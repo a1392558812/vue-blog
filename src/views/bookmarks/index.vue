@@ -9,6 +9,7 @@
 <template>
   <div v-loading="str === ''" class="width100 height100 overflow-auto bookmarks">
     <div v-if="!ifDestroy" class="display-none html-str" v-html="str" />
+    <div class="tips">Ctrl+F 即可进行搜索</div>
     <div class="tips">
       <span class="cursor-pointer" @click="spreadOut">{{ `[${ifShowAll ? '关闭' : ''}全部展开]` }}</span>
     </div>

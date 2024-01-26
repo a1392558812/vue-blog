@@ -21,8 +21,11 @@ export default {
   },
   setup (props) {
     let bestScroll = null
+    const listContentRef = ref(null)
+
     const initScroll = () => {
-      bestScroll = new BScroll('.list-content', {
+      destroyScroll()
+      bestScroll = new BScroll(listContentRef.value, {
         click: true,
         observeDOM: true,
         bounce: false,
@@ -38,24 +41,37 @@ export default {
         }
       })
     }
+
     const destroyScroll = () => {
-      bestScroll && bestScroll.destroy()
+      if (bestScroll) {
+        bestScroll.destroy()
+      }
       bestScroll = null
     }
-    watch(() => props.ifLarger, (val) => {
-      destroyScroll()
-      if (val) {
-        nextTick().then(() => {
-          initScroll()
-        })
+
+    watch(
+      () => props.ifLarger,
+      (val) => {
+        if (val) {
+          nextTick().then(() => {
+            initScroll()
+          })
+        }
+      },
+      {
+        immediate: true,
+        flush: 'post'
       }
-    }, { immediate: true })
+    )
+
     onBeforeUnmount(() => {
       destroyScroll()
     })
+
     return {
       list: reactive(renderList(list)),
       nowActive: ref(null),
+      listContentRef,
       sidebarClassName: computed(() => {
         let classname = 'left-sidebar flex-shrink-0 bg-white height100'
         if (!props.ifLarger) {
@@ -79,7 +95,9 @@ export default {
             onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
             list={this.list}/>
           <div key={this.ifLarger} className={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
-            <div className={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
+            <div ref={(node) => {
+              this.listContentRef = node
+            }} className={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
                 <div style={{ padding: '0 0 50px 0' }}>
                     {this.list.map((item, index) => {
                       return <renderFun

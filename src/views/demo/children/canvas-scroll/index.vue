@@ -12,44 +12,58 @@ import { baseUrlFun } from '@/common/methods'
 
 export default {
   setup () {
-    const frameCount = 121
     const loading = ref(true)
 
     const scrollCanvasRef = ref(null)
     const scrollWrapRef = ref(null)
     const scrollRef = ref(null)
 
+    const canvasImg = new Image()
+    const preloadImg = new Image()
+
     const canvas2dContext = () => scrollCanvasRef.value.getContext('2d')
     const currentFrame = (i) => `${baseUrlFun()}demo-static/canvas-scroll/large_${i.toString().padStart(4, '0')}.jpg`
 
-    const preloadImages = (frameCount) => {
-      for (let i = 0; i <= frameCount; i++) {
-        const img = new Image()
-        img.src = currentFrame(i)
+    const imageList = ref((() => {
+      const list = []
+      for (let i = 0; i <= 121; i++) {
+        list.push({ url: currentFrame(i) })
+      }
+      return list
+    })())
+
+    const preloadImages = () => {
+      for (let i = 0; i < imageList.value.length; i++) {
+        const url = imageList.value[i].url
+        preloadImg.src = url
+        ;(() => {
+          preloadImg.onload = () => {
+            imageList.value[i].ifHadLoad = true
+          }
+        })(i)
       }
     }
 
     const drawImage = (index) => {
-      let img = new Image()
-      img.src = currentFrame(index)
-      img.onload = () => {
-        canvas2dContext().drawImage(img, 0, 0)
-        img = null
+      canvasImg.src = currentFrame(index)
+      canvasImg.onload = () => {
+        imageList.value[index].ifHadLoad = true
+        canvas2dContext().drawImage(canvasImg, 0, 0)
       }
     }
+
     const { y } = useScroll(scrollWrapRef, {
       onScroll: () => {
         const scrollRefHeight = scrollRef.value.offsetHeight - scrollWrapRef.value.offsetHeight
-        let frameIndex = parseInt(y.value / scrollRefHeight * frameCount)
-        frameIndex = frameIndex > frameCount ? frameCount : frameIndex
-        console.log('frameIndex', frameIndex)
-        requestAnimationFrame(() => drawImage(frameIndex))
+        let frameIndex = parseInt(y.value / scrollRefHeight * imageList.value.length)
+        frameIndex = frameIndex > imageList.value.length - 1 ? imageList.value.length - 1 : frameIndex
+        drawImage(frameIndex)
       }
     })
 
-    preloadImages(frameCount)
+    preloadImages()
     onMounted(() => {
-      drawImage(0)
+      drawImage(0, true)
       setTimeout(() => {
         loading.value = false
       }, 2500)
@@ -68,7 +82,7 @@ export default {
       height: 100vh;
       .scroll-target {
         z-index: 2;
-        height: 200vh;
+        height: 400vh;
       }
       .scroll-canvas {
         z-index: 1;
