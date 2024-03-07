@@ -2,6 +2,9 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '48.动态高度自动过渡.md' },
+    { name: '47.如何快速播放一个大大大视频.md' },
+    { name: '46.小程序嵌入h5.md' },
     { name: '45.requestAnimationFrame.md' },
     { name: '44.数组fill可能造成的困扰.md' },
     { name: '43.代码简化.md' },
