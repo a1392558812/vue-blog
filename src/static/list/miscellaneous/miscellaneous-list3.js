@@ -2,6 +2,8 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '50.溢出显示省略号.md' },
+    { name: '49.grid简单理解.md' },
     { name: '48.动态高度自动过渡.md' },
     { name: '47.如何快速播放一个大大大视频.md' },
     { name: '46.小程序嵌入h5.md' },

@@ -56,6 +56,7 @@ export default {
     const preview = ref(null) // markdown引用
     const articleTitles = ref([]) // markdown编辑器预览锚点标题
     const markdownMinHeight = ref('calc(100% - 170px)') // markdown区域的高度
+    const htmlMarkStr = ref(props.htmlMD)
 
     // 锚点标题动态设定
     const articleTitlesInit = () => {
@@ -84,9 +85,12 @@ export default {
     }
 
     // 锚点标题动态设定
-    watch(() => props.htmlMD, () => nextTick().then(() => {
-      articleTitlesInit()
-    }), { immediate: true })
+    watch(() => props.htmlMD, () => {
+      htmlMarkStr.value = props.htmlMD
+      nextTick().then(() => {
+        articleTitlesInit()
+      })
+    }, { immediate: true })
 
     // markdown部分高度动态设定
     watch(() => props.title, () => {
@@ -105,6 +109,7 @@ export default {
 
     return {
       preview,
+      htmlMarkStr,
       articleTitles,
       markdownMinHeight,
       handelClick: (e) => {
@@ -169,7 +174,7 @@ export default {
                     onClick={this.handelClick}
                     onCopy-code-success={this.handleCopyCodeSuccess}
                     ref='preview'
-                    text={this.htmlMD}/>
+                    text={this.htmlMarkStr}/>
                   {
                     this.ifLarger
                       ? (
