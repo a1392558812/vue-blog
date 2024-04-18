@@ -20,6 +20,27 @@ VMdPreview.use(vuepressTheme, { Prism })
 VMdPreview.use(createCopyCodePlugin())
 VMdPreview.use(createLineNumbertPlugin())
 
+const escapeHTML = (text) => {
+  const escape = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+  }
+  return text.replace(/[&<>"']/g, match => escape[match])
+}
+
+// 拓展xss规则
+VMdPreview.xss.extend({
+  onIgnoreTag: (tag, html, options) => {
+    if (tag === 'iframe') {
+      return `<div>${html}</div>`
+    }
+    return escapeHTML(html)
+  }
+})
+
 export default {
   name: 'Markdown',
   components: {

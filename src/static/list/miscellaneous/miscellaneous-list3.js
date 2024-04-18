@@ -2,6 +2,52 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '53.预览图片.md' },
+    { name: '52.pnpm.md' },
+    { name: '51.文字溢出显示更多.md' },
+    {
+      name: '02.组件库vant4-usehook收录',
+      children: [
+        {
+          name: 'onMountedOrActivated',
+          children: [
+            { name: 'index.ts' }
+          ]
+        },
+        {
+          name: 'useRefs',
+          children: [
+            { name: 'index.md' },
+            { name: 'index.ts' }
+          ]
+        },
+        {
+          name: 'useRelation',
+          children: [
+            { name: 'index.md' },
+            { name: 'index.ts' },
+            { name: 'useChildren.ts' },
+            { name: 'useParent.ts' }
+          ]
+        },
+        {
+          name: 'useScrollParent',
+          children: [
+            { name: 'index.md' },
+            { name: 'index.ts' }
+          ]
+        },
+        {
+          name: 'useSyncPropRef',
+          children: [
+            { name: 'index.md' },
+            { name: 'index.ts' }
+          ]
+        },
+        { name: 'index.ts' },
+        { name: 'utils.ts' }
+      ]
+    },
     { name: '50.溢出显示省略号.md' },
     { name: '49.grid简单理解.md' },
     { name: '48.动态高度自动过渡.md' },
