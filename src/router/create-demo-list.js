@@ -334,6 +334,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "canvas-ts-video" */ '../views/demo/children/canvas-ts-video/index.vue'
       )
+  },
+  {
+    path: 'playground',
+    name: 'playground',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'vue3-playground演练场'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "playground" */ '../views/demo/children/playground/index.vue'
+      )
   }
 ]
 

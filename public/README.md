@@ -2,9 +2,23 @@
 
 > asdasdas
 
-<template></template>
+```template-vue
+<template>
+    <div @click="count++">{{ count }}</div> 
+</template>
 
-<script></script>
+<script>
+import { ref } from 'vue'
+export default {
+    setup() {
+        const count = ref(0)
+        return {
+            count
+        }
+    }
+}
+</script>
+```
 
 <iframe width="100%" height="500px" frameborder="1" scrolling="auto" src="https://code.juejin.cn/pen/7342752640843841548"></iframe>
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import { ref } from 'vue'
 export default {
   setup (props, { expose }) {

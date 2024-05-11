@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 export default {

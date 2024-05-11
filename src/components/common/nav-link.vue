@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 

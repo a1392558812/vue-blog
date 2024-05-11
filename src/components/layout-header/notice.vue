@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import { notice, noticeTitle } from '@/static/notice'
 import { reactive, ref, toRefs } from 'vue'
 export default {

@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import * as Vue from 'vue'
 import { loadModule } from 'vue3-sfc-loader'
 export default {

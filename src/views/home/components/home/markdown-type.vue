@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import { ref, watch, nextTick, onMounted } from 'vue'
 
 import Prism from 'prismjs'

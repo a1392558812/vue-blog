@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import { reactive, ref, markRaw } from 'vue'
 export default {
   props: {

@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import 'jquery'
-import './static/common.css'
+import './static/common.scss'
 import './static/reset.css'
 
 import loading from './components/loading/loading.vue'

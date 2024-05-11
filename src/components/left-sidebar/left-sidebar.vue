@@ -1,27 +1,39 @@
-<script>
+<script lang="jsx">
 import { reactive, ref, computed, onBeforeUnmount, watch, nextTick } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import BScroll from '@better-scroll/core'
 import ScrollBar from '@better-scroll/scroll-bar'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import ObserveDOM from '@better-scroll/observe-dom'
 
-import list from '@/static/list.js'
+import initList from '@/static/list.js'
 import leftSidebarProps from '@/common/left-sidebar-props'
 import renderList from '@/common/util/renderList.js'
-import leftSidebarRenderFactoryFun from './renderFun'
+import leftSidebarItem from './left-sidebar-item.vue'
 import leftSidebarSearch from './left-sidebar-search'
 
 BScroll.use(ScrollBar)
 BScroll.use(MouseWheel)
 BScroll.use(ObserveDOM)
+
 export default {
   name: 'LeftSidebar',
+  components: {
+    leftSidebarItem,
+    leftSidebarSearch
+  },
   props: {
     ...leftSidebarProps
   },
-  setup (props) {
+  setup (props, { emit }) {
+    const router = useRouter()
+    const route = useRoute()
+
     let bestScroll = null
     const listContentRef = ref(null)
+
+    const menuList = reactive(renderList(initList))
+    const nowActive = ref(null)
 
     const initScroll = () => {
       destroyScroll()
@@ -49,6 +61,43 @@ export default {
       bestScroll = null
     }
 
+    const leftSidebarItemClick = (e, childList, row, firstLevelIndex) => {
+      if (route.query.indexPage !== row.indexPage) {
+        nowActive.value = firstLevelIndex
+
+        let targetRow = { children: menuList }
+        let targetList = menuList
+        row.indexPage.split('-').forEach(itemIndex => {
+          targetList = targetRow.children
+          targetRow = targetList[itemIndex]
+        })
+
+        targetList.map(child => {
+          child.itemActive = false
+          return child
+        })
+        targetRow.itemActive = true
+
+        props.toggleMenu(false)
+        router.push({
+          path: '/',
+          query: { indexPage: row.indexPage }
+        })
+        emit(row.link ? 'linkClick' : 'itemClick', row.link ? row.link : row.url)
+      }
+    }
+
+    const leftSidebarListClick = (e, row, firstLevelIndex) => {
+      let targetRow = { children: menuList }
+      row.indexPage.split('-').forEach(itemIndex => {
+        targetRow = targetRow.children[itemIndex]
+      })
+
+      targetRow.ifShow = !row.ifShow
+      targetRow.ifHadRender = true
+      nowActive.value = firstLevelIndex
+    }
+
     watch(
       () => props.ifLarger,
       (val) => {
@@ -69,8 +118,8 @@ export default {
     })
 
     return {
-      list: reactive(renderList(list)),
-      nowActive: ref(null),
+      menuList,
+      nowActive,
       listContentRef,
       sidebarClassName: computed(() => {
         let classname = 'left-sidebar flex-shrink-0 bg-white height100'
@@ -80,11 +129,12 @@ export default {
           classname = `${classname}`
         }
         return classname
-      })
+      }),
+      leftSidebarItemClick,
+      leftSidebarListClick
     }
   },
   render () {
-    const renderFun = leftSidebarRenderFactoryFun.bind(this)()
     return (
       <div className={this.sidebarClassName}>
         <div className='flex height100 flex-direction-column left-sidebar-content'>
@@ -93,20 +143,24 @@ export default {
             toggleMenu={this.toggleMenu}
             onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
             onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
-            list={this.list}/>
+            list={this.menuList}/>
           <div key={this.ifLarger} className={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
             <div ref={(node) => {
               this.listContentRef = node
             }} className={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
                 <div style={{ padding: '0 0 50px 0' }}>
-                    {this.list.map((item, index) => {
-                      return <renderFun
-                        item={item}
+                    {this.menuList.map((item, index) => {
+                      return <leftSidebarItem
+                        rowDetails={item}
                         key={index}
                         grade={-1}
-                        list={this.list}
+                        nowActive={this.nowActive}
+                        menuList={this.menuList}
                         url={[item.name]}
-                        firstLevelIndex={index}></renderFun>
+                        firstLevelIndex={index}
+                        onItemClick={(e, list, row, firstLevelIndex) => { this.leftSidebarItemClick(e, list, row, firstLevelIndex) }}
+                        onListClick={(e, row, firstLevelIndex) => { this.leftSidebarListClick(e, row, firstLevelIndex) }}
+                        />
                     })}
                 </div>
             </div>
@@ -132,100 +186,6 @@ export default {
   }
   .left-sidebar-content{
     padding-bottom: 30px;
-    ::v-deep(.cell){
-      line-height: 1.5;
-      .cell-item-title{
-        text-indent: 0.5em;
-        border-bottom: 1px solid var(--global-border-color);
-      }
-      .topping{
-        margin: 5px;
-        height: 14px;
-        border-radius: 5px;
-        padding: 5px 10px;
-        display: inline-block;
-        font-size: 14px;
-        line-height: 1;
-        white-space:nowrap;
-        background-color: var(--global-primary-color);
-        text-indent: 0;
-        color: var(--global-primary-button-text-color);
-      }
-    }
-    ::v-deep(.list-cell){
-      position: relative;
-      z-index: 0;
-      color: var(--global-text-color);
-      font-size: 18px;
-      font-weight: 600;
-      .cell-item-title{
-        padding-top: 20px;
-        padding-bottom: 20px;
-        .cell-item-link{
-          margin: 5px;
-          height: 14px;
-          border-radius: 5px;
-          padding: 5px 10px;
-          display: inline-block;
-          font-size: 14px;
-          line-height: 1;
-          white-space:nowrap;
-          text-indent: 0;
-          background-color: skyblue;
-          color: var(--global-primary-button-text-color);
-        }
-      }
-      .list-active{
-        position: absolute;
-        top: 33px;
-        transform: translateY(-50%);
-        width: 4px;
-        border-radius: 200px;
-        height: 20px;
-        background-color: var(--global-primary-color);
-      }
-    }
-    ::v-deep(.item-cell){
-      display: block;
-      color: #505d6b;
-      font-size: 16px;
-      font-weight: 400;
-      .cell-item-title{
-        padding-top: 10px;
-        padding-bottom: 10px;
-        .cell-item-link{
-          margin: 5px;
-          height: 14px;
-          border-radius: 5px;
-          padding: 5px 10px;
-          display: inline-block;
-          font-size: 14px;
-          line-height: 1;
-          white-space:nowrap;
-          text-indent: 0;
-          background-color: skyblue;
-          color: var(--global-primary-button-text-color);
-        }
-      }
-      &:hover{
-        color: var(--global-primary-color);
-      }
-    }
-    ::v-deep(.link-cell){
-      color: #006895;
-      font-size: 16px;
-      font-weight: 400;
-      .cell-item-title{
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-      &:hover{
-        color: var(--global-primary-color);
-      }
-    }
-    ::v-deep(.item-active){
-      color: var(--global-primary-color);
-    }
   }
   .list-wrap {
     padding: 0 20px;

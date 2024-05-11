@@ -8,6 +8,7 @@
       >
         {{ item }}
       </span>
+      <slot/>
     </div>
   </div>
 </template>

@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import {
   defineComponent, watch, onMounted, onBeforeUnmount, nextTick, ref, unref
 } from 'vue'
