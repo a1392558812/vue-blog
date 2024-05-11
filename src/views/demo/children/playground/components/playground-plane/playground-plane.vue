@@ -77,17 +77,29 @@ export default {
       type: String,
       default: '<div style="padding: 10px; margin-top: 20px; border-top: 1px solid #eee">Awenのplay-ground</div>'
     },
-    defaultTemplate: {
+    defaultTemplate: { // 默认App.vue文件创建模板
       type: String,
-      default: '<template></template>'
+      default: '<template/>'
+    },
+    defaultNewSFC: { // 默认新文件创建模板
+      type: String,
+      default: '<template/>'
+    },
+    /**
+     * 'aaa.vue': '<template>666</template>',
+     * 'bbb.vue': '<template>777</template>'
+     */
+    componentsFiles: { // 文件列表
+      type: Object,
+      default: () => ({})
     },
     playGroundPlaneWidth: {
       type: String,
-      default: '630px'
+      default: '7600px'
     },
     playGroundPlaneReplHeight: {
       type: String,
-      default: '270px'
+      default: '370px'
     }
   },
   components: {
@@ -97,7 +109,7 @@ export default {
     const replRef = ref(null)
 
     const { productionMode, vueVersion, importMap, defaultVersion } = useVueImportMap({
-      runtimeDev: 'https://cdn.jsdelivr.net/npm/vue@3.4.27/dist/vue.esm-browser.js'
+      runtimeDev: `https://cdn.jsdelivr.net/npm/vue@3.4.27/dist/vue.esm-browser.js?time=${new Date().getTime()}`
     })
     console.log('useVueImportMap', productionMode, vueVersion, importMap, defaultVersion)
 
@@ -124,12 +136,17 @@ export default {
         builtinImportMap: importMap,
         vueVersion: vueVersion || defaultVersion,
         template: ref({
-          welcomeSFC: props.defaultTemplate
+          welcomeSFC: props.defaultTemplate,
+          newSFC: props.defaultNewSFC
         }),
         sfcOptions
       },
       ''
     )
+
+    if (Object.keys(props.componentsFiles).length) {
+      store.setFiles(props.componentsFiles)
+    }
 
     const setVH = () => {
       document.documentElement.style.setProperty('--vh', window.innerHeight + 'px')
@@ -142,7 +159,6 @@ export default {
 
     window.addEventListener('resize', setVH)
     setVH()
-
     onMounted(() => {
       window.process = { env: {} }
     })
