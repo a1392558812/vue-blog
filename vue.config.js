@@ -66,9 +66,33 @@ module.exports = {
           chunks: 'all',
           maxInitialRequests: Infinity,
           minSize: 1000 * 60,
+          // priority指定打包的优先级，这个值必须要比vendors的打包优先级大，不然便无法成功分离指定的第三方库，他仍然会被打包到vendors中）
           cacheGroups: {
+            vue: {
+              test: /[\\/]node_modules[\\/]vue[\\/]/,
+              priority: -10,
+              name (module) {
+                // 排除node_modules 然后吧 @ 替换为空 ,考虑到服务器的兼容
+                const nodeArr = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)
+                if (nodeArr) {
+                  return `npm.vue`
+                }
+              }
+            },
+            atVue: {
+              test: /[\\/]node_modules[\\/]@vue[\\/]/,
+              priority: -20,
+              name (module) {
+                // 排除node_modules 然后吧 @ 替换为空 ,考虑到服务器的兼容
+                const nodeArr = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)
+                if (nodeArr) {
+                  return `npm.atVue`
+                }
+              }
+            },
             vendor: {
               test: /[\\/]node_modules[\\/]/,
+              priority: -30,
               name (module) {
                 // 排除node_modules 然后吧 @ 替换为空 ,考虑到服务器的兼容
                 const nodeArr = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)
