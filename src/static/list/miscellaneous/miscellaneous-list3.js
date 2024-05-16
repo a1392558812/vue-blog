@@ -2,6 +2,9 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '57.拖拽改变宽高的组件.md' },
+    { name: '56.vue3获取传入的slot的dom.md' },
+    { name: '55.自用有损压缩图片.md' },
     { name: '54.Verdaccio搭建私有npm库.md' },
     { name: '53.预览图片.md' },
     { name: '52.pnpm.md' },

@@ -226,7 +226,7 @@ export default {
 
     return {
       markdownType,
-      markdownTitleWidth: ref('270px'), // 侧边导航标题栏宽度
+      markdownTitleWidth: ref('300px'), // 侧边导航标题栏宽度
       imgType,
       linkType,
       loading,

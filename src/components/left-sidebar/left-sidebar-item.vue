@@ -79,7 +79,7 @@ export default {
     return (this.rowDetails && this.rowDetails.name)
       ? (
             <tag
-              className={this.className}
+              class={this.className}
               style={this.listItemStyle}
               {...this.hrefMap}
               title={this.rowDetails.name}
@@ -89,7 +89,7 @@ export default {
                   : this.itemClick(e, this.menuList, this.rowDetails, this.firstLevelIndex)
               }}
               key={this.rowDetails.index}>
-              {this.currentGrade === 0 && this.nowActive === this.firstLevelIndex ? (<div className='list-active'></div>) : null}
+              {this.currentGrade === 0 && this.nowActive === this.firstLevelIndex ? (<div class='list-active'></div>) : null}
               <div
                 onClick={(e) => {
                   this.renderList.length
@@ -97,10 +97,10 @@ export default {
                     : this.itemClick(e, this.menuList, this.rowDetails, this.firstLevelIndex)
                 }}
                 style={this.titleStyleName}
-                className='cell-item-title'>
-                  {this.rowDetails.link ? (<div className='cell-item-link'>链接</div>) : null}
+                class='cell-item-title'>
+                  {this.rowDetails.link ? (<div class='cell-item-link'>链接</div>) : null}
                   {this.rowDetails.name}
-                  {this.rowDetails.topping ? (<div className='topping'>置顶</div>) : null}
+                  {this.rowDetails.topping ? (<div class='topping'>置顶</div>) : null}
               </div>
               {this.ifRender
                 ? this.renderList.map((child, childIndex) => {
@@ -178,7 +178,7 @@ export default {
   }
   .item-cell {
     display: block;
-    color: #505d6b;
+    color: var(--global-text2-color);
     font-size: 16px;
     font-weight: 400;
     .cell-item-title{

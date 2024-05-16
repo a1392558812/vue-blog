@@ -76,6 +76,7 @@ export default {
   setup (props) {
     const preview = ref(null) // markdown引用
     const articleTitles = ref([]) // markdown编辑器预览锚点标题
+    const markdownContentMinWidth = ref(`calc(850px - ${props.markdownTitleWidth})`) // markdown编辑器最小宽度
     const markdownMinHeight = ref('calc(100% - 170px)') // markdown区域的高度
     const htmlMarkStr = ref(props.htmlMD)
 
@@ -133,6 +134,7 @@ export default {
       htmlMarkStr,
       articleTitles,
       markdownMinHeight,
+      markdownContentMinWidth,
       handelClick: (e) => {
         let target = $(e.target)
         if (target.hasClass('v-md-copy-code-btn')) {
@@ -178,20 +180,22 @@ export default {
     return (
       <>
         <div
-          style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})` } : { width: '100%' }}
-          className='title flex align-items-center justify-content-center'>
+          style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})`, minWidth: this.markdownContentMinWidth } : { width: '100%' }}
+          class='title flex align-items-center justify-content-center'>
           { this.title }
         </div>
         <div
-          className='relative markdown'
+          class='relative markdown'
           style={{ minHeight: this.markdownMinHeight }}
           v-loading={this.loading}>
           {
             !this.loading
               ? (
-                <div className='flex height100'>
+                <div
+                  style={this.ifLarger ? { minWidth: this.markdownContentMinWidth, paddingRight: `${this.markdownTitleWidth}` } : {}}
+                  class='flex height100'>
                   <v-md-preview
-                    style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})` } : { width: '100%' }}
+                    class='width100'
                     onClick={this.handelClick}
                     onCopy-code-success={this.handleCopyCodeSuccess}
                     ref='preview'
@@ -223,15 +227,22 @@ export default {
     width: 100%;
     padding-bottom: 100px;
     z-index: 0;
+    ::v-deep(.vuepress-markdown-body) {
+      color: var(--global-markdown-body-text-color);
+      background-color: var(--global-background-color);
+      tr:nth-child(2n) {
+        background-color: var(--global-2n-tr-color);
+      }
+      code {
+        background-color: var(--global-code-text-bg);
+      }
+    }
   }
   .title{
     box-sizing: border-box;
-    color:var(--global-text-color);
+    color: var(--global-text-color);
     padding: 20px 30px;
     font-size: 18px;
     font-weight: 600;
-  }
-  ::v-deep(.v-md-pre-wrapper pre[class*=v-md-prism-]) {
-
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size: 16px" class="flex flex-direction-column">
+  <div style="font-size: 16px" class="bg-white flex flex-direction-column height100 not-find-wrap">
     <div class="not-find margin-top-50 flex justify-content-center">
       404
     </div>
@@ -26,13 +26,17 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import { defineOptions } from 'vue'
+defineOptions({
   name: '404'
-}
+})
 </script>
 
 <style scoped lang="scss">
+  .not-find-wrap {
+    color: var(--global-text-color);
+  }
   .margin-top-50{
     margin-top: 50px;
   }

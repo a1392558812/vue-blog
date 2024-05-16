@@ -17,7 +17,7 @@
 
 <script>
 import { ref } from 'vue'
-import playgroundPlane from './components/playground-plane/index.vue'
+import playgroundPlane from '@/components/playground-plane/index.vue'
 
 const defaultTemplate = '<template/>'
 
@@ -37,7 +37,7 @@ const file1 = '<template>\n' +
 '\n' +
 '       <div>{{ msg }}</div>\n' +
 '\n' +
-'       <div @click="count = count * 2">(点击颂歌<span style="color: green">{{ count }}</span>次)</div>\n' +
+'       <div @click="count = count + 1.1">(点击颂歌<span style="color: green">{{ count }}</span>次)</div>\n' +
 '   </div>\n' +
 '</template>\n' +
 '<script setup lang="ts">\n' +
@@ -76,8 +76,8 @@ export default {
   },
   setup () {
     return {
-      playGroundPlaneWidth: ref(760),
-      playGroundPlaneReplHeight: ref(370),
+      playGroundPlaneWidth: ref(960),
+      playGroundPlaneReplHeight: ref(470),
       defaultTemplate: ref(defaultTemplate),
       defaultNewSFC: ref(defaultNewSFC),
       componentsFiles: ref(componentsFiles)

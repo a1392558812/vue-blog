@@ -24,6 +24,12 @@ export default {
     const goHome = () => {
       emit('goHome')
     }
+    const navigatorTo = (item) => {
+      if (item.newPage) return window.open(`./#${item.url}`)
+      emit('toggleShowNavLink', false)
+      router.push(item.url)
+    }
+
     const toggleTheme = () => {
       const theme = localStorage.getItem('--global-theme')
       if (themeType[theme]) {
@@ -62,51 +68,45 @@ export default {
           url: '/demo'
         },
         {
+          name: '😏代码操练',
+          newPage: true,
+          url: '/demo/playground'
+        },
+        {
           name: '切换主题',
           newPage: false,
           tag: 'commonmBtn',
           onClick: toggleTheme
         }
       ],
-      navigatorTo: (item) => {
-        if (item.newPage) return window.open(`./#${item.url}`)
-        emit('toggleShowNavLink', false)
-        router.push(item.url)
-      }
+      navigatorTo
     }
   },
   render () {
-    const smallScreenClass = 'flex flex-direction-column'
-    const navigatorTo = (item, e) => {
+    const handleClick = (item, e) => {
       e && e.preventDefault()
       item.onClick ? item.onClick(e) : this.navigatorTo(item)
     }
     const createNavBtn = (item) => {
       const commonLink = () => (
         <a
-          className={
-            'go-home display-block cursor-pointer flex align-items-center justify-content-start'
-          }
+          class='go-home display-block flex-shrink-0 cursor-pointer flex align-items-center justify-content-start'
           href={`/#${item.url}`}
-          onClick={(e) => {
-            navigatorTo(item, e)
-          }}
+          onClick={(e) => { handleClick(item, e) }}
         >
           {item.imageUrl
             ? (
-            <img className={item.imageClass} src={item.imageUrl} />
+            <img class={item.imageClass} src={item.imageUrl} />
               )
             : null}
           <p>{item.name}</p>
         </a>
       )
       const componentBtn = () => (
-        <div class="flex">
+        <div class="flex flex-shrink-0">
           <commonmBtn
             style={{ height: '1em', marginRight: '1em' }}
-            onClick={() => {
-              navigatorTo(item)
-            }}
+            onClick={() => { handleClick(item) }}
           >
             {item.name}
           </commonmBtn>
@@ -121,11 +121,11 @@ export default {
     return (
       <>
         {this.ifLarger
-          ? <div className="flex align-items-center">
+          ? <div class="flex align-items-center">
               {this.linkList.map((item) => createNavBtn(item))}
             </div>
           : (
-          <div className={smallScreenClass}>
+          <div class='flex flex-direction-column'>
             {this.linkList.map((item) => createNavBtn(item))}
           </div>
             )}

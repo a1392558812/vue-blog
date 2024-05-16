@@ -66,6 +66,7 @@
 import Monaco from '@vue/repl/monaco-editor'
 import { ref, onMounted, computed } from 'vue'
 import { Repl, useVueImportMap, useStore } from '@vue/repl'
+import { baseUrlFun } from '@/common/methods.js'
 
 export default {
   props: {
@@ -79,11 +80,11 @@ export default {
     },
     defaultTemplate: { // 默认App.vue文件创建模板
       type: String,
-      default: '<template/>'
+      default: '<template><div></div><template/>'
     },
     defaultNewSFC: { // 默认新文件创建模板
       type: String,
-      default: '<template/>'
+      default: '<template><div></div><template/>'
     },
     /**
      * 'aaa.vue': '<template>666</template>',
@@ -95,11 +96,17 @@ export default {
     },
     playGroundPlaneWidth: {
       type: String,
-      default: '7600px'
+      default: '960px'
     },
     playGroundPlaneReplHeight: {
       type: String,
-      default: '370px'
+      default: '470px'
+    },
+    vueImportMap: {
+      type: Object,
+      default: () => ({
+        runtimeDev: baseUrlFun() + `demo-static/playground-plane/vue@3.4.27/dist/vue.esm-browser.js?time=${new Date().getTime()}`
+      })
     }
   },
   components: {
@@ -108,10 +115,7 @@ export default {
   setup (props) {
     const replRef = ref(null)
 
-    const { productionMode, vueVersion, importMap, defaultVersion } = useVueImportMap({
-      runtimeDev: `https://cdn.jsdelivr.net/npm/vue@3.4.27/dist/vue.esm-browser.js?time=${new Date().getTime()}`
-    })
-    console.log('useVueImportMap', productionMode, vueVersion, importMap, defaultVersion)
+    const { productionMode, vueVersion, importMap, defaultVersion } = useVueImportMap(props.vueImportMap)
 
     const sfcOptions = computed(() => ({
       script: {
@@ -143,6 +147,7 @@ export default {
       },
       ''
     )
+    console.log('store', store)
 
     if (Object.keys(props.componentsFiles).length) {
       store.setFiles(props.componentsFiles)

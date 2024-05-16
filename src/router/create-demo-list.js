@@ -346,6 +346,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "playground" */ '../views/demo/children/playground/index.vue'
       )
+  },
+  {
+    path: 'markdown-priview-vuecode',
+    name: 'markdown-priview-vuecode',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'markdown预览vue代码'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "markdown-priview-vuecode" */ '../views/demo/children/markdown-priview-vuecode/index.vue'
+      )
   }
 ]
 

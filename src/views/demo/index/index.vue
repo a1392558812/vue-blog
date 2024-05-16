@@ -1,5 +1,5 @@
 <template>
-  <div class="width100 height100 overflow-auto">
+  <div class="width100 height100 bg-white overflow-auto">
     <div class="demo-view">
       <div class="line-height-1 demo-view-item" v-for="(item, index) in demoList" :key="index">
         <a class="cursor-pointer" :href="`/#${item.path}`" target="\_blank">{{ `${index + 1}、 ` + item.name }}</a>

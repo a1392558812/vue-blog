@@ -27,25 +27,25 @@ export default {
         {
           data.href
             ? (
-              <div className='link flex'>
-                {index !== -1 ? (<div className='link-item'>{index + 1}-</div>) : null}
+              <div class='link flex'>
+                {index !== -1 ? (<div class='link-item'>{index + 1}-</div>) : null}
                 {
                   data.icon
-                    ? (<img className='link-img' src={data.icon} />)
-                    : (<div className='link-img flex align-items-center justify-content-space-between'>🥵</div>)
+                    ? (<img class='link-img' src={data.icon} />)
+                    : (<div class='link-img flex align-items-center justify-content-space-between'>🥵</div>)
                 }
-                <a className='link-item' href={data.href}>{data.name}</a>
+                <a class='link-item' href={data.href}>{data.name}</a>
               </div>
               )
             : (
-              <div className='flex align-items-center'>
-                <div className='title-item' onClick={() => handelClick(data)}>
-                  <span className='cursor-pointer '>{data.name}</span>
+              <div class='flex align-items-center'>
+                <div class='title-item' onClick={() => handelClick(data)}>
+                  <span class='cursor-pointer '>{data.name}</span>
                 </div>
                 {
                   level
                     ? (
-                      <svg className='drop-down-icon'
+                      <svg class='drop-down-icon'
                         style={{
                           width: '1em',
                           height: '1em',
@@ -74,7 +74,7 @@ export default {
               return (
                 <div
                   style={{ marginLeft: '15px' }}
-                  className={`content ${!level ? true : data.ifShow ? '' : 'display-none'}`}
+                  class={`content ${!level ? true : data.ifShow ? '' : 'display-none'}`}
                   key={index}>
                   <vNode level={level + 1} data={item} index={index} />
                 </div>
@@ -90,7 +90,7 @@ export default {
   },
   render () {
     const vNode = this.renderFun()
-    return <div className='bookmarks-main'>
+    return <div class='bookmarks-main'>
       <vNode level={this.level} data={this.data} />
     </div>
   }

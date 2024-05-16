@@ -64,7 +64,7 @@ export default {
             </div>
             <div style={this.loading ? {} : { display: 'none' }}>
               <div>github响应有点慢，莫急,已加载{this.imageloadingTime}秒</div>
-              <div className='loading'>φ(≧ω≦*)♪图片正在努力加载中</div>
+              <div class='loading'>φ(≧ω≦*)♪图片正在努力加载中</div>
             </div>
           </div>
         </div>

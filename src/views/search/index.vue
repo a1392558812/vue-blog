@@ -1,5 +1,5 @@
 <template>
-  <div style="color: var(--global-text-color)" class="relative width100 height100 flex flex-direction-row">
+  <div style="color: var(--global-text-color)" class="bg-white relative width100 height100 flex flex-direction-row">
     <layout-left-sidebar
       :left-sidebar-w="leftSidebarW"
       :if-show-menu="ifShowMenu"
@@ -99,6 +99,7 @@ watch(route, (newV, oldV) => {
     font-size: 16px;
     padding: 10px 20px;
     .search-item-label {
+        color: var(--global-text-color);
         &:hover {
             color: var(--global-primary-color);
             text-decoration: underline;

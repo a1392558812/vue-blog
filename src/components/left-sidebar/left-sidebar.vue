@@ -136,18 +136,18 @@ export default {
   },
   render () {
     return (
-      <div className={this.sidebarClassName}>
-        <div className='flex height100 flex-direction-column left-sidebar-content'>
+      <div class={this.sidebarClassName}>
+        <div class='flex height100 flex-direction-column left-sidebar-content'>
           <leftSidebarSearch
-            className='search'
+            class='search'
             toggleMenu={this.toggleMenu}
             onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
             onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
             list={this.menuList}/>
-          <div key={this.ifLarger} className={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
+          <div key={this.ifLarger} class={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
             <div ref={(node) => {
               this.listContentRef = node
-            }} className={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
+            }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
                 <div style={{ padding: '0 0 50px 0' }}>
                     {this.menuList.map((item, index) => {
                       return <leftSidebarItem

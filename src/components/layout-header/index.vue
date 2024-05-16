@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="{ padding: ifLarger ? '0 50px' : '0 20px' }"
+    :style="{ padding: ifLarger ? '0 50px 0 0' : '0 20px' }"
     class="layout-header flex flex-direction-row-reverse justify-content-space-between align-items-center"
   >
     <div
@@ -15,7 +15,7 @@
       >
         导航
       </commonm-btn>
-      <div class="relative popup-wrap">
+      <div class="relative flex-shrink-0 popup-wrap">
         <commonm-btn :wave-active="true" @btnClick="showPopup = !showPopup">
           通知
         </commonm-btn>

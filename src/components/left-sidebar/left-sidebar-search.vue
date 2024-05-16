@@ -153,7 +153,8 @@ export default {
   border-radius: 6000px;
   border: none;
   outline: 1px solid #454545;
-
+  background-color: var(--global-background-color);
+  outline: 1px solid var(--global-border-color);
   &:focus-visible {
     outline: 1px solid var(--global-primary-color);
   }

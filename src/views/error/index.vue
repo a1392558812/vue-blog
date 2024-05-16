@@ -1,5 +1,5 @@
 <template>
-  <div class="error">
+  <div class="bg-white height100 error">
     <div class="error-tip">
       你又进行了什么操作才进了这个页面
     </div>
@@ -22,14 +22,15 @@ const imgSrc = ref(require('@/static/image/heishou.png'))
     display: flex;
     flex-direction: column;
     align-items: center;
-    &-tip{
+    color: var(--global-text-color);
+    .error-tip{
       font-size: 17px;
       padding: 15px 0;
     }
-    &-img{
+    .error-img{
       border: 1px solid #000;
     }
-    &-back{
+    .error-back{
       font-size: 17px;
       padding: 15px 0;
     }

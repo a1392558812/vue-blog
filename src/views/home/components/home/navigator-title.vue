@@ -15,7 +15,7 @@
         v-for="(anchor, index) in articleTitles"
         :key="index"
         class="markdown-title-item"
-        :style="{ padding: `10px 0 10px ${anchor.indent * 20}px` }"
+        :style="{ padding: `10px 0 10px ${anchor.indent * 10}px` }"
       >
         <a style="cursor: pointer" @click="handleAnchorClick(anchor)">{{ anchor.title }}</a>
       </div>
@@ -87,9 +87,11 @@ export default {
   .markdown-title{
     box-sizing: border-box;
     width: v-bind(markdownTitleWidth);
+    background-color: var(--global-background-color);
     top:v-bind(headerH);
-    padding: 30px 20px;
+    padding: 15px;
     border-left: 1px solid var(--global-border-color);
+    z-index: 999;
     .markdown-title-inner{
       overflow-y: auto;
       overflow-x: hidden;
