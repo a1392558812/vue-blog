@@ -70,6 +70,7 @@ export default {
     right: 20px;
     top: 20px;
     z-index: 999;
+    color: var(--global-text-color);
     .toast{
       margin-top: 15px;
       border-radius: 5px;

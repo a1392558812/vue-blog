@@ -12,7 +12,7 @@
           </svg>
           <input v-model="inputValue" class="display-block search-input" type="text" @focus="ifShowSearchDropDown = true">
         </div>
-        <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute drop-down">
+        <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute bg-white drop-down">
           <li v-for="item in searchResult" :key="item" class="cursor-pointer drop-down-item"
             :class="item.goSearch ? 'flex align-items-center justify-content-center more-content' : ''">
             <a class="drop-down-item-label" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e) { goToDetail(item, e) }">{{ item.name }}</a>
@@ -127,12 +127,10 @@ export default {
   width: calc(100% + 4em);
   border: 1px solid var(--global-border-color);
   border-radius: 5px;
-  background: white;
   top: 2em;
   z-index: 1;
 
   .drop-down-item {
-    background: white;
     font-weight: normal;
     font-size: 16px;
     padding: 5px 10px;
@@ -152,6 +150,7 @@ export default {
   width: 140px;
   border-radius: 6000px;
   border: none;
+  color: var(--global-text-color);
   outline: 1px solid #454545;
   background-color: var(--global-background-color);
   outline: 1px solid var(--global-border-color);

@@ -84,7 +84,40 @@ export default {
   }
 }
 </script>
-
+<style lang="scss">
+body, * {
+    &::-webkit-scrollbar{ /* 滚动条整体部分 */
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track-piece{ /* 内层轨道，滚动条中间部分（除去） */
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-thumb{ /* 滚动条里面可以拖动的那个 */
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-corner{ /* 边角 */
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-corner{ /* 边角 */
+        border-radius: 9999px;
+    }
+    &::-webkit-scrollbar-thumb{ /* 滚动条里面可以拖动的那个 */
+        background: #979797;
+        border-radius: 9999px;
+    }
+    &::-webkit-scrollbar-track{ /* 内层轨道，滚动条中间部分（除去） */
+        background: rgba(0,0,0,.05);
+        border-radius: 9999px;
+    }
+    &::-webkit-scrollbar-button{ /* 滚动条两端的按钮 */
+        display: none;
+    }
+}
+</style>
 <style scoped lang="scss">
 #page {
   height: 100vh;

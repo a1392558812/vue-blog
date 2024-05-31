@@ -82,6 +82,7 @@ export default {
   top: 0;
   font-size: 50px;
   z-index: 20;
+  color: var(--global-text-color);
   background-color: rgba(0,0,0,.3);
 }
 .spinner-wrap{

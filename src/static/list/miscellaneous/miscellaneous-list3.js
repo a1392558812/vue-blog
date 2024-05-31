@@ -2,6 +2,9 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '60.异步加载远程库组件.md' },
+    { name: '59.video截取某一帧做封面.md' },
+    { name: '58.封装vue3异步加载组件.md' },
     { name: '57.拖拽改变宽高的组件.md' },
     { name: '56.vue3获取传入的slot的dom.md' },
     { name: '55.自用有损压缩图片.md' },

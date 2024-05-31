@@ -116,6 +116,7 @@ export default {
   left: 0;
   top: 0;
   width: 100vw;
+  color: var(--global-text-color);
   height: v-bind(headerH);
   background-color: var(--global-background-color);
   border-bottom: 1px solid var(--global-border-color);

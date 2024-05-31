@@ -49,6 +49,7 @@ export default {
 <style scoped lang="scss">
 .left-nav-link{
   width: v-bind(leftSidebarW);
+  color: var(--global-text-color);
   font-size: 16px;
   transition: transform 0.3s;
   border-right: 1px solid var(--global-border-color);

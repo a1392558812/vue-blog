@@ -17,6 +17,7 @@ export default {
     const scrollVideoRef = ref(null)
     const scrollWrapRef = ref(null)
     const scrollRef = ref(null)
+    const videoUrl = `${baseUrlFun()}demo-static/filmstrip/video/video.mp4`
 
     let duration = 0
     let scrollpos = 0
@@ -63,6 +64,7 @@ export default {
     onMounted(() => {
       scrollVideoRef.value.pause()
       setTimeout(() => {
+        scrollVideoRef.value.currentTime = 0.1 // 视频第一帧
         loading.value = false
         drawVideo()
       }, 2500)
@@ -71,7 +73,7 @@ export default {
       scrollVideoRef,
       scrollWrapRef,
       scrollRef,
-      videoUrl: `${baseUrlFun()}demo-static/filmstrip/video/video.mp4`,
+      videoUrl,
       loading
     }
   }

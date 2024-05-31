@@ -6,29 +6,14 @@
       width: `calc(100% - ${leftSidebarW})`,
     } : { width: '100%' }" class="relative height100">
       <!-- 背景图 -->
-      <div class="bg-image width100 height100 absolute" />
+      <div class="bg-image overflow-hidden width100 height100 absolute" />
       <div class="home overflow-y-auto relative width100 height100">
         <!-- 标题 -->
-        <div v-if="!markdownType" class="title width100 flex align-items-center justify-content-center">
+        <div v-if="!mdType" class="title width100 flex align-items-center justify-content-center">
           {{ title }}
         </div>
         <!-- md格式 -->
-        <template v-if="markdownType">
-          <Suspense>
-            <markdown-type :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading"
-              :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
-            <template #fallback>
-              <div style="font-size: 30px;font-weight: 900;"
-                class="width100 height100 flex align-items-center justify-content-center">
-                <div> Suspense异步组件加载中</div>
-                <div class="relative loading-wrap">
-                  <loadingComponent style="background: transparent" :showModal="true" />
-                </div>
-              </div>
-            </template>
-          </Suspense>
-        </template>
-
+        <markdown-type v-if="mdType" :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading" :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
         <!-- 图片格式   -->
         <image-type v-else-if="imgType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
         <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
@@ -43,7 +28,7 @@
 </template>
 
 <script>
-import { ref, nextTick, onBeforeMount, computed, defineAsyncComponent } from 'vue'
+import { ref, nextTick, onBeforeMount, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import axios from '@/common/axios.js'
@@ -51,25 +36,16 @@ import { markdownTypeCheck, imgTypeCheck } from '@/common/methods'
 import list from '@/static/list.js'
 
 import leftSidebarProps from '@/common/left-sidebar-props'
-import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
-import otherType from './components/home/other-type'
-import imageType from './components/home/image-type'
-import loadingComponent from '@/components/loading/loading.vue'
+import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
+import otherType from './components/home/other-type.vue'
+import imageType from './components/home/image-type.vue'
+import markdownType from './components/home/markdown-type.vue'
 
 export default {
   name: 'Home',
   components: {
     layoutLeftSidebar,
-    loadingComponent,
-    markdownType: defineAsyncComponent({
-      loader: () => {
-        return new Promise(resolve => {
-          setTimeout(() => {
-            resolve(import('./components/home/markdown-type'))
-          }, 0)
-        })
-      }
-    }),
+    markdownType,
     otherType,
     imageType
   },
@@ -77,13 +53,15 @@ export default {
     ...leftSidebarProps
   },
   setup (props) {
+    const router = useRouter()
+
     const htmlMD = ref('')
     const title = ref('ReadMe-前言')
     const type = ref('')
     const downloadName = ref('文件')
     const loading = ref(true)
     // markdown类型
-    const markdownType = computed(() => markdownTypeCheck(type.value))
+    const mdType = computed(() => markdownTypeCheck(type.value))
     // img类型
     const imgType = computed(() => imgTypeCheck(type.value))
     // 连接类型
@@ -156,11 +134,11 @@ export default {
       const urlLink = `./${url.join('/')}`
       title.value = url.join(' > ')
       loading.value = true
-      console.log('markdownType.value', markdownType.value)
+      console.log('mdType.value', mdType.value)
       // 图片类型
       if (imgType.value) return itemImageTypeClick(urlLink)
       // markdown类型
-      if (markdownType.value) return itemMarkdownTypeClick(urlLink)
+      if (mdType.value) return itemMarkdownTypeClick(urlLink)
       // 其他类型
       itemOtherTypeClick(url, urlLink)
     }
@@ -182,7 +160,7 @@ export default {
         })
         // 没有找到文章索引,跳转到首页即可
         if (!result) {
-          return useRouter().push('/')
+          return router.push('/')
         }
         // result结果中仍然有子选项
         if (Object.prototype.hasOwnProperty.call(result, 'children')) {
@@ -192,10 +170,11 @@ export default {
         if (result && result.link) {
           return linkClick(result.link)
         }
+        console.log('result', result)
         // 正常的路由跳转
         itemClick(urlArr)
       } catch (e) {
-        useRouter().push('/error')
+        router.push('/error')
       }
     }
     // 不携带路由参数
@@ -225,7 +204,7 @@ export default {
     })
 
     return {
-      markdownType,
+      mdType,
       markdownTitleWidth: ref('300px'), // 侧边导航标题栏宽度
       imgType,
       linkType,
@@ -251,7 +230,6 @@ export default {
     background-image: url("~@/static/image/huge.jpg");
     background-size: calc(864px / 1.7) calc(836px / 1.7);
     background-repeat: no-repeat;
-    overflow: scroll;
     background-position: center center;
     opacity: 0.15;
     z-index: 0;

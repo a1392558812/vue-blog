@@ -1,51 +1,15 @@
 <script lang="jsx">
 import { ref, watch, nextTick, onMounted } from 'vue'
-
-import Prism from 'prismjs'
-
-import VMdPreview from '@kangc/v-md-editor/lib/preview'
-import '@kangc/v-md-editor/lib/style/preview.css'
-
-import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
-import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
-
-import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
-import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
-
-import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index'
-
+import vMdPreview from '@/components/v-md-preview/index.js'
 import navigatorTitle from './navigator-title'
-
-VMdPreview.use(vuepressTheme, { Prism })
-VMdPreview.use(createCopyCodePlugin())
-VMdPreview.use(createLineNumbertPlugin())
-
-const escapeHTML = (text) => {
-  const escape = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-  }
-  return text.replace(/[&<>"']/g, match => escape[match])
-}
-
-// 拓展xss规则
-VMdPreview.xss.extend({
-  onIgnoreTag: (tag, html, options) => {
-    if (tag === 'iframe') {
-      return `<div>${html}</div>`
-    }
-    return escapeHTML(html)
-  }
-})
+import loadingComponent from '@/components/loading/loading.vue'
 
 export default {
   name: 'Markdown',
   components: {
     navigatorTitle,
-    VMdPreview
+    loadingComponent,
+    vMdPreview
   },
   props: {
     headerH: {
@@ -76,9 +40,9 @@ export default {
   setup (props) {
     const preview = ref(null) // markdown引用
     const articleTitles = ref([]) // markdown编辑器预览锚点标题
-    const markdownContentMinWidth = ref(`calc(850px - ${props.markdownTitleWidth})`) // markdown编辑器最小宽度
+    const markdownContentMinWidth = ref('850px') // markdown编辑器最小宽度
     const markdownMinHeight = ref('calc(100% - 170px)') // markdown区域的高度
-    const htmlMarkStr = ref(props.htmlMD)
+    const htmlMarkStr = ref('')
 
     // 锚点标题动态设定
     const articleTitlesInit = () => {
@@ -107,24 +71,19 @@ export default {
     }
 
     // 锚点标题动态设定
-    watch(() => props.htmlMD, () => {
-      htmlMarkStr.value = props.htmlMD
-      nextTick().then(() => {
-        articleTitlesInit()
-      })
+    watch(() => props.htmlMD, (newV, oldV) => {
+      if (newV !== oldV && newV) {
+        htmlMarkStr.value = newV
+        nextTick().then(() => {
+          articleTitlesInit()
+        })
+      }
     }, { immediate: true })
 
     // markdown部分高度动态设定
     watch(() => props.title, () => {
       setMarkdownMinHeight()
     })
-
-    // 美化滚动条
-    watch(() => props.ifLarger, (val) => {
-      nextTick().then(() => {
-        $('.v-md-pre-wrapper pre[class*=v-md-prism-]')[val ? 'addClass' : 'removeClass']('scroll-bar-x')
-      })
-    }, { immediate: true })
 
     // 初始化markdown部分高度动态设定
     onMounted(setMarkdownMinHeight)
@@ -135,36 +94,9 @@ export default {
       articleTitles,
       markdownMinHeight,
       markdownContentMinWidth,
-      handelClick: (e) => {
-        let target = $(e.target)
-        if (target.hasClass('v-md-copy-code-btn')) {
-          let oldNode = target.html()
-          target.css({ whiteSpace: 'nowrap' })
-
-          let oldStyle = {
-            width: target.width(),
-            height: target.height(),
-            lineHeight: target.css('line-height'),
-            whiteSpace: 'nowrap'
-          }
-          target.html('复制成功')
-          target.css({ width: '5em', height: '2em', lineHeight: '1.5em', transition: 'all 0.3s' })
-          setTimeout(() => {
-            target.css(oldStyle)
-            target.html(oldNode)
-            target = null
-            oldNode = null
-            oldStyle = null
-          }, 1000)
-        } else {
-          target = null
-        }
-      },
-      handleCopyCodeSuccess: (code) => {
-        console.log('复制成功奥利给！！！', code)
-      },
       handleAnchorClick: (anchor) => {
         const { lineIndex } = anchor
+        console.log('preview', preview, preview.value)
         let heading = preview.value.$el.querySelector(`[data-v-md-line="${lineIndex}"]`)
         if (heading) {
           preview.value.scrollToTarget({
@@ -180,26 +112,52 @@ export default {
     return (
       <>
         <div
-          style={this.ifLarger && this.articleTitles.length ? { width: `calc(100% - ${this.markdownTitleWidth})`, minWidth: this.markdownContentMinWidth } : { width: '100%' }}
+          style={(() => {
+            const styleMap = {}
+            if (this.ifLarger) {
+              if (this.articleTitles.length) {
+                styleMap.width = `calc(100% - ${this.markdownTitleWidth})`
+                styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
+              } else {
+                styleMap.width = '100%'
+                styleMap.minWidth = `${this.markdownContentMinWidth}`
+              }
+            } else {
+              styleMap.width = '100%'
+            }
+            return styleMap
+          })()}
           class='title flex align-items-center justify-content-center'>
           { this.title }
         </div>
         <div
           class='relative markdown'
-          style={{ minHeight: this.markdownMinHeight }}
-          v-loading={this.loading}>
+          style={{ minHeight: this.markdownMinHeight, ...(this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {}) }}>
           {
             !this.loading
               ? (
                 <div
-                  style={this.ifLarger ? { minWidth: this.markdownContentMinWidth, paddingRight: `${this.markdownTitleWidth}` } : {}}
+                  style={(() => {
+                    const styleMap = {}
+                    if (this.ifLarger) {
+                      if (this.articleTitles.length) {
+                        styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
+                        styleMap.paddingRight = `${this.markdownTitleWidth}`
+                      } else {
+                        styleMap.minWidth = `calc(${this.markdownContentMinWidth})`
+                        styleMap.paddingRight = 0
+                      }
+                    }
+                    return styleMap
+                  })()}
                   class='flex height100'>
-                  <v-md-preview
-                    class='width100'
-                    onClick={this.handelClick}
-                    onCopy-code-success={this.handleCopyCodeSuccess}
-                    ref='preview'
-                    text={this.htmlMarkStr}/>
+                  <div class="width100">
+                    <v-md-preview
+                      class='width100'
+                      ifLarger={this.ifLarger}
+                      onGetVMdPreviewRef={(valueRef) => { this.preview = valueRef }}
+                      text={this.htmlMarkStr}/>
+                  </div>
                   {
                     this.ifLarger
                       ? (
@@ -213,7 +171,11 @@ export default {
                   }
                 </div>
                 )
-              : null
+              : (
+                  <loadingComponent style="background-color: transparent" showModal={true}>
+                    <div style="font-weight: bold" class="width100 height100 flex align-items-center justify-content-center">加载中...</div>
+                  </loadingComponent>
+                )
           }
         </div>
       </>
@@ -223,26 +185,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .markdown{
-    width: 100%;
-    padding-bottom: 100px;
-    z-index: 0;
-    ::v-deep(.vuepress-markdown-body) {
-      color: var(--global-markdown-body-text-color);
-      background-color: var(--global-background-color);
-      tr:nth-child(2n) {
-        background-color: var(--global-2n-tr-color);
-      }
-      code {
-        background-color: var(--global-code-text-bg);
-      }
+    .markdown {
+      width: 100%;
+      padding-bottom: 100px;
+      z-index: 0;
     }
-  }
-  .title{
-    box-sizing: border-box;
-    color: var(--global-text-color);
-    padding: 20px 30px;
-    font-size: 18px;
-    font-weight: 600;
-  }
+    .title {
+      box-sizing: border-box;
+      color: var(--global-text-color);
+      padding: 20px 30px;
+      font-size: 18px;
+      font-weight: 600;
+    }
 </style>

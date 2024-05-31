@@ -3,21 +3,21 @@
         <div>代码块演示厂</div>
         <div style="margin-bottom: 10px">
             <div>演示框尺寸</div>
-            <div>宽: <input type="number" v-model="playGroundPlaneWidth" />px</div>
-            <div>高: <input type="number" v-model="playGroundPlaneReplHeight" />px</div>
+            <div>增宽: <input type="number" v-model="varianceWidth" />px</div>
+            <div>增高: <input type="number" v-model="varianceHeight" />px</div>
         </div>
         <playground-plane
           :defaultTemplate="defaultTemplate"
           :defaultNewSFC="defaultNewSFC"
           :componentsFiles="componentsFiles"
-          :playGroundPlaneWidth="`${playGroundPlaneWidth}px`"
-          :playGroundPlaneReplHeight="`${playGroundPlaneReplHeight}px`"/>
+          :playGroundPlaneWidth="`${960 + varianceWidth}px`"
+          :playGroundPlaneReplHeight="`${470 + varianceHeight}px`"/>
     </div>
 </template>
 
 <script>
 import { ref } from 'vue'
-import playgroundPlane from '@/components/playground-plane/index.vue'
+import playgroundPlane from '@/components/playground-plane/index.js'
 
 const defaultTemplate = '<template/>'
 
@@ -49,6 +49,13 @@ const file1 = '<template>\n' +
 '  const msg = ref("🥵赞美尤雨溪，赐予我们伟大的Vue")\n' +
 '</' + 'script>\n' +
 '<style>\n' +
+'html, body {\n' +
+'  width: 100%;\n' +
+'  height: 100%;\n' +
+'  margin: 0;\n' +
+'  padding: 0;\n' +
+'  color: red;\n' +
+'}\n' +
 '.youyuxi {\n' +
 '  color: red;\n' +
 '}\n' +
@@ -76,8 +83,8 @@ export default {
   },
   setup () {
     return {
-      playGroundPlaneWidth: ref(960),
-      playGroundPlaneReplHeight: ref(470),
+      varianceWidth: ref(0),
+      varianceHeight: ref(0),
       defaultTemplate: ref(defaultTemplate),
       defaultNewSFC: ref(defaultNewSFC),
       componentsFiles: ref(componentsFiles)
