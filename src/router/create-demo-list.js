@@ -348,6 +348,18 @@ export const demoList = [
       )
   },
   {
+    path: 'playground2',
+    name: 'playground2',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'vue3-playground简易演练场'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "playground2" */ '../views/demo/children/playground2/index.vue'
+      )
+  },
+  {
     path: 'markdown-priview-vuecode',
     name: 'markdown-priview-vuecode',
     meta: {

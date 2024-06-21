@@ -1,17 +1,22 @@
 <template>
-    <div class="play-ground overflow-auto flex flex-direction-column align-items-center">
-        <div>代码块演示厂</div>
-        <div style="margin-bottom: 10px">
-            <div>演示框尺寸</div>
-            <div>增宽: <input type="number" v-model="varianceWidth" />px</div>
-            <div>增高: <input type="number" v-model="varianceHeight" />px</div>
+    <div class="play-ground overflow-auto">
+        <div class="flex flex-direction-column align-items-center" :style="{ width: `${960 + varianceWidth}px` }">
+            <div>代码块演示厂</div>
+            <div style="margin-bottom: 10px">
+                <div>目前已支持vueuse，可调试查看Import Map</div>
+                <div>演示框尺寸</div>
+                <div>增宽: <input type="number" v-model="varianceWidth" />px</div>
+                <div>增高: <input type="number" v-model="varianceHeight" />px</div>
+            </div>
         </div>
-        <playground-plane
-          :defaultTemplate="defaultTemplate"
-          :defaultNewSFC="defaultNewSFC"
-          :componentsFiles="componentsFiles"
-          :playGroundPlaneWidth="`${960 + varianceWidth}px`"
-          :playGroundPlaneReplHeight="`${470 + varianceHeight}px`"/>
+        <div :style="{ width: `${960 + varianceWidth}px`, height: `${470 + varianceHeight}px` }">
+            <playground-plane
+                :defaultTemplate="defaultTemplate"
+                :defaultNewSFC="defaultNewSFC"
+                :componentsFiles="componentsFiles"
+                playGroundPlaneWidth="100%"
+                playGroundPlaneReplHeight="100%"/>
+        </div>
     </div>
 </template>
 
@@ -21,60 +26,89 @@ import playgroundPlane from '@/components/playground-plane/index.js'
 
 const defaultTemplate = '<template/>'
 
-const defaultNewSFC = '<template></template>\n' +
-'<script setup lang="ts">\n' +
-'\n' +
-'</' + 'script>\n' +
-'<style>\n' +
-'\n' +
-'</style>'
+const defaultNewSFC = `<template></template>
+<script setup lang="ts">
 
-const file1 = '<template>\n' +
-'  <div class="youyuxi">\n' +
-'       <test1 style="margin-bottom: 10px"/>\n' +
-'\n' +
-'       <test2 style="margin-bottom: 10px"/>\n' +
-'\n' +
-'       <div>{{ msg }}</div>\n' +
-'\n' +
-'       <div @click="count = count + 1.1">(点击颂歌<span style="color: green">{{ count }}</span>次)</div>\n' +
-'   </div>\n' +
-'</template>\n' +
-'<script setup lang="ts">\n' +
-'import { ref } from "vue"\n' +
-'import type { Ref } from "vue"\n' +
-'import test1 from "./test1.vue"\n' +
-'import test2 from "./test2.vue"\n' +
-'  const count:Ref<number> = ref(1)\n' +
-'  const msg = ref("🥵赞美尤雨溪，赐予我们伟大的Vue")\n' +
-'</' + 'script>\n' +
-'<style>\n' +
-'html, body {\n' +
-'  width: 100%;\n' +
-'  height: 100%;\n' +
-'  margin: 0;\n' +
-'  padding: 0;\n' +
-'  color: red;\n' +
-'}\n' +
-'.youyuxi {\n' +
-'  color: red;\n' +
-'}\n' +
-'</style>'
+</` + `script>
+<style>
+</style>`
 
-const file2 = '<template>\n' +
-'  <div @click="count++">点击加1,当前为：{{ count }}</div>\n' +
-'</template>\n' +
-'<script setup>\n' +
-'import { ref } from "vue"\n' +
-'  const count = ref(1)\n' +
-'</' + 'script>\n'
+const file1 = `<template>
+  <div class="youyuxi">
+       <test1 style="margin-bottom: 10px"/>
+       <test2 style="margin-bottom: 10px"/>
+       <test3 style="margin-bottom: 10px"/>
+       <div>{{ msg }}</div>
+       <div @click="count = count + 1.1">(点击颂歌<span style="color: green">{{ count }}</span>次)</div>
+   </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue"
+import type { Ref } from "vue"
+import test1 from "./test1.vue"
+import test2 from "./test2.vue"
+import test3 from "./test3.vue"
+const count:Ref<number> = ref(1)
+const msg = ref("🥵赞美尤雨溪，赐予我们伟大的Vue")
+
+</` + `script>
+
+<style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: red;
+}
+.youyuxi {
+    color: red;
+}
+</style>`
+
+const file2 = `<template>
+  <div @click="count++">点击加1,当前为：{{ count }}</div>
+</template>
+<script setup>
+import { ref } from "vue"
+const count = ref(1)
+</` + 'script>'
 
 const file3 = '<template><div style="color: pink">这个是test1组件</div></template>\n'
+const file4 = `<template>
+    <div>
+        <div ref="target" style="width: 400px; height: 200px; border: 1px solid #000">
+            <div>vueuse使用演示，目前版本控制于@10.1.0</div>
+            <div>x: {{x}}</div>
+            <div>y: {{y}}</div>
+            <div>isOutside: {{isOutside}}</div>
+        </div>
+    </div>
+</template>
+<script>
+import { ref } from 'vue'
+import { useMouseInElement } from '@vueuse/core'
+export default {
+  setup() {
+    const target = ref(null)
+    const { x, y, isOutside } = useMouseInElement(target)
+    return {
+      target,
+      x,
+      y,
+      isOutside
+    }
+  }
+}
+</` + `script>
+<style></style>`
 
 const componentsFiles = {
   'App.vue': file1,
   'test1.vue': file2,
-  'test2.vue': file3
+  'test2.vue': file3,
+  'test3.vue': file4
 }
 
 export default {

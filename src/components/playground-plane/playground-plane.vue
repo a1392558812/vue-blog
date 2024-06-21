@@ -16,6 +16,7 @@
                             <div class="white-space-nowrap cursor-pointer header-icon-item">Used: {{ sizeFixed(memory.usedJSHeapSize) }}</div>
                             <div class="white-space-nowrap cursor-pointer header-icon-item">Allocated: {{ sizeFixed(memory.totalJSHeapSize) }}</div>
                             <div class="white-space-nowrap cursor-pointer header-icon-item">Limit: {{ sizeFixed(memory.jsHeapSizeLimit) }}</div>
+                            <div class="white-space-nowrap cursor-pointer header-icon-item">FPS: {{ fps }}</div>
                         </div>
                     </div>
 
@@ -63,10 +64,11 @@
 
 <script>
 import Monaco from '@vue/repl/monaco-editor'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Repl, useVueImportMap, useStore } from '@vue/repl'
 import { baseUrlFun } from '@/common/methods.js'
-import { useFullscreen, useMemory } from '@vueuse/core'
+import { useFullscreen, useMemory, useFps } from '@vueuse/core'
+const baseUrl = baseUrlFun()
 
 export default {
   props: {
@@ -105,7 +107,15 @@ export default {
     vueImportMap: {
       type: Object,
       default: () => ({
-        runtimeDev: baseUrlFun() + `demo-static/playground-plane/vue@3.4.27/dist/vue.esm-browser.js?time=${new Date().getTime()}`
+        runtimeDev: baseUrl + 'demo-static/playground-plane/vue@3.4.27/dist/vue.esm-browser.js'
+      })
+    },
+    otherImportsMap: {
+      type: Object,
+      default: () => ({
+        'vue-demi': baseUrl + 'demo-static/playground-plane/vue-demi/lib/index.mjs',
+        '@vueuse/core': baseUrl + 'demo-static/playground-plane/@vueuse/core@10.1.0/index.mjs',
+        '@vueuse/shared': baseUrl + 'demo-static/playground-plane/@vueuse/shared@10.1.0/index.mjs'
       })
     },
     customCode: {
@@ -123,7 +133,7 @@ export default {
     const replWrapRef = ref(null)
     const replRef = ref(null)
     const { isFullscreen, enter, exit, toggle: toggleFullscreen } = useFullscreen(replWrapRef)
-    console.log('isFullscreen, enter, exit, toggle', { isFullscreen, enter, exit, toggleFullscreen })
+    const fps = useFps()
 
     const { isSupported, memory } = useMemory()
     const sizeFixed = (v) => {
@@ -147,21 +157,21 @@ export default {
           isCustomElement: (tag) => tag === 'mjx-container'
         }
       }
-    })
-    )
+    }))
 
-    const store = useStore(
-      {
-        builtinImportMap: importMap,
-        vueVersion: vueVersion || defaultVersion,
-        template: ref({
-          welcomeSFC: props.defaultTemplate,
-          newSFC: props.defaultNewSFC
-        }),
-        sfcOptions
-      },
-      ''
-    )
+    Object.keys(props.otherImportsMap).forEach(key => {
+      importMap.value.imports[key] = props.otherImportsMap[key]
+    })
+
+    const store = useStore({
+      builtinImportMap: importMap,
+      vueVersion: vueVersion || defaultVersion,
+      template: ref({
+        welcomeSFC: props.defaultTemplate,
+        newSFC: props.defaultNewSFC
+      }),
+      sfcOptions
+    }, '')
 
     if (Object.keys(props.componentsFiles).length) {
       store.setFiles(props.componentsFiles)
@@ -177,13 +187,26 @@ export default {
 
     window.addEventListener('resize', setVH)
     setVH()
+
     onMounted(() => {
       window.process = { env: {} }
-      console.log('[@vue/repl]-main', { importMap, sfcOptions, store, replRef })
+      console.log('[@vue/repl]-main', {
+        importMap,
+        sfcOptions,
+        store,
+        replRef,
+        useFullscreen: { isFullscreen, enter, exit, toggle: toggleFullscreen }
+      })
     })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', setVH)
+    })
+
     return {
       isSupported,
       memory,
+      fps,
       sizeFixed,
       theme: ref('dark'), // ''dark' | 'light''
       replRef,

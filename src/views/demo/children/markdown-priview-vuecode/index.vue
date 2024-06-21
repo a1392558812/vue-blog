@@ -45,7 +45,7 @@ loadMarkdown()
       .code-textarea-wrap {
         margin: .85rem 0;
         border-radius: 6px;
-        height: 600px;
+        height: 350px;
         .code-textarea {
           resize: none;
           box-sizing: border-box;

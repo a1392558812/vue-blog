@@ -82,13 +82,12 @@ export default {
               if (!limtNum) break
               if (arr.children[index].children) {
                 filter(arr.children[index])
-                break
               }
+              const toLowerCaseName = inputValue.value.trim().toLowerCase()
               if (arr.children[index] &&
                 arr.children[index].name &&
-                arr.children[index].name.trim().toLowerCase().indexOf(inputValue.value.trim().toLowerCase()) !== -1) {
+                arr.children[index].name.trim().toLowerCase().indexOf(toLowerCaseName) !== -1) {
                 limtNum--
-                console.log(limtNum)
                 searchArr.push(arr.children[index])
               }
             }

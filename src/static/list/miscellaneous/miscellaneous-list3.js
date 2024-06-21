@@ -2,6 +2,10 @@ export default {
   name: '03.杂项整理',
   topping: true, // 是否置顶
   children: [
+    { name: '64.vue可拖拽边界布局.md' },
+    { name: '63.手搓vue3沙箱环境.md' },
+    { name: '62.手风琴效果.md' },
+    { name: '61.uniapp预览pdf.md' },
     { name: '60.异步加载远程库组件.md' },
     { name: '59.video截取某一帧做封面.md' },
     { name: '58.封装vue3异步加载组件.md' },
@@ -55,7 +59,7 @@ export default {
         { name: 'utils.ts' }
       ]
     },
-    { name: '50.溢出显示省略号.md' },
+    { name: '50.css溢出显示省略号.md' },
     { name: '49.grid简单理解.md' },
     { name: '48.动态高度自动过渡.md' },
     { name: '47.如何快速播放一个大大大视频.md' },

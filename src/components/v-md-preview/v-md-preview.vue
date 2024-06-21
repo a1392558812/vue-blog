@@ -64,7 +64,19 @@ export default {
     let instanceList = []
 
     let createTimer
-    let ifInit = true
+    let ifInitRenderPlayground = true
+
+    const loadingHtmlStr = (() => {
+      let loadingHtmlNode = $('<div></div>')
+      render(createVNode((
+        <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
+          <div class="width100 height100 flex align-items-center justify-content-center">加载中...</div>
+        </loadingComponent>
+      ), { showModal: true }), loadingHtmlNode[0])
+      const loadingHtmlStr = loadingHtmlNode.html()
+      loadingHtmlNode = null
+      return loadingHtmlStr
+    })()
 
     const destroy = () => {
       clearTimeout(createTimer)
@@ -81,6 +93,57 @@ export default {
       vue3SfcList = []
     }
 
+    const renderPlayGround = () => {
+      nextTick(() => {
+        let playgroundWrapLoadingNode = $(`.${playgroundWrapLoadingClassName}`)
+        playgroundWrapLoadingNode.css('display', 'block')
+        createTimer = setTimeout(() => {
+          vue3SfcList.length = 1
+
+          vue3SfcList.forEach((item, index) => {
+            let mountNode = $(`#${item.idSelector}`)
+            // 没有渲染容器
+            if (!mountNode[0]) {
+              mountNode.html('<div style="font-size: 16px; font-weight: blod; height: 100%" class="flex align-items-center justify-content-center">组件解析失败，请刷新重试...</div>')
+              mountNode = null
+              return
+            }
+
+            const app = createApp(playgroundPlane, {
+              name: item.idSelector,
+              key: new Date(),
+              componentsFiles: ((componentsFiles = {}) => {
+                window.$('vue3-file').parse(item.str, false).each((i2, obj2) => {
+                  const file = window.$(obj2)
+                  let fileName = file.attr('name')
+                  if (fileName.toLowerCase() === 'app.vue') {
+                    fileName = 'App.vue'
+                  }
+                  componentsFiles[fileName] = file.html()
+                })
+                return componentsFiles
+              })(),
+              playGroundPlaneWidth: '100%',
+              playGroundPlaneReplHeight: '100%',
+              customCode: {
+                importCode: '',
+                useCode: 'console.log("customCode--🥵")'
+              }
+            })
+            app.mount(mountNode[0])
+
+            instanceList.push({ app })
+            mountNode = null
+            console.log('playground组件生成完成')
+          })
+
+          playgroundWrapLoadingNode.css('display', 'none')
+          playgroundWrapLoadingNode = null
+          ifInitRenderPlayground = false
+        }, ifInitRenderPlayground ? 0 : 2000)
+      })
+    }
+
     const watchFun = (newV, oldV) => {
       if (newV !== oldV && newV) {
         destroy()
@@ -89,7 +152,7 @@ export default {
           const id = `playground-${i1}`
           vue3SfcList.push({ str, idSelector: id })
           return `<div style="position: relative; height: 600px; margin: 0.85em 0;">
-              <div class=${playgroundWrapLoadingClassName} style="width: 100%; height: 100%; z-index: 0; position: absolute; left: 0; top: 0"></div>
+              <div class=${playgroundWrapLoadingClassName} style="width: 100%; height: 100%; z-index: 0; position: absolute; left: 0; top: 0">${loadingHtmlStr}</div>
               <div style="position: relative; height: 100%; z-index: 1; display: block; transform: translateZ(0px); transform-style: preserve-3d;" id="${id}"></div>
             </div>`
         }).printHtml()
@@ -102,64 +165,7 @@ export default {
 
         markdowmText.value = analysisMarkdowmText
         console.log('解析完成--需要生成playground组件')
-
-        nextTick(() => {
-          $(`.${playgroundWrapLoadingClassName}`).css('display', 'block')
-          render(createVNode((
-            <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
-              <div class="width100 height100 flex align-items-center justify-content-center">加载中...</div>
-            </loadingComponent>
-          ), { showModal: true }
-          ), $(`.${playgroundWrapLoadingClassName}`)[0])
-
-          createTimer = setTimeout(() => {
-            vue3SfcList.length = 1
-
-            vue3SfcList.forEach((item, index) => {
-              let mountNode = $(`#${item.idSelector}`)
-              if (!mountNode[0]) {
-                mountNode.html('<div style="font-size: 16px; font-weight: blod; height: 100%" class="flex align-items-center justify-content-center">组件解析失败，请刷新重试...</div>')
-                mountNode = null
-                $(`.${playgroundWrapLoadingClassName}`).css('display', 'none')
-                destroy()
-                return
-              }
-
-              let componentsFiles = {}
-              window.$('vue3-file').parse(item.str, false).each((i2, obj2) => {
-                const file = window.$(obj2)
-                let fileName = file.attr('name')
-                if (fileName.toLowerCase() === 'app.vue') {
-                  fileName = 'App.vue'
-                }
-                componentsFiles[fileName] = file.html()
-              })
-
-              let app = createApp(playgroundPlane, {
-                name: item.idSelector,
-                key: new Date(),
-                componentsFiles,
-                playGroundPlaneWidth: '100%',
-                playGroundPlaneReplHeight: '100%',
-                customCode: {
-                  importCode: '',
-                  useCode: 'console.log("customCode--🥵", app)'
-                }
-              })
-              app.mount(mountNode[0])
-
-              instanceList.push({ app })
-
-              $(`.${playgroundWrapLoadingClassName}`).css('display', 'none')
-
-              componentsFiles = null
-              app = null
-              mountNode = null
-              console.log('playground组件生成完成')
-            })
-            ifInit = false
-          }, ifInit ? 0 : 2000)
-        })
+        renderPlayGround()
       }
     }
 
@@ -237,6 +243,13 @@ export default {
         }
         .copy-code-mode .v-md-copy-code-btn {
           background-color: #3d3d3d;
+        }
+        ul {
+            li {
+                a {
+                    word-break: break-all;
+                }
+            }
         }
       }
     }
