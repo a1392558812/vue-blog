@@ -1,5 +1,6 @@
 <script lang="jsx">
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 
 import { SET_THEME } from '@/store/actionType'
@@ -47,88 +48,80 @@ export default {
         store.dispatch(SET_THEME, 'dark')
       }
     }
+
+    const linkList = ref([
+      {
+        name: '书签',
+        newPage: false,
+        url: '/bookmarks'
+      },
+      {
+        name: '首页',
+        newPage: false,
+        url: '/',
+        imageUrl: require('@/static/image/heishou2.jpg'),
+        imageClass: 'heishou',
+        onClick: goHome
+      },
+      {
+        name: '一些特效demo',
+        newPage: false,
+        url: '/demo'
+      },
+      {
+        name: '代码操练',
+        newPage: true,
+        url: '/demo/playground'
+      }
+    ])
+
+    const handleClick = (item, e) => {
+      e && e.preventDefault()
+      item.onClick ? item.onClick(e) : navigatorTo(item)
+    }
+
+    const commonLink = (item, index) => (
+      <a
+        key={index}
+        style={{ marginRight: (index < (linkList.value.length - 1)) ? '15px' : '' }}
+        class='go-home display-block flex-shrink-0 cursor-pointer flex align-items-center justify-content-start'
+        href={`/#${item.url}`}
+        onClick={(e) => { handleClick(item, e) }}
+      >
+        {item.imageUrl
+          ? (
+          <img class={item.imageClass} src={item.imageUrl} />
+            )
+          : null}
+        <p>{item.name}</p>
+      </a>
+    )
+
     return {
-      linkList: [
-        {
-          name: '书签',
-          newPage: false,
-          url: '/bookmarks'
-        },
-        {
-          name: '首页',
-          newPage: false,
-          url: '/',
-          imageUrl: require('@/static/image/heishou2.jpg'),
-          imageClass: 'heishou',
-          onClick: goHome
-        },
-        {
-          name: '一些特效demo',
-          newPage: false,
-          url: '/demo'
-        },
-        {
-          name: '😏代码操练',
-          newPage: true,
-          url: '/demo/playground'
-        },
-        {
-          name: '切换主题',
-          newPage: false,
-          tag: 'commonmBtn',
-          onClick: toggleTheme
-        }
-      ],
-      navigatorTo
+      linkList,
+      navigatorTo,
+      handleClick,
+      toggleTheme,
+      commonLink
     }
   },
   render () {
-    const handleClick = (item, e) => {
-      e && e.preventDefault()
-      item.onClick ? item.onClick(e) : this.navigatorTo(item)
-    }
-    const createNavBtn = (item) => {
-      const commonLink = () => (
-        <a
-          class='go-home display-block flex-shrink-0 cursor-pointer flex align-items-center justify-content-start'
-          href={`/#${item.url}`}
-          onClick={(e) => { handleClick(item, e) }}
-        >
-          {item.imageUrl
-            ? (
-            <img class={item.imageClass} src={item.imageUrl} />
-              )
-            : null}
-          <p>{item.name}</p>
-        </a>
-      )
-      const componentBtn = () => (
-        <div class="flex flex-shrink-0">
-          <commonmBtn
-            style={{ height: '1em', marginRight: '1em' }}
-            onClick={() => { handleClick(item) }}
-          >
-            {item.name}
-          </commonmBtn>
-        </div>
-      )
-      if (item.tag === 'commonmBtn') {
-        return componentBtn()
-      } else {
-        return commonLink()
-      }
-    }
     return (
       <>
-        {this.ifLarger
-          ? <div class="flex align-items-center">
-              {this.linkList.map((item) => createNavBtn(item))}
-            </div>
-          : (
-          <div class='flex flex-direction-column'>
-            {this.linkList.map((item) => createNavBtn(item))}
+        <div class={`flex ${this.ifLarger ? 'align-items-center' : 'flex-direction-column'}`}>
+          <div class={`${this.ifLarger ? 'flex flex-1 overflow-auto link-list-wrap' : ''}`}>
+            {
+              this.linkList.map((item, index) => {
+                return this.commonLink(item, index)
+              })
+            }
           </div>
-            )}
+          <div class="flex flex-shrink-0">
+            <commonmBtn style={{ height: '1em', marginRight: '1em' }} onClick={this.toggleTheme}>
+              切换主题
+            </commonmBtn>
+        </div>
+        </div>
       </>
     )
   }
@@ -136,8 +129,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.link-list-wrap {
+  margin: 0 15px;
+}
 .go-home {
-  margin-right: 30px;
   min-height: 1.5em;
   color: var(--global-primary-color);
   text-decoration: none;
@@ -147,6 +142,7 @@ export default {
   padding-bottom: 5px;
   line-height: 1;
 }
+
 .heishou {
   width: 1em;
   height: 1em;

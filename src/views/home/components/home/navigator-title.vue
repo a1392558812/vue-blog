@@ -23,16 +23,12 @@
           </div>
         </div>
       </div>
-      <div class="relative" style="transform: translateZ(0);">
-        <div class="markdown-title-bg cursor-pointer" @mousemove="onMousemove" @mouseleave="onMouseleave"></div>
-        <div v-show="ifShowPop" :style="{ left: `${popCursor.x}px`, top: `${popCursor.y}px` }" class="absolute markdown-title-bg-pop">这是虎弟，很low</div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref } from 'vue'
 export default {
   name: 'NavigatorTitle',
   props: {
@@ -55,8 +51,6 @@ export default {
   },
   setup (props, { emit }) {
     const barWidth = ref(0) // 浏览器滚动条宽度
-    const ifShowPop = ref(false)
-    const popCursor = reactive({ x: 0, y: 0 })
 
     const articleTitlesHeight = ref(0) // 标题区高度
     // 获取浏览器滚动条宽度
@@ -85,17 +79,7 @@ export default {
     })
     return {
       barWidth,
-      ifShowPop,
-      popCursor,
       articleTitlesHeight,
-      onMousemove: (e) => {
-        ifShowPop.value = true
-        popCursor.x = (e.offsetX || e.layerX) + 30
-        popCursor.y = e.offsetY - 20
-      },
-      onMouseleave: () => {
-        ifShowPop.value = false
-      },
       handleAnchorClick: (anchor) => {
         emit('handleAnchorClick', anchor)
       }
@@ -138,34 +122,6 @@ export default {
               color: var(--global-primary-color);
             }
           }
-        }
-      }
-      .markdown-title-bg {
-        width: $widht;
-        height: $height;
-        background-image: url("~@/static/image/huge.jpg");
-        background-size: $widht $height;
-        background-repeat: no-repeat;
-        background-position: center center;
-        opacity: 0.15;
-      }
-      .markdown-title-bg-pop {
-        left: calc($widht + 15px);
-        top: 30px;
-        padding: 10px;
-        background: var(--global-2n-tr-color);
-        color: var(--global-text-color);
-        border-radius: 8px;
-        &::after {
-          content:"";
-          width: 0;
-          height: 0;
-          border: 12px solid;
-          border-color: transparent var(--global-2n-tr-color) transparent transparent;
-          position: absolute;
-          top: 50%;
-          left: 0;
-          transform: translate(-100%, -50%);
         }
       }
     }

@@ -60,7 +60,10 @@ export default {
         path: '/',
         query: { indexPage: item.indexPage }
       })
-      emit(item.link ? 'searchLinkClick' : 'searchItemClick', item.link ? item.link : item.url)
+      if (item.link) {
+        return emit('searchLinkClick', item.link)
+      }
+      emit('searchItemClick', item.url)
     }
     const search = () => {
       props.toggleMenu(false)

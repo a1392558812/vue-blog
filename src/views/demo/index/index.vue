@@ -19,7 +19,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .demo-view{
-  padding: 10px;
+  padding: 20px 10px;
   margin-bottom: 150px;
   .demo-view-item{
     font-size: 16px;

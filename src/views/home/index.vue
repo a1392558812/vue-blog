@@ -30,10 +30,10 @@
 <script>
 import { ref, nextTick, onBeforeMount, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 import axios from '@/common/axios.js'
 import { markdownTypeCheck, imgTypeCheck } from '@/common/methods'
-import list from '@/static/list.js'
 
 import leftSidebarProps from '@/common/left-sidebar-props'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
@@ -54,6 +54,8 @@ export default {
   },
   setup (props) {
     const router = useRouter()
+    const store = useStore()
+    const list = computed(() => store.state.menuList)
 
     const htmlMD = ref('')
     const title = ref('ReadMe-前言')
@@ -134,7 +136,6 @@ export default {
       const urlLink = `./${url.join('/')}`
       title.value = url.join(' > ')
       loading.value = true
-      console.log('mdType.value', mdType.value)
       // 图片类型
       if (imgType.value) return itemImageTypeClick(urlLink)
       // markdown类型
@@ -148,7 +149,7 @@ export default {
       // 切割路由参数，路由参数格式 indexPage=1-1-1
       const pageIndexArr = indexPage.split('-')
       try {
-        let result = list
+        let result = list.value
         pageIndexArr.forEach(index => {
           if (Object.prototype.hasOwnProperty.call(result, 'children')) {
             result = result.children[+index]
@@ -170,7 +171,6 @@ export default {
         if (result && result.link) {
           return linkClick(result.link)
         }
-        console.log('result', result)
         // 正常的路由跳转
         itemClick(urlArr)
       } catch (e) {

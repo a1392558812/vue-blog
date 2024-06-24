@@ -34,8 +34,10 @@ export default {
     const renderList = computed(() => rowDetails.value && rowDetails.value.children ? rowDetails.value.children : [])
     const tag = computed(() => renderList.value.length ? 'div' : 'a')
     const hrefMap = computed(() => renderList.value.length ? {} : { href: `/#/?indexPage=${rowDetails.value.indexPage}` })
-    const titleStyleName = computed(() => ({ marginLeft: `${currentGrade.value * 25}px` }))
-    const listItemStyle = computed(() => ({ display: `${props.ifShow ? '' : 'none'}` }))
+    const titleStyleName = computed(() => ({
+      marginLeft: `${currentGrade.value + 1 * 25}px`,
+      display: rowDetails.value.ifShow ? 'block' : 'none'
+    }))
     const ifRender = computed(() => ('ifHadRender' in rowDetails.value) && rowDetails.value.ifHadRender && 'ifShow' in rowDetails.value)
     const className = computed(() => {
       let className = 'cursor-pointer cell'
@@ -68,7 +70,6 @@ export default {
       hrefMap,
       className,
       titleStyleName,
-      listItemStyle,
       ifRender,
       listClick,
       itemClick
@@ -80,7 +81,6 @@ export default {
       ? (
             <tag
               class={this.className}
-              style={this.listItemStyle}
               {...this.hrefMap}
               title={this.rowDetails.name}
               onClick={(e) => {
@@ -96,25 +96,30 @@ export default {
                     ? this.listClick(e, this.rowDetails, this.firstLevelIndex)
                     : this.itemClick(e, this.menuList, this.rowDetails, this.firstLevelIndex)
                 }}
-                style={this.titleStyleName}
-                class='cell-item-title'>
+                class='cell-item-title flex align-items-center justify-content-start'>
                   {this.rowDetails.link ? (<div class='cell-item-link'>链接</div>) : null}
-                  {this.rowDetails.name}
+                  <span>{this.rowDetails.name}</span>
                   {this.rowDetails.topping ? (<div class='topping'>置顶</div>) : null}
               </div>
               {this.ifRender
-                ? this.renderList.map((child, childIndex) => {
-                  return (<left-sidebar-item
-                    rowDetails={child}
-                    menuList={this.renderList}
-                    nowActive={this.nowActive}
-                    key={childIndex}
-                    ifShow={this.rowDetails.ifShow}
-                    firstLevelIndex={this.firstLevelIndex}
-                    grade={this.currentGrade}
-                    onListClick={this.listClick}
-                    onItemClick={this.itemClick}/>)
-                })
+                ? (
+                    <div style={this.titleStyleName}>
+                      {
+                        this.renderList.map((child, childIndex) => {
+                          return (<left-sidebar-item
+                            rowDetails={child}
+                            menuList={this.renderList}
+                            nowActive={this.nowActive}
+                            key={childIndex}
+                            ifShow={this.rowDetails.ifShow}
+                            firstLevelIndex={this.firstLevelIndex}
+                            grade={this.currentGrade}
+                            onListClick={this.listClick}
+                            onItemClick={this.itemClick}/>)
+                        })
+                      }
+                    </div>
+                  )
                 : null }
             </tag>
         )
@@ -130,7 +135,7 @@ export default {
       border-bottom: 1px solid var(--global-border-color);
     }
     .topping{
-      margin: 5px;
+      margin: 0 5px;
       height: 14px;
       border-radius: 5px;
       padding: 5px 10px;

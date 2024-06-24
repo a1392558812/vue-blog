@@ -70,16 +70,21 @@ export default {
 
         {
           (ifRender() && data.child && data.child.length)
-            ? data.child.map((item, index) => {
-              return (
-                <div
-                  style={{ marginLeft: '15px' }}
-                  class={`content ${!level ? true : data.ifShow ? '' : 'display-none'}`}
-                  key={index}>
-                  <vNode level={level + 1} data={item} index={index} />
-                </div>
+            ? (
+              <div class={`content ${!level ? true : data.ifShow ? '' : 'display-none'}`}>
+                {
+                  data.child.map((item, index) => {
+                    return (
+                      <div
+                        style={{ marginLeft: '15px' }}
+                        key={index}>
+                        <vNode level={level + 1} data={item} index={index} />
+                      </div>
+                    )
+                  })
+                }
+              </div>
               )
-            })
             : null
         }
       </>)

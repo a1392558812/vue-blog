@@ -1,16 +1,21 @@
 <script lang="jsx">
-import { reactive, ref, computed, onBeforeUnmount, watch, nextTick } from 'vue'
+import { ref, computed, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+
 import BScroll from '@better-scroll/core'
 import ScrollBar from '@better-scroll/scroll-bar'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import ObserveDOM from '@better-scroll/observe-dom'
 
-import initList from '@/static/list.js'
 import leftSidebarProps from '@/common/left-sidebar-props'
-import renderList from '@/common/util/renderList.js'
 import leftSidebarItem from './left-sidebar-item.vue'
 import leftSidebarSearch from './left-sidebar-search'
+
+import {
+  SET_MENUS_ACTIVE,
+  SET_MENUS_INIT_RENDER
+} from '@/store/actionType'
 
 BScroll.use(ScrollBar)
 BScroll.use(MouseWheel)
@@ -26,13 +31,14 @@ export default {
     ...leftSidebarProps
   },
   setup (props, { emit }) {
+    const store = useStore()
+    const menuList = computed(() => store.state.menuList)
     const router = useRouter()
     const route = useRoute()
 
     let bestScroll = null
     const listContentRef = ref(null)
 
-    const menuList = reactive(renderList(initList))
     const nowActive = ref(null)
 
     const initScroll = () => {
@@ -65,36 +71,22 @@ export default {
       if (route.query.indexPage !== row.indexPage) {
         nowActive.value = firstLevelIndex
 
-        let targetRow = { children: menuList }
-        let targetList = menuList
-        row.indexPage.split('-').forEach(itemIndex => {
-          targetList = targetRow.children
-          targetRow = targetList[itemIndex]
-        })
-
-        targetList.map(child => {
-          child.itemActive = false
-          return child
-        })
-        targetRow.itemActive = true
+        store.dispatch(SET_MENUS_ACTIVE, row)
 
         props.toggleMenu(false)
         router.push({
           path: '/',
           query: { indexPage: row.indexPage }
         })
-        emit(row.link ? 'linkClick' : 'itemClick', row.link ? row.link : row.url)
+        if (row.link) {
+          return emit('linkClick', row.link)
+        }
+        emit('itemClick', row.url)
       }
     }
 
     const leftSidebarListClick = (e, row, firstLevelIndex) => {
-      let targetRow = { children: menuList }
-      row.indexPage.split('-').forEach(itemIndex => {
-        targetRow = targetRow.children[itemIndex]
-      })
-
-      targetRow.ifShow = !row.ifShow
-      targetRow.ifHadRender = true
+      store.dispatch(SET_MENUS_INIT_RENDER, row)
       nowActive.value = firstLevelIndex
     }
 
@@ -105,12 +97,11 @@ export default {
           nextTick().then(() => {
             initScroll()
           })
+        } else {
+          destroyScroll()
         }
       },
-      {
-        immediate: true,
-        flush: 'post'
-      }
+      { immediate: true }
     )
 
     onBeforeUnmount(() => {

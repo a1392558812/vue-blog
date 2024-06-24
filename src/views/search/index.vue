@@ -32,14 +32,16 @@
 </template>
 
 <script setup="props" name="search">
-import { defineProps, onBeforeMount, ref, watch } from 'vue'
+import { defineProps, onBeforeMount, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import list from '@/static/list.js'
-import renderList from '@/common/util/renderList.js'
+import { useStore } from 'vuex'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
 import leftSidebarProps from '@/common/left-sidebar-props'
-const allList = renderList(list)
+
 defineProps(leftSidebarProps)
+
+const store = useStore()
+const allList = computed(() => store.state.menuList)
 const searchResult = ref([])
 const route = useRoute()
 const router = useRouter()
@@ -70,7 +72,7 @@ const init = () => {
       })
     }
   }
-  allList.forEach(filter)
+  allList.value.forEach(filter)
   searchResult.value = searchArr.length ? searchArr : [{ name: '暂无搜索结果', noResult: true }]
 }
 onBeforeMount(init)

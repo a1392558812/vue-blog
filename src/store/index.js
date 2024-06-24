@@ -1,9 +1,27 @@
 import { createStore } from 'vuex'
 import getters from './getter'
 import {
-  SET_THEME
+  SET_THEME,
+  SET_MENUS_ACTIVE,
+  SET_MENUS_INIT_RENDER
 } from './actionType'
 import themeType from '@/assets/theme/type'
+import initList from '@/static/list.js'
+
+const renderList = (list, parentIndex = 0, url = []) => {
+  return list.map((item, index) => {
+    item.indexPage = parentIndex ? `${parentIndex}-${index}` : `${index}`
+    item.url = url.length ? [...url, item.name] : [item.name]
+    if (item.children) {
+      item.ifShow = false // 是否显示
+      item.ifHadRender = false // 是否已经渲染过
+      renderList(item.children, item.indexPage, item.url)
+    } else {
+      item.itemActive = false
+    }
+    return item
+  })
+}
 
 export default createStore({
   state: {
@@ -27,6 +45,7 @@ export default createStore({
         url: require('@/assets/music/music2.mp3')
       }
     ],
+    menuList: renderList(initList),
     theme: 'light' // light / dark
   },
   getters,
@@ -39,11 +58,40 @@ export default createStore({
           body.style.setProperty(`${key}`, themeType[theme][key])
         })
       }
+    },
+    [SET_MENUS_ACTIVE] (state, row) {
+      let targetRow = { children: state.menuList }
+      let targetList = state.menuList
+      row.indexPage.split('-').forEach(itemIndex => {
+        targetList = targetRow.children
+        targetRow = targetList[itemIndex]
+      })
+
+      targetList.map(child => {
+        child.itemActive = false
+        return child
+      })
+      targetRow.itemActive = true
+    },
+    [SET_MENUS_INIT_RENDER] (state, row) {
+      let targetRow = { children: state.menuList }
+      row.indexPage.split('-').forEach(itemIndex => {
+        targetRow = targetRow.children[itemIndex]
+      })
+
+      targetRow.ifHadRender = true
+      targetRow.ifShow = !row.ifShow
     }
   },
   actions: {
     [SET_THEME] ({ commit }, theme) {
       commit(SET_THEME, theme)
+    },
+    [SET_MENUS_ACTIVE] ({ commit }, row) {
+      commit(SET_MENUS_ACTIVE, row)
+    },
+    [SET_MENUS_INIT_RENDER] ({ commit }, row) {
+      commit(SET_MENUS_INIT_RENDER, row)
     }
   },
   modules: {
