@@ -139,7 +139,6 @@ export const asyncLoadJs = (url) => {
     script.setAttribute(`${attrName}`, `${attrValue}`)
     document.head.appendChild(script)
     script.onload = (res) => {
-      console.log('加载.', res)
       resolve()
     }
     script.onerror = (e) => {

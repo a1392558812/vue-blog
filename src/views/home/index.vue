@@ -107,11 +107,10 @@ export default {
           htmlMD.value = response.data
           scrollTop()
         })
-        .catch(e => {
+        .catch(() => {
           htmlMD.value = '网络寄了，我哭哭~~'
           type.value = 'md'
           loading.value = false
-          console.log('error', e)
         })
     }
     const itemOtherTypeClick = (url, urlLink) => {
