@@ -1,5 +1,5 @@
 <script lang="jsx">
-import { notice, noticeTitle } from '@/static/notice'
+import { notice, noticeTitle } from '@/static/notice/index.js'
 import { reactive, ref, toRefs } from 'vue'
 export default {
   name: 'Notice',

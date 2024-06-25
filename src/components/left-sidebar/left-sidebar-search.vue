@@ -29,7 +29,7 @@
 <script>
 import { ref } from 'vue'
 import { debouncedWatch, onClickOutside } from '@vueuse/core'
-import commonmBtn from '@/components/button'
+import commonmBtn from '@/components/commonm-btn/index.vue'
 import { useRouter } from 'vue-router'
 export default {
   name: 'LeftSidebarSearch',

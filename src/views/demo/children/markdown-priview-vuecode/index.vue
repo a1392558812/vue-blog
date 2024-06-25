@@ -17,7 +17,7 @@
 </template>
 <script setup lang="jsx">
 import { ref } from 'vue'
-import axios from '@/common/axios.js'
+import axios from '@/common/axios/index.js'
 import markdownPriview from './components/markdown-priview/index.vue'
 
 const htmlMD = ref('')

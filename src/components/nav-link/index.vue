@@ -4,9 +4,9 @@ import { ref } from 'vue'
 import { useStore } from 'vuex'
 
 import { SET_THEME } from '@/store/actionType'
-import themeType from '@/assets/theme/type'
+import themeType from '@/static/theme/type'
 
-import commonmBtn from '@/components/button'
+import commonmBtn from '@/components/commonm-btn/index.vue'
 export default {
   name: 'NavLink',
   components: {
@@ -59,7 +59,7 @@ export default {
         name: '首页',
         newPage: false,
         url: '/',
-        imageUrl: require('@/static/image/heishou2.jpg'),
+        imageUrl: require('@/assets/images/heishou2.jpg'),
         imageClass: 'heishou',
         onClick: goHome
       },
@@ -129,22 +129,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.link-list-wrap {
-  margin: 0 15px;
-}
-.go-home {
-  min-height: 1.5em;
-  color: var(--global-primary-color);
-  text-decoration: none;
-  border: none;
-  font-size: 16px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  line-height: 1;
-}
+    .link-list-wrap {
+      margin: 0 15px;
+    }
+    .go-home {
+      min-height: 1.5em;
+      color: var(--global-primary-color);
+      text-decoration: none;
+      border: none;
+      font-size: 16px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      line-height: 1;
+    }
 
-.heishou {
-  width: 1em;
-  height: 1em;
-}
+    .heishou {
+      width: 1em;
+      height: 1em;
+    }
 </style>

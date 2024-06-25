@@ -160,11 +160,11 @@ export default {
         wrapT: RepeatWrapping
       },
       textureImageArr: [
-        require('@/static/image/textures/Wood_Tiles_002_basecolor.jpg'),
-        require('@/static/image/textures/Wood_Tiles_002_height.png'),
-        require('@/static/image/textures/Wood_Tiles_002_normal.jpg'),
-        require('@/static/image/textures/Wood_Tiles_002_roughness.jpg'),
-        require('@/static/image/textures/Wood_Tiles_002_ambientOcclusion.jpg')
+        require('@/assets/images/textures/Wood_Tiles_002_basecolor.jpg'),
+        require('@/assets/images/textures/Wood_Tiles_002_height.png'),
+        require('@/assets/images/textures/Wood_Tiles_002_normal.jpg'),
+        require('@/assets/images/textures/Wood_Tiles_002_roughness.jpg'),
+        require('@/assets/images/textures/Wood_Tiles_002_ambientOcclusion.jpg')
       ],
       rectLightsProps: {
         // rotation: { x: -Math.PI / 2 },
@@ -198,7 +198,7 @@ export default {
       opacity: 1;
     }
     .toast-bg{
-      background-image: url(~@/static/image/ikun/play-basketball.jpg);
+      background-image: url(~@/assets/images/ikun/play-basketball.jpg);
       opacity: 0.3;
       left: 0;
       top: 0;

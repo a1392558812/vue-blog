@@ -13,15 +13,15 @@ import 'photo-sphere-viewer/dist/photo-sphere-viewer.css'
 import 'photo-sphere-viewer/dist/plugins/markers.css'
 import 'photo-sphere-viewer/dist/plugins/gallery.css'
 
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 import { onMounted } from 'vue'
 export default {
   setup (props, { emit }) {
     // 初始化3d旋转镜头
     const init360Panorama = () => {
       const baseUrl = baseUrlFun()
-      const tooltipImg1 = require('@/static/image/heishou.png')
-      const tooltipImg2 = require('@/static/image/heishou2.jpg')
+      const tooltipImg1 = require('@/assets/images/heishou.png')
+      const tooltipImg2 = require('@/assets/images/heishou2.jpg')
       const animatedValues = {
         latitude: { start: -Math.PI / 2, end: 0.2 },
         longitude: { start: Math.PI, end: 0 },

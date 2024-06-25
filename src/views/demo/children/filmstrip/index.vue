@@ -20,7 +20,7 @@ import Zoom from 'reveal.js/plugin/zoom/zoom.esm.js'
 
 import importFun from '@/common/util/importFile'
 import { isNumber } from '@/common/util/typeCheck'
-import { baseUrlFun } from '@/common/methods'
+import { baseUrlFun } from '@/common/util/methods'
 
 import 'reveal.js/dist/reveal.css'
 import 'reveal.js/dist/theme/black.css'

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 export default {
   setup () {
     return {

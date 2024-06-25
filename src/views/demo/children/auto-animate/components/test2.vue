@@ -10,7 +10,7 @@
 import { ref } from 'vue'
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 
-import { randomXtoY } from '@/common/methods'
+import { randomXtoY } from '@/common/util/methods'
 export default {
   setup () {
     const [content] = useAutoAnimate({ duration: 300 })

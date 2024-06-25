@@ -239,8 +239,8 @@ import WaveSurfer from 'wavesurfer.js'
 import { useStore } from 'vuex'
 import { ref, onMounted, watch, onUnmounted, computed, toRefs } from 'vue'
 
-import leftSidebarProps from '@/common/left-sidebar-props'
-import { randomXtoY } from '@/common/methods'
+import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
+import { randomXtoY } from '@/common/util/methods'
 
 export default {
   name: 'Music',

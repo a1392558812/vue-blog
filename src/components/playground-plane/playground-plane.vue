@@ -66,7 +66,7 @@
 import Monaco from '@vue/repl/monaco-editor'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Repl, useVueImportMap, useStore } from '@vue/repl'
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 import { useFullscreen, useMemory, useFps } from '@vueuse/core'
 const baseUrl = baseUrlFun()
 

@@ -5,7 +5,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 import codeEdit from './components/playground2-plane/index.vue'
 
 const baseUrl = baseUrlFun()

@@ -27,8 +27,7 @@
 import { ref, onBeforeUnmount } from 'vue'
 import excelLuckySheet from './components/index.vue'
 import { useScriptTag } from '@vueuse/core'
-import { asyncLoadCss } from '@/common/util/async-load'
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun, asyncLoadCss } from '@/common/util/methods.js'
 import htmlStr from './html'
 export default {
   components: {

@@ -55,8 +55,8 @@
 <script>
 import { ref, toRefs } from 'vue'
 
-import commonmBtn from '@/components/button'
-import commonNavLink from '@/components/common/nav-link'
+import commonmBtn from '@/components/commonm-btn/index.vue'
+import commonNavLink from '@/components/nav-link/index.vue'
 import noticePopup from './notice'
 
 import useGoHome from '@/hook/common/useGoHome'

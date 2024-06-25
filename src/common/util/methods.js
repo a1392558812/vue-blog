@@ -26,7 +26,7 @@ export const downFileByAxios = (href) => {
   })
 }
 
-/* markdown图片类型 */
+/* markdown类型 */
 export const markdownTypeCheck = (type) => {
   return [
     'md',
@@ -115,4 +115,66 @@ export const getRandomColor = (flag = true) => {
     const b = Math.floor(Math.random() * 256)
     return `rgb(${r},${g},${b})`
   }
+}
+
+/* 异步加载js */
+export const asyncLoadJs = (url) => {
+  const attrName = 'data-loadtype'
+  const attrValue = 'asyncloadjs'
+  return new Promise((resolve, reject) => {
+    if (!document) {
+      return reject(new Error('document not find'))
+    }
+
+    let script = document.querySelector(`script[src="${url}"][${attrName}="${attrValue}"]`)
+    if (script) {
+      script.parentNode.removeChild(script)
+      console.log(`asyncLoadJs异步加载script标签更新: ${url}`)
+      script = null
+    }
+
+    script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = url
+    script.setAttribute(`${attrName}`, `${attrValue}`)
+    document.head.appendChild(script)
+    script.onload = (res) => {
+      console.log('加载.', res)
+      resolve()
+    }
+    script.onerror = (e) => {
+      reject(new Error(e))
+    }
+  })
+}
+
+/* 异步加载css */
+export const asyncLoadCss = (linkUrl) => {
+  const attrName = 'data-loadtype'
+  const attrValue = 'asyncloadcss'
+  return new Promise((resolve, reject) => {
+    if (!document) {
+      return reject(new Error('document not find'))
+    }
+
+    let link = document.querySelector(`link[href="${linkUrl}"][${attrName}="${attrValue}"]`)
+    if (link) {
+      link.parentNode.removeChild(link)
+      console.log(`asyncLoadCss异步加载link标签更新: ${linkUrl}`)
+      link = null
+    }
+
+    link = document.createElement('link')
+    link.href = linkUrl
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.setAttribute(`${attrName}`, `${attrValue}`)
+    document.head.appendChild(link)
+    link.onload = () => {
+      resolve()
+    }
+    link.onerror = (e) => {
+      reject(new Error(e))
+    }
+  })
 }

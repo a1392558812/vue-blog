@@ -35,17 +35,20 @@
 import { defineProps, onBeforeMount, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
-import leftSidebarProps from '@/common/left-sidebar-props'
+import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 
 defineProps(leftSidebarProps)
 
 const store = useStore()
-const allList = computed(() => store.state.menuList)
-const searchResult = ref([])
 const route = useRoute()
 const router = useRouter()
+
+const allList = computed(() => store.state.menuList)
+const searchResult = ref([])
 let inputValue = decodeURI(route.query.key)
+
 const gotoDetails = (item, e) => {
   e.preventDefault()
   if (item.noResult) return
@@ -55,6 +58,7 @@ const gotoDetails = (item, e) => {
     query: { indexPage: item.indexPage }
   })
 }
+
 const init = () => {
   inputValue = decodeURI(route.query.key)
   if (inputValue === '') {
@@ -75,19 +79,25 @@ const init = () => {
   allList.value.forEach(filter)
   searchResult.value = searchArr.length ? searchArr : [{ name: '暂无搜索结果', noResult: true }]
 }
-onBeforeMount(init)
+
 watch(route, (newV, oldV) => {
   if (newV.query.key !== inputValue) init()
 })
+
+onBeforeMount(init)
+
 </script>
 
 <style scoped lang="scss">
-.search-title {
+.search-title,.search-page {
   padding: 20px 0;
   font-size: 25px;
   border-bottom: 1px solid var(--global-border-color);
-
   .search-total {
+    font-size: 13px;
+    color: #999999;
+  }
+  .search-page-item {
     font-size: 13px;
     color: #999999;
   }

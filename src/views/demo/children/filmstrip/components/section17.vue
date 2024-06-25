@@ -11,7 +11,7 @@
 <script>
 import { ref } from 'vue'
 
-import { asyncLoadCss } from '@/common/util/async-load'
+import { asyncLoadCss } from '@/common/util/methods.js'
 import routerSwitenLoading from '@/components/router-switch-loading/index'
 const { startLoading, endLoading } = routerSwitenLoading()
 

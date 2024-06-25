@@ -20,7 +20,7 @@ import { loadModule } from 'vue3-sfc-loader'
 import * as Vue from 'vue'
 import notFind from './404.vue'
 
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 import axios from 'axios'
 
 export default {

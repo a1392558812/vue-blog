@@ -13,7 +13,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-const imgSrc = ref(require('@/static/image/heishou.png'))
+const imgSrc = ref(require('@/assets/images/heishou.png'))
 </script>
 <style lang="scss" scoped>
   .error{

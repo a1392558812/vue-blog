@@ -8,7 +8,7 @@ import ScrollBar from '@better-scroll/scroll-bar'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import ObserveDOM from '@better-scroll/observe-dom'
 
-import leftSidebarProps from '@/common/left-sidebar-props'
+import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import leftSidebarItem from './left-sidebar-item.vue'
 import leftSidebarSearch from './left-sidebar-search'
 

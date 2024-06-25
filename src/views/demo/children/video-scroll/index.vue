@@ -8,7 +8,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import { useScroll } from '@vueuse/core'
-import { baseUrlFun } from '@/common/methods'
+import { baseUrlFun } from '@/common/util/methods'
 
 export default {
   setup () {

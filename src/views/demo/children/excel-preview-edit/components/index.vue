@@ -32,7 +32,7 @@ import { ref, onMounted } from 'vue'
 import { exportExcel } from './export'
 import { isFunction } from '@/common/util/typeCheck'
 import LuckyExcel from 'luckyexcel'
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 const baseUrl = baseUrlFun()
 
 const isMaskShow = ref(false)

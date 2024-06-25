@@ -33,7 +33,8 @@
     </div>
 </template>
 <script setup>
-import { ref, computed, watch, defineProps, defineEmits, nextTick } from 'vue'
+import { ref, computed, watch, defineProps, defineEmits, nextTick, onUnmounted } from 'vue'
+
 const props = defineProps({
   mode: {
     type: String,
@@ -56,14 +57,26 @@ const props = defineProps({
     default: () => ({
       vue: 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
     })
+  },
+  beforeAppMount: {
+    type: String,
+    default: ';console.log("🐮 --- beforeAppMount");'
+  },
+  afterAppMount: {
+    type: String,
+    default: ';console.log("🐮 --- afterAppMount", app);'
   }
 })
+
 const emit = defineEmits(['update:templateValue', 'update:scriptValue', 'update:cssValue', 'update:imports'])
+
 const editMode = ref('')
-
 const iframeRef = ref(null)
-
 const contentWrapWidth = ref(50)
+
+let blob = ''
+let iframeRefBlob = ''
+
 const templateValueComputed = computed({
   get () {
     return props.templateValue
@@ -114,13 +127,27 @@ const onInput = (e) => {
   contentWrapWidth.value = val
 }
 
-watch(() => [props.templateValue, props.scriptValue, props.cssValue, props.imports],
+const destroyBlob = () => {
+  URL.revokeObjectURL(blob)
+  URL.revokeObjectURL(iframeRefBlob)
+  blob = ''
+  iframeRefBlob = ''
+}
+
+watch(
+  () => [
+    props.templateValue,
+    props.scriptValue,
+    props.cssValue,
+    props.imports,
+    props.beforeAppMount,
+    props.afterAppMount
+  ],
   (newList, oldList) => {
-    console.log('newList, oldList', newList, oldList)
     nextTick().then(() => {
-      const blob = URL.createObjectURL(new Blob([props.scriptValue], { type: 'text/javascript;charset=UTF-8' }))
-      console.log('blob', blob)
-      iframeRef.value.src = URL.createObjectURL(new Blob(
+      destroyBlob()
+      blob = URL.createObjectURL(new Blob([props.scriptValue], { type: 'text/javascript;charset=UTF-8' }))
+      iframeRefBlob = URL.createObjectURL(new Blob(
         [
                     `<style>
 html, body{ padding: 0; margin: 0 }
@@ -137,88 +164,107 @@ ${props.cssValue}
 <script type="module">
   import { createApp } from 'vue'
   import option from '${blob}'
-  createApp({
+
+  ;${props.beforeAppMount};
+
+  ;const app = createApp({
     template: '${props.templateValue.replace(/\n/g, '')}',
     ...option
-  }).mount('#app')
+  })
+
+  ;${props.afterAppMount};
+
+  ;app.mount('#app')
 <` + '/script>'
         ],
         { type: 'text/html;charset=UTF-8' }
       ))
+
+      console.log('watch-data', { newList, oldList, blob, iframeRefBlob })
+
+      iframeRef.value.src = iframeRefBlob
     })
-  }, { immediate: true })
+  },
+  { immediate: true }
+)
 
 watch(() => props.mode, (newV, oldV) => {
   if (newV !== oldV) {
     editMode.value = newV
   }
 }, { immediate: true })
+
+onUnmounted(() => {
+  destroyBlob()
+})
+
 </script>
-<style scoped>
+<style scoped lang="scss">
     .toggle-btn-wrap {
       display: flex;
       margin-bottom: 10px;
+      .toggle-btn {
+        font-size: 14px;
+        line-height: 1;
+        padding: 0 10px;
+        height: 30px;
+        border: 1px solid #000;
+        cursor: pointer;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
-    .toggle-btn {
-      font-size: 14px;
-      line-height: 1;
-      padding: 0 10px;
-      height: 30px;
-      border: 1px solid #000;
-      cursor: pointer;
-      margin-right: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+
     .iframe-wrap {
       width: 100%;
       display: flex;
-    }
-    .content-wrap {
-      display: flex;
-      flex-direction: column;
-      margin-right: 20px;
-      border: 1px solid #000;
-    }
-    .textarea-warp {
-      width: 100%;
-      border-bottom: none;
-    }
-    .textarea-title {
-      width: 100%;
-      padding: 10px 20px;
-      font-size: 16px;
-      line-height: 1;
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 1px solid #000;
-    }
-    .textarea-item {
-      padding: 10px;
-      display: block;
-      resize: none;
-      width: 100%;
-      height: 350px;
-      overflow: auto;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 1px solid #000;
-    }
-    .textarea-item:focus-visible {
-      outline: none;
-      border-bottom: 1px solid #000;
-    }
-    .iframe-item {
-      flex-shrink: 0;
-      min-width: 0;
-      padding: 0;
-      margin: 0;
-      display: block;
-      border-width: 1px;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      border: 1px solid #000;
+      .content-wrap {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        border: 1px solid #000;
+        .textarea-warp {
+          width: 100%;
+          border-bottom: none;
+          .textarea-title {
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 16px;
+            line-height: 1;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 1px solid #000;
+          }
+          .textarea-item {
+            padding: 10px;
+            display: block;
+            resize: none;
+            width: 100%;
+            height: 350px;
+            overflow: auto;
+            flex-shrink: 0;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 1px solid #000;
+            &:focus-visible {
+              outline: none;
+              border-bottom: 1px solid #000;
+            }
+          }
+        }
+      }
+      .iframe-item {
+        flex-shrink: 0;
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        display: block;
+        border-width: 1px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        border: 1px solid #000;
+      }
     }
 </style>

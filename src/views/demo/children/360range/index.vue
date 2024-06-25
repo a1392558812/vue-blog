@@ -6,7 +6,7 @@
 </template>
 <script>
 import vr from './components/vr.vue'
-import toast from '@/components/common/toast/index.vue'
+import toast from '@/components/toast/index.vue'
 import { ref } from 'vue'
 export default {
   components: {

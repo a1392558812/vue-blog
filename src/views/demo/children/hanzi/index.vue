@@ -59,8 +59,8 @@
 <script>
 import { onMounted, ref } from 'vue'
 import HanziWriter from 'hanzi-writer'
-import axios from '@/common/axios'
-import { baseUrlFun } from '@/common/methods'
+import axios from '@/common/axios/index.js'
+import { baseUrlFun } from '@/common/util/methods'
 function renderFanningStrokes (target, strokes) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   svg.style.width = '75px'

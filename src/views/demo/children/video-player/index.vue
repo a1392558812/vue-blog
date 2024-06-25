@@ -11,7 +11,7 @@ import Danmaku from '@nplayer/danmaku'
 import quality from './components/quality.vue'
 
 import { svg1, svg2, svg3 } from './svg'
-import { baseUrlFun } from '@/common/methods'
+import { baseUrlFun } from '@/common/util/methods'
 
 export default {
   setup () {

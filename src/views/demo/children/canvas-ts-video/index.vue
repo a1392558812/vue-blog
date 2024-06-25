@@ -21,7 +21,7 @@
 import { nextTick, ref } from 'vue'
 
 import JSMpeg from '@/static/jsmpeg/jsmpeg.min.js'
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 import { isNull, isNumber } from '@/common/util/typeCheck.js'
 
 export default {

@@ -25,9 +25,9 @@
 <script>
 import { nextTick, ref, watch } from 'vue'
 
-import axios from '@/common/axios.js'
-import { htmlToJson } from '@/common/methods'
-import leftSidebarProps from '@/common/left-sidebar-props'
+import axios from '@/common/axios/index.js'
+import { htmlToJson } from '@/common/util/methods'
+import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import throttle from '@/common/util/throttle'
 import bookMarksItem from './components/bookmarks/item'
 

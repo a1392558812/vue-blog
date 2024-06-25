@@ -1,30 +1,30 @@
 <template>
-  <div class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row">
-    <layout-left-sidebar :left-sidebar-w="leftSidebarW" :if-show-menu="ifShowMenu" :if-larger="ifLarger"
-      :header-h="headerH" :toggle-menu="toggleMenu" @linkClick="linkClick" @itemClick="itemClick" />
-    <div :style="ifLarger ? {
+    <div class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row">
+        <layout-left-sidebar :left-sidebar-w="leftSidebarW" :if-show-menu="ifShowMenu" :if-larger="ifLarger" :header-h="headerH" :toggle-menu="toggleMenu" @linkClick="linkClick"
+                             @itemClick="itemClick" />
+        <div :style="ifLarger ? {
       width: `calc(100% - ${leftSidebarW})`,
     } : { width: '100%' }" class="relative height100">
-      <!-- 背景图 -->
-      <div class="bg-image overflow-hidden width100 height100 absolute" />
-      <div class="home overflow-y-auto relative width100 height100">
-        <!-- 标题 -->
-        <div v-if="!mdType" class="title width100 flex align-items-center justify-content-center">
-          {{ title }}
+            <!-- 背景图 -->
+            <div class="bg-image overflow-hidden width100 height100 absolute" />
+            <div class="home overflow-y-auto relative width100 height100">
+                <!-- 标题 -->
+                <div v-if="!mdType" class="title width100 flex align-items-center justify-content-center">
+                    {{ title }}
+                </div>
+                <!-- md格式 -->
+                <markdown-type v-if="mdType" :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading" :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
+                <!-- 图片格式   -->
+                <image-type v-else-if="imgType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
+                <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
+                <div v-else-if="linkType" class="link">
+                    <a :href="htmlMD">链接： {{ htmlMD }}</a>
+                </div>
+                <!-- 其他格式 -->
+                <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
+            </div>
         </div>
-        <!-- md格式 -->
-        <markdown-type v-if="mdType" :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading" :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
-        <!-- 图片格式   -->
-        <image-type v-else-if="imgType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
-        <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
-        <div v-else-if="linkType" class="link">
-          <a :href="htmlMD">链接： {{ htmlMD }}</a>
-        </div>
-        <!-- 其他格式 -->
-        <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -32,10 +32,10 @@ import { ref, nextTick, onBeforeMount, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-import axios from '@/common/axios.js'
-import { markdownTypeCheck, imgTypeCheck } from '@/common/methods'
+import axios from '@/common/axios/index.js'
+import { markdownTypeCheck, imgTypeCheck } from '@/common/util/methods'
 
-import leftSidebarProps from '@/common/left-sidebar-props'
+import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
 import otherType from './components/home/other-type.vue'
 import imageType from './components/home/image-type.vue'
@@ -221,40 +221,39 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.content-inner {
-  font-size: 15px;
-  color: var(--global-primary-color);
+    .content-inner {
+      font-size: 15px;
+      color: var(--global-primary-color);
 
-  .bg-image {
-    background-attachment: fixed;
-    background-image: url("~@/static/image/huge.jpg");
-    background-size: calc(864px / 1.7) calc(836px / 1.7);
-    background-repeat: no-repeat;
-    background-position: center center;
-    opacity: 0.15;
-    z-index: 0;
-  }
+      .bg-image {
+        background-attachment: fixed;
+        background-image: url('~@/assets/images/huge.jpg');
+        background-size: calc(864px / 1.7) calc(836px / 1.7);
+        background-repeat: no-repeat;
+        background-position: center center;
+        opacity: 0.15;
+        z-index: 0;
+      }
 
-  .home {
+      .home {
+        .title {
+          box-sizing: border-box;
+          padding: 0 30px;
+          height: 70px;
+          font-size: 18px;
+          font-weight: 600;
+        }
 
-    .title {
-      box-sizing: border-box;
-      padding: 0 30px;
-      height: 70px;
-      font-size: 18px;
-      font-weight: 600;
+        .link {
+          padding: 20px;
+        }
+      }
     }
 
-    .link {
-      padding: 20px;
+    .loading-wrap {
+      width: 100px;
+      height: 100px;
+      font-size: 17px;
+      transform: scale(0.7);
     }
-  }
-}
-
-.loading-wrap {
-  width: 100px;
-  height: 100px;
-  font-size: 17px;
-  transform: scale(0.7);
-}
 </style>

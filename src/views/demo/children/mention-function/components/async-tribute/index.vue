@@ -1,20 +1,18 @@
 <template>
-  <div >
-    <div v-html="'<请求数据为模拟生成的>'"></div>
-    <div class="flex">
-      <vue-tributeVue :options="tributeOption" >
-        <div
-          class="line-height-1 tribute-input"
-          type="text"/>
-      </vue-tributeVue>
-      <div>
-        <div class="display-block tribute-btn">
-          <span>异步加载</span>
-          <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
+    <div>
+        <div v-html="'<请求数据为模拟生成的>'"></div>
+        <div class="flex">
+            <vue-tributeVue :options="tributeOption">
+                <div class="line-height-1 tribute-input" type="text" />
+            </vue-tributeVue>
+            <div>
+                <div class="display-block tribute-btn">
+                    <span>异步加载</span>
+                    <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -43,7 +41,7 @@ export default {
             key: `🐮${text}-${i}`,
             value: `🐮${text}-${i}-id`,
             phone: `🐮x${i}`,
-            avatar_url: require(`@/static/image/mention-function/0${(loadingIndex + i) % 4 + 1}.png`)
+            avatar_url: require(`@/assets/images/mention-function/0${(loadingIndex + i) % 4 + 1}.png`)
           })
         }
         newIndex = newIndex + 2
@@ -111,17 +109,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.tribute-input{
-  width: 500px;
-  font-size: 16px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 0.5em;
-}
-.tribute-btn{
-  margin: 0 0 1em 1em;
-  font-size: 16px;
-  padding: 0.5em;
-}
+    .tribute-input {
+      width: 500px;
+      font-size: 16px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 0.5em;
+    }
+    .tribute-btn {
+      margin: 0 0 1em 1em;
+      font-size: 16px;
+      padding: 0.5em;
+    }
 </style>

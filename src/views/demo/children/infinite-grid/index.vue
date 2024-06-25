@@ -20,7 +20,7 @@ import { JustifiedInfiniteGrid, MasonryInfiniteGrid, FrameInfiniteGrid, PackingI
 import { ref } from 'vue'
 import { useInfiniteScroll } from '@vueuse/core'
 
-import { randomXtoY, getRandomColor } from '@/common/methods'
+import { randomXtoY, getRandomColor } from '@/common/util/methods'
 
 export default {
   components: {

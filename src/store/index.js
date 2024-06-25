@@ -5,8 +5,8 @@ import {
   SET_MENUS_ACTIVE,
   SET_MENUS_INIT_RENDER
 } from './actionType'
-import themeType from '@/assets/theme/type'
-import initList from '@/static/list.js'
+import themeType from '@/static/theme/type'
+import initList from '@/static/list/index.js'
 
 const renderList = (list, parentIndex = 0, url = []) => {
   return list.map((item, index) => {

@@ -13,7 +13,7 @@ import DocxDemo from './components/docxDemo.vue'
 import ExcelDemo from './components/excelDemo.vue'
 import PdfDemo from './components/pdfDemo.vue'
 import tabs from './components/tabs.vue'
-import { baseUrlFun } from '@/common/methods.js'
+import { baseUrlFun } from '@/common/util/methods.js'
 export default {
   components: {
     tabs,

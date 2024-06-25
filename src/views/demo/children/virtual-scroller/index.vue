@@ -45,9 +45,9 @@ import { ref } from 'vue'
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
-import toast from '@/components/common/toast/index.vue'
+import toast from '@/components/toast/index.vue'
 
-import { randomXtoY, getRandomColor } from '@/common/methods'
+import { randomXtoY, getRandomColor } from '@/common/util/methods'
 import guid from '@/common/util/guid'
 import { isNumber } from '@/common/util/typeCheck'
 

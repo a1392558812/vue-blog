@@ -57,7 +57,7 @@ import 'codemirror/addon/scroll/simplescrollbars.css'
 // style
 import 'codemirror/lib/codemirror.css'
 
-import { fileToBase64Async } from '@/common/methods'
+import { fileToBase64Async } from '@/common/util/methods'
 import guid from '@/common/util/guid'
 
 vMdPreview.Codemirror = Codemirror

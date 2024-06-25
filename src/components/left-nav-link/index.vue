@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import commonNavLink from '@/components/common/nav-link'
+import commonNavLink from '@/components/nav-link/index.vue'
 import useGoHome from '@/hook/common/useGoHome'
 export default {
   name: 'LeftNavLink',
