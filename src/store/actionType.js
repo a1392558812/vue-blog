@@ -1,3 +1,4 @@
 export const SET_THEME = 'setTheme'
 export const SET_MENUS_ACTIVE = 'setMenusActive'
 export const SET_MENUS_INIT_RENDER = 'setMenusInitRender'
+export const SET_MENUS_INIT = 'setMenusInit'

@@ -8,7 +8,6 @@ export default function (defaultSrc) {
     const reader = new FileReader()
     reader.onload = (loadEvent) => {
       const arrayBuffer = loadEvent.target.result
-      console.log('arrayBuffer', arrayBuffer)
       src.value = arrayBuffer
     }
     reader.readAsArrayBuffer(file.target.files[0])

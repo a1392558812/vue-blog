@@ -18,7 +18,6 @@ function addWaterMarker (str, parentNode, font, textColor, size = 500) {
 
 const waterMarker = {
   mounted: function (el, binding) {
-    console.log('waterMarker-bind')
     addWaterMarker(binding.value.text, el, binding.value.font, binding.value.textColor, binding.value.size)
   }
 }

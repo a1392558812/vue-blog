@@ -1,5 +1,5 @@
 <template>
-    <div class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row">
+    <div class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row" v-loading="!menuList.length">
         <layout-left-sidebar :left-sidebar-w="leftSidebarW" :if-show-menu="ifShowMenu" :if-larger="ifLarger" :header-h="headerH" :toggle-menu="toggleMenu" @linkClick="linkClick"
                              @itemClick="itemClick" />
         <div :style="ifLarger ? {
@@ -8,29 +8,35 @@
             <!-- 背景图 -->
             <div class="bg-image overflow-hidden width100 height100 absolute" />
             <div class="home overflow-y-auto relative width100 height100">
-                <!-- 标题 -->
-                <div v-if="!mdType" class="title width100 flex align-items-center justify-content-center">
-                    {{ title }}
-                </div>
-                <!-- md格式 -->
-                <markdown-type v-if="mdType" :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading" :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
-                <!-- 图片格式   -->
-                <image-type v-else-if="imgType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
-                <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
-                <div v-else-if="linkType" class="link">
-                    <a :href="htmlMD">链接： {{ htmlMD }}</a>
-                </div>
-                <!-- 其他格式 -->
-                <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
+                <template v-if="menuList.length">
+                    <!-- 标题 -->
+                    <div v-if="!mdType" class="title width100 flex align-items-center justify-content-center">
+                        {{ title }}
+                    </div>
+                    <!-- md格式 -->
+                    <markdown-type v-if="mdType" :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading" :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
+                    <!-- 图片格式   -->
+                    <image-type v-else-if="imgType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
+                    <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
+                    <div v-else-if="linkType" class="link">
+                        <a :href="htmlMD">链接： {{ htmlMD }}</a>
+                    </div>
+                    <!-- 其他格式 -->
+                    <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
+                </template>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, nextTick, onBeforeMount, computed } from 'vue'
+import { ref, nextTick, computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+
+import {
+  SET_MENUS_INIT
+} from '@/store/actionType'
 
 import axios from '@/common/axios/index.js'
 import { markdownTypeCheck, imgTypeCheck } from '@/common/util/methods'
@@ -54,20 +60,23 @@ export default {
   },
   setup (props) {
     const router = useRouter()
+    const route = useRoute()
     const store = useStore()
-    const list = computed(() => store.state.menuList)
 
     const htmlMD = ref('')
     const title = ref('ReadMe-前言')
     const type = ref('')
     const downloadName = ref('文件')
     const loading = ref(true)
+
     // markdown类型
     const mdType = computed(() => markdownTypeCheck(type.value))
     // img类型
     const imgType = computed(() => imgTypeCheck(type.value))
     // 连接类型
     const linkType = computed(() => type.value === 'link')
+    // 菜单列表
+    const menuList = computed(() => store.state.menuList)
 
     // 滚动到顶部
     const scrollTop = () => {
@@ -148,7 +157,7 @@ export default {
       // 切割路由参数，路由参数格式 indexPage=1-1-1
       const pageIndexArr = indexPage.split('-')
       try {
-        let result = list.value
+        let result = menuList.value
         pageIndexArr.forEach(index => {
           if (Object.prototype.hasOwnProperty.call(result, 'children')) {
             result = result.children[+index]
@@ -192,17 +201,20 @@ export default {
 
     // 页面即将初始化
     onBeforeMount(() => {
-      const { indexPage } = useRoute().query
-      props.toggleMenu(false)
-      // 当前路由携带参数
-      if (indexPage) {
-        hasParamas(indexPage)
-      } else {
-        hsaNotParams()
-      }
+      store.dispatch(SET_MENUS_INIT).then(() => {
+        const { indexPage } = route.query
+        props.toggleMenu(false)
+        // 当前路由携带参数
+        if (indexPage) {
+          hasParamas(indexPage)
+        } else {
+          hsaNotParams()
+        }
+      })
     })
 
     return {
+      menuList,
       mdType,
       markdownTitleWidth: ref('300px'), // 侧边导航标题栏宽度
       imgType,

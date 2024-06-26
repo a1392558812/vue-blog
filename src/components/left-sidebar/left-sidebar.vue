@@ -14,7 +14,8 @@ import leftSidebarSearch from './left-sidebar-search'
 
 import {
   SET_MENUS_ACTIVE,
-  SET_MENUS_INIT_RENDER
+  SET_MENUS_INIT_RENDER,
+  SET_MENUS_INIT
 } from '@/store/actionType'
 
 BScroll.use(ScrollBar)
@@ -43,6 +44,7 @@ export default {
 
     const initScroll = () => {
       destroyScroll()
+      console.log('initScroll')
       bestScroll = new BScroll(listContentRef.value, {
         click: true,
         observeDOM: true,
@@ -61,6 +63,7 @@ export default {
     }
 
     const destroyScroll = () => {
+      console.log('destroyScroll')
       if (bestScroll) {
         bestScroll.destroy()
       }
@@ -93,13 +96,15 @@ export default {
     watch(
       () => props.ifLarger,
       (val) => {
-        if (val) {
-          nextTick().then(() => {
-            initScroll()
-          })
-        } else {
-          destroyScroll()
-        }
+        store.dispatch(SET_MENUS_INIT).then(() => {
+          if (val && menuList.value.length) {
+            nextTick().then(() => {
+              initScroll()
+            })
+          } else {
+            destroyScroll()
+          }
+        })
       },
       { immediate: true }
     )
@@ -127,37 +132,43 @@ export default {
   },
   render () {
     return (
-      <div class={this.sidebarClassName}>
-        <div class='flex height100 flex-direction-column left-sidebar-content'>
-          <leftSidebarSearch
-            class='search'
-            toggleMenu={this.toggleMenu}
-            onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
-            onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
-            list={this.menuList}/>
-          <div key={this.ifLarger} class={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
-            <div ref={(node) => {
-              this.listContentRef = node
-            }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
-                <div style={{ padding: '0 0 50px 0' }}>
-                    {this.menuList.map((item, index) => {
-                      return <leftSidebarItem
-                        rowDetails={item}
-                        key={index}
-                        grade={-1}
-                        nowActive={this.nowActive}
-                        menuList={this.menuList}
-                        url={[item.name]}
-                        firstLevelIndex={index}
-                        onItemClick={(e, list, row, firstLevelIndex) => { this.leftSidebarItemClick(e, list, row, firstLevelIndex) }}
-                        onListClick={(e, row, firstLevelIndex) => { this.leftSidebarListClick(e, row, firstLevelIndex) }}
-                        />
-                    })}
-                </div>
-            </div>
-          </div>
+        <div class={this.sidebarClassName}>
+          {
+            this.menuList.length
+              ? (
+                  <div class='flex height100 relative flex-direction-column left-sidebar-content'>
+                    <leftSidebarSearch
+                      class='search'
+                      toggleMenu={this.toggleMenu}
+                      onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
+                      onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
+                      list={this.menuList}/>
+                    <div key={this.ifLarger} class={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
+                      <div ref={(node) => { this.listContentRef = node }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
+                        <div style={{ padding: '0 0 150px 0' }}>
+                          {
+                            this.menuList.map((item, index) => {
+                              return <leftSidebarItem
+                                rowDetails={item}
+                                key={index}
+                                grade={-1}
+                                nowActive={this.nowActive}
+                                menuList={this.menuList}
+                                url={[item.name]}
+                                firstLevelIndex={index}
+                                onItemClick={(e, list, row, firstLevelIndex) => { this.leftSidebarItemClick(e, list, row, firstLevelIndex) }}
+                                onListClick={(e, row, firstLevelIndex) => { this.leftSidebarListClick(e, row, firstLevelIndex) }}
+                                />
+                            })
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              : null
+          }
         </div>
-      </div>
     )
   }
 }

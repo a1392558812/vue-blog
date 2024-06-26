@@ -68,7 +68,6 @@ export default {
       if (loading.value) return
       loading.value = true
       setTimeout(() => {
-        console.log('getList')
         const length = list.value.length
         const listArr = []
 

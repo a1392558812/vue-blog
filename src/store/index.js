@@ -1,12 +1,14 @@
 import { createStore } from 'vuex'
+
+import axios from '@/common/axios/index'
 import getters from './getter'
 import {
   SET_THEME,
   SET_MENUS_ACTIVE,
-  SET_MENUS_INIT_RENDER
+  SET_MENUS_INIT_RENDER,
+  SET_MENUS_INIT
 } from './actionType'
 import themeType from '@/static/theme/type'
-import initList from '@/static/list/index.js'
 
 const renderList = (list, parentIndex = 0, url = []) => {
   return list.map((item, index) => {
@@ -22,6 +24,8 @@ const renderList = (list, parentIndex = 0, url = []) => {
     return item
   })
 }
+
+let menuListPromise = null
 
 export default createStore({
   state: {
@@ -45,11 +49,14 @@ export default createStore({
         url: require('@/assets/music/music2.mp3')
       }
     ],
-    menuList: renderList(initList),
+    menuList: [],
     theme: 'light' // light / dark
   },
   getters,
   mutations: {
+    [SET_MENUS_INIT] (state, list) {
+      state.menuList = list
+    },
     [SET_THEME] (state, theme) {
       if (themeType[theme]) {
         state.theme = theme
@@ -84,6 +91,37 @@ export default createStore({
     }
   },
   actions: {
+    [SET_MENUS_INIT] ({ state, commit }) {
+      return new Promise(resolve => {
+        if (state.menuList.length) {
+          menuListPromise = null
+          resolve()
+        } else {
+          if (!menuListPromise) {
+            menuListPromise = axios.get('./menu-list/menu-list.json')
+          }
+          menuListPromise.then(
+            res => {
+              commit(SET_MENUS_INIT, (() => {
+                let menuList
+                if (res && res.data && res.data.length) {
+                  menuList = renderList(res.data)
+                } else {
+                  menuList = []
+                }
+                return menuList
+              })())
+              menuListPromise = null
+              resolve()
+            },
+            () => {
+              commit(SET_MENUS_INIT, [])
+              resolve()
+            }
+          )
+        }
+      })
+    },
     [SET_THEME] ({ commit }, theme) {
       commit(SET_THEME, theme)
     },

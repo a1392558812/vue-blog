@@ -1,5 +1,5 @@
 <template>
-  <div style="color: var(--global-text-color)" class="bg-white relative width100 height100 flex flex-direction-row">
+  <div style="color: var(--global-text-color)" class="bg-white relative width100 height100 flex flex-direction-row" v-loading="!menuList.length">
     <layout-left-sidebar
       :left-sidebar-w="leftSidebarW"
       :if-show-menu="ifShowMenu"
@@ -7,7 +7,7 @@
       :header-h="headerH"
       :toggle-menu="toggleMenu"
     />
-    <div class="width100 height100 flex flex-direction-column">
+    <div class="width100 height100 flex flex-direction-column" v-if="menuList.length">
       <div class="search-title width100 flex align-items-center justify-content-center">
         <div class="flex align-items-baseline">
           <p style="margin-right: 10px">
@@ -32,12 +32,16 @@
 </template>
 
 <script setup="props" name="search">
-import { defineProps, onBeforeMount, ref, watch, computed } from 'vue'
+import { defineProps, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar'
+import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
+
+import {
+  SET_MENUS_INIT
+} from '@/store/actionType'
 
 defineProps(leftSidebarProps)
 
@@ -45,7 +49,7 @@ const store = useStore()
 const route = useRoute()
 const router = useRouter()
 
-const allList = computed(() => store.state.menuList)
+const menuList = computed(() => store.state.menuList)
 const searchResult = ref([])
 let inputValue = decodeURI(route.query.key)
 
@@ -76,15 +80,19 @@ const init = () => {
       })
     }
   }
-  allList.value.forEach(filter)
+  menuList.value.forEach(filter)
   searchResult.value = searchArr.length ? searchArr : [{ name: '暂无搜索结果', noResult: true }]
 }
 
-watch(route, (newV, oldV) => {
-  if (newV.query.key !== inputValue) init()
-})
-
-onBeforeMount(init)
+watch(
+  route,
+  () => {
+    store.dispatch(SET_MENUS_INIT).then(() => {
+      init()
+    })
+  },
+  { immediate: true }
+)
 
 </script>
 
@@ -105,8 +113,7 @@ onBeforeMount(init)
 
 .search-content {
   overflow-y: scroll;
-  padding: 30px 10px;
-
+  padding: 30px 10px 200px 10px;
   .search-item {
     font-size: 16px;
     padding: 10px 20px;

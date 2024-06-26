@@ -52,7 +52,8 @@ export default {
       const { ifShowHeaderComponent: flag } = newV.meta
       ifShowHeaderComponent.value = (flag !== undefined) ? flag : true
       ifShowHeaderPopupBtn.value = [
-        '/'
+        '/',
+        '/search'
       ].includes(newV.path)
     })
 
