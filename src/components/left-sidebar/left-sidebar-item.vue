@@ -174,8 +174,8 @@ export default {
     font-size: 18px;
     font-weight: 600;
     .cell-item-title{
-      padding-top: 15px;
-      padding-bottom: 15px;
+      padding-top: 20px;
+      padding-bottom: 20px;
       .cell-item-link{
         margin: 0 5px;
         border-radius: 5px;
@@ -188,7 +188,7 @@ export default {
     }
     .list-active{
       position: absolute;
-      top: 28px;
+      top: 33px;
       transform: translateY(-50%);
       width: 4px;
       border-radius: 200px;

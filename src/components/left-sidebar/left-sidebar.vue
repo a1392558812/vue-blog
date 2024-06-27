@@ -97,17 +97,7 @@ export default {
     }
 
     const menuListCloseAll = () => {
-      if (nowActive.value === null) {
-        console.log('还未点击过菜单')
-        return
-      }
       store.dispatch(SET_MENUS_CLOSE_ALL)
-      nowActive.value = null
-      if (props.ifLarger) {
-        bestScroll.scrollTo(0, 0)
-      } else {
-        listContentRef.value.parentNode.scrollTop = 0
-      }
     }
 
     watch(
