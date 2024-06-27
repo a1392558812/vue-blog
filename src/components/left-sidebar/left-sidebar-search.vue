@@ -1,5 +1,8 @@
 <template>
   <div ref="target" style="z-index: 1" class="relative cell list-cell">
+    <div title="整理菜单" class="absolute align-center-y flex align-items-center justify-content-center cursor-pointer menu-list-close" @click="menuListCloseAll">
+        <svg style="width: 1em; height: 1em; margin-left: -2px;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27655"><path d="M0 1024h1024v-170.666667H0v170.666667z m0-426.666667h1024V426.666667H0v170.666666z m0-597.333333v170.666667h1024V0H0z" p-id="27656"></path></svg>
+    </div>
     <div class="relative width100 height100 flex align-items-center justify-content-space-between">
       <div class="relative">
         <div class="input relative">
@@ -69,6 +72,11 @@ export default {
       props.toggleMenu(false)
       router.push({ path: '/search', query: { key: encodeURI(inputValue.value) ? inputValue.value : '' } })
     }
+
+    const menuListCloseAll = () => {
+      emit('menuListCloseAll')
+    }
+
     onClickOutside(target, (event) => { ifShowSearchDropDown.value = false })
     debouncedWatch(
       inputValue,
@@ -117,6 +125,7 @@ export default {
       searchResult,
       ifShowSearchDropDown,
       goToDetail,
+      menuListCloseAll,
       search
     }
   }
@@ -124,6 +133,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.cell {
+  padding-left: 30px !important;
+}
 .drop-down {
   padding: 5px;
   width: calc(100% + 4em);
@@ -147,7 +159,6 @@ export default {
 }
 
 .search-input {
-  margin-right: 1.5em;
   padding: 5px 8px 5px 2.3em;
   width: 140px;
   border-radius: 6000px;
@@ -163,5 +174,16 @@ export default {
 
 .icon {
   left: 0.4em;
+}
+
+.menu-list-close {
+  width: 22px;
+  height: 25px;
+  font-size: 12px;
+  font-weight: bolder;
+  left: 0;
+  border-radius: 0 10px 10px 0;
+  background-color: var(--global-primary-color);
+  color: var(--global-primary-button-text-color);
 }
 </style>

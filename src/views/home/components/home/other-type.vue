@@ -33,11 +33,12 @@ export default {
     padding: 20px;
     .downLoad-cell{
       margin-bottom: 5px;
+      color: var(--global-text-color);
     }
     .downLoad-wrap{
       .downLoad{
         text-decoration: none;
-        color: black;
+        color: var(--global-text-color);
         background-color: var(--global-border-color);
         line-height: 1;
         font-size: 14px;

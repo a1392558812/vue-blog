@@ -6,9 +6,12 @@ import {
   SET_THEME,
   SET_MENUS_ACTIVE,
   SET_MENUS_INIT_RENDER,
-  SET_MENUS_INIT
+  SET_MENUS_INIT,
+  SET_MENUS_CLOSE_ALL
 } from './actionType'
 import themeType from '@/static/theme/type'
+
+let menuListPromise = null
 
 const renderList = (list, parentIndex = 0, url = []) => {
   return list.map((item, index) => {
@@ -25,7 +28,17 @@ const renderList = (list, parentIndex = 0, url = []) => {
   })
 }
 
-let menuListPromise = null
+const close = (list) => {
+  list.map(item => {
+    if (Object.prototype.hasOwnProperty.call(item, 'ifShow')) {
+      item.ifShow = false
+    }
+    if (item.children && item.children.length) {
+      close(item.children)
+    }
+    return item
+  })
+}
 
 export default createStore({
   state: {
@@ -54,6 +67,9 @@ export default createStore({
   },
   getters,
   mutations: {
+    [SET_MENUS_CLOSE_ALL] (state) {
+      close(state.menuList)
+    },
     [SET_MENUS_INIT] (state, list) {
       state.menuList = list
     },
@@ -87,10 +103,19 @@ export default createStore({
       })
 
       targetRow.ifHadRender = true
-      targetRow.ifShow = !row.ifShow
+
+      if (row.ifShow) {
+        close(row.children)
+        targetRow.ifShow = false
+      } else {
+        targetRow.ifShow = true
+      }
     }
   },
   actions: {
+    [SET_MENUS_CLOSE_ALL] ({ commit }) {
+      commit(SET_MENUS_CLOSE_ALL)
+    },
     [SET_MENUS_INIT] ({ state, commit }) {
       return new Promise(resolve => {
         if (state.menuList.length) {

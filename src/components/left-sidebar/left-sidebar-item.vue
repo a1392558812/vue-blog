@@ -35,7 +35,7 @@ export default {
     const tag = computed(() => renderList.value.length ? 'div' : 'a')
     const hrefMap = computed(() => renderList.value.length ? {} : { href: `/#/?indexPage=${rowDetails.value.indexPage}` })
     const titleStyleName = computed(() => ({
-      marginLeft: `${currentGrade.value + 1 * 25}px`,
+      marginLeft: '1em',
       display: rowDetails.value.ifShow ? 'block' : 'none'
     }))
     const ifRender = computed(() => ('ifHadRender' in rowDetails.value) && rowDetails.value.ifHadRender && 'ifShow' in rowDetails.value)
@@ -96,10 +96,28 @@ export default {
                     ? this.listClick(e, this.rowDetails, this.firstLevelIndex)
                     : this.itemClick(e, this.menuList, this.rowDetails, this.firstLevelIndex)
                 }}
-                class='cell-item-title flex align-items-center justify-content-start'>
-                  {this.rowDetails.link ? (<div class='cell-item-link'>链接</div>) : null}
+                class='cell-item-title'>
+                  {
+                    this.renderList.length
+                      ? (
+                          <svg class="icon"
+                            style={{
+                              transform: `rotate(${this.rowDetails.ifShow ? 90 : 0}deg)`,
+                              transition: 'all 0.3s',
+                              marginTop: '-2.5px',
+                              width: '1em',
+                              height: '1em',
+                              verticalAlign: 'middle',
+                              fill: 'currentColor',
+                              overflow: 'hidden'
+                            }}
+                            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="34097"><path d="M349.184 208.384l346.624 261.632c22.528 16.896 27.136 49.152 10.24 71.68-3.072 3.584-6.144 7.168-10.24 10.24l-346.624 261.632c-11.264 8.704-27.136 6.144-35.84-5.12-3.584-4.608-5.12-9.728-5.12-15.36V228.864c0-14.336 11.264-25.6 25.6-25.6 5.12 0 10.752 2.048 15.36 5.12z" p-id="34098"></path></svg>
+                        )
+                      : null
+                  }
                   <span>{this.rowDetails.name}</span>
-                  {this.rowDetails.topping ? (<div class='topping'>置顶</div>) : null}
+                  {this.rowDetails.link ? (<div class='cell-item-link display-inline'>链接</div>) : null}
+                  {this.rowDetails.topping ? (<div class='topping display-inline'>置顶</div>) : null}
               </div>
               {this.ifRender
                 ? (
@@ -132,6 +150,7 @@ export default {
     line-height: 1.5;
     .cell-item-title{
       text-indent: 0.5em;
+      word-break: break-all;
       border-bottom: 1px solid var(--global-border-color);
     }
     .topping{
@@ -155,17 +174,13 @@ export default {
     font-size: 18px;
     font-weight: 600;
     .cell-item-title{
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 15px;
+      padding-bottom: 15px;
       .cell-item-link{
-        margin: 5px;
-        height: 14px;
+        margin: 0 5px;
         border-radius: 5px;
-        padding: 5px 10px;
-        display: inline-block;
-        font-size: 14px;
-        line-height: 1;
-        white-space:nowrap;
+        padding: 0 8px;
+        white-space: nowrap;
         text-indent: 0;
         background-color: skyblue;
         color: var(--global-primary-button-text-color);
@@ -173,7 +188,7 @@ export default {
     }
     .list-active{
       position: absolute;
-      top: 33px;
+      top: 28px;
       transform: translateY(-50%);
       width: 4px;
       border-radius: 200px;

@@ -39,7 +39,7 @@ import {
 } from '@/store/actionType'
 
 import axios from '@/common/axios/index.js'
-import { markdownTypeCheck, imgTypeCheck } from '@/common/util/methods'
+import { markdownTypeCheck, markdownTypeList, imgTypeCheck } from '@/common/util/methods'
 
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
@@ -93,27 +93,7 @@ export default {
       axios.get(urlLink)
         .then((response) => {
           loading.value = false
-          if (type.value === 'js') {
-            htmlMD.value = '```js' + '\n' + response.data + '\n' + '```'
-            return
-          }
-          if (type.value === 'ts') {
-            htmlMD.value = '```typescript' + '\n' + response.data + '\n' + '```'
-            return
-          }
-          if (type.value === 'py') {
-            htmlMD.value = '```python' + '\n' + response.data + '\n' + '```'
-            return
-          }
-          if (type.value === 'html') {
-            htmlMD.value = '```html' + '\n' + response.data + '\n' + '```'
-            return
-          }
-          if (type.value === 'jsx') {
-            htmlMD.value = '```jsx' + '\n' + response.data + '\n' + '```'
-            return
-          }
-          htmlMD.value = response.data
+          htmlMD.value = (markdownTypeList.find(item => item.suffix === type.value.toLocaleLowerCase())).formatFun(response.data)
           scrollTop()
         })
         .catch(() => {
@@ -182,7 +162,11 @@ export default {
         // 正常的路由跳转
         itemClick(urlArr)
       } catch (e) {
-        router.push('/error')
+        if (process.env.NODE_ENV === 'development') {
+          console.error(`${process.env.NODE_ENV}menuList解析: `, e)
+        } else {
+          router.push('/error')
+        }
       }
     }
     // 不携带路由参数
@@ -253,10 +237,14 @@ export default {
           height: 70px;
           font-size: 18px;
           font-weight: 600;
+          color: var(--global-text-color);
         }
 
         .link {
           padding: 20px;
+          a {
+            color: var(--global-text-color);
+          }
         }
       }
     }

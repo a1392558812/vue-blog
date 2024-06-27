@@ -10,12 +10,14 @@ import ObserveDOM from '@better-scroll/observe-dom'
 
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import leftSidebarItem from './left-sidebar-item.vue'
+import commonmBtn from '@/components/commonm-btn/index.vue'
 import leftSidebarSearch from './left-sidebar-search'
 
 import {
   SET_MENUS_ACTIVE,
   SET_MENUS_INIT_RENDER,
-  SET_MENUS_INIT
+  SET_MENUS_INIT,
+  SET_MENUS_CLOSE_ALL
 } from '@/store/actionType'
 
 BScroll.use(ScrollBar)
@@ -26,7 +28,8 @@ export default {
   name: 'LeftSidebar',
   components: {
     leftSidebarItem,
-    leftSidebarSearch
+    leftSidebarSearch,
+    commonmBtn
   },
   props: {
     ...leftSidebarProps
@@ -93,6 +96,20 @@ export default {
       nowActive.value = firstLevelIndex
     }
 
+    const menuListCloseAll = () => {
+      if (nowActive.value === null) {
+        console.log('还未点击过菜单')
+        return
+      }
+      store.dispatch(SET_MENUS_CLOSE_ALL)
+      nowActive.value = null
+      if (props.ifLarger) {
+        bestScroll.scrollTo(0, 0)
+      } else {
+        listContentRef.value.parentNode.scrollTop = 0
+      }
+    }
+
     watch(
       () => props.ifLarger,
       (val) => {
@@ -117,6 +134,7 @@ export default {
       menuList,
       nowActive,
       listContentRef,
+      menuListCloseAll,
       sidebarClassName: computed(() => {
         let classname = 'left-sidebar flex-shrink-0 bg-white height100'
         if (!props.ifLarger) {
@@ -142,10 +160,11 @@ export default {
                       toggleMenu={this.toggleMenu}
                       onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
                       onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
+                      onMenuListCloseAll={this.menuListCloseAll}
                       list={this.menuList}/>
                     <div key={this.ifLarger} class={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
                       <div ref={(node) => { this.listContentRef = node }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
-                        <div style={{ padding: '0 0 150px 0' }}>
+                        <div style={{ padding: '0 0 50px 0' }}>
                           {
                             this.menuList.map((item, index) => {
                               return <leftSidebarItem
@@ -183,11 +202,11 @@ export default {
   box-sizing: border-box;
   z-index: 10;
   .search{
-    padding: 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid var(--global-border-color);
   }
   .left-sidebar-content{
-    padding-bottom: 30px;
+
   }
   .list-wrap {
     padding: 0 20px;

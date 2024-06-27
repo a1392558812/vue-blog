@@ -73,7 +73,7 @@ export default {
 .common-btn {
   position: relative;
   line-height: 1;
-  padding: 8px 20px;
+  padding: .5em 1em;
   border-radius: 5px;
   overflow: hidden;
   user-select: none;

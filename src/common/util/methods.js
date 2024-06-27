@@ -26,16 +26,21 @@ export const downFileByAxios = (href) => {
   })
 }
 
+export const markdownTypeList = [
+  { suffix: 'md', formatFun: (str) => str },
+  { suffix: 'js', formatFun: (str) => '```javascript' + '\n' + str + '\n' + '```' },
+  { suffix: 'ts', formatFun: (str) => '```typescript' + '\n' + str + '\n' + '```' },
+  { suffix: 'jsx', formatFun: (str) => '```jsx' + '\n' + str + '\n' + '```' },
+  { suffix: 'html', formatFun: (str) => '```html' + '\n' + str + '\n' + '```' },
+  { suffix: 'css', formatFun: (str) => '```css' + '\n' + str + '\n' + '```' },
+  { suffix: 'less', formatFun: (str) => '```less' + '\n' + str + '\n' + '```' },
+  { suffix: 'scss', formatFun: (str) => '```scss' + '\n' + str + '\n' + '```' },
+  { suffix: 'py', formatFun: (str) => '```python' + '\n' + str + '\n' + '```' }
+]
+
 /* markdown类型 */
 export const markdownTypeCheck = (type) => {
-  return [
-    'md',
-    'js',
-    'ts',
-    'jsx',
-    'html',
-    'py'
-  ].filter(item => item === type).length
+  return markdownTypeList.filter(item => item.suffix === type).length
 }
 
 /* image图片类型 */

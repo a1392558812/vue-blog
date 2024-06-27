@@ -60,7 +60,7 @@ export default {
             <div style={this.loading ? { display: 'none' } : {}} className='image-content' onClick={() => {
               this.showPopup = true
             }}>
-              <img onLoad={this.imageLoad} onError={this.imageLoad} src={this.htmlMD} alt={this.htmlMD} />
+              <img title={this.htmlMD} onLoad={this.imageLoad} onError={this.imageLoad} src={this.htmlMD} alt={this.htmlMD} />
             </div>
             <div style={this.loading ? {} : { display: 'none' }}>
               <div>github响应有点慢，莫急,已加载{this.imageloadingTime}秒</div>
