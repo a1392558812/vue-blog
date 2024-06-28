@@ -18,7 +18,10 @@
         <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute bg-white drop-down">
           <li v-for="item in searchResult" :key="item" class="cursor-pointer drop-down-item"
             :class="item.goSearch ? 'flex align-items-center justify-content-center more-content' : ''">
-            <a class="drop-down-item-label" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e) { goToDetail(item, e) }">{{ item.name }}</a>
+            <a class="drop-down-item-label" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e) { goToDetail(item, e) }">
+                <linkTag class="display-inline" v-if="item.link" />
+                <span>{{ item.name }}</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -30,44 +33,43 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { debouncedWatch, onClickOutside } from '@vueuse/core'
-import commonmBtn from '@/components/commonm-btn/index.vue'
 import { useRouter } from 'vue-router'
+
+import commonmBtn from '@/components/commonm-btn/index.vue'
+import linkTag from './link-tag.vue'
+
 export default {
   name: 'LeftSidebarSearch',
   components: {
-    commonmBtn
+    commonmBtn,
+    linkTag
   },
   props: {
-    list: {
-      type: Array,
-      default: () => []
-    },
     toggleMenu: {
       type: Function,
       default: () => { }
     }
   },
   setup (props, { emit }) {
+    const store = useStore()
+    const menuList = computed(() => store.state.menuData.menuList)
+
     const inputValue = ref('')
     const searchResult = ref([])
     const router = useRouter()
     const target = ref(null)
     const ifShowSearchDropDown = ref(false)
+
     const goToDetail = (item, e) => {
       e.preventDefault()
       if (item.noResult) return
       if (item.goSearch) return search()
-      router.push({
-        path: '/',
-        query: { indexPage: item.indexPage }
-      })
-      if (item.link) {
-        return emit('searchLinkClick', item.link)
-      }
-      emit('searchItemClick', item.url)
+      emit('itemClick', e, item)
     }
+
     const search = () => {
       props.toggleMenu(false)
       router.push({ path: '/search', query: { key: encodeURI(inputValue.value) ? inputValue.value : '' } })
@@ -87,27 +89,22 @@ export default {
         }
         let limtNum = 10
         const searchArr = []
-        const filter = (arr) => {
-          if (arr.children && limtNum) {
-            for (let index = 0; index < arr.children.length; index++) {
-              if (!limtNum) break
-              if (arr.children[index].children) {
-                filter(arr.children[index])
-              }
-              const toLowerCaseName = inputValue.value.trim().toLowerCase()
-              if (arr.children[index] &&
-                arr.children[index].name &&
-                arr.children[index].name.trim().toLowerCase().indexOf(toLowerCaseName) !== -1) {
+        const toLowerCaseName = inputValue.value.trim().toLowerCase()
+        const filter = (list) => {
+          for (let index = 0; index < list.length; index++) {
+            if (!limtNum) break
+
+            if (!list[index].children) {
+              if (list[index].name.trim().toLowerCase().indexOf(toLowerCaseName) !== -1) {
                 limtNum--
-                searchArr.push(arr.children[index])
+                searchArr.push(list[index])
               }
+            } else {
+              filter(list[index].children)
             }
           }
         }
-        for (let index = 0; index < props.list.length; index++) {
-          if (!limtNum) break
-          filter(props.list[index])
-        }
+        filter(menuList.value)
         if (searchArr.length) {
           if (searchArr.length >= 5) {
             searchArr.push({ name: '更多....', goSearch: true })

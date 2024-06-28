@@ -7,7 +7,8 @@ import {
   SET_MENUS_ACTIVE,
   SET_MENUS_INIT_RENDER,
   SET_MENUS_INIT,
-  SET_MENUS_CLOSE_ALL
+  SET_MENUS_CLOSE_ALL,
+  SET_NOW_ACTIVE
 } from './actionType'
 import themeType from '@/static/theme/type'
 
@@ -62,16 +63,22 @@ export default createStore({
         url: require('@/assets/music/music2.mp3')
       }
     ],
-    menuList: [],
+    menuData: {
+      nowActive: null,
+      menuList: []
+    },
     theme: 'light' // light / dark
   },
   getters,
   mutations: {
+    [SET_NOW_ACTIVE] (state, nowActive) {
+      state.menuData.nowActive = nowActive
+    },
     [SET_MENUS_CLOSE_ALL] (state) {
-      close(state.menuList)
+      close(state.menuData.menuList)
     },
     [SET_MENUS_INIT] (state, list) {
-      state.menuList = list
+      state.menuData.menuList = list
     },
     [SET_THEME] (state, theme) {
       if (themeType[theme]) {
@@ -83,8 +90,8 @@ export default createStore({
       }
     },
     [SET_MENUS_ACTIVE] (state, row) {
-      let targetRow = { children: state.menuList }
-      let targetList = state.menuList
+      let targetRow = { children: state.menuData.menuList }
+      let targetList = state.menuData.menuList
       row.indexPage.split('-').forEach(itemIndex => {
         targetList = targetRow.children
         targetRow = targetList[itemIndex]
@@ -97,8 +104,13 @@ export default createStore({
       targetRow.itemActive = true
     },
     [SET_MENUS_INIT_RENDER] (state, row) {
-      let targetRow = { children: state.menuList }
-      row.indexPage.split('-').forEach(itemIndex => {
+      let targetRow = { children: state.menuData.menuList }
+      const rowIndexPageList = row.indexPage.split('-')
+      rowIndexPageList.forEach((itemIndex, index) => {
+        if ((index !== 0) && (index < rowIndexPageList.length)) {
+          targetRow.ifHadRender = true
+          targetRow.ifShow = true
+        }
         targetRow = targetRow.children[itemIndex]
       })
 
@@ -113,12 +125,15 @@ export default createStore({
     }
   },
   actions: {
+    [SET_NOW_ACTIVE] ({ commit }, nowActive) {
+      commit(SET_NOW_ACTIVE, nowActive)
+    },
     [SET_MENUS_CLOSE_ALL] ({ commit }) {
       commit(SET_MENUS_CLOSE_ALL)
     },
     [SET_MENUS_INIT] ({ state, commit }) {
       return new Promise(resolve => {
-        if (state.menuList.length) {
+        if (state.menuData.menuList.length) {
           menuListPromise = null
           resolve()
         } else {

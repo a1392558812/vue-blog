@@ -1,6 +1,5 @@
 <script lang="jsx">
 import { ref, computed, onBeforeUnmount, watch, nextTick } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
 import BScroll from '@better-scroll/core'
@@ -8,6 +7,7 @@ import ScrollBar from '@better-scroll/scroll-bar'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import ObserveDOM from '@better-scroll/observe-dom'
 
+import debounce from '@/common/util/debounce.js'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import leftSidebarItem from './left-sidebar-item.vue'
 import commonmBtn from '@/components/commonm-btn/index.vue'
@@ -17,7 +17,8 @@ import {
   SET_MENUS_ACTIVE,
   SET_MENUS_INIT_RENDER,
   SET_MENUS_INIT,
-  SET_MENUS_CLOSE_ALL
+  SET_MENUS_CLOSE_ALL,
+  SET_NOW_ACTIVE
 } from '@/store/actionType'
 
 BScroll.use(ScrollBar)
@@ -36,19 +37,15 @@ export default {
   },
   setup (props, { emit }) {
     const store = useStore()
-    const menuList = computed(() => store.state.menuList)
-    const router = useRouter()
-    const route = useRoute()
+    const menuList = computed(() => store.state.menuData.menuList)
 
-    let bestScroll = null
+    const bestScroll = ref(null)
     const listContentRef = ref(null)
-
-    const nowActive = ref(null)
 
     const initScroll = () => {
       destroyScroll()
       console.log('initScroll')
-      bestScroll = new BScroll(listContentRef.value, {
+      bestScroll.value = new BScroll(listContentRef.value, {
         click: true,
         observeDOM: true,
         bounce: false,
@@ -67,37 +64,31 @@ export default {
 
     const destroyScroll = () => {
       console.log('destroyScroll')
-      if (bestScroll) {
-        bestScroll.destroy()
+      if (bestScroll.value) {
+        bestScroll.value.destroy()
       }
-      bestScroll = null
+      bestScroll.value = null
     }
 
-    const leftSidebarItemClick = (e, childList, row, firstLevelIndex) => {
-      if (route.query.indexPage !== row.indexPage) {
-        nowActive.value = firstLevelIndex
+    const leftSidebarItemClick = (e, childList, row) => {
+      store.dispatch(SET_NOW_ACTIVE, row.indexPage)
+      store.dispatch(SET_MENUS_ACTIVE, row)
 
-        store.dispatch(SET_MENUS_ACTIVE, row)
-
-        props.toggleMenu(false)
-        router.push({
-          path: '/',
-          query: { indexPage: row.indexPage }
-        })
-        if (row.link) {
-          return emit('linkClick', row.link)
-        }
-        emit('itemClick', row.url)
-      }
+      props.toggleMenu(false)
+      emit('itemClick', row)
     }
 
-    const leftSidebarListClick = (e, row, firstLevelIndex) => {
+    const leftSidebarListClick = (e, row) => {
       store.dispatch(SET_MENUS_INIT_RENDER, row)
-      nowActive.value = firstLevelIndex
+      store.dispatch(SET_NOW_ACTIVE, row.indexPage)
+      emit('listClick', row)
     }
 
     const menuListCloseAll = () => {
-      store.dispatch(SET_MENUS_CLOSE_ALL)
+      debounce(() => {
+        console.log('menuListCloseAll ---> store.dispatch(SET_MENUS_CLOSE_ALL)')
+        store.dispatch(SET_MENUS_CLOSE_ALL)
+      }, 1000, true)
     }
 
     watch(
@@ -122,7 +113,6 @@ export default {
 
     return {
       menuList,
-      nowActive,
       listContentRef,
       menuListCloseAll,
       sidebarClassName: computed(() => {
@@ -148,10 +138,8 @@ export default {
                     <leftSidebarSearch
                       class='search'
                       toggleMenu={this.toggleMenu}
-                      onSearchLinkClick={(link) => { this.$emit('linkClick', link) }}
-                      onSearchItemClick={(url) => { this.$emit('itemClick', url) }}
-                      onMenuListCloseAll={this.menuListCloseAll}
-                      list={this.menuList}/>
+                      onItemClick={(e, row) => { this.leftSidebarItemClick(e, [], row) }}
+                      onMenuListCloseAll={this.menuListCloseAll}/>
                     <div key={this.ifLarger} class={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
                       <div ref={(node) => { this.listContentRef = node }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
                         <div style={{ padding: '0 0 50px 0' }}>
@@ -161,12 +149,10 @@ export default {
                                 rowDetails={item}
                                 key={index}
                                 grade={-1}
-                                nowActive={this.nowActive}
                                 menuList={this.menuList}
                                 url={[item.name]}
-                                firstLevelIndex={index}
-                                onItemClick={(e, list, row, firstLevelIndex) => { this.leftSidebarItemClick(e, list, row, firstLevelIndex) }}
-                                onListClick={(e, row, firstLevelIndex) => { this.leftSidebarListClick(e, row, firstLevelIndex) }}
+                                onItemClick={(e, list, row) => { this.leftSidebarItemClick(e, list, row) }}
+                                onListClick={(e, row) => { this.leftSidebarListClick(e, row) }}
                                 />
                             })
                           }

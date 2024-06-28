@@ -6,6 +6,7 @@
       :if-larger="ifLarger"
       :header-h="headerH"
       :toggle-menu="toggleMenu"
+      @itemClick="itemClick"
     />
     <div class="width100 height100 flex flex-direction-column" v-if="menuList.length">
       <div class="search-title width100 flex align-items-center justify-content-center">
@@ -24,7 +25,10 @@
           :key="index"
           class="search-item"
         >
-            <a class="search-item-label cursor-pointer" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e){ gotoDetails(item, e) }">{{ item.name }}</a>
+            <a class="search-item-label cursor-pointer" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e){ gotoDetails(item, e) }">
+                <linkTag class="display-inline" v-if="item.link" />
+                {{ item.name }}
+            </a>
         </li>
       </ul>
     </div>
@@ -38,6 +42,7 @@ import { useStore } from 'vuex'
 
 import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
+import linkTag from '@/components/left-sidebar/link-tag.vue'
 
 import {
   SET_MENUS_INIT
@@ -49,7 +54,7 @@ const store = useStore()
 const route = useRoute()
 const router = useRouter()
 
-const menuList = computed(() => store.state.menuList)
+const menuList = computed(() => store.state.menuData.menuList)
 const searchResult = ref([])
 let inputValue = decodeURI(route.query.key)
 
@@ -70,18 +75,26 @@ const init = () => {
     return
   }
   const searchArr = []
-  const filter = (arr) => {
-    if (arr.children) {
-      arr.children.forEach((item) => {
-        if (item.children) filter(item)
-        if (item && item.name && !item.children) {
-          item.name.trim().toLowerCase().indexOf(inputValue.trim().toLowerCase()) !== -1 && searchArr.push(item)
+  const filter = (list) => {
+    list.forEach((item) => {
+      if (!item.children) {
+        if (item.name.trim().toLowerCase().indexOf(inputValue.trim().toLowerCase()) !== -1) {
+          searchArr.push(item)
         }
-      })
-    }
+      } else {
+        filter(item.children)
+      }
+    })
   }
-  menuList.value.forEach(filter)
+  filter(menuList.value)
   searchResult.value = searchArr.length ? searchArr : [{ name: '暂无搜索结果', noResult: true }]
+}
+
+const itemClick = (row) => {
+  router.push({
+    path: '/',
+    query: { indexPage: row.indexPage }
+  })
 }
 
 watch(
