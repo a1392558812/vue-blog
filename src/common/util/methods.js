@@ -36,9 +36,10 @@ export const markdownTypeList = [
   { suffix: 'less', formatFun: (str) => '```less' + '\n' + str + '\n' + '```' },
   { suffix: 'scss', formatFun: (str) => '```scss' + '\n' + str + '\n' + '```' },
   { suffix: 'py', formatFun: (str) => '```python' + '\n' + str + '\n' + '```' },
-  { suffix: 'json', formatFun: (str) => '```json' + '\n' + str + '\n' + '```' },
+  { suffix: 'json', formatFun: (str) => '```json' + '\n' + JSON.stringify({ jsonData: str }) + '\n' + '```' },
   { suffix: 'ejs', formatFun: (str) => '```ejs' + '\n' + str + '\n' + '```' },
-  { suffix: 'vue', formatFun: (str) => '```html' + '\n' + str + '\n' + '```' }
+  { suffix: 'vue', formatFun: (str) => '```html' + '\n' + str + '\n' + '```' },
+  { suffix: 'txt', formatFun: (str) => '```' + '\n' + str + '\n' + '```' }
 ]
 
 /* markdown类型 */

@@ -59,7 +59,7 @@ export default {
       width: 17px;
       height: 17px;
       top: 0;
-      transform: translate(-20px, -50%) rotate(45deg);
+      transform: translate(-40px, -50%) rotate(45deg);
       right: 0;
       background-color: var(--global-background-color);
       border-top: 1px solid var(--global-border-color);

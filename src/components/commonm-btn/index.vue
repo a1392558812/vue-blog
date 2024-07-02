@@ -1,5 +1,5 @@
 <template>
-  <div id="commonBtn" :class="type" class="common-btn" @click="handelClick">
+  <div ref="commonBtnRef" :class="type" class="common-btn" @click="handelClick">
     <div class="common-btn-inner">
       <slot />
     </div>
@@ -10,62 +10,64 @@
         left: rippleLeft + 'px',
         width: fields.targetWidth + 'px',
         height: fields.targetWidth + 'px',
-        backgroundColor: 'rgba(0,220,255,0.15)',
+        backgroundColor: 'rgba(0,220,255,0.2)',
       }"
       class="common-btn-wave-ripple"
     />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'CommonBtn',
-  props: {
-    btnText: {
-      type: String,
-      default: ''
-    },
-    type: {
-      /*
-       * common-btn-cancel
-       * common-btn-common
-       *  */
-      type: String,
-      default: 'common-btn-common'
-    }
-  },
-  data () {
-    return {
-      rippleTop: 0,
-      rippleLeft: 0,
-      fields: {},
-      waveActive: false
-    }
-  },
-  methods: {
-    handelClick (e) {
-      this.waveActive = false
-      this.$emit('btnClick')
-      this.$nextTick(function () {
-        this.getWaveQuery(e)
-      })
-    },
-    getWaveQuery (e) {
-      const data = document.querySelector('#commonBtn').getBoundingClientRect()
-      if (!data.width || !data.width) return
-      data.targetWidth = data.height > data.width ? data.height : data.width
-      if (!data.targetWidth) return
+<script setup>
+import { ref, nextTick, defineProps, defineEmits, defineOptions } from 'vue'
 
-      this.fields = data
-      const touchesX = e.clientX
-      const touchesY = e.clientY
-      this.rippleTop = touchesY - data.top - data.targetWidth / 2
-      this.rippleLeft = touchesX - data.left - data.targetWidth / 2
-      this.$nextTick(() => {
-        this.waveActive = true
-      })
-    }
+defineOptions({ name: 'CommonBtn' })
+
+defineProps({
+  btnText: {
+    type: String,
+    default: ''
+  },
+  type: {
+    /*
+     * common-btn-cancel
+     * common-btn-common
+     *  */
+    type: String,
+    default: 'common-btn-common'
   }
+})
+
+const emit = defineEmits(['btnClick'])
+
+const rippleTop = ref(0)
+const rippleLeft = ref(0)
+const fields = ref({})
+const commonBtnRef = ref(null)
+const waveActive = ref(false)
+
+const getWaveQuery = (e) => {
+  console.log('this.commonBtnRef', commonBtnRef.value)
+  const data = commonBtnRef.value.getBoundingClientRect()
+  if (!data.width || !data.width) return
+  data.targetWidth = data.height > data.width ? data.height : data.width
+  if (!data.targetWidth) return
+
+  fields.value = data
+  const touchesX = e.clientX
+  const touchesY = e.clientY
+  rippleTop.value = touchesY - data.top - data.targetWidth / 2
+  rippleLeft.value = touchesX - data.left - data.targetWidth / 2
+  nextTick().then(() => {
+    waveActive.value = true
+  })
+}
+
+const handelClick = (e) => {
+  waveActive.value = false
+  emit('btnClick')
+  nextTick().then(() => {
+    getWaveQuery(e)
+  })
 }
 </script>
 
@@ -80,7 +82,7 @@ export default {
   cursor: pointer;
   font-size: 14px;
   letter-spacing: 0.1em;
-  &-wave-ripple {
+  .common-btn-wave-ripple {
     z-index: 0;
     position: absolute;
     border-radius: 100%;
@@ -91,10 +93,10 @@ export default {
     opacity: 1;
     transform-origin: center;
   }
-  &-wave-active {
+  .common-btn-wave-active {
     opacity: 0;
     transform: scale(2);
-    transition: opacity 1s linear, transform 0.4s linear;
+    transition: opacity 1s linear, transform 0.3s linear;
   }
 }
 .common-btn-common {

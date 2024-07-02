@@ -19,7 +19,6 @@ export default {
     const scrollRef = ref(null)
 
     const canvasImg = new Image()
-    const preloadImg = new Image()
 
     const canvas2dContext = () => scrollCanvasRef.value.getContext('2d')
     const currentFrame = (i) => `${baseUrlFun()}demo-static/canvas-scroll/large_${i.toString().padStart(4, '0')}.jpg`
@@ -34,11 +33,11 @@ export default {
 
     const preloadImages = () => {
       for (let i = 0; i < imageList.value.length; i++) {
-        const url = imageList.value[i].url
-        preloadImg.src = url
+        let preloadImg = new Image()
+        preloadImg.src = imageList.value[i].url
         ;(() => {
           preloadImg.onload = () => {
-            imageList.value[i].ifHadLoad = true
+            preloadImg = null
           }
         })(i)
       }
@@ -47,7 +46,6 @@ export default {
     const drawImage = (index) => {
       canvasImg.src = currentFrame(index)
       canvasImg.onload = () => {
-        imageList.value[index].ifHadLoad = true
         canvas2dContext().drawImage(canvasImg, 0, 0)
       }
     }
