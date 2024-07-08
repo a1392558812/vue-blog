@@ -72,15 +72,15 @@ export const demoList = [
       )
   },
   {
-    path: 'parallax-scroll',
-    name: 'parallax-scroll',
+    path: 'linkage-scroll',
+    name: 'linkage-scroll',
     meta: {
       ifShowHeaderComponent: false,
-      demoName: '视差滚动parallax-scroll'
+      demoName: '滚动联动动画'
     },
     component: () =>
       import(
-        /* webpackChunkName: "parallax-scroll" */ '../views/demo/children/parallax-scroll/index.vue'
+        /* webpackChunkName: "linkage-scroll" */ '../views/demo/children/linkage-scroll/index.vue'
       )
   },
   {
@@ -369,6 +369,18 @@ export const demoList = [
     component: () =>
       import(
         /* webpackChunkName: "markdown-priview-vuecode" */ '../views/demo/children/markdown-priview-vuecode/index.vue'
+      )
+  },
+  {
+    path: 'screen-record',
+    name: 'screen-record',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '录屏播放下载'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "screen-record" */ '../views/demo/children/screen-record/index.vue'
       )
   }
 ]

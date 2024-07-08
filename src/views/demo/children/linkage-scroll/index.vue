@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto relative parallax-scroll-content">
+  <div class="overflow-auto relative linkage-scroll-content">
     <div class="absolute box">
       <div class="absolute box-50-50 box1"></div>
       <div class="absolute box-50-50 box2"></div>
@@ -41,7 +41,7 @@ export default {
           scrub: 1,
           markers: true
         }
-      }).fromTo('.parallax-scroll-content',
+      }).fromTo('.linkage-scroll-content',
         {
           background: 'linear-gradient(to bottom, #ed5a65, #cf5b67, #b15b66, #925962, #73575c)'
         },
@@ -107,7 +107,7 @@ export default {
 #app,#page{
   height: auto!important;;
 }
-.parallax-scroll-content{
+.linkage-scroll-content{
   width: 100vw;
   .scroll-roll{
     width: 1px;

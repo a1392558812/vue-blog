@@ -110,10 +110,10 @@
         ]
     },
     {
-        "name": "test8",
+        "name": "menu-list",
         "children": [
             {
-                "name": "test8-0.md"
+                "name": "menu-list.json"
             }
         ]
     },
