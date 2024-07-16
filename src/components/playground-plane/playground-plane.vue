@@ -163,9 +163,10 @@ export default {
       importMap.value.imports[key] = props.otherImportsMap[key]
     })
 
+    // 创建一个新的 store 实例，用于管理应用的状态
     const store = useStore({
-      builtinImportMap: importMap,
-      vueVersion: vueVersion || defaultVersion,
+      builtinImportMap: importMap, // 设置内置的模块导入映射
+      vueVersion: vueVersion || defaultVersion, // 设置 Vue 的版本，或者如果未指定则使用默认版本
       template: ref({
         welcomeSFC: props.defaultTemplate,
         newSFC: props.defaultNewSFC
