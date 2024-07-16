@@ -66,18 +66,22 @@ export default {
     let createTimer
     let ifInitRenderPlayground = true
 
+    // 获取loading组件html
     const loadingHtmlStr = (() => {
       let loadingHtmlNode = $('<div></div>')
+      // 渲染loading组件
       render(createVNode((
         <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
           <div class="width100 height100 flex align-items-center justify-content-center">加载中...</div>
         </loadingComponent>
       ), { showModal: true }), loadingHtmlNode[0])
+      // 获取loading组件html
       const loadingHtmlStr = loadingHtmlNode.html()
       loadingHtmlNode = null
       return loadingHtmlStr
     })()
 
+    // 销毁实例
     const destroy = () => {
       clearTimeout(createTimer)
       if (instanceList.length) {
@@ -93,6 +97,7 @@ export default {
       vue3SfcList = []
     }
 
+    // 渲染playground
     const renderPlayGround = () => {
       nextTick(() => {
         let playgroundWrapLoadingNode = $(`.${playgroundWrapLoadingClassName}`)
@@ -109,10 +114,10 @@ export default {
               return
             }
 
-            const app = createApp(playgroundPlane, {
+            const app = createApp(playgroundPlane, { // 实例化 playgroundPlane 组件
               name: item.idSelector,
               key: new Date(),
-              componentsFiles: ((componentsFiles = {}) => {
+              componentsFiles: ((componentsFiles = {}) => { // 解析vue3-file标签生成组件字符串
                 window.$('vue3-file').parse(item.str, false).each((i2, obj2) => {
                   const file = window.$(obj2)
                   let fileName = file.attr('name')
@@ -132,6 +137,7 @@ export default {
             })
             app.mount(mountNode[0])
 
+            // 保存实例
             instanceList.push({ app })
             mountNode = null
             console.log('playground组件生成完成')
@@ -147,6 +153,7 @@ export default {
     const watchFun = (newV, oldV) => {
       if (newV !== oldV && newV) {
         destroy()
+        // 解析markdown中vue3-sfc标签
         const analysisMarkdowmText = window.$('vue3-sfc').parse(newV, false).replaceWith((i1, item) => {
           const str = window.$(item).html()
           const id = `playground-${i1}`
@@ -157,6 +164,7 @@ export default {
             </div>`
         }).printHtml()
 
+        // 没有解析到组件
         if (!vue3SfcList.length) {
           markdowmText.value = newV
           console.log('解析完成--不需要生成playground组件')
@@ -165,6 +173,7 @@ export default {
 
         markdowmText.value = analysisMarkdowmText
         console.log('解析完成--需要生成playground组件')
+        // 渲染playground
         renderPlayGround()
       }
     }
