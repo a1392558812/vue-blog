@@ -55,6 +55,7 @@ export default {
     const bestScroll = ref(null)
     const listContentRef = ref(null)
 
+    // 初始化滚动
     const initScroll = () => {
       destroyScroll()
       console.log('initScroll')
@@ -75,6 +76,7 @@ export default {
       })
     }
 
+    // 销毁滚动
     const destroyScroll = () => {
       console.log('destroyScroll')
       if (bestScroll.value) {
@@ -83,6 +85,7 @@ export default {
       bestScroll.value = null
     }
 
+    // 左侧菜单的点击事件
     const leftSidebarItemClick = (e, childList, row) => {
       store.dispatch(SET_NOW_ACTIVE, row.indexPage)
       store.dispatch(SET_MENUS_ACTIVE, row)
@@ -91,12 +94,14 @@ export default {
       emit('itemClick', row)
     }
 
+    // 左侧菜单列表的点击事件
     const leftSidebarListClick = (e, row) => {
       store.dispatch(SET_MENUS_INIT_RENDER, row)
       store.dispatch(SET_NOW_ACTIVE, row.indexPage)
       emit('listClick', row)
     }
 
+    // 关闭所有菜单
     const menuListCloseAll = () => {
       debounce(() => {
         console.log('menuListCloseAll ---> store.dispatch(SET_MENUS_CLOSE_ALL)')
