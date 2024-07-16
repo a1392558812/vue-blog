@@ -1,12 +1,13 @@
 <script lang="jsx">
-import { computed } from 'vue'
+import { computed, Transition } from 'vue'
 import { useStore } from 'vuex'
 import linkTag from './link-tag.vue'
 
 export default {
   name: 'left-sidebar-item',
   components: {
-    linkTag
+    linkTag,
+    Transition
   },
   props: {
     grade: {
@@ -31,6 +32,7 @@ export default {
     const nowActive = computed(() => store.state.menuData.nowActive)
 
     const rowDetails = computed(() => props.rowDetails)
+    // 当前层级
     const currentGrade = computed(() => props.grade + 1)
     const ifActiveList = computed(() => {
       if (currentGrade.value === 0 && nowActive.value) {
@@ -50,24 +52,32 @@ export default {
     const className = computed(() => {
       let className = 'cursor-pointer cell'
       if (rowDetails.value.link) {
-        className = `${className} link-cell`
+        className = `link-cell ${className}`
       } else {
         className = `${className} ${renderList.value.length ? 'list-cell' : 'display-block item-cell'}`
       }
       if ((nowActive.value === rowDetails.value.indexPage) && !rowDetails.value.children) {
-        className = `${className} item-active`
+        className = `item-active ${className}`
       }
       return className
     })
 
-    const listClick = (e, row) => {
+    const onRowClick = (e) => {
+      e.preventDefault()
       e.stopPropagation()
+      if (renderList.value.length) {
+        listClick(e, rowDetails.value)
+      } else {
+        itemClick(e, props.menuList, rowDetails.value)
+      }
+    }
+
+    // 子项list点击
+    const listClick = (e, row) => {
       emit('listClick', e, row)
     }
-    // 子项点击
+    // 子项item点击
     const itemClick = (e, menuList, item) => {
-      e.stopPropagation()
-      e.preventDefault()
       emit('itemClick', e, menuList, item)
     }
 
@@ -79,6 +89,7 @@ export default {
       className,
       titleStyleName,
       ifActiveList,
+      onRowClick,
       listClick,
       itemClick
     }
@@ -91,59 +102,63 @@ export default {
               class={this.className}
               {...this.hrefMap}
               title={this.rowDetails.name}
-              onClick={(e) => {
-                this.renderList.length
-                  ? this.listClick(e, this.rowDetails)
-                  : this.itemClick(e, this.menuList, this.rowDetails)
-              }}
-              key={this.rowDetails.index}>
-              {this.ifActiveList ? (<div class='list-active'></div>) : null}
+              onClick={this.onRowClick}>
+              {
+                this.ifActiveList
+                  ? (<div class='list-active'></div>)
+                  : null
+              }
               <div
-                onClick={(e) => {
-                  this.renderList.length
-                    ? this.listClick(e, this.rowDetails)
-                    : this.itemClick(e, this.menuList, this.rowDetails)
-                }}
+                onClick={this.onRowClick}
                 class='cell-item-title flex'>
                   <span style="margin-left: 0.5em">{this.rowDetails.name}</span>
                   {
                     this.renderList.length
                       ? (
-                          <svg class="icon flex-shrink-0"
+                          <svg class="icon flex-shrink-0 overflow-hidden"
                             style={{
                               transform: `rotate(${this.rowDetails.ifShow ? 90 : 0}deg)`,
                               transition: 'all 0.3s',
                               width: '1em',
                               height: '1.5em',
                               verticalAlign: 'middle',
-                              fill: 'currentColor',
-                              overflow: 'hidden'
+                              fill: 'currentColor'
                             }}
                             viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="34097"><path d="M349.184 208.384l346.624 261.632c22.528 16.896 27.136 49.152 10.24 71.68-3.072 3.584-6.144 7.168-10.24 10.24l-346.624 261.632c-11.264 8.704-27.136 6.144-35.84-5.12-3.584-4.608-5.12-9.728-5.12-15.36V228.864c0-14.336 11.264-25.6 25.6-25.6 5.12 0 10.752 2.048 15.36 5.12z" p-id="34098"></path></svg>
                         )
                       : null
                   }
-                  {this.rowDetails.link ? <linkTag/> : null}
-                  {this.rowDetails.topping ? (<div class='flex-shrink-0 flex align-items-center justify-content-center topping'><span>置顶</span></div>) : null}
+                  {
+                    this.rowDetails.link
+                      ? <linkTag/>
+                      : null
+                  }
+                  {
+                    this.rowDetails.topping
+                      ? (<div class='flex-shrink-0 flex align-items-center justify-content-center topping'><span>置顶</span></div>)
+                      : null
+                  }
               </div>
-              {this.rowDetails.ifHadRender
-                ? (
-                    <div style={this.titleStyleName}>
-                      {
-                        this.renderList.map((child, childIndex) => {
-                          return (<left-sidebar-item
-                            rowDetails={child}
-                            menuList={this.renderList}
-                            key={childIndex}
-                            ifShow={this.rowDetails.ifShow}
-                            grade={this.currentGrade}
-                            onListClick={this.listClick}
-                            onItemClick={this.itemClick}/>)
-                        })
-                      }
-                    </div>
-                  )
-                : null }
+                {
+                  this.rowDetails.ifHadRender
+                    ? (
+                        <div style={this.titleStyleName}>
+                          {
+                            this.renderList.map((child, childIndex) => {
+                              return (<left-sidebar-item
+                                rowDetails={child}
+                                menuList={this.renderList}
+                                key={`${this.currentGrade}-${childIndex}-${child.indexPage}`}
+                                ifShow={this.rowDetails.ifShow}
+                                grade={this.currentGrade}
+                                onListClick={this.listClick}
+                                onItemClick={this.itemClick}/>)
+                            })
+                          }
+                        </div>
+                      )
+                    : null
+                }
             </tag>
         )
       : null

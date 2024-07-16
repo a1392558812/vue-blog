@@ -9,9 +9,10 @@ import ObserveDOM from '@better-scroll/observe-dom'
 
 import debounce from '@/common/util/debounce.js'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
-import leftSidebarItem from './left-sidebar-item.vue'
+
+import leftSidebarItem from './components/left-sidebar-item.vue'
 import commonmBtn from '@/components/commonm-btn/index.vue'
-import leftSidebarSearch from './left-sidebar-search'
+import leftSidebarSearch from './components/left-sidebar-search'
 
 import {
   SET_MENUS_ACTIVE,
@@ -37,7 +38,19 @@ export default {
   },
   setup (props, { emit }) {
     const store = useStore()
+    // 初始化菜单
     const menuList = computed(() => store.state.menuData.menuList)
+
+    // 左侧菜单的样式
+    const sidebarClassName = computed(() => {
+      let classname = 'left-sidebar flex-shrink-0 bg-white height100'
+      if (!props.ifLarger) {
+        classname = `${classname} absolute ${props.ifShowMenu ? 'translateX-0' : 'translateX-100'}`
+      } else {
+        classname = `${classname}`
+      }
+      return classname
+    })
 
     const bestScroll = ref(null)
     const listContentRef = ref(null)
@@ -115,15 +128,7 @@ export default {
       menuList,
       listContentRef,
       menuListCloseAll,
-      sidebarClassName: computed(() => {
-        let classname = 'left-sidebar flex-shrink-0 bg-white height100'
-        if (!props.ifLarger) {
-          classname = `${classname} absolute ${props.ifShowMenu ? 'translateX-0' : 'translateX-100'}`
-        } else {
-          classname = `${classname}`
-        }
-        return classname
-      }),
+      sidebarClassName,
       leftSidebarItemClick,
       leftSidebarListClick
     }
@@ -140,14 +145,14 @@ export default {
                       toggleMenu={this.toggleMenu}
                       onItemClick={(e, row) => { this.leftSidebarItemClick(e, [], row) }}
                       onMenuListCloseAll={this.menuListCloseAll}/>
-                    <div key={this.ifLarger} class={`flex-1 flex-shrink-0 ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'} relative list-wrap`}>
+                    <div key={this.ifLarger} class={`flex-1 flex-shrink-0 relative list-wrap ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'}`}>
                       <div ref={(node) => { this.listContentRef = node }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
                         <div style={{ padding: '0 0 50px 0' }}>
                           {
                             this.menuList.map((item, index) => {
                               return <leftSidebarItem
                                 rowDetails={item}
-                                key={index}
+                                key={`-1-${index}-${item.indexPage}`}
                                 grade={-1}
                                 menuList={this.menuList}
                                 url={[item.name]}

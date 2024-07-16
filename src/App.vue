@@ -22,13 +22,13 @@
   </div>
 </template>
 <script>
-
-import { ref, watch } from 'vue'
-import guid from '@/common/util/guid.js'
+import { ref, computed, watch } from 'vue'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import { useRoute } from 'vue-router'
-import leftNavLink from '@/components/left-nav-link/index.vue'
 
+import guid from '@/common/util/guid.js'
+
+import leftNavLink from '@/components/left-nav-link/index.vue'
 import layoutHeader from '@/components/layout-header/index.vue'
 
 export default {
@@ -39,26 +39,46 @@ export default {
   setup () {
     const ifShowMenu = ref(false) // 是否展示公用头部组件展开左侧抽屉（移动端）的控制按钮
     const showNavLink = ref(false) // 移动端的公用头部组件展开后的左侧【导航抽屉】显影
+    const headerH = ref('70px') // 公用头部组件高度
     const ifShowHeaderPopupBtn = ref(false) // 移动端的公用头部组件展开后的左侧【文章抽屉】显影
     const ifShowHeaderComponent = ref(false) // 是否展示公用头部组件
     const ifLarger = useBreakpoints(breakpointsTailwind).greater('sm') // 视口断点 是否大屏
-    const leftSidebarW = ref('330px')
-    const refreshViewKey = ref(guid())
+    const leftSidebarW = computed(() => ifLarger.value ? '330px' : '100vw')
+    const refreshViewKey = ref(guid()) // 刷新视图的唯一标识
     const route = useRoute()
-    if (!ifLarger) {
-      leftSidebarW.value = '100vw'
+
+    // 切换菜单状态
+    const toggleMenu = (state) => {
+      ifShowMenu.value = (state !== undefined) ? state : !ifShowMenu.value
+      showNavLink.value = false
     }
-    watch(route, (newV) => {
-      const { ifShowHeaderComponent: flag } = newV.meta
-      ifShowHeaderComponent.value = (flag !== undefined) ? flag : true
-      ifShowHeaderPopupBtn.value = [
-        '/',
-        '/search'
-      ].includes(newV.path)
-    })
+
+    // 切换导航状态
+    const toggleShowNavLink = (state) => {
+      showNavLink.value = (state !== undefined) ? state : !showNavLink.value
+      ifShowMenu.value = false
+    }
+
+    // 刷新视图
+    const refreshView = () => {
+      refreshViewKey.value = guid()
+    }
+
+    watch(
+      () => route.path,
+      () => {
+        const { ifShowHeaderComponent: flag } = route.meta
+        ifShowHeaderComponent.value = (flag !== undefined) ? flag : true
+        ifShowHeaderPopupBtn.value = [
+          '/',
+          '/search'
+        ].includes(route.path)
+      },
+      { immediate: true }
+    )
 
     return {
-      headerH: ref('70px'),
+      headerH,
       showNavLink,
       ifShowMenu,
       ifShowHeaderPopupBtn,
@@ -66,21 +86,9 @@ export default {
       ifLarger,
       ifShowHeaderComponent,
       refreshViewKey,
-      // 切换菜单状态
-      toggleMenu: state => {
-        console.log('切换菜单状态')
-        ifShowMenu.value = (state !== undefined) ? state : !ifShowMenu.value
-        showNavLink.value = false
-      },
-      // 切换导航状态
-      toggleShowNavLink: state => {
-        console.log('切换导航状态')
-        showNavLink.value = (state !== undefined) ? state : !showNavLink.value
-        ifShowMenu.value = false
-      },
-      refreshView: () => {
-        refreshViewKey.value = guid()
-      }
+      toggleMenu,
+      toggleShowNavLink,
+      refreshView
     }
   }
 }

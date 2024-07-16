@@ -45,7 +45,7 @@ import axios from '@/common/axios/index.js'
 import { markdownTypeCheck, markdownTypeList, imgTypeCheck } from '@/common/util/methods'
 
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
-import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
+import layoutLeftSidebar from '@/components/left-sidebar/index.vue'
 import otherType from './components/home/other-type.vue'
 import imageType from './components/home/image-type.vue'
 import markdownType from './components/home/markdown-type.vue'

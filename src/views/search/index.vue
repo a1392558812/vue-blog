@@ -40,9 +40,9 @@ import { defineProps, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-import layoutLeftSidebar from '@/components/left-sidebar/left-sidebar.vue'
+import layoutLeftSidebar from '@/components/left-sidebar/index.vue'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
-import linkTag from '@/components/left-sidebar/link-tag.vue'
+import linkTag from '@/components/left-sidebar/components/link-tag.vue'
 
 import {
   SET_MENUS_INIT
