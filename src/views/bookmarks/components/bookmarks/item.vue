@@ -30,7 +30,7 @@ export default {
         // 返回 data 对象中是否存在 ifRender 和 ifShow 属性，并且 ifRender 为 true
         return ('ifRender' in data) && data.ifRender && 'ifShow' in data
       }
-      // 调用自身，可能是为了实现递归渲染
+      // 调用自身，实现递归渲染
       const vNode = renderFun()
       // 返回一个片段，包含要渲染的内容
       return (<>
