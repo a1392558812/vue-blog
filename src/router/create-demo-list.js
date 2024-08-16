@@ -382,6 +382,18 @@ export const demoList = [
       import(
         /* webpackChunkName: "screen-record" */ '../views/demo/children/screen-record/index.vue'
       )
+  },
+  {
+    path: 'css-triangle',
+    name: 'css-triangle',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css三角形生成器'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "css-triangle" */ '../views/demo/children/css-triangle/index.vue'
+      )
   }
 ]
 
