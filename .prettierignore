@@ -1,0 +1,11 @@
+# 忽略dist文件夹
+dist
+ 
+# 忽略node_modules文件夹
+node_modules
+ 
+# 忽略测试文件夹
+__tests__
+ 
+# 忽略特定的文件扩展名
+src/static/
