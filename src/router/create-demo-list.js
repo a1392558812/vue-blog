@@ -394,6 +394,30 @@ export const demoList = [
       import(
         /* webpackChunkName: "css-triangle" */ '../views/demo/children/css-triangle/index.vue'
       )
+  },
+  {
+    path: 'css-dashed-line-border',
+    name: 'css-dashed-line-border',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css自定义虚线边框生成器'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "css-dashed-line-border" */ '../views/demo/children/css-dashed-line-border/index.vue'
+      )
+  },
+  {
+    path: 'css-scrollbar',
+    name: 'css-scrollbar',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css自定义滚动条生成器'
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "css-scrollbar" */ '../views/demo/children/css-scrollbar/index.vue'
+      )
   }
 ]
 

@@ -25,16 +25,32 @@
                 <input class="css-triangle-input" type="number" :value="params.angle" @input="function(e) { onInput(e, 'angle') }" placeholder="请输入三角形的高">
             </div>
             <div class="css-triangle-params" style="margin-bottom: 0">
-                {{ triangleStyle }}
+                <pre class="width100"><code class="display-block width100">{{ triangleStyle }}</code></pre>
             </div>
         </div>
         <div class="flex align-items-center justify-content-center css-triangle-output-wrap">
             <div class="css-triangle-output" :style="triangleStyle"></div>
         </div>
+        <div>
+            <div style="margin-bottom: 10px">
+                <div :style="boxStyle"></div>
+            </div>
+            <div>
+                <pre><code>{{ boxStyle }}</code></pre>
+            </div>
+        </div>
     </div>
 </template>
 <script setup>
 import { computed, reactive } from 'vue'
+
+const boxStyle = {
+  width: 0,
+  height: 0,
+  border: '100px solid',
+  borderColor: '#FFA500 #ff0000 #008000 #808080'
+}
+
 const params = reactive({
   width: 50,
   height: 50,
@@ -90,7 +106,7 @@ const triangleStyle = computed(() => {
       borderColor = 'red transparent transparent  transparent'
       break
     case 'left':
-      borderWidth = `${params.height}px ${params.width}px ${params.width}px 0`
+      borderWidth = `${params.height}px ${params.width}px ${params.height}px 0`
       borderColor = 'transparent red transparent  transparent'
       break
     case 'right':
@@ -112,20 +128,24 @@ const triangleStyle = computed(() => {
 <style scoped lang="scss">
     .css-triangle {
       .css-triangle-filed {
-        max-width: 200px;
+        max-width: 400px;
         margin-right: 10px;
         .css-triangle-input {
             max-width: 3em;
         }
       }
       .css-triangle-params {
-        padding: 10px;
-        border: 1px solid #000;
-        margin-bottom: 10px;
+          padding: 10px;
+          border: 1px solid #000;
+          margin-bottom: 10px;
+          code {
+              white-space: break-spaces;
+          }
       }
       .css-triangle-output-wrap {
         width: 300px;
         border: 1px solid #000;
+        margin-right: 10px;
       }
     }
 </style>
