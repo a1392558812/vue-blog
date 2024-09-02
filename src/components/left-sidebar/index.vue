@@ -12,7 +12,7 @@ import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 
 import leftSidebarItem from './components/left-sidebar-item.vue'
 import commonmBtn from '@/components/commonm-btn/index.vue'
-import leftSidebarSearch from './components/left-sidebar-search'
+import leftSidebarSearch from './components/left-sidebar-search.vue'
 
 import {
   SET_MENUS_ACTIVE,
@@ -27,7 +27,7 @@ BScroll.use(MouseWheel)
 BScroll.use(ObserveDOM)
 
 export default {
-  name: 'LeftSidebar',
+  name: 'components-left-sidebar',
   components: {
     leftSidebarItem,
     leftSidebarSearch,
@@ -36,7 +36,7 @@ export default {
   props: {
     ...leftSidebarProps
   },
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const store = useStore()
     // 初始化菜单
     const menuList = computed(() => store.state.menuData.menuList)
@@ -103,10 +103,14 @@ export default {
 
     // 关闭所有菜单
     const menuListCloseAll = () => {
-      debounce(() => {
-        console.log('menuListCloseAll ---> store.dispatch(SET_MENUS_CLOSE_ALL)')
-        store.dispatch(SET_MENUS_CLOSE_ALL)
-      }, 1000, true)
+      debounce(
+        () => {
+          console.log('menuListCloseAll ---> store.dispatch(SET_MENUS_CLOSE_ALL)')
+          store.dispatch(SET_MENUS_CLOSE_ALL)
+        },
+        1000,
+        true
+      )
     }
 
     watch(
@@ -138,61 +142,71 @@ export default {
       leftSidebarListClick
     }
   },
-  render () {
+  render() {
     return (
-        <div class={this.sidebarClassName}>
-          {
-            this.menuList.length
-              ? (
-                  <div class='flex height100 relative flex-direction-column left-sidebar-content'>
-                    <leftSidebarSearch
-                      class='search'
-                      toggleMenu={this.toggleMenu}
-                      onItemClick={(e, row) => { this.leftSidebarItemClick(e, [], row) }}
-                      onMenuListCloseAll={this.menuListCloseAll}/>
-                    <div key={this.ifLarger} class={`flex-1 flex-shrink-0 relative list-wrap ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'}`}>
-                      <div ref={(node) => { this.listContentRef = node }} class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}>
-                        <div style={{ padding: '0 0 50px 0' }}>
-                          {
-                            this.menuList.map((item, index) => {
-                              return <leftSidebarItem
-                                rowDetails={item}
-                                key={`-1-${index}-${item.indexPage}`}
-                                grade={-1}
-                                menuList={this.menuList}
-                                url={[item.name]}
-                                onItemClick={(e, list, row) => { this.leftSidebarItemClick(e, list, row) }}
-                                onListClick={(e, row) => { this.leftSidebarListClick(e, row) }}
-                                />
-                            })
-                          }
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              : null
-          }
-        </div>
+      <div class={this.sidebarClassName}>
+        {this.menuList.length ? (
+          <div class="flex height100 relative flex-direction-column left-sidebar-content">
+            <leftSidebarSearch
+              class="search"
+              toggleMenu={this.toggleMenu}
+              onItemClick={(e, row) => {
+                this.leftSidebarItemClick(e, [], row)
+              }}
+              onMenuListCloseAll={this.menuListCloseAll}
+            />
+            <div
+              key={this.ifLarger}
+              class={`flex-1 flex-shrink-0 relative list-wrap ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'}`}
+            >
+              <div
+                ref={(node) => {
+                  this.listContentRef = node
+                }}
+                class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}
+              >
+                <div style={{ padding: '0 0 50px 0' }}>
+                  {this.menuList.map((item, index) => {
+                    return (
+                      <leftSidebarItem
+                        rowDetails={item}
+                        key={`-1-${index}-${item.indexPage}`}
+                        grade={-1}
+                        menuList={this.menuList}
+                        url={[item.name]}
+                        onItemClick={(e, list, row) => {
+                          this.leftSidebarItemClick(e, list, row)
+                        }}
+                        onListClick={(e, row) => {
+                          this.leftSidebarListClick(e, row)
+                        }}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </div>
     )
   }
 }
 </script>
 
 <style scoped lang="scss">
-.left-sidebar{
+.left-sidebar {
   width: v-bind(leftSidebarW);
   font-size: 16px;
   transition: transform 0.3s;
   border-right: 1px solid var(--global-border-color);
   box-sizing: border-box;
   z-index: 10;
-  .search{
+  .search {
     padding: 10px 20px;
     border-bottom: 1px solid var(--global-border-color);
   }
-  .left-sidebar-content{
-
+  .left-sidebar-content {
   }
   .list-wrap {
     padding: 0 20px;

@@ -1,16 +1,19 @@
 <template>
-    <div class="cursor-pointer custom-not-find" @click="handleClick">加载失败了，请刷新重新加载--【{{ count }}】--【{{ inputValue }}】</div>
+  <div class="cursor-pointer custom-not-find" @click="handleClick">
+    加载失败了，请刷新重新加载--【{{ count }}】--【{{ inputValue }}】
+  </div>
 </template>
 <script>
 import { ref } from 'vue'
 export default {
+  name: 'load-vue-file-404',
   props: {
     inputValue: {
       type: String,
       default: ''
     }
   },
-  setup () {
+  setup() {
     const count = ref(0)
     return {
       count,
@@ -22,7 +25,7 @@ export default {
 }
 </script>
 <style scoped>
-.custom-not-find{
-    font-size: 16px;
+.custom-not-find {
+  font-size: 16px;
 }
 </style>

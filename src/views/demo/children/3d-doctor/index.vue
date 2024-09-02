@@ -1,7 +1,9 @@
 <template>
   <div class="relative canvas-wrap">
     <div id="canvas"></div>
-    <div class="absolute line-height-1 tips">模型有3mb的大小，github加载很慢，能不能加载出来听天由命吧</div>
+    <div class="absolute line-height-1 tips">
+      模型有3mb的大小，github加载很慢，能不能加载出来听天由命吧
+    </div>
   </div>
 </template>
 <script>
@@ -12,7 +14,8 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { onMounted, onUnmounted } from 'vue'
 export default {
-  setup () {
+  name: 'view-demo-3d-doctor',
+  setup() {
     let renderer,
       scene,
       camera,
@@ -84,7 +87,9 @@ export default {
 
       try {
         clearScene(scene)
-      } catch (e) {}
+      } catch (e) {
+        console.error('error', e)
+      }
 
       try {
         renderer.renderLists.dispose()
@@ -98,7 +103,9 @@ export default {
         renderer.content = null
 
         renderer = null
-      } catch (e) {}
+      } catch (e) {
+        console.error('error', e)
+      }
 
       if (window.requestAnimationId) {
         cancelAnimationFrame(window.requestAnimationId)
@@ -114,12 +121,10 @@ export default {
     }
     onMounted(() => {
       init().then(() => animate())
-      function init () {
+      function init() {
         return new Promise((resolve) => {
           renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-          renderer.setPixelRatio(
-            window.devicePixelRatio ? window.devicePixelRatio : 1
-          )
+          renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1)
           renderer.setSize(window.innerWidth, window.innerHeight)
           renderer.autoClear = false
           renderer.setClearColor(0x000000, 0.0)
@@ -127,12 +132,7 @@ export default {
 
           scene = new THREE.Scene()
 
-          camera = new THREE.PerspectiveCamera(
-            75,
-            window.innerWidth / window.innerHeight,
-            1,
-            1000
-          )
+          camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
 
           threeOnEvent = new THREE.onEvent(scene, camera)
           console.log('threeOnEvent', threeOnEvent)
@@ -218,18 +218,10 @@ export default {
           for (let i = 0; i < 1000; i++) {
             const mesh = new THREE.Mesh(geometry, material)
             mesh.position
-              .set(
-                Math.random() - 0.5,
-                Math.random() - 0.5,
-                Math.random() - 0.5
-              )
+              .set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
               .normalize()
             mesh.position.multiplyScalar(90 + Math.random() * 700)
-            mesh.rotation.set(
-              Math.random() * 2,
-              Math.random() * 2,
-              Math.random() * 2
-            )
+            mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2)
             particle.add(mesh)
           }
 
@@ -251,7 +243,7 @@ export default {
         })
       }
 
-      function animate () {
+      function animate() {
         modelAnimate = requestAnimationFrame(animate)
         fbxModel.rotation.x += 0.0
         fbxModel.rotation.y -= 0.004
@@ -269,10 +261,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.canvas-wrap,#canvas {
+.canvas-wrap,
+#canvas {
   width: 100vw;
   height: 100vh;
-  .tips{
+  .tips {
     font-size: 15px;
     padding: 10px;
     border: 1px solid #000;

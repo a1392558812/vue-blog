@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-((THREE) => {
+;((THREE) => {
   const TargetList = {
     gaze: {},
     click: {},
@@ -64,7 +64,7 @@ import * as THREE from 'three'
       }
     }
   })
-  function getObjList (targetList) {
+  function getObjList(targetList) {
     const list = []
     for (const key in targetList) {
       const target = targetList[key].object3d
@@ -72,7 +72,7 @@ import * as THREE from 'three'
     }
     return group2meshlist(list)
   }
-  function group2meshlist (list) {
+  function group2meshlist(list) {
     let l = []
     for (const i in list) {
       if (list[i].type === 'Group') {
@@ -83,10 +83,10 @@ import * as THREE from 'three'
     }
     return l
   }
-  function getEventObj (targetList, object3d) {
+  function getEventObj(targetList, object3d) {
     return object2group(targetList, object3d)
   }
-  function object2group (targetList, object3d) {
+  function object2group(targetList, object3d) {
     if (targetList[object3d.id]) {
       return targetList[object3d.id]
     } else {
@@ -132,7 +132,7 @@ import * as THREE from 'three'
     let Click = false
     const Down = false
     const Mouse = new THREE.Raycaster()
-    function down (event) {
+    function down(event) {
       event.preventDefault()
       if (!targetList) return
       let list = []
@@ -156,12 +156,12 @@ import * as THREE from 'three'
         Click = false
       }
     }
-    function move (event) {
+    function move(event) {
       event.preventDefault()
       // disable click trigger when mouse moving
       if (Click) Click = false
     }
-    function up (event) {
+    function up(event) {
       event.preventDefault()
       if (Click && !!obj.callback[0]) obj.callback[0](targetObject)
       Click = false

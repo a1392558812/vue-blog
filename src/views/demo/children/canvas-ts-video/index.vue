@@ -1,21 +1,34 @@
 <template>
-    <div class="flex flex-direction-column align-items-center justify-content-center">
-        <div>
-            <canvas width='426' height='240' ref="canvasRef" class="canvas-view"></canvas>
-            <div>
-                <div>时长：{{ currentTime }}s/10s</div>
-                <div>{{ videoTipInfo }}</div>
-                <button class="video-btn" @click="function(){ setToggle() }">
-                    <span class="display-inline-block label">暂停/播放</span>
-                </button>
-                <button class="video-btn" @click="setCurrentTime ">
-                    <span class="display-inline-block label">在第</span>
-                    <input class="display-inline-block label" @click.stop="() => {}" type="number" v-model="inputValue" @input="onInput"/>
-                    <span class="display-inline-block label">秒处播放播放</span>
-                </button>
-            </div>
-        </div>
+  <div class="flex flex-direction-column align-items-center justify-content-center">
+    <div>
+      <canvas width="426" height="240" ref="canvasRef" class="canvas-view"></canvas>
+      <div>
+        <div>时长：{{ currentTime }}s/10s</div>
+        <div>{{ videoTipInfo }}</div>
+        <button
+          class="video-btn"
+          @click="
+            function () {
+              setToggle()
+            }
+          "
+        >
+          <span class="display-inline-block label">暂停/播放</span>
+        </button>
+        <button class="video-btn" @click="setCurrentTime">
+          <span class="display-inline-block label">在第</span>
+          <input
+            class="display-inline-block label"
+            @click.stop="() => {}"
+            type="number"
+            v-model="inputValue"
+            @input="onInput"
+          />
+          <span class="display-inline-block label">秒处播放播放</span>
+        </button>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import { nextTick, ref } from 'vue'
@@ -25,7 +38,8 @@ import { baseUrlFun } from '@/common/util/methods.js'
 import { isNull, isNumber } from '@/common/util/typeCheck.js'
 
 export default {
-  setup () {
+  name: 'view-demo-canvas-ts-video',
+  setup() {
     let jSMpegPlayer
     const canvasRef = ref(null)
     const inputValue = ref(0)
@@ -34,20 +48,24 @@ export default {
     let timer
 
     const onInput = (e) => {
-      if ([
-        isNull(+e.target.value),
-        Number.isNaN(+e.target.value),
-        !isNumber(+e.target.value),
-        +e.target.value > 10,
-        +e.target.value < 0
-      ].includes(true)) {
+      if (
+        [
+          isNull(+e.target.value),
+          Number.isNaN(+e.target.value),
+          !isNumber(+e.target.value),
+          +e.target.value > 10,
+          +e.target.value < 0
+        ].includes(true)
+      ) {
         inputValue.value = 0
       } else {
         inputValue.value = +e.target.value
       }
     }
     const setToggle = (value) => {
-      ;(value !== undefined ? !value : jSMpegPlayer.isPlaying) ? jSMpegPlayer.pause() : jSMpegPlayer.play()
+      ;(value !== undefined ? !value : jSMpegPlayer.isPlaying)
+        ? jSMpegPlayer.pause()
+        : jSMpegPlayer.play()
     }
     const setCurrentTime = () => {
       jSMpegPlayer.currentTime = inputValue.value
@@ -101,12 +119,12 @@ export default {
 </script>
 <style scoped lang="scss">
 .video-btn {
+  padding: 5px;
+  .label {
     padding: 5px;
-    .label {
-        padding: 5px;
-        border: none;
-        outline: none;
-        max-width: 6em;
-    }
+    border: none;
+    outline: none;
+    max-width: 6em;
+  }
 }
 </style>

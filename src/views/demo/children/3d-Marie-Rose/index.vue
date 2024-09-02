@@ -2,8 +2,8 @@
   <div class="relative canvas-wrap">
     <div id="canvas"></div>
     <div class="absolute line-height-1 tips">
-      <p style="margin-bottom:10px">模型拢共大小30Mb，github这网速，慢慢加载吧</p>
-      <p style="margin-bottom:10px">这个是学习threejs大佬“暮志未晚”的,</p>
+      <p style="margin-bottom: 10px">模型拢共大小30Mb，github这网速，慢慢加载吧</p>
+      <p style="margin-bottom: 10px">这个是学习threejs大佬“暮志未晚”的,</p>
       <p>详情指路：<a href="http://www.wjceo.com/">http://www.wjceo.com/</a></p>
     </div>
   </div>
@@ -18,12 +18,14 @@ import Stats from 'stats.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default {
-  setup () {
+  name: 'view-demo-3d-marie-rose',
+  setup() {
     let renderer, camera, scene, gui, stats, ambientLight, directionalLight, control
 
-    let mixer; const clock = new THREE.Clock()
+    let mixer
+    const clock = new THREE.Clock()
 
-    function initRender () {
+    function initRender() {
       renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: true })
       renderer.setSize(window.innerWidth, window.innerHeight)
       // 告诉渲染器需要阴影效果
@@ -31,18 +33,18 @@ export default {
       document.getElementById('canvas').appendChild(renderer.domElement)
     }
 
-    function initCamera () {
+    function initCamera() {
       camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
       camera.position.set(0, 30, 60)
       camera.lookAt(new THREE.Vector3(0, 0, 0))
       scene.add(camera)
     }
 
-    function initScene () {
+    function initScene() {
       scene = new THREE.Scene()
     }
 
-    function initGui () {
+    function initGui() {
       // 声明一个保存需求修改的相关数据的对象
       gui = {}
 
@@ -51,7 +53,7 @@ export default {
       // 将设置属性添加到gui当中，gui.add(对象，属性，最小值，最大值）
     }
 
-    function initLight () {
+    function initLight() {
       ambientLight = new THREE.AmbientLight('#bbbbbb')
       scene.add(ambientLight)
 
@@ -75,10 +77,13 @@ export default {
       camera.add(directionalLight)
     }
 
-    function initModel () {
+    function initModel() {
       // 底部平面
       const planeGeometry = new THREE.PlaneGeometry(1000, 1000)
-      const planeMaterial = new THREE.MeshLambertMaterial({ color: 0x333333, side: THREE.DoubleSide })
+      const planeMaterial = new THREE.MeshLambertMaterial({
+        color: 0x333333,
+        side: THREE.DoubleSide
+      })
       const plane = new THREE.Mesh(planeGeometry, planeMaterial)
       plane.rotation.x = -0.5 * Math.PI
       plane.position.y = -0.1
@@ -135,7 +140,7 @@ export default {
       })
 
       // 随机一个立方体
-      function randomCube () {
+      function randomCube() {
         const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random() })
         const boxSize = Math.random() * 0.5
         const geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize)
@@ -146,17 +151,17 @@ export default {
       }
     }
 
-    function initStats () {
+    function initStats() {
       stats = new Stats()
       document.body.appendChild(stats.dom)
     }
 
-    function initControl () {
+    function initControl() {
       control = new OrbitControls(camera, renderer.domElement)
       control.target.set(0, 15, 0)
     }
 
-    function render () {
+    function render() {
       control.update()
 
       const time = clock.getDelta()
@@ -168,13 +173,13 @@ export default {
       renderer.render(scene, camera)
     }
 
-    function onWindowResize () {
+    function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
       renderer.setSize(window.innerWidth, window.innerHeight)
     }
 
-    function animate () {
+    function animate() {
       // 更新控制器
       render()
 
@@ -184,7 +189,7 @@ export default {
       requestAnimationFrame(animate)
     }
 
-    function draw () {
+    function draw() {
       initGui()
       initRender()
       initScene()
@@ -205,12 +210,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
-.canvas-wrap,canvas {
+.canvas-wrap,
+canvas {
   display: block;
   width: 100vw;
   height: 100vh;
-  .tips{
+  .tips {
     top: 30%;
     left: 0;
     color: #fff;
@@ -218,7 +223,7 @@ export default {
     border: 1px solid #fff;
     border-radius: 5px;
     padding: 10px;
-    a{
+    a {
       color: #fff;
       font-size: 15;
     }

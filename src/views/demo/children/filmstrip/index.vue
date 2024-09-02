@@ -1,12 +1,19 @@
 <template>
-    <div class="reveal-viewport">
-        <div ref="reveal" class="reveal">
-            <!-- Any section element inside of this container is displayed as a slide -->
-            <div class="slides">
-                <component @showNotes="toggleNotes" @showHelp="showHelp" v-for="(component, index) in sectionComponents" :is="component" :key="index" :baseUrl="baseUrl" />
-            </div>
-        </div>
+  <div class="reveal-viewport">
+    <div ref="reveal" class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <component
+          @showNotes="toggleNotes"
+          @showHelp="showHelp"
+          v-for="(component, index) in sectionComponents"
+          :is="component"
+          :key="index"
+          :baseUrl="baseUrl"
+        />
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import Reveal from 'reveal.js'
@@ -18,7 +25,6 @@ import notes from 'reveal.js/plugin/notes/notes.esm.js'
 import search from 'reveal.js/plugin/search/search.esm.js'
 import Zoom from 'reveal.js/plugin/zoom/zoom.esm.js'
 
-import importFun from '@/common/util/importFile'
 import { isNumber } from '@/common/util/typeCheck'
 import { baseUrlFun } from '@/common/util/methods'
 
@@ -29,20 +35,25 @@ import 'reveal.js/plugin/highlight/monokai.css'
 import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-const sectionMap = importFun(/\.vue$/g)(require.context('./components', true, /\.vue$/)) // 利用柯里化先生成引入函数
+let sectionMap = import.meta.glob('./components/*.vue', { eager: true })
 
 const sectionComponents = []
-for (const component in sectionMap) {
-  sectionComponents.push(component)
-}
+const componentsMap = {}
 
-sectionComponents.sort((pre, next) => (+pre.replace(/\D/g, '')) - (+next.replace(/\D/g, '')))
+for (const componentPath in sectionMap) {
+  const pathList = componentPath.split('/')
+  const componentName = pathList[pathList.length - 1].split('.')[0]
+  componentsMap[componentName] = sectionMap[componentPath].default
+  sectionComponents.push(componentName)
+}
+sectionMap = null
+
+sectionComponents.sort((pre, next) => +pre.replace(/\D/g, '') - +next.replace(/\D/g, '')) // 按照组件名中的数字大小排序
 
 export default {
-  components: {
-    ...sectionMap
-  },
-  setup () {
+  name: 'view-demo-filmstrip',
+  components: componentsMap,
+  setup() {
     const router = useRouter()
     const route = useRoute()
     const reveal = ref(null)
@@ -64,7 +75,8 @@ export default {
         hash: false,
         plugins: [Markdown, Zoom, Highlight, CustomMath, search, notes]
       })
-      deck.initialize().then(() => { // 初始化如果路由有记录，滚动到记录点
+      deck.initialize().then(() => {
+        // 初始化如果路由有记录，滚动到记录点
         if (route.query.page) {
           deck.slide(...route.query.page.split('-'))
         }
@@ -112,7 +124,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .reveal {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 </style>

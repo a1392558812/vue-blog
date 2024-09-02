@@ -1,20 +1,21 @@
 <template>
-    <section data-state="customevent">
-        <!--
+  <section data-state="customevent">
+    <!--
             Reveal.on( 'customevent', function() { // 自定义事件触发
                 console.log( '"customevent" has fired' );
             } );
          -->
-        <p>
-           插件使用
-        </p>
-        <pre>
+    <p>插件使用</p>
+    <pre>
             <code class="javascript" data-trim contenteditable style="font-size: 18px;">{{ htmlStr }}</code>
         </pre>
-    </section>
+  </section>
 </template>
 <script setup>
 import { ref } from 'vue'
+
+defineOptions({ name: 'view-demo-filmstrip-section30' })
+
 const htmlStr = ref(`
 import { VueHtmlToPaper } from 'vue-html-to-paper'
   export default {

@@ -19,7 +19,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { onMounted, ref, onUnmounted } from 'vue'
 
 export default {
-  setup () {
+  name: 'view-demo-linkage-scroll',
+  setup() {
     const index = ref(0)
     const onComplete = (value) => {
       index.value = +value
@@ -33,65 +34,154 @@ export default {
     }
     onMounted(() => {
       gsap.registerPlugin(ScrollTrigger)
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: '.scroll-roll',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-          markers: true
-        }
-      }).fromTo('.linkage-scroll-content',
-        {
-          background: 'linear-gradient(to bottom, #ed5a65, #cf5b67, #b15b66, #925962, #73575c)'
-        },
-        {
-          background: 'linear-gradient(to bottom, #eeb8c3, #dab2d7, #afb3e7, #6fb6e6, #29b7cb)',
-          ease: 'none'
-        },
-        '+=0')
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: '.scroll-roll',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-          markers: true
-        }
-      })
-        .fromTo('.box1',
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: '.scroll-roll',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+            markers: true
+          }
+        })
+        .fromTo(
+          '.linkage-scroll-content',
+          {
+            background: 'linear-gradient(to bottom, #ed5a65, #cf5b67, #b15b66, #925962, #73575c)'
+          },
+          {
+            background: 'linear-gradient(to bottom, #eeb8c3, #dab2d7, #afb3e7, #6fb6e6, #29b7cb)',
+            ease: 'none'
+          },
+          '+=0'
+        )
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: '.scroll-roll',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+            markers: true
+          }
+        })
+        .fromTo(
+          '.box1',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(1) }, onRepeat },
-          '+=0')
-        .fromTo('.box2',
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(1)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
+        .fromTo(
+          '.box2',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(2) }, onRepeat },
-          '+=0')
-        .fromTo('.box3',
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(2)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
+        .fromTo(
+          '.box3',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(3) }, onRepeat },
-          '+=0')
-        .fromTo('.box4',
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(3)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
+        .fromTo(
+          '.box4',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(4) }, onRepeat },
-          '+=0')
-        .fromTo('.box5',
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(4)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
+        .fromTo(
+          '.box5',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(5) }, onRepeat },
-          '+=0')
-        .fromTo('.box6',
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(5)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
+        .fromTo(
+          '.box6',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(6) }, onRepeat },
-          '+=0')
-        .fromTo('.box7',
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(6)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
+        .fromTo(
+          '.box7',
           { y: 0, x: 0, rotate: 0, ease: 'none' },
-          { x: '90vw', y: '100vh', rotate: 360 * 10, ease: 'none', onReverseComplete, onComplete: () => { onComplete(7) }, onRepeat },
-          '+=0')
+          {
+            x: '90vw',
+            y: '100vh',
+            rotate: 360 * 10,
+            ease: 'none',
+            onReverseComplete,
+            onComplete: () => {
+              onComplete(7)
+            },
+            onRepeat
+          },
+          '+=0'
+        )
     })
     onUnmounted(() => {
       const triggers = ScrollTrigger.getAll()
       triggers.forEach((trigger) => {
-      // 把 ScrollTrigger 绑定的动画消除
+        // 把 ScrollTrigger 绑定的动画消除
         trigger.kill()
       })
       // 消除绑定 MatchMedia();
@@ -104,59 +194,59 @@ export default {
 }
 </script>
 <style lang="scss">
-#app,#page{
-  height: auto!important;;
+#app,
+#page {
+  height: auto !important;
 }
-.linkage-scroll-content{
+.linkage-scroll-content {
   width: 100vw;
-  .scroll-roll{
+  .scroll-roll {
     width: 1px;
     height: 200vh;
   }
-  .box{
+  .box {
     width: 100vw;
     height: 100vh;
     left: 0;
     top: 0;
   }
-  .box-50-50{
+  .box-50-50 {
     width: 100px;
     height: 100px;
   }
-  .box1{
+  .box1 {
     top: 0;
     background: red;
   }
-  .box2{
+  .box2 {
     top: 100px;
     background: orange;
   }
-  .box3{
+  .box3 {
     top: 200px;
     background: yellow;
   }
-  .box4{
+  .box4 {
     top: 300px;
     background: green;
   }
-  .box5{
+  .box5 {
     top: 400px;
     background: skyblue;
   }
-  .box6{
+  .box6 {
     top: 500px;
     background: blue;
   }
-  .box7{
+  .box7 {
     top: 600px;
     background: purple;
   }
-  .tips{
+  .tips {
     top: 50%;
     left: 50%;
     font-size: 16px;
-    transition: transform(-50%,-50%);
+    transition: transform(-50%, -50%);
   }
 }
-
 </style>

@@ -11,7 +11,8 @@
       height="100vh"
       @upload-image="onUploadImage"
       @fullscreen-change="onFullscreenChange"
-      @save="onSave"/>
+      @save="onSave"
+    />
   </div>
 </template>
 <script>
@@ -69,17 +70,20 @@ vMdPreview.use(createHighlightLinesPlugin())
 vMdPreview.use(createAlignPlugin())
 
 export default {
+  name: 'view-demo-markdown-editor',
   components: {
     vMdPreview
   },
-  setup () {
+  setup() {
     const text = ref('要不写点啥... ...')
     const mdPreview = ref(null)
     const { toggle } = useFullscreen(mdPreview)
     return {
       text,
       mdPreview,
-      leftToolbar: ref('undo redo clear | h bold italic strikethrough quote | emoji | todo-list | customToolbar1 | ul ol table hr | link image code | save'),
+      leftToolbar: ref(
+        'undo redo clear | h bold italic strikethrough quote | emoji | todo-list | customToolbar1 | ul ol table hr | link image code | save'
+      ),
       toolbar: {
         customToolbar1: {
           title: '自定义工具栏',
@@ -88,7 +92,7 @@ export default {
             {
               name: 'menu1',
               text: '着重文字',
-              action (editor) {
+              action(editor) {
                 editor.insert((selected) => {
                   const prefix = ' `'
                   const suffix = '` '
@@ -104,7 +108,7 @@ export default {
             {
               name: 'menu2',
               text: '生成快捷目录',
-              action (editor) {
+              action(editor) {
                 editor.insert(() => {
                   text.value = `[[toc]] \n\n${text.value}`
                 })
@@ -120,7 +124,7 @@ export default {
         toggle(isFullscreen)
       },
       onUploadImage: (event, insertImage, files) => {
-        fileToBase64Async(files[0]).then(res => {
+        fileToBase64Async(files[0]).then((res) => {
           const id = `id_${guid()}`
           mdPreview.value.insert(() => {
             return {
@@ -141,6 +145,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .md-preview {
-    height: 100vh;
+  height: 100vh;
 }
 </style>

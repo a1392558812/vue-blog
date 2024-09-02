@@ -1,15 +1,14 @@
 <script lang="jsx">
-import { ref, watch, nextTick, onMounted } from 'vue'
-import vMdPreview from '@/components/v-md-preview/index.js'
-import navigatorTitle from './navigator-title'
+import { ref, watch, nextTick, onMounted, defineAsyncComponent } from 'vue'
+import navigatorTitle from './navigator-title.vue'
 import loadingComponent from '@/components/loading/loading.vue'
 
 export default {
-  name: 'Markdown',
+  name: 'home-markdown-type',
   components: {
     navigatorTitle,
     loadingComponent,
-    vMdPreview
+    vMdPreview: defineAsyncComponent(() => import('@/components/v-md-preview/index.jsx'))
   },
   props: {
     headerH: {
@@ -37,7 +36,7 @@ export default {
       default: ''
     }
   },
-  setup (props) {
+  setup(props) {
     const preview = ref(null) // markdown引用
     const articleTitles = ref([]) // markdown编辑器预览锚点标题
     const markdownContentMinWidth = ref('850px') // markdown编辑器最小宽度
@@ -60,7 +59,9 @@ export default {
           indent: hTags.indexOf(el.tagName)
         }))
       } else {
-        setTimeout(() => { articleTitlesInit() })
+        setTimeout(() => {
+          articleTitlesInit()
+        })
       }
     }
 
@@ -71,19 +72,26 @@ export default {
     }
 
     // 锚点标题动态设定
-    watch(() => props.htmlMD, (newV, oldV) => {
-      if (newV !== oldV && newV) {
-        htmlMarkStr.value = newV
-        nextTick().then(() => {
-          articleTitlesInit()
-        })
-      }
-    }, { immediate: true })
+    watch(
+      () => props.htmlMD,
+      (newV, oldV) => {
+        if (newV !== oldV && newV) {
+          htmlMarkStr.value = newV
+          nextTick().then(() => {
+            articleTitlesInit()
+          })
+        }
+      },
+      { immediate: true }
+    )
 
     // markdown部分高度动态设定
-    watch(() => props.title, () => {
-      setMarkdownMinHeight()
-    })
+    watch(
+      () => props.title,
+      () => {
+        setMarkdownMinHeight()
+      }
+    )
 
     // 初始化markdown部分高度动态设定
     onMounted(setMarkdownMinHeight)
@@ -108,7 +116,7 @@ export default {
       }
     }
   },
-  render () {
+  render() {
     return (
       <>
         <div
@@ -127,56 +135,65 @@ export default {
             }
             return styleMap
           })()}
-          class='title flex align-items-center justify-content-center'>
-          { this.title }
+          class="title flex align-items-center justify-content-center"
+        >
+          {this.title}
         </div>
         <div
-          class='relative markdown'
-          style={{ minHeight: this.markdownMinHeight, ...(this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {}) }}>
-          {
-            !this.loading
-              ? (
-                <div
-                  style={(() => {
-                    const styleMap = {}
-                    if (this.ifLarger) {
-                      if (this.articleTitles.length) {
-                        styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
-                        styleMap.paddingRight = `${this.markdownTitleWidth}`
-                      } else {
-                        styleMap.minWidth = `calc(${this.markdownContentMinWidth})`
-                        styleMap.paddingRight = 0
-                      }
-                    }
-                    return styleMap
-                  })()}
-                  class='flex height100'>
-                  <div class="width100">
-                    <v-md-preview
-                      class='width100'
-                      ifLarger={this.ifLarger}
-                      onGetVMdPreviewRef={(valueRef) => { this.preview = valueRef }}
-                      text={this.htmlMarkStr}/>
-                  </div>
-                  {
-                    this.ifLarger
-                      ? (
-                        <navigator-title
-                          ifLarger={this.ifLarger}
-                          markdownTitleWidth={this.markdownTitleWidth}
-                          articleTitles={this.articleTitles}
-                          onHandleAnchorClick={(anchor) => { this.handleAnchorClick(anchor) }}/>
-                        )
-                      : null
+          class="relative markdown"
+          style={{
+            minHeight: this.markdownMinHeight,
+            ...(this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {})
+          }}
+        >
+          {!this.loading ? (
+            <div
+              style={(() => {
+                const styleMap = {}
+                if (this.ifLarger) {
+                  if (this.articleTitles.length) {
+                    styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
+                    styleMap.paddingRight = `${this.markdownTitleWidth}`
+                  } else {
+                    styleMap.minWidth = `calc(${this.markdownContentMinWidth})`
+                    styleMap.paddingRight = 0
                   }
-                </div>
-                )
-              : (
-                  <loadingComponent style="background-color: transparent" showModal={true}>
-                    <div style="font-weight: bold" class="width100 height100 flex align-items-center justify-content-center">加载中...</div>
-                  </loadingComponent>
-                )
-          }
+                }
+                return styleMap
+              })()}
+              class="flex height100"
+            >
+              <div class="width100">
+                <v-md-preview
+                  class="width100"
+                  ifLarger={this.ifLarger}
+                  onGetVMdPreviewRef={(valueRef) => {
+                    this.preview = valueRef
+                  }}
+                  text={this.htmlMarkStr}
+                />
+              </div>
+              {this.ifLarger ? (
+                <navigator-title
+                  ifLarger={this.ifLarger}
+                  markdownTitleWidth={this.markdownTitleWidth}
+                  articleTitles={this.articleTitles}
+                  onHandleAnchorClick={(anchor) => {
+                    this.handleAnchorClick(anchor)
+                  }}
+                />
+              ) : null}
+            </div>
+          ) : (
+            <loadingComponent style="background-color: transparent" showModal={true}>
+              <div
+                style="font-weight: bold"
+                class="width100 height100 flex align-items-center justify-content-center"
+              >
+                加载中...
+              </div>
+            </loadingComponent>
+          )}
         </div>
       </>
     )
@@ -185,16 +202,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .markdown {
-      width: 100%;
-      padding-bottom: 100px;
-      z-index: 0;
-    }
-    .title {
-      box-sizing: border-box;
-      color: var(--global-text-color);
-      padding: 20px 30px;
-      font-size: 18px;
-      font-weight: 600;
-    }
+.markdown {
+  width: 100%;
+  padding-bottom: 100px;
+  z-index: 0;
+}
+.title {
+  box-sizing: border-box;
+  color: var(--global-text-color);
+  padding: 20px 30px;
+  font-size: 18px;
+  font-weight: 600;
+}
 </style>

@@ -26,7 +26,7 @@ const exportExcel = function (luckysheet, value) {
 
   // return
   // 4.写入 buffer
-  const buffer = workbook.xlsx.writeBuffer().then(data => {
+  const buffer = workbook.xlsx.writeBuffer().then((data) => {
     // console.log('data', data)
     const blob = new Blob([data], {
       type: 'application/vnd.ms-excel;charset=utf-8'
@@ -42,12 +42,7 @@ const setMerge = function (luckyMerge = {}, worksheet) {
   mergearr.forEach(function (elem) {
     // elem格式：{r: 0, c: 0, rs: 1, cs: 2}
     // 按开始行，开始列，结束行，结束列合并（相当于 K10:M12）
-    worksheet.mergeCells(
-      elem.r + 1,
-      elem.c + 1,
-      elem.r + elem.rs,
-      elem.c + elem.cs
-    )
+    worksheet.mergeCells(elem.r + 1, elem.c + 1, elem.r + elem.rs, elem.c + elem.cs)
   })
 }
 
@@ -95,15 +90,7 @@ const setStyleAndValue = function (cellArr, worksheet) {
       if (!cell) return true
       const fill = fillConvert(cell.bg)
 
-      const font = fontConvert(
-        cell.ff,
-        cell.fc,
-        cell.bl,
-        cell.it,
-        cell.fs,
-        cell.cl,
-        cell.ul
-      )
+      const font = fontConvert(cell.ff, cell.fc, cell.bl, cell.it, cell.fs, cell.cl, cell.ul)
       const alignment = alignmentConvert(cell.vt, cell.ht, cell.tb, cell.tr)
       let value = ''
 
@@ -112,7 +99,7 @@ const setStyleAndValue = function (cellArr, worksheet) {
       } else if (!cell.v && cell.ct && cell.ct.s) {
         // xls转为xlsx之后，内部存在不同的格式，都会进到富文本里，即值不存在与cell.v，而是存在于cell.ct.s之后
         // value = cell.ct.s[0].v
-        cell.ct.s.forEach(arr => {
+        cell.ct.s.forEach((arr) => {
           value += arr.v
         })
       } else {
@@ -145,15 +132,7 @@ const fillConvert = function (bg) {
   return fill
 }
 
-const fontConvert = function (
-  ff = 0,
-  fc = '#000000',
-  bl = 0,
-  it = 0,
-  fs = 10,
-  cl = 0,
-  ul = 0
-) {
+const fontConvert = function (ff = 0, fc = '#000000', bl = 0, it = 0, fs = 10, cl = 0, ul = 0) {
   // luckysheet：ff(样式), fc(颜色), bl(粗体), it(斜体), fs(大小), cl(删除线), ul(下划线)
   const luckyToExcel = {
     0: '微软雅黑',
@@ -189,12 +168,7 @@ const fontConvert = function (
   return font
 }
 
-const alignmentConvert = function (
-  vt = 'default',
-  ht = 'default',
-  tb = 'default',
-  tr = 'default'
-) {
+const alignmentConvert = function (vt = 'default', ht = 'default', tb = 'default', tr = 'default') {
   // luckysheet:vt(垂直), ht(水平), tb(换行), tr(旋转)
   const luckyToExcel = {
     vertical: {
@@ -282,7 +256,7 @@ const borderConvert = function (borderType, style = 1, color = '#000') {
   return border
 }
 
-function addborderToCell (borders, rowIndex, colIndex) {
+function addborderToCell(borders, rowIndex, colIndex) {
   const border = {}
   const luckyExcel = {
     type: {
@@ -327,7 +301,7 @@ function addborderToCell (borders, rowIndex, colIndex) {
   return border
 }
 
-function createCellPos (n) {
+function createCellPos(n) {
   const ordA = 'A'.charCodeAt(0)
 
   const ordZ = 'Z'.charCodeAt(0)
@@ -341,6 +315,4 @@ function createCellPos (n) {
   return s
 }
 
-export {
-  exportExcel
-}
+export { exportExcel }

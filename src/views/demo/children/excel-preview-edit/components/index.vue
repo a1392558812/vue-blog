@@ -10,8 +10,8 @@
         <input id="uploadBtn" type="file" @change="loadExcel" />
       </div>
       <div class="display-block control-btn">
-        <span style="margin-right:1em">加载远程文件:</span>
-        <select style="margin-right:1em" v-model="selected" @change="selectExcel">
+        <span style="margin-right: 1em">加载远程文件:</span>
+        <select style="margin-right: 1em" v-model="selected" @change="selectExcel">
           <option disabled value="">选择远程文件</option>
           <option v-for="option in options" :key="option.text" :value="option.value">
             {{ option.text }}
@@ -20,7 +20,9 @@
       </div>
       <button class="display-block control-btn" @click="downloadExcel">下载当前xlsx</button>
       <button class="display-block control-btn" @click="setCellValue">设置3行4列的数据为69</button>
-      <button class="display-block control-btn" @click="setRangeValue">设置(第3行-第4行)与(第3列-第4列)交界处的数据</button>
+      <button class="display-block control-btn" @click="setRangeValue">
+        设置(第3行-第4行)与(第3列-第4列)交界处的数据
+      </button>
       <button class="display-block control-btn" @click="insertImage">设置(5,5)处插入图片</button>
     </div>
     <div v-show="isMaskShow" id="tip">Downloading</div>
@@ -33,6 +35,9 @@ import { exportExcel } from './export'
 import { isFunction } from '@/common/util/typeCheck'
 import LuckyExcel from 'luckyexcel'
 import { baseUrlFun } from '@/common/util/methods.js'
+
+defineOptions({ name: 'excel-preview-edit-index' })
+
 const baseUrl = baseUrlFun()
 
 const isMaskShow = ref(false)
@@ -149,56 +154,60 @@ const setCellValue = () => {
       fc: '#990000', // 字体颜色为 "#990000"
       m: '69',
       v: 69,
-      ps: { // 批注
+      ps: {
+        // 批注
         value: '介是个插入的值' // 批准内容
       }
     })
   }
 }
 const setRangeValue = () => {
-  window.luckysheet.setRangeValue([
+  window.luckysheet.setRangeValue(
     [
-      {
-        m: 'value1',
-        ct: {
-          fa: 'General',
-          t: 'g'
+      [
+        {
+          m: 'value1',
+          ct: {
+            fa: 'General',
+            t: 'g'
+          },
+          v: 'value1'
         },
-        v: 'value1'
-      },
-      {
-        m: 'value3',
-        ct: {
-          fa: 'General',
-          t: 'g'
+        {
+          m: 'value3',
+          ct: {
+            fa: 'General',
+            t: 'g'
+          },
+          v: 'value3'
+        }
+      ],
+      [
+        {
+          m: 'value2',
+          ct: {
+            fa: 'General',
+            t: 'g'
+          },
+          v: 'value2'
         },
-        v: 'value3'
-      }
+        {
+          m: 'value4',
+          ct: {
+            fa: 'General',
+            t: 'g'
+          },
+          v: 'value4'
+        }
+      ]
     ],
-    [
-      {
-        m: 'value2',
-        ct: {
-          fa: 'General',
-          t: 'g'
-        },
-        v: 'value2'
-      },
-      {
-        m: 'value4',
-        ct: {
-          fa: 'General',
-          t: 'g'
-        },
-        v: 'value4'
+    {
+      range: { row: [3, 4], column: [3, 4] },
+      success: () => {
+        console.log('插入成功')
       }
-    ]
-  ], {
-    range: { row: [3, 4], column: [3, 4] },
-    success: () => {
-      console.log('插入成功')
     }
-  })
+  )
 }
 const insertImage = () => {
   window.luckysheet.insertImage(avatar, {
@@ -316,7 +325,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.luckysheet-wrap{
+.luckysheet-wrap {
   width: 1000px;
   height: 550px;
   border: 1px solid #000;
@@ -333,7 +342,7 @@ onMounted(() => {
     bottom: 0px;
   }
 }
-.control-btn{
+.control-btn {
   font-size: 14px;
   margin-bottom: 20px;
 }

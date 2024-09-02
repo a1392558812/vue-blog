@@ -10,7 +10,7 @@
         left: rippleLeft + 'px',
         width: fields.targetWidth + 'px',
         height: fields.targetWidth + 'px',
-        backgroundColor: 'rgba(0,220,255,0.2)',
+        backgroundColor: 'rgba(0,220,255,0.2)'
       }"
       class="common-btn-wave-ripple"
     />
@@ -18,9 +18,9 @@
 </template>
 
 <script setup>
-import { ref, nextTick, defineProps, defineEmits, defineOptions } from 'vue'
+import { ref, nextTick } from 'vue'
 
-defineOptions({ name: 'CommonBtn' })
+defineOptions({ name: 'components-commonBtn' })
 
 defineProps({
   btnText: {
@@ -75,7 +75,7 @@ const handelClick = (e) => {
 .common-btn {
   position: relative;
   line-height: 1;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   border-radius: 5px;
   overflow: hidden;
   user-select: none;
@@ -96,7 +96,9 @@ const handelClick = (e) => {
   .common-btn-wave-active {
     opacity: 0;
     transform: scale(2);
-    transition: opacity 1s linear, transform 0.3s linear;
+    transition:
+      opacity 1s linear,
+      transform 0.3s linear;
   }
 }
 .common-btn-common {

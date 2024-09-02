@@ -36,7 +36,10 @@ export const markdownTypeList = [
   { suffix: 'less', formatFun: (str) => '```less' + '\n' + str + '\n' + '```' },
   { suffix: 'scss', formatFun: (str) => '```scss' + '\n' + str + '\n' + '```' },
   { suffix: 'py', formatFun: (str) => '```python' + '\n' + str + '\n' + '```' },
-  { suffix: 'json', formatFun: (str) => '```json' + '\n' + JSON.stringify({ jsonData: str }) + '\n' + '```' },
+  {
+    suffix: 'json',
+    formatFun: (str) => '```json' + '\n' + JSON.stringify({ jsonData: str }) + '\n' + '```'
+  },
   { suffix: 'ejs', formatFun: (str) => '```ejs' + '\n' + str + '\n' + '```' },
   { suffix: 'vue', formatFun: (str) => '```html' + '\n' + str + '\n' + '```' },
   { suffix: 'txt', formatFun: (str) => '```' + '\n' + str + '\n' + '```' }
@@ -44,17 +47,12 @@ export const markdownTypeList = [
 
 /* markdown类型 */
 export const markdownTypeCheck = (type) => {
-  return markdownTypeList.filter(item => item.suffix === type).length
+  return markdownTypeList.filter((item) => item.suffix === type).length
 }
 
 /* image图片类型 */
 export const imgTypeCheck = (type) => {
-  return [
-    'jpg',
-    'png',
-    'gif',
-    'jpeg'
-  ].filter(item => item === type).length
+  return ['jpg', 'png', 'gif', 'jpeg'].filter((item) => item === type).length
 }
 
 /* html结构转json结构 */
@@ -66,10 +64,10 @@ export const htmlToJson = ($dt, ifRender = false, ifShow = false) => {
     // 返回该书签的名称和网址组成的对象
     return $a.length > 0
       ? Object.freeze({
-        name: $a.text(),
-        href: $a.attr('href'),
-        ...($a.attr('icon') ? { icon: $a.attr('icon') } : {})
-      })
+          name: $a.text(),
+          href: $a.attr('href'),
+          ...($a.attr('icon') ? { icon: $a.attr('icon') } : {})
+        })
       : null
   }
   const h3 = $h3.text()
@@ -99,7 +97,7 @@ export const baseUrlFun = () => window.location.origin + window.location.pathnam
 
 /* File转base64 */
 export const fileToBase64Async = (file) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = (e) => {

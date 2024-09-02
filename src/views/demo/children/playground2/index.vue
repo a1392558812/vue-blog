@@ -1,12 +1,20 @@
 <template>
-    <div class="playground2 overflow-auto">
-        <codeEdit mode="edit" v-model:imports="imports" v-model:templateValue="templateValue" v-model:cssValue="cssValue" v-model:scriptValue="scriptValue"></codeEdit>
-    </div>
+  <div class="playground2 overflow-auto">
+    <codeEdit
+      mode="edit"
+      v-model:imports="imports"
+      v-model:templateValue="templateValue"
+      v-model:cssValue="cssValue"
+      v-model:scriptValue="scriptValue"
+    ></codeEdit>
+  </div>
 </template>
 <script setup>
 import { ref } from 'vue'
 import { baseUrlFun } from '@/common/util/methods.js'
 import codeEdit from './components/playground2-plane/index.vue'
+
+defineOptions({ name: 'view-demo-playground2' })
 
 const baseUrl = baseUrlFun()
 
@@ -56,7 +64,7 @@ export default {
 </script>
 <style scoped>
 .playground2 {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 </style>

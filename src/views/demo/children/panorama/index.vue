@@ -6,7 +6,8 @@
 <script>
 import { baseUrlFun } from '@/common/util/methods.js'
 export default {
-  setup () {
+  name: 'view-demo-panorama',
+  setup() {
     return {
       iframeSrc: `${baseUrlFun()}demo-static/vtour/tour.html`
     }
@@ -14,7 +15,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.panorama{
+.panorama {
   width: 100vw;
   height: 100vh;
 }

@@ -8,9 +8,7 @@
     class="fixed flex-shrink-0 markdown-title"
   >
     <div class="width100 height100 markdown-title-inner">
-      <div class="width100 text-align-center markdown-title-navigator">
-        标题导航
-      </div>
+      <div class="width100 text-align-center markdown-title-navigator">标题导航</div>
       <div class="markdown-title-wrap">
         <div class="overflow-y-auto height100 markdown-title-main">
           <div
@@ -49,7 +47,7 @@ export default {
       default: '70px'
     }
   },
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const barWidth = ref(0) // 浏览器滚动条宽度
 
     const articleTitlesHeight = ref(0) // 标题区高度
@@ -89,41 +87,41 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .markdown-title{
-    box-sizing: border-box;
-    width: v-bind(markdownTitleWidth);
-    background-color: var(--global-background-color);
-    top:v-bind(headerH);
-    border-left: 1px solid var(--global-border-color);
-    z-index: 999;
-    .markdown-title-inner{
-      $widht: calc(864px / 5.5);
-      $height: calc(836px / 5.5);
-      overflow-y: auto;
-      overflow-x: hidden;
-      word-wrap:break-word;
-      word-break:break-all;
-      .markdown-title-navigator{
-        padding: 20px 0;
-        font-size: 20px;
-        color: #f5662e;
-        font-weight: bold;
-        border-bottom: 1px solid var(--global-border-color);
-      }
-      .markdown-title-wrap {
-         height: 400px;
-         padding: 0 5px 0 15px;
-         border-bottom: 1px solid var(--global-border-color);
-        .markdown-title-main {
-          padding-bottom: 15px;
-          box-sizing: border-box;
-          .markdown-title-item{
-            a{
-              color: var(--global-primary-color);
-            }
+.markdown-title {
+  box-sizing: border-box;
+  width: v-bind(markdownTitleWidth);
+  background-color: var(--global-background-color);
+  top: v-bind(headerH);
+  border-left: 1px solid var(--global-border-color);
+  z-index: 999;
+  .markdown-title-inner {
+    $widht: calc(864px / 5.5);
+    $height: calc(836px / 5.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    .markdown-title-navigator {
+      padding: 20px 0;
+      font-size: 20px;
+      color: #f5662e;
+      font-weight: bold;
+      border-bottom: 1px solid var(--global-border-color);
+    }
+    .markdown-title-wrap {
+      height: 400px;
+      padding: 0 5px 0 15px;
+      border-bottom: 1px solid var(--global-border-color);
+      .markdown-title-main {
+        padding-bottom: 15px;
+        box-sizing: border-box;
+        .markdown-title-item {
+          a {
+            color: var(--global-primary-color);
           }
         }
       }
     }
   }
+}
 </style>

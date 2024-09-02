@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-let timer; let
-  flag
+let timer
+let flag
 /**
  * 节流原理：在一定时间内，只能触发一次
  *
@@ -9,7 +9,7 @@ let timer; let
  * @param {Boolean} immediate 是否立即执行
  * @return null
  */
-function throttle (func, wait = 500, immediate = true) {
+function throttle(func, wait = 500, immediate = true) {
   if (immediate) {
     if (!flag) {
       flag = true

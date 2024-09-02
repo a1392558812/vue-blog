@@ -16,7 +16,7 @@
 import commonNavLink from '@/components/nav-link/index.vue'
 import useGoHome from '@/hook/common/useGoHome'
 export default {
-  name: 'LeftNavLink',
+  name: 'components-left-nav-link',
   components: {
     commonNavLink
   },
@@ -34,7 +34,7 @@ export default {
       default: '320px'
     }
   },
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const { goHome } = useGoHome(emit)
     return {
       goHome,
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.left-nav-link{
+.left-nav-link {
   width: v-bind(leftSidebarW);
   color: var(--global-text-color);
   font-size: 16px;

@@ -1,7 +1,7 @@
 <template>
   <div class="width100 overflow-y-auto tribute-main">
-    <tribute class="tribute"/>
-    <asyncTribute  class="tribute"/>
+    <tribute class="tribute" />
+    <asyncTribute class="tribute" />
     <pre class="overflow-y-auto pre">
       {
         // 开始查找的符号或字符串
@@ -96,29 +96,29 @@
 import asyncTribute from './components/async-tribute/index.vue'
 import tribute from './components/tribute/index.vue'
 export default {
+  name: 'view-demo-mention-function',
   components: {
     asyncTribute,
     tribute
   },
-  setup () {
-
+  setup() {
+    return {}
   }
 }
 </script>
 
 <style scoped lang="scss">
-.tribute-main{
+.tribute-main {
   height: 100vh;
-  .tribute{
+  .tribute {
     padding: 20px 50px;
     border: 1px solid #ff0000;
   }
-  .pre{
+  .pre {
     max-height: 500px;
     max-width: 800px;
     border: 1px solid #ff0000;
     font-size: 16px;
   }
 }
-
 </style>

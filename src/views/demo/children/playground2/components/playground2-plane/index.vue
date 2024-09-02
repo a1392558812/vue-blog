@@ -1,39 +1,56 @@
-
 <template>
-    <div>
-        <div class="toggle-btn-wrap">
-            <div class="toggle-btn" :style="editMode === 'preview' ? { background: 'pink' } : {}" @click="editMode = 'preview'">preview模式</div>
-            <div class="toggle-btn" :style="editMode === 'edit' ? { background: 'pink' } : {}" @click="editMode = 'edit'">edit模式</div>
-            <div v-if="editMode === 'edit'" class="toggle-btn">
-                <label style="margin-right: 10px">编辑器宽度: {{ contentWrapWidth }}%</label>
-                <input style="width: 40px" type="number" :value="contentWrapWidth" @input="onInput" />
-            </div>
-        </div>
-        <div class="iframe-wrap">
-            <div v-if="editMode === 'edit'" class="content-wrap" :style="{ width: `${contentWrapWidth}%` }">
-                <div class="textarea-warp">
-                    <div class="textarea-title">template</div>
-                    <textarea class="textarea-item" v-model="templateValueComputed" />
-                </div>
-                <div class="textarea-warp">
-                    <div class="textarea-title">script</div>
-                    <textarea class="textarea-item" v-model="scriptValueComputed" />
-                </div>
-                <div class="textarea-warp">
-                    <div class="textarea-title">css</div>
-                    <textarea class="textarea-item" v-model="cssValueComputed" />
-                </div>
-                <div class="textarea-warp">
-                    <div class="textarea-title">imports</div>
-                    <textarea class="textarea-item" v-model="importsComputed" />
-                </div>
-            </div>
-            <iframe :style="{ flex: 1 }" class="iframe-item" ref="iframeRef"></iframe>
-        </div>
+  <div>
+    <div class="toggle-btn-wrap">
+      <div
+        class="toggle-btn"
+        :style="editMode === 'preview' ? { background: 'pink' } : {}"
+        @click="editMode = 'preview'"
+      >
+        preview模式
+      </div>
+      <div
+        class="toggle-btn"
+        :style="editMode === 'edit' ? { background: 'pink' } : {}"
+        @click="editMode = 'edit'"
+      >
+        edit模式
+      </div>
+      <div v-if="editMode === 'edit'" class="toggle-btn">
+        <label style="margin-right: 10px">编辑器宽度: {{ contentWrapWidth }}%</label>
+        <input style="width: 40px" type="number" :value="contentWrapWidth" @input="onInput" />
+      </div>
     </div>
+    <div class="iframe-wrap">
+      <div
+        v-if="editMode === 'edit'"
+        class="content-wrap"
+        :style="{ width: `${contentWrapWidth}%` }"
+      >
+        <div class="textarea-warp">
+          <div class="textarea-title">template</div>
+          <textarea class="textarea-item" v-model="templateValueComputed" />
+        </div>
+        <div class="textarea-warp">
+          <div class="textarea-title">script</div>
+          <textarea class="textarea-item" v-model="scriptValueComputed" />
+        </div>
+        <div class="textarea-warp">
+          <div class="textarea-title">css</div>
+          <textarea class="textarea-item" v-model="cssValueComputed" />
+        </div>
+        <div class="textarea-warp">
+          <div class="textarea-title">imports</div>
+          <textarea class="textarea-item" v-model="importsComputed" />
+        </div>
+      </div>
+      <iframe :style="{ flex: 1 }" class="iframe-item" ref="iframeRef"></iframe>
+    </div>
+  </div>
 </template>
 <script setup>
-import { ref, computed, watch, defineProps, defineEmits, nextTick, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
+
+defineOptions({ name: 'view-demo-playground2-plane' })
 
 const props = defineProps({
   mode: {
@@ -68,7 +85,12 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:templateValue', 'update:scriptValue', 'update:cssValue', 'update:imports'])
+const emit = defineEmits([
+  'update:templateValue',
+  'update:scriptValue',
+  'update:cssValue',
+  'update:imports'
+])
 
 const editMode = ref('')
 const iframeRef = ref(null)
@@ -78,34 +100,34 @@ let blob = ''
 let iframeRefBlob = ''
 
 const templateValueComputed = computed({
-  get () {
+  get() {
     return props.templateValue
   },
-  set (val) {
+  set(val) {
     emit('update:templateValue', val)
   }
 })
 const scriptValueComputed = computed({
-  get () {
+  get() {
     return props.scriptValue
   },
-  set (val) {
+  set(val) {
     emit('update:scriptValue', val)
   }
 })
 const cssValueComputed = computed({
-  get () {
+  get() {
     return props.cssValue
   },
-  set (val) {
+  set(val) {
     emit('update:cssValue', val)
   }
 })
 const importsComputed = computed({
-  get () {
+  get() {
     return JSON.stringify(props.imports)
   },
-  set (val) {
+  set(val) {
     emit('update:imports', JSON.parse(val))
   }
 })
@@ -146,18 +168,24 @@ watch(
   (newList, oldList) => {
     nextTick().then(() => {
       destroyBlob()
-      blob = URL.createObjectURL(new Blob([props.scriptValue], { type: 'text/javascript;charset=UTF-8' }))
-      iframeRefBlob = URL.createObjectURL(new Blob(
-        [
-                    `<style>
+      blob = URL.createObjectURL(
+        new Blob([props.scriptValue], { type: 'text/javascript;charset=UTF-8' })
+      )
+      iframeRefBlob = URL.createObjectURL(
+        new Blob(
+          [
+            `<style>
 html, body{ padding: 0; margin: 0 }
 ${props.cssValue}
 </style>
 <script type="importmap">
   {
-    "imports": ` + JSON.stringify(props.imports) + `
+    "imports": ` +
+              JSON.stringify(props.imports) +
+              `
   }
-</` + `script>
+</` +
+              `script>
 
 <div id="app"></div>
 
@@ -175,10 +203,12 @@ ${props.cssValue}
   ;${props.afterAppMount};
 
   ;app.mount('#app')
-<` + '/script>'
-        ],
-        { type: 'text/html;charset=UTF-8' }
-      ))
+<` +
+              '/script>'
+          ],
+          { type: 'text/html;charset=UTF-8' }
+        )
+      )
 
       console.log('watch-data', { newList, oldList, blob, iframeRefBlob })
 
@@ -188,83 +218,86 @@ ${props.cssValue}
   { immediate: true }
 )
 
-watch(() => props.mode, (newV, oldV) => {
-  if (newV !== oldV) {
-    editMode.value = newV
-  }
-}, { immediate: true })
+watch(
+  () => props.mode,
+  (newV, oldV) => {
+    if (newV !== oldV) {
+      editMode.value = newV
+    }
+  },
+  { immediate: true }
+)
 
 onUnmounted(() => {
   destroyBlob()
 })
-
 </script>
 <style scoped lang="scss">
-    .toggle-btn-wrap {
-      display: flex;
-      margin-bottom: 10px;
-      .toggle-btn {
-        font-size: 14px;
-        line-height: 1;
-        padding: 0 10px;
-        height: 30px;
-        border: 1px solid #000;
-        cursor: pointer;
-        margin-right: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
+.toggle-btn-wrap {
+  display: flex;
+  margin-bottom: 10px;
+  .toggle-btn {
+    font-size: 14px;
+    line-height: 1;
+    padding: 0 10px;
+    height: 30px;
+    border: 1px solid #000;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 
-    .iframe-wrap {
+.iframe-wrap {
+  width: 100%;
+  display: flex;
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    border: 1px solid #000;
+    .textarea-warp {
       width: 100%;
-      display: flex;
-      .content-wrap {
-        display: flex;
-        flex-direction: column;
-        margin-right: 20px;
-        border: 1px solid #000;
-        .textarea-warp {
-          width: 100%;
-          border-bottom: none;
-          .textarea-title {
-            width: 100%;
-            padding: 10px 20px;
-            font-size: 16px;
-            line-height: 1;
-            box-sizing: border-box;
-            border: none;
-            border-bottom: 1px solid #000;
-          }
-          .textarea-item {
-            padding: 10px;
-            display: block;
-            resize: none;
-            width: 100%;
-            height: 350px;
-            overflow: auto;
-            flex-shrink: 0;
-            box-sizing: border-box;
-            border: none;
-            border-bottom: 1px solid #000;
-            &:focus-visible {
-              outline: none;
-              border-bottom: 1px solid #000;
-            }
-          }
-        }
+      border-bottom: none;
+      .textarea-title {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 16px;
+        line-height: 1;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 1px solid #000;
       }
-      .iframe-item {
-        flex-shrink: 0;
-        min-width: 0;
-        padding: 0;
-        margin: 0;
+      .textarea-item {
+        padding: 10px;
         display: block;
-        border-width: 1px;
+        resize: none;
+        width: 100%;
+        height: 350px;
+        overflow: auto;
         flex-shrink: 0;
         box-sizing: border-box;
-        border: 1px solid #000;
+        border: none;
+        border-bottom: 1px solid #000;
+        &:focus-visible {
+          outline: none;
+          border-bottom: 1px solid #000;
+        }
       }
     }
+  }
+  .iframe-item {
+    flex-shrink: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    display: block;
+    border-width: 1px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border: 1px solid #000;
+  }
+}
 </style>

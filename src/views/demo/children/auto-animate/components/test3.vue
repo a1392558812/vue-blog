@@ -1,23 +1,48 @@
 <template>
-    <div>
-        <button @click="toggle">切换</button>
-        <div class="relative width100" ref="parent">
-            <div class="absolute" v-for="(item, index) in styleList" :data-index="index" :style="item[currentIndex]" :key="`${currentIndex}-${index}`"></div>
-        </div>
+  <div>
+    <button @click="toggle">切换</button>
+    <div class="relative width100" ref="parent">
+      <div
+        class="absolute"
+        v-for="(item, index) in styleList"
+        :data-index="index"
+        :style="item[currentIndex]"
+        :key="`${currentIndex}-${index}`"
+      ></div>
     </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { getTransitionSizes } from '@formkit/auto-animate'
+
+defineOptions({ name: 'auto-animate-test3' })
+
 const currentIndex = ref(0)
 const lastIndex = ref(0)
 const styleList = ref([
   [
     { width: '100px', height: '100px', left: '0px', top: '0px', background: 'red', zIndex: 3 },
-    { width: '100px', height: '200px', left: '10px', top: '10px', background: 'rgba(85,155,53,1)', zIndex: 3, borderRadius: '40px' },
-    { width: '200px', height: '100px', left: '20px', top: '0px', background: 'red', zIndex: 3, borderRadius: '10px' }
+    {
+      width: '100px',
+      height: '200px',
+      left: '10px',
+      top: '10px',
+      background: 'rgba(85,155,53,1)',
+      zIndex: 3,
+      borderRadius: '40px'
+    },
+    {
+      width: '200px',
+      height: '100px',
+      left: '20px',
+      top: '0px',
+      background: 'red',
+      zIndex: 3,
+      borderRadius: '10px'
+    }
   ],
   [
     { width: '200px', height: '200px', left: '0px', top: '0px', background: 'green', zIndex: 2 },
@@ -26,13 +51,34 @@ const styleList = ref([
   ],
   [
     { width: '400px', height: '400px', left: '0px', top: '0px', background: 'yellow', zIndex: 1 },
-    { width: '200px', height: '200px', left: '30px', top: '60px', background: 'pink', zIndex: 1, borderRadius: '999999px' },
-    { width: '100px', height: '400px', left: '20px', top: '20px', background: 'yellow', zIndex: 1, borderRadius: '40px' }
+    {
+      width: '200px',
+      height: '200px',
+      left: '30px',
+      top: '60px',
+      background: 'pink',
+      zIndex: 1,
+      borderRadius: '999999px'
+    },
+    {
+      width: '100px',
+      height: '400px',
+      left: '20px',
+      top: '20px',
+      background: 'yellow',
+      zIndex: 1,
+      borderRadius: '40px'
+    }
   ]
 ])
 
 const [parent] = useAutoAnimate((el, action, oldCoords, newCoords) => {
-  console.log('el, action, oldCoords, newCoords', el.dataset.index, { el, action, oldCoords, newCoords })
+  console.log('el, action, oldCoords, newCoords', el.dataset.index, {
+    el,
+    action,
+    oldCoords,
+    newCoords
+  })
   let keyframes
   // supply a different set of keyframes for each action
   if (action === 'add') {
@@ -44,10 +90,7 @@ const [parent] = useAutoAnimate((el, action, oldCoords, newCoords) => {
   // keyframes can have as many "steps" as you prefer
   // and you can use the 'offset' key to tune the timing
   if (action === 'remove') {
-    keyframes = [
-      { display: 'none' },
-      { display: 'none' }
-    ]
+    keyframes = [{ display: 'none' }, { display: 'none' }]
   }
   if (action === 'remain') {
     // for items that remain, calculate the delta
@@ -79,7 +122,7 @@ const [parent] = useAutoAnimate((el, action, oldCoords, newCoords) => {
   return new KeyframeEffect(el, keyframes, { duration: 600, easing: 'ease-out' })
 })
 
-function toggle () {
+function toggle() {
   lastIndex.value = currentIndex.value
   if (currentIndex.value === 2) {
     currentIndex.value = 0
@@ -88,6 +131,4 @@ function toggle () {
   currentIndex.value = currentIndex.value + 1
 }
 </script>
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

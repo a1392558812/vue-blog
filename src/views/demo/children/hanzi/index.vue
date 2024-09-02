@@ -4,7 +4,7 @@
     <div id="character-target-div1"></div>
     <div>
       <div>自定义汉字</div>
-      <input v-model="inputValue"/>
+      <input v-model="inputValue" />
       <button @click="handelCreate">确定生成</button>
       <div id="character-target-div4"></div>
     </div>
@@ -18,11 +18,11 @@
           <span>{{ charAnimation2info1 }}</span>
         </div>
         <div>
-          <span style="color: #50EC7B">每步写完提示：</span>
+          <span style="color: #50ec7b">每步写完提示：</span>
           <span>{{ charAnimation2info2 }}</span>
         </div>
         <div>
-          <span style="color: #337AB7">字写完提示：</span>
+          <span style="color: #337ab7">字写完提示：</span>
           <span>{{ charAnimation2info3 }}</span>
         </div>
       </div>
@@ -39,13 +39,19 @@
         <div>静态汉字无笔画</div>
         <div class="character-box" id="character-target-div6"></div>
       </div>
-      <div style="margin-right:20px; width: 300px">
+      <div style="margin-right: 20px; width: 300px">
         <div>静态汉字无笔画</div>
         <div id="character-target-div7"></div>
       </div>
       <div class="chart-wrap">
         <div>静态汉字无笔画</div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" class="character-box" id="character-target-div8">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="150"
+          height="150"
+          class="character-box"
+          id="character-target-div8"
+        >
           <line x1="0" y1="0" x2="150" y2="150" stroke="#DDD" />
           <line x1="150" y1="0" x2="0" y2="150" stroke="#DDD" />
           <line x1="75" y1="0" x2="75" y2="150" stroke="#DDD" />
@@ -61,7 +67,7 @@ import { onMounted, ref } from 'vue'
 import HanziWriter from 'hanzi-writer'
 import axios from '@/common/axios/index.js'
 import { baseUrlFun } from '@/common/util/methods'
-function renderFanningStrokes (target, strokes) {
+function renderFanningStrokes(target, strokes) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   svg.style.width = '75px'
   svg.style.height = '75px'
@@ -84,7 +90,8 @@ function renderFanningStrokes (target, strokes) {
   })
 }
 export default {
-  setup () {
+  name: 'view-demo-character',
+  setup() {
     const charAnimation2info1 = ref('')
     const charAnimation2info2 = ref('')
     const charAnimation2info3 = ref('')
@@ -93,21 +100,23 @@ export default {
     const charAnimation1 = (str = '长风破浪会有时', targetId = 'character-target-div1') => {
       const charList = []
 
-      str.split('').forEach(char => {
-        charList.push(HanziWriter.create(targetId, char, {
-          width: 100,
-          height: 100,
-          padding: 5,
-          showOutline: false,
-          strokeAnimationSpeed: 8, // 5x normal speed
-          delayBetweenStrokes: 10, // milliseconds
-          radicalColor: '#337ab7', // blue
-          delayBetweenLoops: 1000,
-          showCharacter: false
-        }))
+      str.split('').forEach((char) => {
+        charList.push(
+          HanziWriter.create(targetId, char, {
+            width: 100,
+            height: 100,
+            padding: 5,
+            showOutline: false,
+            strokeAnimationSpeed: 8, // 5x normal speed
+            delayBetweenStrokes: 10, // milliseconds
+            radicalColor: '#337ab7', // blue
+            delayBetweenLoops: 1000,
+            showCharacter: false
+          })
+        )
       })
       const loopRender = () => {
-        charList.forEach(charResult => {
+        charList.forEach((charResult) => {
           charResult.hideCharacter()
         })
         let promise = Promise.resolve()
@@ -163,7 +172,7 @@ export default {
         showCharacter: false,
         padding: 5,
         charDataLoader: (char, onComplete) => {
-          axios.get(`${baseUrlFun()}demo-static/hanzi/福.json`).then(res => {
+          axios.get(`${baseUrlFun()}demo-static/hanzi/福.json`).then((res) => {
             onComplete(res.data)
           })
         }
@@ -216,7 +225,11 @@ export default {
       charAnimation2info3,
       inputValue,
       handelCreate: () => {
-        if (!(/^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/g.test(inputValue.value))) {
+        if (
+          !/^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/g.test(
+            inputValue.value
+          )
+        ) {
           alert('请输入纯汉字')
         } else {
           $('#character-target-div4').empty()
@@ -237,14 +250,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hanzi{
-  .chart-wrap{
+.hanzi {
+  .chart-wrap {
     margin-right: 20px;
     width: 150px;
   }
-  .character-box{
+  .character-box {
     width: 150px;
-    height:150px;
+    height: 150px;
     border: 1px solid #000;
   }
 }

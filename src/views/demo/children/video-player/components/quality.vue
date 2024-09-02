@@ -1,11 +1,24 @@
 <template>
-    <div>
-        <div :class="currentActive === index ? 'quality-item-active' : ''" class="quality-item" @click="function(e){ qualityItemClick(index, e) }" v-for="(item, index) in list" :key="index">{{ item.label }}</div>
+  <div>
+    <div
+      :class="currentActive === index ? 'quality-item-active' : ''"
+      class="quality-item"
+      @click="
+        function (e) {
+          qualityItemClick(index, e)
+        }
+      "
+      v-for="(item, index) in list"
+      :key="index"
+    >
+      {{ item.label }}
     </div>
+  </div>
 </template>
 <script>
 import { ref } from 'vue'
 export default {
+  name: 'video-player-quality',
   props: {
     list: {
       type: Array,
@@ -20,7 +33,7 @@ export default {
       default: (index) => {}
     }
   },
-  setup (props) {
+  setup(props) {
     const currentActive = ref(props.active)
     return {
       currentActive,
@@ -33,13 +46,13 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-    .quality-item {
-      padding: 5px 10px;
-      &:hover {
-        background: pink
-      }
-    }
-    .quality-item-active {
-      background: pink
-    }
+.quality-item {
+  padding: 5px 10px;
+  &:hover {
+    background: pink;
+  }
+}
+.quality-item-active {
+  background: pink;
+}
 </style>

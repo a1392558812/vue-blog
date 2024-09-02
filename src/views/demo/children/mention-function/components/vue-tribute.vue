@@ -1,23 +1,19 @@
 <script lang="jsx">
-import {
-  defineComponent, watch, onMounted, onBeforeUnmount, nextTick, ref, unref
-} from 'vue'
+import { defineComponent, watch, onMounted, onBeforeUnmount, nextTick, ref, unref } from 'vue'
 // import Tribute from 'tributejs/src/index'
 import Tribute from '@/static/tribute/index'
 export default defineComponent({
-  name: 'VueTribute',
+  name: 'vue-tribute',
   props: {
     options: {
       type: Object,
       default: () => ({
-        collection: [
-          { values: [] }
-        ]
+        collection: [{ values: [] }]
       }),
       required: true
     }
   },
-  setup (props, context) {
+  setup(props, context) {
     if (typeof Tribute === 'undefined') {
       throw new Error('[vue-tribute] cannot locate tributejs.')
     }
@@ -42,7 +38,7 @@ export default defineComponent({
 
       attachTribute(el)
 
-      el.value.addEventListener('tribute-replaced', e => {
+      el.value.addEventListener('tribute-replaced', (e) => {
         e.target?.dispatchEvent(new Event('input', { bubbles: true }))
       })
     })
@@ -61,7 +57,7 @@ export default defineComponent({
 
     watch(
       () => props.options,
-      async newOptions => {
+      async (newOptions) => {
         if (el.value?.tributeInstance) {
           await nextTick()
           detachTribute(el)
@@ -79,5 +75,4 @@ export default defineComponent({
     )
   }
 })
-
 </script>

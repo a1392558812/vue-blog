@@ -1,10 +1,13 @@
 <template>
-    <div class="cursor-pointer error-string" @click="handleClick">error-string: 字符串解析失败--【{{ count }}】</div>
+  <div class="cursor-pointer error-string" @click="handleClick">
+    error-string: 字符串解析失败--【{{ count }}】
+  </div>
 </template>
 <script>
 import { ref } from 'vue'
 export default {
-  setup () {
+  name: 'load-vue-file-error-string',
+  setup() {
     const count = ref(0)
     return {
       count,
@@ -16,7 +19,7 @@ export default {
 }
 </script>
 <style scoped>
-.error-string{
+.error-string {
   background: red;
 }
 </style>

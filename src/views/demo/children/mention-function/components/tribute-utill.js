@@ -1,6 +1,6 @@
 export const selectTemplate = (item) => {
   let dataStr = ''
-  Object.keys(item.original).forEach(key => {
+  Object.keys(item.original).forEach((key) => {
     dataStr += `data-${key}=${item.original[key]} `
   })
   return `<span contenteditable="false" ${dataStr}>

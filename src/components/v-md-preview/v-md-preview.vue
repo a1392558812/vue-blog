@@ -1,5 +1,14 @@
 <script lang="jsx">
-import { ref, watch, nextTick, createApp, onBeforeUnmount, render, createVNode } from 'vue'
+import {
+  ref,
+  watch,
+  nextTick,
+  createApp,
+  onBeforeUnmount,
+  render,
+  createVNode,
+  defineAsyncComponent
+} from 'vue'
 
 import Prism from 'prismjs'
 
@@ -14,7 +23,6 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 
 import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index'
 
-import playgroundPlane from '@/components/playground-plane/index.js'
 import loadingComponent from '@/components/loading/loading.vue'
 
 const escapeHTML = (text) => {
@@ -25,13 +33,14 @@ const escapeHTML = (text) => {
     '"': '&quot;',
     "'": '&#x27;'
   }
-  return text.replace(/[&<>"']/g, match => escape[match])
+  return text.replace(/[&<>"']/g, (match) => escape[match])
 }
 
 VMdPreview.use(vuepressTheme, { Prism })
 VMdPreview.use(createCopyCodePlugin())
 VMdPreview.use(createLineNumbertPlugin())
-VMdPreview.xss.extend({ // 拓展xss规则
+VMdPreview.xss.extend({
+  // 拓展xss规则
   onIgnoreTag: (tag, html, options) => {
     if (tag === 'iframe') {
       return `<div>${html}</div>`
@@ -42,6 +51,7 @@ VMdPreview.xss.extend({ // 拓展xss规则
 
 const playgroundWrapLoadingClassName = 'playground-wrap-loading'
 export default {
+  name: 'components-v-md-preview',
   components: {
     VMdPreview
   },
@@ -55,7 +65,7 @@ export default {
       default: true
     }
   },
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const vMdPreviewRef = ref(null)
 
     const markdowmText = ref('')
@@ -70,11 +80,17 @@ export default {
     const loadingHtmlStr = (() => {
       let loadingHtmlNode = $('<div></div>')
       // 渲染loading组件
-      render(createVNode((
-        <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
-          <div class="width100 height100 flex align-items-center justify-content-center">加载中...</div>
-        </loadingComponent>
-      ), { showModal: true }), loadingHtmlNode[0])
+      render(
+        createVNode(
+          <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
+            <div class="width100 height100 flex align-items-center justify-content-center">
+              加载中...
+            </div>
+          </loadingComponent>,
+          { showModal: true }
+        ),
+        loadingHtmlNode[0]
+      )
       // 获取loading组件html
       const loadingHtmlStr = loadingHtmlNode.html()
       loadingHtmlNode = null
@@ -85,7 +101,7 @@ export default {
     const destroy = () => {
       clearTimeout(createTimer)
       if (instanceList.length) {
-        instanceList.forEach(item => {
+        instanceList.forEach((item) => {
           if (item.app && item.app.unmount) {
             item.app.unmount()
             item.app = null
@@ -102,51 +118,64 @@ export default {
       nextTick(() => {
         let playgroundWrapLoadingNode = $(`.${playgroundWrapLoadingClassName}`)
         playgroundWrapLoadingNode.css('display', 'block')
-        createTimer = setTimeout(() => {
-          vue3SfcList.length = 1
+        createTimer = setTimeout(
+          () => {
+            vue3SfcList.length = 1
 
-          vue3SfcList.forEach((item, index) => {
-            let mountNode = $(`#${item.idSelector}`)
-            // 没有渲染容器
-            if (!mountNode[0]) {
-              mountNode.html('<div style="font-size: 16px; font-weight: blod; height: 100%" class="flex align-items-center justify-content-center">组件解析失败，请刷新重试...</div>')
-              mountNode = null
-              return
-            }
-
-            const app = createApp(playgroundPlane, { // 实例化 playgroundPlane 组件
-              name: item.idSelector,
-              key: new Date(),
-              componentsFiles: ((componentsFiles = {}) => { // 解析vue3-file标签生成组件字符串
-                window.$('vue3-file').parse(item.str, false).each((i2, obj2) => {
-                  const file = window.$(obj2)
-                  let fileName = file.attr('name')
-                  if (fileName.toLowerCase() === 'app.vue') {
-                    fileName = 'App.vue'
-                  }
-                  componentsFiles[fileName] = file.html()
-                })
-                return componentsFiles
-              })(),
-              playGroundPlaneWidth: '100%',
-              playGroundPlaneReplHeight: '100%',
-              customCode: {
-                importCode: '',
-                useCode: 'console.log("customCode--🥵")'
+            vue3SfcList.forEach((item, index) => {
+              let mountNode = $(`#${item.idSelector}`)
+              // 没有渲染容器
+              if (!mountNode[0]) {
+                mountNode.html(
+                  '<div style="font-size: 16px; font-weight: blod; height: 100%" class="flex align-items-center justify-content-center">组件解析失败，请刷新重试...</div>'
+                )
+                mountNode = null
+                return
               }
+
+              const app = createApp(
+                defineAsyncComponent(() => import('@/components/playground-plane/index.jsx')),
+                {
+                  // 实例化 playgroundPlane 组件
+                  name: item.idSelector,
+                  key: new Date(),
+                  componentsFiles: ((componentsFiles = {}) => {
+                    // 解析vue3-file标签生成组件字符串
+                    window
+                      .$('vue3-file')
+                      .parse(item.str, false)
+                      .each((i2, obj2) => {
+                        const file = window.$(obj2)
+                        let fileName = file.attr('name')
+                        if (fileName.toLowerCase() === 'app.vue') {
+                          fileName = 'App.vue'
+                        }
+                        componentsFiles[fileName] = file.html()
+                      })
+                    return componentsFiles
+                  })(),
+                  playGroundPlaneWidth: '100%',
+                  playGroundPlaneReplHeight: '100%',
+                  customCode: {
+                    importCode: '',
+                    useCode: 'console.log("customCode--🥵")'
+                  }
+                }
+              )
+              app.mount(mountNode[0])
+
+              // 保存实例
+              instanceList.push({ app })
+              mountNode = null
+              console.log('playground组件生成完成')
             })
-            app.mount(mountNode[0])
 
-            // 保存实例
-            instanceList.push({ app })
-            mountNode = null
-            console.log('playground组件生成完成')
-          })
-
-          playgroundWrapLoadingNode.css('display', 'none')
-          playgroundWrapLoadingNode = null
-          ifInitRenderPlayground = false
-        }, ifInitRenderPlayground ? 0 : 2000)
+            playgroundWrapLoadingNode.css('display', 'none')
+            playgroundWrapLoadingNode = null
+            ifInitRenderPlayground = false
+          },
+          ifInitRenderPlayground ? 0 : 2000
+        )
       })
     }
 
@@ -154,15 +183,19 @@ export default {
       if (newV !== oldV && newV) {
         destroy()
         // 解析markdown中vue3-sfc标签
-        const analysisMarkdowmText = window.$('vue3-sfc').parse(newV, false).replaceWith((i1, item) => {
-          const str = window.$(item).html()
-          const id = `playground-${i1}`
-          vue3SfcList.push({ str, idSelector: id })
-          return `<div style="position: relative; height: 600px; margin: 0.85em 0;">
+        const analysisMarkdowmText = window
+          .$('vue3-sfc')
+          .parse(newV, false)
+          .replaceWith((i1, item) => {
+            const str = window.$(item).html()
+            const id = `playground-${i1}`
+            vue3SfcList.push({ str, idSelector: id })
+            return `<div style="position: relative; height: 600px; margin: 0.85em 0;">
               <div class=${playgroundWrapLoadingClassName} style="width: 100%; height: 100%; z-index: 0; position: absolute; left: 0; top: 0">${loadingHtmlStr}</div>
               <div style="position: relative; height: 100%; z-index: 1; display: block; transform: translateZ(0px); transform-style: preserve-3d;" id="${id}"></div>
             </div>`
-        }).printHtml()
+          })
+          .printHtml()
 
         // 没有解析到组件
         if (!vue3SfcList.length) {
@@ -229,37 +262,42 @@ export default {
       onHandelClick
     }
   },
-  render () {
-    return <VMdPreview
+  render() {
+    return (
+      <VMdPreview
         ref={this.getVMdPreviewRef}
         text={this.markdowmText}
         {...this.$attrs}
         onCopy-code-success={(code) => this.onHandleCopyCodeSuccess(code)}
-        onClick={(e) => { this.onHandelClick(e) }}/>
+        onClick={(e) => {
+          this.onHandelClick(e)
+        }}
+      />
+    )
   }
 }
 </script>
 <style scoped lang="scss">
-    .v-md-editor-preview {
-      ::v-deep(.vuepress-markdown-body) {
-        color: var(--global-markdown-body-text-color);
-        background-color: var(--global-background-color);
-        tr:nth-child(2n) {
-          background-color: var(--global-2n-tr-color);
-        }
-        code {
-          background-color: var(--global-code-text-bg);
-        }
-        .copy-code-mode .v-md-copy-code-btn {
-          background-color: #3d3d3d;
-        }
-        ul {
-            li {
-                a {
-                    word-break: break-all;
-                }
-            }
+.v-md-editor-preview {
+  ::v-deep(.vuepress-markdown-body) {
+    color: var(--global-markdown-body-text-color);
+    background-color: var(--global-background-color);
+    tr:nth-child(2n) {
+      background-color: var(--global-2n-tr-color);
+    }
+    code {
+      background-color: var(--global-code-text-bg);
+    }
+    .copy-code-mode .v-md-copy-code-btn {
+      background-color: #3d3d3d;
+    }
+    ul {
+      li {
+        a {
+          word-break: break-all;
         }
       }
     }
+  }
+}
 </style>

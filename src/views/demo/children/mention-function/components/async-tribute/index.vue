@@ -1,18 +1,18 @@
 <template>
-    <div>
-        <div v-html="'<请求数据为模拟生成的>'"></div>
-        <div class="flex">
-            <vue-tributeVue :options="tributeOption">
-                <div class="line-height-1 tribute-input" type="text" />
-            </vue-tributeVue>
-            <div>
-                <div class="display-block tribute-btn">
-                    <span>异步加载</span>
-                    <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
-                </div>
-            </div>
+  <div>
+    <div v-html="'<请求数据为模拟生成的:输入： @xxx 触发>'"></div>
+    <div class="flex">
+      <vue-tributeVue :options="tributeOption">
+        <div class="line-height-1 tribute-input" type="text" />
+      </vue-tributeVue>
+      <div>
+        <div class="display-block tribute-btn">
+          <span>异步加载</span>
+          <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -20,10 +20,11 @@ import vueTributeVue from '../vue-tribute.vue'
 import { selectTemplate, noMatchTemplate, menuItemTemplate } from '../tribute-utill'
 import { ref } from 'vue'
 export default {
+  name: 'async-tribute',
   components: {
     vueTributeVue
   },
-  setup () {
+  setup() {
     let newIndex = 0
     let ifLoading = false // 是否加载数据中
     const searchText = ref('')
@@ -41,7 +42,10 @@ export default {
             key: `🐮${text}-${i}`,
             value: `🐮${text}-${i}-id`,
             phone: `🐮x${i}`,
-            avatar_url: require(`@/assets/images/mention-function/0${(loadingIndex + i) % 4 + 1}.png`)
+            avatar_url: new URL(
+              `@/assets/images/mention-function/0${((loadingIndex + i) % 4) + 1}.png`,
+              import.meta.url
+            ).href
           })
         }
         newIndex = newIndex + 2
@@ -87,17 +91,13 @@ export default {
         },
         values: (text, callback) => {
           if (!text) {
-            return callback((() => [
-              { beforeLoading: true, key: '', value: '' }
-            ])())
+            return callback((() => [{ beforeLoading: true, key: '', value: '' }])())
           }
           if (ifLoading) return
           ifLoading = true
           searchText.value = text
-          callback((() => [
-            { loading: true, key: text, value: '' }
-          ])())
-          featchData(text).then(res => {
+          callback((() => [{ loading: true, key: text, value: '' }])())
+          featchData(text).then((res) => {
             ifLoading = false
             callback(res)
           })
@@ -109,16 +109,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .tribute-input {
-      width: 500px;
-      font-size: 16px;
-      border: 1px solid #000;
-      border-radius: 5px;
-      padding: 0.5em;
-    }
-    .tribute-btn {
-      margin: 0 0 1em 1em;
-      font-size: 16px;
-      padding: 0.5em;
-    }
+.tribute-input {
+  width: 500px;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 0.5em;
+}
+.tribute-btn {
+  margin: 0 0 1em 1em;
+  font-size: 16px;
+  padding: 0.5em;
+}
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div>
     <div class="fixed flex flex-direction-row-reverse align-items-center width100 fullpage-header">
-      <button class="line-height-1 display-block fullpage-header-btn" @click="handle1">向上滚1屏幕</button>
-      <button class="line-height-1 display-block fullpage-header-btn" @click="handle2">移动到5屏第3个slide</button>
+      <button class="line-height-1 display-block fullpage-header-btn" @click="handle1">
+        向上滚1屏幕
+      </button>
+      <button class="line-height-1 display-block fullpage-header-btn" @click="handle2">
+        移动到5屏第3个slide
+      </button>
     </div>
     <div id="fullpage" class="relative">
       <div class="height100 flex align-items-center justify-content-center section">第1屏</div>
@@ -10,21 +14,31 @@
       <div class="height100 flex align-items-center justify-content-center section">第3屏</div>
       <div class="height100 flex align-items-center justify-content-center section">第4屏</div>
       <div class="height100 overflow-auto section">
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide1"> 抽象屏 1 </div>
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide2"> 抽象屏 2 </div>
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide3"> 抽象屏 3 </div>
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide4"> 抽象屏 4 </div>
+        <div class="flex align-items-center justify-content-center slide" data-anchor="slide1">
+          抽象屏 1
+        </div>
+        <div class="flex align-items-center justify-content-center slide" data-anchor="slide2">
+          抽象屏 2
+        </div>
+        <div class="flex align-items-center justify-content-center slide" data-anchor="slide3">
+          抽象屏 3
+        </div>
+        <div class="flex align-items-center justify-content-center slide" data-anchor="slide4">
+          抽象屏 4
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { onMounted, onUnmounted } from 'vue'
-import fullpage from '@/static/fullPage/dist/fullpage.extensions.min.js'
+
+import * as fullpage from '@/static/fullPage/dist/fullpage.extensions.min.js'
 import '@/static/fullPage/dist/fullpage.css'
 
 export default {
-  setup () {
+  name: 'view-demo-fullpage',
+  setup() {
     let fullpageResult
     const initFullpage = () => {
       fullpageResult = new fullpage('#fullpage', {
@@ -78,7 +92,7 @@ export default {
       initFullpage()
     })
     onUnmounted(() => {
-      fullpageResult && (fullpageResult.destroy())
+      fullpageResult && fullpageResult.destroy()
     })
     return {
       handle1: () => {
@@ -94,34 +108,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fullpage-header{
+.fullpage-header {
   height: 70px;
   z-index: 10;
   border-bottom: 1px solid #000;
   background: #fff;
   top: 0;
-  .fullpage-header-btn{
+  .fullpage-header-btn {
     padding: 3px 10px;
     margin-right: 20px;
   }
 }
-#fullpage{
+#fullpage {
   height: 100vh;
-  .section{
+  .section {
     font-size: 90px;
     font-weight: bolder;
     letter-spacing: 15px;
   }
-  ::v-deep(.fp-slidesNav){
+  ::v-deep(.fp-slidesNav) {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  ::v-deep(.fp-prev){
+  ::v-deep(.fp-prev) {
     border-width: 38.5px 34px 38.5px 0;
     border-color: transparent #7bfa04 transparent transparent;
   }
-  ::v-deep(.fp-next){
+  ::v-deep(.fp-next) {
     border-width: 38.5px 0 38.5px 34px;
     border-color: transparent transparent transparent #7bfa04;
   }

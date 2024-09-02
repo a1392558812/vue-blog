@@ -30,7 +30,7 @@ const renderList = (list, parentIndex = 0, url = []) => {
 }
 
 const close = (list) => {
-  list.map(item => {
+  list.map((item) => {
     if (Object.prototype.hasOwnProperty.call(item, 'ifShow')) {
       item.ifShow = false
     }
@@ -47,20 +47,20 @@ export default createStore({
       {
         name: '风姿花伝 (风姿花传)',
         author: '谷村新司 (たにむら しんじ)',
-        image: require('@/assets/music/music-bg3.jpg'),
-        url: require('@/assets/music/music3.mp3')
+        image: new URL('@/assets/music/music-bg3.jpg', import.meta.url).href,
+        url: new URL('@/assets/music/music3.mp3', import.meta.url).href
       },
       {
         name: '色は匂へど 散りぬるを (花朵艳丽 终会散落)',
         author: '森永真由美 (もりなが まゆみ)',
-        image: require('@/assets/music/music-bg1.jpg'),
-        url: require('@/assets/music/music1.mp3')
+        image: new URL('@/assets/music/music-bg1.jpg', import.meta.url).href,
+        url: new URL('@/assets/music/music1.mp3', import.meta.url).href
       },
       {
         name: '广寒宫 - 《梦幻西游》月宫门派曲',
         author: '吴碧霞',
-        image: require('@/assets/music/music-bg2.jpg'),
-        url: require('@/assets/music/music2.mp3')
+        image: new URL('@/assets/music/music-bg2.jpg', import.meta.url).href,
+        url: new URL('@/assets/music/music2.mp3', import.meta.url).href
       }
     ],
     menuData: {
@@ -71,43 +71,43 @@ export default createStore({
   },
   getters,
   mutations: {
-    [SET_NOW_ACTIVE] (state, nowActive) {
+    [SET_NOW_ACTIVE](state, nowActive) {
       state.menuData.nowActive = nowActive
     },
-    [SET_MENUS_CLOSE_ALL] (state) {
+    [SET_MENUS_CLOSE_ALL](state) {
       close(state.menuData.menuList)
     },
-    [SET_MENUS_INIT] (state, list) {
+    [SET_MENUS_INIT](state, list) {
       state.menuData.menuList = list
     },
-    [SET_THEME] (state, theme) {
+    [SET_THEME](state, theme) {
       if (themeType[theme]) {
         state.theme = theme
         const body = document.body
-        Object.keys(themeType[theme]).forEach(key => {
+        Object.keys(themeType[theme]).forEach((key) => {
           body.style.setProperty(`${key}`, themeType[theme][key])
         })
       }
     },
-    [SET_MENUS_ACTIVE] (state, row) {
+    [SET_MENUS_ACTIVE](state, row) {
       let targetRow = { children: state.menuData.menuList }
       let targetList = state.menuData.menuList
-      row.indexPage.split('-').forEach(itemIndex => {
+      row.indexPage.split('-').forEach((itemIndex) => {
         targetList = targetRow.children
         targetRow = targetList[itemIndex]
       })
 
-      targetList.map(child => {
+      targetList.map((child) => {
         child.itemActive = false
         return child
       })
       targetRow.itemActive = true
     },
-    [SET_MENUS_INIT_RENDER] (state, row) {
+    [SET_MENUS_INIT_RENDER](state, row) {
       let targetRow = { children: state.menuData.menuList }
       const rowIndexPageList = row.indexPage.split('-')
       rowIndexPageList.forEach((itemIndex, index) => {
-        if ((index !== 0) && (index < rowIndexPageList.length)) {
+        if (index !== 0 && index < rowIndexPageList.length) {
           targetRow.ifHadRender = true
           targetRow.ifShow = true
         }
@@ -125,14 +125,14 @@ export default createStore({
     }
   },
   actions: {
-    [SET_NOW_ACTIVE] ({ commit }, nowActive) {
+    [SET_NOW_ACTIVE]({ commit }, nowActive) {
       commit(SET_NOW_ACTIVE, nowActive)
     },
-    [SET_MENUS_CLOSE_ALL] ({ commit }) {
+    [SET_MENUS_CLOSE_ALL]({ commit }) {
       commit(SET_MENUS_CLOSE_ALL)
     },
-    [SET_MENUS_INIT] ({ state, commit }) {
-      return new Promise(resolve => {
+    [SET_MENUS_INIT]({ state, commit }) {
+      return new Promise((resolve) => {
         if (state.menuData.menuList.length) {
           menuListPromise = null
           resolve()
@@ -141,16 +141,19 @@ export default createStore({
             menuListPromise = axios.get('./menu-list/menu-list.json')
           }
           menuListPromise.then(
-            res => {
-              commit(SET_MENUS_INIT, (() => {
-                let menuList
-                if (res && res.data && res.data.length) {
-                  menuList = renderList(res.data)
-                } else {
-                  menuList = []
-                }
-                return menuList
-              })())
+            (res) => {
+              commit(
+                SET_MENUS_INIT,
+                (() => {
+                  let menuList
+                  if (res && res.data && res.data.length) {
+                    menuList = renderList(res.data)
+                  } else {
+                    menuList = []
+                  }
+                  return menuList
+                })()
+              )
               menuListPromise = null
               resolve()
             },
@@ -162,17 +165,15 @@ export default createStore({
         }
       })
     },
-    [SET_THEME] ({ commit }, theme) {
+    [SET_THEME]({ commit }, theme) {
       commit(SET_THEME, theme)
     },
-    [SET_MENUS_ACTIVE] ({ commit }, row) {
+    [SET_MENUS_ACTIVE]({ commit }, row) {
       commit(SET_MENUS_ACTIVE, row)
     },
-    [SET_MENUS_INIT_RENDER] ({ commit }, row) {
+    [SET_MENUS_INIT_RENDER]({ commit }, row) {
       commit(SET_MENUS_INIT_RENDER, row)
     }
   },
-  modules: {
-
-  }
+  modules: {}
 })

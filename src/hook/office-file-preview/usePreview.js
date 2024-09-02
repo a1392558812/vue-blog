@@ -4,7 +4,7 @@ export default function (defaultSrc) {
   const inputSrc = ref(defaultSrc)
   const src = ref(defaultSrc)
   const fileList = ref([])
-  function beforeUpload (file) {
+  function beforeUpload(file) {
     const reader = new FileReader()
     reader.onload = (loadEvent) => {
       const arrayBuffer = loadEvent.target.result

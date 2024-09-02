@@ -1,9 +1,25 @@
 <template>
-    <div v-loading="loading" ref="scrollWrapRef" :class="loading ? '' : 'overflow-y-auto'" class="relative scroll-video-wrap">
-        <div style="left: 0; top: 0" class="fixed"><div>github-page资源访问较慢，这里做2.5s缓冲</div></div>
-        <div ref="scrollRef" class="relative scroll-target"></div>
-        <video ref="scrollVideoRef" preload autobuffer :controls="false" :autoplay="false" :src="videoUrl" width="1096" class="fixed align-center scroll-video" />
+  <div
+    v-loading="loading"
+    ref="scrollWrapRef"
+    :class="loading ? '' : 'overflow-y-auto'"
+    class="relative scroll-video-wrap"
+  >
+    <div style="left: 0; top: 0" class="fixed">
+      <div>github-page资源访问较慢，这里做2.5s缓冲</div>
     </div>
+    <div ref="scrollRef" class="relative scroll-target"></div>
+    <video
+      ref="scrollVideoRef"
+      preload
+      autobuffer
+      :controls="false"
+      :autoplay="false"
+      :src="videoUrl"
+      width="1096"
+      class="fixed align-center scroll-video"
+    />
+  </div>
 </template>
 <script>
 import { ref, onMounted } from 'vue'
@@ -11,7 +27,8 @@ import { useScroll } from '@vueuse/core'
 import { baseUrlFun } from '@/common/util/methods'
 
 export default {
-  setup () {
+  name: 'view-demo-video-scroll',
+  setup() {
     const loading = ref(true)
 
     const scrollVideoRef = ref(null)
@@ -48,7 +65,10 @@ export default {
           if (accel < -1) accel = -1
 
           // 根据加速度和bounceamount弹性程度移动视频到滚动位置
-          scrollpos = +((scrollpos + accel) * (bounceamount) + (targetscrollpos * (1 - bounceamount))).toFixed(5)
+          scrollpos = +(
+            (scrollpos + accel) * bounceamount +
+            targetscrollpos * (1 - bounceamount)
+          ).toFixed(5)
           const currentTime = scrollpos * duration
 
           // 归零最小播放时间
@@ -80,14 +100,14 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-    .scroll-video-wrap {
-      height: 100vh;
-      .scroll-target {
-        z-index: 2;
-        height: 600vh;
-      }
-      .scroll-video {
-        z-index: 1;
-      }
-    }
+.scroll-video-wrap {
+  height: 100vh;
+  .scroll-target {
+    z-index: 2;
+    height: 600vh;
+  }
+  .scroll-video {
+    z-index: 1;
+  }
+}
 </style>

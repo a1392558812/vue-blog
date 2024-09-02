@@ -1,35 +1,76 @@
 <template>
-    <div ref="infiniteScroll" class="infinite-wrap overflow-y-auto">
-        <div class="text-label flex align-items-center justify-content-center">瀑布流高度会等比缩放</div>
-        <div style="margin-bottom: 20px" class="flex align-items-center justify-content-center">
-            <div style="margin-right: 20px">当前瀑布流类型: </div>
-            <div class="scroll-item cursor-pointer" v-for="(item, index) in componentsList" @click="handleSelect(item, index)" :key="item.name" :style="{ background: index === currentComponentIndex ? '#ef475d' : '' }">{{ item.label }}</div>
-        </div>
-        <component :is="componentsList[currentComponentIndex].name" :frame="[[1,1,2,3,3],[1,1,4,4,5]]" v-if="list.length" :useFit="false" :gap="20" ref="infiniteGrid" class="container" :sizeRange="[200, Infinity]">
-            <div class="item flex flex-direction-column justify-content-center" v-for="(item, index) in list" :style="item.style" :key="index">
-                <div style="margin-bottom: 10px">第{{ index }}个</div>
-                <div style="margin-bottom: 10px">默认style</div>
-                <div style="margin-bottom: 10px" v-for="key in Object.keys(item.style)" :key="`${key}-${index}`">{{ key }}: {{ item.style[key] }}</div>
-            </div>
-        </component>
-        <div class="text-label flex align-items-center justify-content-center" v-if="loading">loading...</div>
+  <div ref="infiniteScroll" class="infinite-wrap overflow-y-auto">
+    <div class="text-label flex align-items-center justify-content-center">
+      瀑布流高度会等比缩放
     </div>
+    <div style="margin-bottom: 20px" class="flex align-items-center justify-content-center">
+      <div style="margin-right: 20px">当前瀑布流类型:</div>
+      <div
+        class="scroll-item cursor-pointer"
+        v-for="(item, index) in componentsList"
+        @click="handleSelect(item, index)"
+        :key="item.name"
+        :style="{ background: index === currentComponentIndex ? '#ef475d' : '' }"
+      >
+        {{ item.label }}
+      </div>
+    </div>
+    <component
+      :is="componentsList[currentComponentIndex].name"
+      :frame="[
+        [1, 1, 2, 3, 3],
+        [1, 1, 4, 4, 5]
+      ]"
+      v-if="list.length"
+      :useFit="false"
+      :gap="20"
+      ref="infiniteGrid"
+      class="container"
+      :sizeRange="[200, Infinity]"
+    >
+      <div
+        class="item flex flex-direction-column justify-content-center"
+        v-for="(item, index) in list"
+        :style="item.style"
+        :key="index"
+      >
+        <div style="margin-bottom: 10px">第{{ index }}个</div>
+        <div style="margin-bottom: 10px">默认style</div>
+        <div
+          style="margin-bottom: 10px"
+          v-for="key in Object.keys(item.style)"
+          :key="`${key}-${index}`"
+        >
+          {{ key }}: {{ item.style[key] }}
+        </div>
+      </div>
+    </component>
+    <div class="text-label flex align-items-center justify-content-center" v-if="loading">
+      loading...
+    </div>
+  </div>
 </template>
 <script>
-import { JustifiedInfiniteGrid, MasonryInfiniteGrid, FrameInfiniteGrid, PackingInfiniteGrid } from '@egjs/vue3-infinitegrid'
+import {
+  JustifiedInfiniteGrid,
+  MasonryInfiniteGrid,
+  FrameInfiniteGrid,
+  PackingInfiniteGrid
+} from '@egjs/vue3-infinitegrid'
 import { ref } from 'vue'
 import { useInfiniteScroll } from '@vueuse/core'
 
 import { randomXtoY, getRandomColor } from '@/common/util/methods'
 
 export default {
+  name: 'view-demo-infinite-scroll',
   components: {
     JustifiedInfiniteGrid,
     MasonryInfiniteGrid,
     FrameInfiniteGrid,
     PackingInfiniteGrid
   },
-  setup () {
+  setup() {
     const list = ref([])
     const componentsList = ref([
       {
@@ -120,23 +161,23 @@ export default {
 </script>
 <style scoped lang="scss">
 .infinite-wrap {
-    height: 100vh;
-    padding: 0 20px;
-    .scroll-item {
-        margin-right: 10px;
-        padding: 3px 10px;
-        border-radius: 10px;
+  height: 100vh;
+  padding: 0 20px;
+  .scroll-item {
+    margin-right: 10px;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+  .container {
+    min-height: calc(100% + 10px);
+    .item {
+      border: 1px solid #000;
+      transition: all 0.5s;
     }
-    .container {
-        min-height: calc(100% + 10px);
-        .item {
-            border: 1px solid #000;
-            transition: all 0.5s;
-        }
-    }
-    .text-label {
-        padding: 20px 0;
-        font-size: 16px;
-    }
+  }
+  .text-label {
+    padding: 20px 0;
+    font-size: 16px;
+  }
 }
 </style>

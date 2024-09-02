@@ -6,10 +6,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '无限滚动'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "infinite-scroll" */ '../views/demo/children/infinite-scroll/index.vue'
-      )
+    component: () => import('../views/demo/children/infinite-scroll/index.vue')
   },
   {
     path: 'office-file-preview',
@@ -18,10 +15,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '文件在线预览'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "office-file-preview" */ '../views/demo/children/office-file-preview/index.vue'
-      )
+    component: () => import('../views/demo/children/office-file-preview/index.vue')
   },
   {
     path: 'full-screen-scroll',
@@ -30,10 +24,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '全屏滚动'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "full-screen-scroll" */ '../views/demo/children/full-screen-scroll/index.vue'
-      )
+    component: () => import('../views/demo/children/full-screen-scroll/index.vue')
   },
   {
     path: 'hanzi',
@@ -42,10 +33,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '汉子笔画顺序'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "hanzi" */ '../views/demo/children/hanzi/index.vue'
-      )
+    component: () => import('../views/demo/children/hanzi/index.vue')
   },
   {
     path: 'excel-preview-edit',
@@ -54,10 +42,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'excel在线预览编辑'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "excel-preview-edit" */ '../views/demo/children/excel-preview-edit/index.vue'
-      )
+    component: () => import('../views/demo/children/excel-preview-edit/index.vue')
   },
   {
     path: 'mention-function',
@@ -66,10 +51,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '类似微博@某人功能'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "mention-function" */ '../views/demo/children/mention-function/index.vue'
-      )
+    component: () => import('../views/demo/children/mention-function/index.vue')
   },
   {
     path: 'linkage-scroll',
@@ -78,10 +60,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '滚动联动动画'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "linkage-scroll" */ '../views/demo/children/linkage-scroll/index.vue'
-      )
+    component: () => import('../views/demo/children/linkage-scroll/index.vue')
   },
   {
     path: 'live-2d',
@@ -90,10 +69,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'live-2d二次元'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "live-2d" */ '../views/demo/children/live-2d/index.vue'
-      )
+    component: () => import('../views/demo/children/live-2d/index.vue')
   },
   {
     path: '3d-Marie-Rose',
@@ -102,10 +78,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '3D-DOA5玛丽罗斯'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "3d-Marie-Rose" */ '../views/demo/children/3d-Marie-Rose/index.vue'
-      )
+    component: () => import('../views/demo/children/3d-Marie-Rose/index.vue')
   },
   {
     path: '3d-doctor',
@@ -114,22 +87,16 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '3D-模型'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "3d-doctor" */ '../views/demo/children/3d-doctor/index.vue'
-      )
+    component: () => import('../views/demo/children/3d-doctor/index.vue')
   },
   {
-    path: 'waterMarker',
-    name: 'waterMarker',
+    path: 'water-marker',
+    name: 'water-marker',
     meta: {
       ifShowHeaderComponent: false,
       demoName: '水印'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "waterMarker" */ '../views/demo/children/waterMarker/index.vue'
-      )
+    component: () => import('../views/demo/children/water-marker/index.vue')
   },
   {
     path: 'panorama',
@@ -138,10 +105,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'krpano制作全景跳转'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "panorama" */ '../views/demo/children/panorama/index.vue'
-      )
+    component: () => import('../views/demo/children/panorama/index.vue')
   },
   {
     path: '360range',
@@ -150,10 +114,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '360°VR全景风景'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "360range" */ '../views/demo/children/360range/index.vue'
-      )
+    component: () => import('../views/demo/children/360range/index.vue')
   },
   {
     path: '3d-scene',
@@ -162,10 +123,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '3D-ikun集合'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "3d-scene" */ '../views/demo/children/3d-scene/index.vue'
-      )
+    component: () => import('../views/demo/children/3d-scene/index.vue')
   },
   {
     path: 'music',
@@ -174,10 +132,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '随着music律动进行动画'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "music" */ '../views/demo/children/music/index.vue'
-      )
+    component: () => import('../views/demo/children/music/index.vue')
   },
   {
     path: 'bingDwenDwen',
@@ -186,10 +141,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '掘金大佬css图片'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "bingDwenDwen" */ '../views/demo/children/bingDwenDwen/index.vue'
-      )
+    component: () => import('../views/demo/children/bingDwenDwen/index.vue')
   },
   {
     path: 'filmstrip',
@@ -198,10 +150,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '幻灯片播放'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "filmstrip" */ '../views/demo/children/filmstrip/index.vue'
-      )
+    component: () => import('../views/demo/children/filmstrip/index.vue')
   },
   {
     path: 'load-vue-file',
@@ -210,10 +159,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '加载远程vue文件执行'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "load-vue-file" */ '../views/demo/children/load-vue-file/index.vue'
-      )
+    component: () => import('../views/demo/children/load-vue-file/index.vue')
   },
   {
     path: 'infinite-grid',
@@ -222,10 +168,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '瀑布流'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "infinite-grid" */ '../views/demo/children/infinite-grid/index.vue'
-      )
+    component: () => import('../views/demo/children/infinite-grid/index.vue')
   },
   {
     path: 'auto-animate',
@@ -234,10 +177,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '动画自动过渡'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "auto-animate" */ '../views/demo/children/auto-animate/index.vue'
-      )
+    component: () => import('../views/demo/children/auto-animate/index.vue')
   },
   {
     path: 'markdown-editor',
@@ -246,10 +186,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'markdown编辑器'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "markdown-editor" */ '../views/demo/children/markdown-editor/index.vue'
-      )
+    component: () => import('../views/demo/children/markdown-editor/index.vue')
   },
   {
     path: 'virtual-scroller',
@@ -258,10 +195,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '虚拟滚动'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "virtual-scroller" */ '../views/demo/children/virtual-scroller/index.vue'
-      )
+    component: () => import('../views/demo/children/virtual-scroller/index.vue')
   },
   {
     path: 'word-diff',
@@ -270,10 +204,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '文字diff对比'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "word-diff" */ '../views/demo/children/word-diff/index.vue'
-      )
+    component: () => import('../views/demo/children/word-diff/index.vue')
   },
   {
     path: 'canvas-scroll',
@@ -282,10 +213,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '背景canvas内容随滚动条位置变动'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "canvas-scroll" */ '../views/demo/children/canvas-scroll/index.vue'
-      )
+    component: () => import('../views/demo/children/canvas-scroll/index.vue')
   },
   {
     path: 'video-scroll',
@@ -294,10 +222,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '背景视频内容随滚动条位置变动'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "video-scroll" */ '../views/demo/children/video-scroll/index.vue'
-      )
+    component: () => import('../views/demo/children/video-scroll/index.vue')
   },
   {
     path: 'my-signature',
@@ -306,10 +231,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '个人签名'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "my-signature" */ '../views/demo/children/my-signature/index.vue'
-      )
+    component: () => import('../views/demo/children/my-signature/index.vue')
   },
   {
     path: 'video-player',
@@ -318,10 +240,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'video-player'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "video-player" */ '../views/demo/children/video-player/index.vue'
-      )
+    component: () => import('../views/demo/children/video-player/index.vue')
   },
   {
     path: 'canvas-ts-video',
@@ -330,10 +249,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'ts格式视频播放'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "canvas-ts-video" */ '../views/demo/children/canvas-ts-video/index.vue'
-      )
+    component: () => import('../views/demo/children/canvas-ts-video/index.vue')
   },
   {
     path: 'playground',
@@ -342,10 +258,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'vue3-playground演练场'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "playground" */ '../views/demo/children/playground/index.vue'
-      )
+    component: () => import('../views/demo/children/playground/index.vue')
   },
   {
     path: 'playground2',
@@ -354,10 +267,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'vue3-playground简易演练场'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "playground2" */ '../views/demo/children/playground2/index.vue'
-      )
+    component: () => import('../views/demo/children/playground2/index.vue')
   },
   {
     path: 'markdown-priview-vuecode',
@@ -366,10 +276,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'markdown预览vue代码'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "markdown-priview-vuecode" */ '../views/demo/children/markdown-priview-vuecode/index.vue'
-      )
+    component: () => import('../views/demo/children/markdown-priview-vuecode/index.vue')
   },
   {
     path: 'screen-record',
@@ -378,10 +285,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: '录屏播放下载'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "screen-record" */ '../views/demo/children/screen-record/index.vue'
-      )
+    component: () => import('../views/demo/children/screen-record/index.vue')
   },
   {
     path: 'css-triangle',
@@ -390,10 +294,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'css三角形生成器'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "css-triangle" */ '../views/demo/children/css-triangle/index.vue'
-      )
+    component: () => import('../views/demo/children/css-triangle/index.vue')
   },
   {
     path: 'css-dashed-line-border',
@@ -402,10 +303,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'css自定义虚线边框生成器'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "css-dashed-line-border" */ '../views/demo/children/css-dashed-line-border/index.vue'
-      )
+    component: () => import('../views/demo/children/css-dashed-line-border/index.vue')
   },
   {
     path: 'css-scrollbar',
@@ -414,10 +312,7 @@ export const demoList = [
       ifShowHeaderComponent: false,
       demoName: 'css自定义滚动条生成器'
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "css-scrollbar" */ '../views/demo/children/css-scrollbar/index.vue'
-      )
+    component: () => import('../views/demo/children/css-scrollbar/index.vue')
   }
 ]
 

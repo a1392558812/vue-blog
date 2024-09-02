@@ -12,9 +12,7 @@
         <div class="loading-status" v-if="loadScript === -1">
           组件script脚本加载错误,请刷新重新尝试加载
         </div>
-        <div class="loading-status" v-if="loadCss === -1">
-          组件css加载错误,请刷新重新尝试加载
-        </div>
+        <div class="loading-status" v-if="loadCss === -1">组件css加载错误,请刷新重新尝试加载</div>
       </div>
       <pre class="overflow-auto code-demo">
         {{ htmlStr }}
@@ -30,10 +28,11 @@ import { useScriptTag } from '@vueuse/core'
 import { baseUrlFun, asyncLoadCss } from '@/common/util/methods.js'
 import htmlStr from './html'
 export default {
+  name: 'view-demo-excel-preview-edit',
   components: {
     excelLuckySheet
   },
-  setup () {
+  setup() {
     const loadScript = ref(0) // 0加载中  ,1 加载完成  -1加载失败
     const loadCss = ref(0)
     const baseUrl = baseUrlFun()
@@ -42,16 +41,12 @@ export default {
     // 异步加载script
     ;(async () => {
       const scriptList = [
-        useScriptTag(
-          `${baseUrl}demo-static/excel-preview-edit/plugins/js/plugin.js`,
-          () => {},
-          { manual: true }
-        ),
-        useScriptTag(
-          `${baseUrl}demo-static/excel-preview-edit/luckysheet.umd.js`,
-          () => {},
-          { manual: true }
-        )
+        useScriptTag(`${baseUrl}demo-static/excel-preview-edit/plugins/js/plugin.js`, () => {}, {
+          manual: true
+        }),
+        useScriptTag(`${baseUrl}demo-static/excel-preview-edit/luckysheet.umd.js`, () => {}, {
+          manual: true
+        })
       ]
       const resultList = []
       for (let i = 0; i < scriptList.length; i++) {
@@ -60,25 +55,25 @@ export default {
       }
       loadScript.value = 1
       return resultList
-    })().then(res => {
+    })().then((res) => {
       scriptList = res
     })
 
     // 异步加载css
-    Promise.all((() => {
-      const cssListLoad = []
-      ;[
-        'plugins/css/pluginsCss.css',
-        'plugins/plugins.css',
-        'css/luckysheet.css',
-        'assets/iconfont/iconfont.css'
-      ].forEach((item) => {
-        cssListLoad.push(
-          asyncLoadCss(`${baseUrl}demo-static/excel-preview-edit/${item}`)
-        )
-      })
-      return cssListLoad
-    })()).then(
+    Promise.all(
+      (() => {
+        const cssListLoad = []
+        ;[
+          'plugins/css/pluginsCss.css',
+          'plugins/plugins.css',
+          'css/luckysheet.css',
+          'assets/iconfont/iconfont.css'
+        ].forEach((item) => {
+          cssListLoad.push(asyncLoadCss(`${baseUrl}demo-static/excel-preview-edit/${item}`))
+        })
+        return cssListLoad
+      })()
+    ).then(
       (_) => {
         loadCss.value = 1
       },
@@ -88,7 +83,7 @@ export default {
     )
 
     onBeforeUnmount(() => {
-      scriptList.forEach(unload => {
+      scriptList.forEach((unload) => {
         unload()
       })
     })

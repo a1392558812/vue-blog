@@ -16,12 +16,13 @@ import 'photo-sphere-viewer/dist/plugins/gallery.css'
 import { baseUrlFun } from '@/common/util/methods.js'
 import { onMounted } from 'vue'
 export default {
-  setup (props, { emit }) {
+  name: '3d-vr',
+  setup(props, { emit }) {
     // 初始化3d旋转镜头
     const init360Panorama = () => {
       const baseUrl = baseUrlFun()
-      const tooltipImg1 = require('@/assets/images/heishou.png')
-      const tooltipImg2 = require('@/assets/images/heishou2.jpg')
+      const tooltipImg1 = new URL('@/assets/images/heishou.png', import.meta.url).href
+      const tooltipImg2 = new URL('@/assets/images/heishou2.jpg', import.meta.url).href
       const animatedValues = {
         latitude: { start: -Math.PI / 2, end: 0.2 },
         longitude: { start: Math.PI, end: 0 },
@@ -149,11 +150,10 @@ export default {
           'fullscreen'
         ],
         plugins: [
+          [MarkersPlugin, {}],
           [
-            MarkersPlugin, {}
-          ],
-          [
-            GalleryPlugin, {
+            GalleryPlugin,
+            {
               visibleOnLoad: true,
               items: [
                 {
@@ -190,7 +190,7 @@ export default {
       })
       const markersPlugin = viewer.getPlugin(MarkersPlugin)
       const intro = () => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           viewer.stopAutorotate()
           new utils.Animation({
             properties: animatedValues,
@@ -216,7 +216,7 @@ export default {
         const imageStrArr = panorama.panorama.split('/')
         const panoramaId = imageStrArr[imageStrArr.length - 1].split('.')[0]
         markersPlugin.clearMarkers()
-        markerLists[panoramaId].forEach(item => {
+        markerLists[panoramaId].forEach((item) => {
           markersPlugin.addMarker(item)
         })
       })
@@ -240,27 +240,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  ::v-deep(.custom-tooltip) {
-    max-width: none;
-    width: 300px;
-    padding: 0;
-    box-shadow: 0 0 0 3px white;
-    .custom-tooltip-image{
-      width: 100%;
-      border-radius: 4px 4px 0 0;
-    }
-    .custom-tooltip-content{
-      font-size: 16px;
-      padding: 20px 20px;
+::v-deep(.custom-tooltip) {
+  max-width: none;
+  width: 300px;
+  padding: 0;
+  box-shadow: 0 0 0 3px white;
+  .custom-tooltip-image {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+  }
+  .custom-tooltip-content {
+    font-size: 16px;
+    padding: 20px 20px;
+  }
+}
+#viewer {
+  ::v-deep(.psv-panel-menu-item) {
+    .psv-panel-menu-item-label {
+      .custom-tooltip-image {
+        width: 250px;
+      }
     }
   }
-  #viewer {
-    ::v-deep(.psv-panel-menu-item) {
-        .psv-panel-menu-item-label{
-            .custom-tooltip-image{
-                width: 250px;
-            }
-        }
-    }
-  }
+}
 </style>

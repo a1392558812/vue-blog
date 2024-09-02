@@ -3,7 +3,7 @@ import toastComponent from './index.vue'
 
 let instance
 
-function getInstance () {
+function getInstance() {
   if (instance) return
   const divNode = document.createElement('div')
   instance = createVNode(toastComponent)
@@ -15,7 +15,7 @@ function getInstance () {
   document.body.appendChild(divNode)
 }
 
-export default function tosat () {
+export default function tosat() {
   getInstance()
   return instance.component.exposed
 }

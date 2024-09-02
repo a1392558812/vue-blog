@@ -1,17 +1,28 @@
 <template>
   <div class="width100 height100 relative scene-wrap">
     <div class="relative width100 height100 scene-content">
-      <Renderer ref="renderer" resize antialias :orbit-ctrl="{ autoRotate: true, enableDamping: true, dampingFactor: 0.05 }" pointer>
+      <Renderer
+        ref="renderer"
+        resize
+        antialias
+        :orbit-ctrl="{ autoRotate: true, enableDamping: true, dampingFactor: 0.05 }"
+        pointer
+      >
         <Camera :position="{ x: 0, y: 30, z: 20 }" />
-        <Scene background="#000000" >
+        <Scene background="#000000">
           <!-- 光源位置 -->
           <PointLight ref="light" :intensity="0.5" :position="{ x: 0, y: 0, z: 0 }">
             <Sphere :radius="0.1" />
           </PointLight>
-          <PointLight color="#ffffff" :intensity="1" :castShadow="true" :position="{ x: 0, y: 18, z: 0 }"/>
+          <PointLight
+            color="#ffffff"
+            :intensity="1"
+            :castShadow="true"
+            :position="{ x: 0, y: 18, z: 0 }"
+          />
 
           <Group :rotation="{ x: -Math.PI / 2, y: 0, z: 0 }">
-            <Sphere :radius="5" :position="{ x: 0,  z: 5 }" @click="handelToastShow">
+            <Sphere :radius="5" :position="{ x: 0, z: 5 }" @click="handelToastShow">
               <StandardMaterial :props="{ displacementScale: 0.5 }">
                 <Texture :src="textureImageArr[0]" />
                 <Texture :src="textureImageArr[1]" name="displacementMap" />
@@ -20,23 +31,35 @@
                 <Texture :src="textureImageArr[4]" name="aoMap" />
               </StandardMaterial>
             </Sphere>
-            <Text
+            <RenderText
               text="we are ikun"
               align="center"
               font-src="demo-static/json/helvetiker_regular.typeface.json"
               :size="2"
               :height="1"
               :position="{ x: 0, y: 10, z: 0 }"
-              :rotation="{ x: Math.PI / 2, y: 0, z: 0  }"
+              :rotation="{ x: Math.PI / 2, y: 0, z: 0 }"
               :cast-shadow="true"
             >
-              <PhongMaterial color="#ff0ff0"/>
-            </Text>
-            <RectAreaLight color="#0060ff" :position="{ x: 10, y: 0, z: 1 }" v-bind="rectLightsProps" />
-            <RectAreaLight color="#60ff60" :position="{ x: -10, y: 0, z: 1 }" v-bind="rectLightsProps" />
-            <RectAreaLight color="#ffffff" :position="{ x: 0, y: -10, z: 1 }" v-bind="rectLightsProps" />
+              <PhongMaterial color="#ff0ff0" />
+            </RenderText>
+            <RectAreaLight
+              color="#0060ff"
+              :position="{ x: 10, y: 0, z: 1 }"
+              v-bind="rectLightsProps"
+            />
+            <RectAreaLight
+              color="#60ff60"
+              :position="{ x: -10, y: 0, z: 1 }"
+              v-bind="rectLightsProps"
+            />
+            <RectAreaLight
+              color="#ffffff"
+              :position="{ x: 0, y: -10, z: 1 }"
+              v-bind="rectLightsProps"
+            />
             <Plane :width="30" :height="30" :rotation="{ x: 0 }" :position="{ z: -3 }">
-              <StandardMaterial :props="{ displacementScale: 0.2, roughness: 0, metalness: 0 }"  >
+              <StandardMaterial :props="{ displacementScale: 0.2, roughness: 0, metalness: 0 }">
                 <Texture :props="texturesProps" :src="textureImageArr[0]" />
                 <Texture :props="texturesProps" :src="textureImageArr[1]" name="displacementMap" />
                 <Texture :props="texturesProps" :src="textureImageArr[2]" name="normalMap" />
@@ -86,13 +109,14 @@ import {
 } from 'troisjs'
 import { onMounted, ref } from 'vue'
 export default {
+  name: 'view-demo-3d-scene',
   components: {
     Camera,
     EffectComposer,
     FXAAPass,
     PhongMaterial,
     Group,
-    Text,
+    RenderText: Text,
     Renderer,
     Plane,
     PointLight,
@@ -104,12 +128,14 @@ export default {
     Texture,
     UnrealBloomPass
   },
-  setup () {
+  setup() {
     const renderer = ref(null)
     const light = ref(null)
     const targetToast = ref(null)
     // 外部点击事件
-    onClickOutside(targetToast, (event) => { $('.toast').css('display', 'none') })
+    onClickOutside(targetToast, (event) => {
+      $('.toast').css('display', 'none')
+    })
     // 镜头旋转
     const sceneRollFunc = () => {
       const rendererRef = renderer.value
@@ -160,11 +186,12 @@ export default {
         wrapT: RepeatWrapping
       },
       textureImageArr: [
-        require('@/assets/images/textures/Wood_Tiles_002_basecolor.jpg'),
-        require('@/assets/images/textures/Wood_Tiles_002_height.png'),
-        require('@/assets/images/textures/Wood_Tiles_002_normal.jpg'),
-        require('@/assets/images/textures/Wood_Tiles_002_roughness.jpg'),
-        require('@/assets/images/textures/Wood_Tiles_002_ambientOcclusion.jpg')
+        new URL('@/assets/images/textures/Wood_Tiles_002_basecolor.jpg', import.meta.url).href,
+        new URL('@/assets/images/textures/Wood_Tiles_002_height.png', import.meta.url).href,
+        new URL('@/assets/images/textures/Wood_Tiles_002_normal.jpg', import.meta.url).href,
+        new URL('@/assets/images/textures/Wood_Tiles_002_roughness.jpg', import.meta.url).href,
+        new URL('@/assets/images/textures/Wood_Tiles_002_ambientOcclusion.jpg', import.meta.url)
+          .href
       ],
       rectLightsProps: {
         // rotation: { x: -Math.PI / 2 },
@@ -180,28 +207,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .scene-wrap {
-    height: 100vh;
-    .scene-content{
-      z-index: 1;
-    }
+.scene-wrap {
+  height: 100vh;
+  .scene-content {
+    z-index: 1;
   }
-  .toast{
-    width: 500px;
-    height: 258px;
-    display: none;
-    font-size: 16px;
-    color: #fff;
-    border-radius: 5px;
-    z-index: 2;
-    .toast-content{
-      opacity: 1;
-    }
-    .toast-bg{
-      background-image: url(~@/assets/images/ikun/play-basketball.jpg);
-      opacity: 0.3;
-      left: 0;
-      top: 0;
-    }
+}
+.toast {
+  width: 500px;
+  height: 258px;
+  display: none;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 5px;
+  z-index: 2;
+  .toast-content {
+    opacity: 1;
   }
+  .toast-bg {
+    background-image: url('@/assets/images/ikun/play-basketball.jpg');
+    opacity: 0.3;
+    left: 0;
+    top: 0;
+  }
+}
 </style>

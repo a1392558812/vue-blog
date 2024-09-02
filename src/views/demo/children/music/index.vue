@@ -2,7 +2,7 @@
   <div
     :style="{
       backgroundColor: 'black',
-      height: '100vh',
+      height: '100vh'
     }"
     class="width100 height100 overflow-hidden overflow-y-auto"
     :class="ifLarger ? 'flex align-items-center justify-content-center flex-direction-column' : ''"
@@ -22,8 +22,8 @@
     <kinesis-container
       :style="{
         width: ifLarger ? '1000px' : '100%',
-      ...(ifLarger ? { height: '550px' } : {}),
-        borderRadius: ifLarger ? '20px' : 'none',
+        ...(ifLarger ? { height: '550px' } : {}),
+        borderRadius: ifLarger ? '20px' : 'none'
       }"
       class="music-wrap overflow-hidden relative flex align-items-center"
       :class="ifLarger ? ' justify-content-around' : 'flex-direction-column justify-content-center'"
@@ -59,7 +59,11 @@
       </kinesis-element>
 
       <!-- 专辑律动效果 -->
-      <kinesis-container class="relative cursor-pointer music-content" :audio="list[0].url" :play-audio="playAudio">
+      <kinesis-container
+        class="relative cursor-pointer music-content"
+        :audio="list[0].url"
+        :play-audio="playAudio"
+      >
         <!-- 左上波动1--大 -->
         <kinesis-element class="wave1-wrap absolute" :strength="25" type="depth">
           <kinesis-audio
@@ -86,16 +90,28 @@
 
         <!-- 封面 -->
         <kinesis-element class="music-content-cover absolute" :strength="25" type="depth">
-          <kinesis-audio :max-scale="1.5" :min-scale="0.5" :audio-index="10" :strength="95" type="scale">
+          <kinesis-audio
+            :max-scale="1.5"
+            :min-scale="0.5"
+            :audio-index="10"
+            :strength="95"
+            type="scale"
+          >
             <div class="img relative overflow-hidden">
               <div
                 class="absolute"
                 style="transition: transform 1s ease"
                 :style="{
-                  transform: `translateY(${-index * 250}px)`,
+                  transform: `translateY(${-index * 250}px)`
                 }"
               >
-                <img v-for="(item, keyIndex) in list" :key="keyIndex" class="img" :src="item.image" alt="">
+                <img
+                  v-for="(item, keyIndex) in list"
+                  :key="keyIndex"
+                  class="img"
+                  :src="item.image"
+                  alt=""
+                />
               </div>
             </div>
           </kinesis-audio>
@@ -125,9 +141,7 @@
             <div class="music-info-name">
               {{ item.name }}
             </div>
-            <div class="music-info-author">
-              - {{ item.author }}
-            </div>
+            <div class="music-info-author">- {{ item.author }}</div>
           </div>
         </transition>
         <!-- 波形进度条与控制按钮 -->
@@ -169,7 +183,13 @@
               </svg>
               <svg
                 class="next-icon absolute align-center"
-                style="width: 1em; height: 1em; vertical-align: middle; fill: currentColor; overflow: hidden"
+                style="
+                  width: 1em;
+                  height: 1em;
+                  vertical-align: middle;
+                  fill: currentColor;
+                  overflow: hidden;
+                "
                 viewBox="0 0 1024 1024"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -188,14 +208,18 @@
               <!-- 播放 -->
               <img
                 class="music-button-img"
-                :src="!playAudio ? require('@/assets/music/play.svg') : require('@/assets/music/pause.svg')"
+                :src="!playAudio ? playImageUrl : pauseImageUrl"
                 alt=""
-              >
+              />
               <!-- 暂停 -->
             </div>
           </div>
           <!-- 波形进度条 -->
-          <div id="waveform" style="width: 300px" :style="{ visibility: ifInitWavesurfer ? 'visible' : 'hidden' }" />
+          <div
+            id="waveform"
+            style="width: 300px"
+            :style="{ visibility: ifInitWavesurfer ? 'visible' : 'hidden' }"
+          />
         </div>
       </div>
 
@@ -204,7 +228,7 @@
         v-if="ifLarger"
         :style="{
           top: 0,
-          transform: 'translate(-50%, 50%)',
+          transform: 'translate(-50%, 50%)'
         }"
         class="next-music absolute cursor-pointer"
         @click="nextMusic"
@@ -217,7 +241,13 @@
         </svg>
         <svg
           class="next-icon absolute align-center"
-          style="width: 1em; height: 1em; vertical-align: middle; fill: currentColor; overflow: hidden"
+          style="
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            fill: currentColor;
+            overflow: hidden;
+          "
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -243,7 +273,7 @@ import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import { randomXtoY } from '@/common/util/methods'
 
 export default {
-  name: 'Music',
+  name: 'view-demo-music',
   components: {
     KinesisContainer,
     KinesisAudio,
@@ -252,7 +282,7 @@ export default {
   props: {
     ...leftSidebarProps
   },
-  setup (props) {
+  setup(props) {
     const store = useStore()
     const { ifLarger } = toRefs(props)
     let wavesurfer
@@ -299,7 +329,9 @@ export default {
 
     const playAudio = ref(false) // 是否开始播放
 
-    watch(playAudio, (newV) => (newV ? wavesurfer.play($('audio')[0].currentTime) : wavesurfer.pause()))
+    watch(playAudio, (newV) =>
+      newV ? wavesurfer.play($('audio')[0].currentTime) : wavesurfer.pause()
+    )
 
     // 初始化wavesurfer
     const initWavesurfer = () => {
@@ -375,6 +407,8 @@ export default {
     }
 
     return {
+      playImageUrl: new URL('@/assets/music/play.svg', import.meta.url).href,
+      pauseImageUrl: new URL('@/assets/music/pause.svg', import.meta.url).href,
       list,
       index,
       randomList,
@@ -402,7 +436,7 @@ export default {
       height: 1000vw;
       left: 50%;
       top: 50%;
-      background-image: url(~@/assets/music/rrrainbow.svg);
+      background-image: url('@/assets/music/rrrainbow.svg');
       background-size: 500px 500px;
       background-repeat: repeat;
     }
@@ -605,7 +639,7 @@ export default {
   text-align: center;
 }
 
-.spinner>div {
+.spinner > div {
   width: 18px;
   height: 18px;
   background-color: #f8f1ff;
@@ -633,7 +667,6 @@ export default {
 }
 
 @-webkit-keyframes sk-bouncedelay {
-
   0%,
   80%,
   100% {
@@ -646,7 +679,6 @@ export default {
 }
 
 @keyframes sk-bouncedelay {
-
   0%,
   80%,
   100% {

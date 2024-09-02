@@ -14,7 +14,7 @@ export default {
     }
   },
   emits: ['imageLoad'],
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     let timer = null // 定时器
     const imageloadingTime = ref(1) // 图片加载了多长时间
     const showPopup = ref(false) // 是否显示大图
@@ -27,12 +27,15 @@ export default {
       }, 1000)
     }
 
-    watch(() => props.loading, (newV) => {
-      showPopup.value = false
-      imageloadingTime.value = 1
-      clearInterval(timer)
-      if (newV) timerFun()
-    })
+    watch(
+      () => props.loading,
+      (newV) => {
+        showPopup.value = false
+        imageloadingTime.value = 1
+        clearInterval(timer)
+        if (newV) timerFun()
+      }
+    )
 
     onMounted(() => {
       document.addEventListener('keydown', onKeyDown)
@@ -51,37 +54,44 @@ export default {
       }
     }
   },
-  render () {
+  render() {
     return (
       <>
-        <div class='image width100'>
+        <div class="image width100">
           <div>预览 / 点击查看详情</div>
-          <div class='image-wrap flex'>
-            <div style={this.loading ? { display: 'none' } : {}} className='image-content' onClick={() => {
-              this.showPopup = true
-            }}>
-              <img title={this.htmlMD} onLoad={this.imageLoad} onError={this.imageLoad} src={this.htmlMD} alt={this.htmlMD} />
+          <div class="image-wrap flex">
+            <div
+              style={this.loading ? { display: 'none' } : {}}
+              className="image-content"
+              onClick={() => {
+                this.showPopup = true
+              }}
+            >
+              <img
+                title={this.htmlMD}
+                onLoad={this.imageLoad}
+                onError={this.imageLoad}
+                src={this.htmlMD}
+                alt={this.htmlMD}
+              />
             </div>
             <div style={this.loading ? {} : { display: 'none' }}>
               <div>github响应有点慢，莫急,已加载{this.imageloadingTime}秒</div>
-              <div class='loading'>φ(≧ω≦*)♪图片正在努力加载中</div>
+              <div class="loading">φ(≧ω≦*)♪图片正在努力加载中</div>
             </div>
           </div>
         </div>
-        {
-          this.showPopup
-            ? (
-              /* 图片大屏展示 */
-              <div
-                className='popup flex align-items-center justify-content-center relative'
-                onClick={() => {
-                  this.showPopup = false
-                }}>
-                <img src={this.htmlMD} alt={this.htmlMD} />
-              </div>
-              )
-            : null
-        }
+        {this.showPopup ? (
+          /* 图片大屏展示 */
+          <div
+            className="popup flex align-items-center justify-content-center relative"
+            onClick={() => {
+              this.showPopup = false
+            }}
+          >
+            <img src={this.htmlMD} alt={this.htmlMD} />
+          </div>
+        ) : null}
       </>
     )
   }
@@ -146,11 +156,11 @@ export default {
 
   .loading {
     &::after {
-      content: "...";
+      content: '...';
       overflow: hidden;
       display: inline-block;
       vertical-align: bottom;
-      animation: ellipsis-dot 1s infinite .3s;
+      animation: ellipsis-dot 1s infinite 0.3s;
       animation-fill-mode: fowards;
       width: 1.25em;
     }
@@ -174,19 +184,19 @@ export default {
 
 @keyframes ellipsis-dot {
   25% {
-    content: "";
+    content: '';
   }
 
   50% {
-    content: ".";
+    content: '.';
   }
 
   75% {
-    content: "..";
+    content: '..';
   }
 
   100% {
-    content: "...";
+    content: '...';
   }
 }
 

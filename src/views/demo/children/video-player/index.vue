@@ -1,7 +1,7 @@
 <template>
-    <div class="flex align-items-center justify-content-center video-wrap">
-        <div class="nPlayer-wrap" ref="nPlayerWrapRef"></div>
-    </div>
+  <div class="flex align-items-center justify-content-center video-wrap">
+    <div class="nPlayer-wrap" ref="nPlayerWrapRef"></div>
+  </div>
 </template>
 <script>
 import { ref, onMounted, onBeforeUnmount, createApp, nextTick } from 'vue'
@@ -14,7 +14,8 @@ import { svg1, svg2, svg3 } from './svg'
 import { baseUrlFun } from '@/common/util/methods'
 
 export default {
-  setup () {
+  name: 'view-demo-video-player',
+  setup() {
     const active = ref(0)
     const nPlayerWrapRef = ref(null)
     const baseUrl = baseUrlFun()
@@ -56,26 +57,31 @@ export default {
     tipDom3.innerHTML = svg3
 
     let player = new Player({
-      plugins: [new Danmaku({
-        items: [
-          { time: 0.602321, text: '弹幕1～', color: 'red' },
-          { time: 1.145145, text: '弹幕2～', color: 'pink', type: 'bottom' },
-          { time: 1.777777, text: '弹幕3～', color: 'skyblue' },
-          { time: 2.123456, text: '弹幕996～', color: 'skyblue', isMe: true, type: 'top' }
-        ]
-      })],
+      plugins: [
+        new Danmaku({
+          items: [
+            { time: 0.602321, text: '弹幕1～', color: 'red' },
+            { time: 1.145145, text: '弹幕2～', color: 'pink', type: 'bottom' },
+            { time: 1.777777, text: '弹幕3～', color: 'skyblue' },
+            { time: 2.123456, text: '弹幕996～', color: 'skyblue', isMe: true, type: 'top' }
+          ]
+        })
+      ],
       isTouch: true,
-      settings: ['speed', {
-        type: 'switch',
-        html: '视频镜像',
-        checked: false,
-        init (player) {
-          player.video.classList.remove('nplayer_video-mirroring')
-        },
-        change (value, player) {
-          player.video.classList.toggle('nplayer_video-mirroring', value)
+      settings: [
+        'speed',
+        {
+          type: 'switch',
+          html: '视频镜像',
+          checked: false,
+          init(player) {
+            player.video.classList.remove('nplayer_video-mirroring')
+          },
+          change(value, player) {
+            player.video.classList.toggle('nplayer_video-mirroring', value)
+          }
         }
-      }],
+      ],
       thumbnail: {
         startSecond: 0,
         gapSecond: 1,
@@ -86,12 +92,20 @@ export default {
         images
       },
       controls: [
-        ['play', 'volume', 'time', 'spacer', 'airplay', 'settings', 'web-fullscreen', 'fullscreen',
+        [
+          'play',
+          'volume',
+          'time',
+          'spacer',
+          'airplay',
+          'settings',
+          'web-fullscreen',
+          'fullscreen',
           {
             el: tipDom2,
             id: 'tipDom2',
             tip: '🐮🍺滴画质',
-            init (player, position, tooltip) {
+            init(player, position, tooltip) {
               const popover = new Popover(tipDom2)
               const div = document.createElement('div')
               popover.applyPanelStyle({
@@ -132,12 +146,12 @@ export default {
           {
             tip: '🐮🍺啥也不是',
             el: tipDom1,
-            init (player, position, tooltip) {
+            init(player, position, tooltip) {
               tipDom1.onclick = (e) => {
-                alert('当前click')
+                alert('当前click', { player, position, tooltip, e })
               }
             },
-            update () {
+            update() {
               console.log('update')
             }
           },
@@ -145,7 +159,7 @@ export default {
             el: tipDom3,
             id: 'tipDom3',
             tip: '🐮🍺截屏',
-            init (player) {
+            init(player) {
               tipDom3.onclick = () => {
                 const canvas = document.createElement('canvas')
                 canvas.width = player.video.videoWidth
@@ -165,25 +179,28 @@ export default {
               }
             }
           }
-
         ],
         ['progress']
       ],
-      contextMenus: ['loop', 'pip', {
-        html: '看看我の黑手',
-        init (player, item) {
-          console.log('init', player, item, this)
-          this.message = '黑手！！！！！'
-          // 初始化是判断浏览器是否不支持，不支持则隐藏自己
-        },
-        show (player, item) {
-          console.log('show', player, item)
-        },
-        click (player, item) {
-          console.log('click', player, item)
-          alert(this.message)
+      contextMenus: [
+        'loop',
+        'pip',
+        {
+          html: '看看我の黑手',
+          init(player, item) {
+            console.log('init', player, item, this)
+            this.message = '黑手！！！！！'
+            // 初始化是判断浏览器是否不支持，不支持则隐藏自己
+          },
+          show(player, item) {
+            console.log('show', player, item)
+          },
+          click(player, item) {
+            console.log('click', player, item)
+            alert(this.message)
+          }
         }
-      }],
+      ],
       contextMenuToggle: true,
       video,
       videoProps: { autoplay: 'true' }
@@ -209,18 +226,18 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-    .video-wrap {
-      width: 100vw;
-      height: 100vh;
-    }
-    .nPlayer-wrap {
-      width: 1000px;
-      height: 563px;
-      ::v-deep(.nplayer_thumb_img) {
-        background-size: 100% auto;
-      }
-      ::v-deep(.nplayer_video-mirroring) {
-        transform: scaleX(-1);
-      }
-    }
+.video-wrap {
+  width: 100vw;
+  height: 100vh;
+}
+.nPlayer-wrap {
+  width: 1000px;
+  height: 563px;
+  ::v-deep(.nplayer_thumb_img) {
+    background-size: 100% auto;
+  }
+  ::v-deep(.nplayer_video-mirroring) {
+    transform: scaleX(-1);
+  }
+}
 </style>

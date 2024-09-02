@@ -1,6 +1,6 @@
 /** 获取歌单数据，一言官网提供的示例 https://developer.hitokoto.cn/sentence/demo */
 // 获取歌单列表数据
-export function fetch163Playlist (playlistId) {
+export function fetch163Playlist(playlistId) {
   return new Promise((ok, err) => {
     fetch(`https://v1.hitokoto.cn/nm/playlist/${playlistId}`)
       .then((response) => response.json())
@@ -17,7 +17,7 @@ export function fetch163Playlist (playlistId) {
   })
 }
 // 获取歌曲数据
-export function fetch163Songs (Ids) {
+export function fetch163Songs(Ids) {
   return new Promise(function (ok, err) {
     let ids
     switch (typeof Ids) {
@@ -36,11 +36,7 @@ export function fetch163Songs (Ids) {
         return
         break
     }
-    fetch(
-      `https://v1.hitokoto.cn/nm/summary/${ids.join(
-        ','
-      )}?lyric=true&common=true`
-    )
+    fetch(`https://v1.hitokoto.cn/nm/summary/${ids.join(',')}?lyric=true&common=true`)
       .then((response) => response.json())
       .then((data) => {
         const songs = []

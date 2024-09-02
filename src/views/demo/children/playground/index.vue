@@ -1,39 +1,45 @@
 <template>
-    <div class="play-ground overflow-auto">
-        <div class="flex flex-direction-column align-items-center" :style="{ width: `${960 + varianceWidth}px` }">
-            <div>代码块演示厂</div>
-            <div style="margin-bottom: 10px">
-                <div>目前已支持vueuse，可调试查看Import Map</div>
-                <div>演示框尺寸</div>
-                <div>增宽: <input type="number" v-model="varianceWidth" />px</div>
-                <div>增高: <input type="number" v-model="varianceHeight" />px</div>
-            </div>
-        </div>
-        <div :style="{ width: `${960 + varianceWidth}px`, height: `${470 + varianceHeight}px` }">
-            <playground-plane
-                :defaultTemplate="defaultTemplate"
-                :defaultNewSFC="defaultNewSFC"
-                :componentsFiles="componentsFiles"
-                playGroundPlaneWidth="100%"
-                playGroundPlaneReplHeight="100%"/>
-        </div>
+  <div class="play-ground overflow-auto">
+    <div
+      class="flex flex-direction-column align-items-center"
+      :style="{ width: `${960 + varianceWidth}px` }"
+    >
+      <div>代码块演示厂</div>
+      <div style="margin-bottom: 10px">
+        <div>目前已支持vueuse，可调试查看Import Map</div>
+        <div>演示框尺寸</div>
+        <div>增宽: <input type="number" v-model="varianceWidth" />px</div>
+        <div>增高: <input type="number" v-model="varianceHeight" />px</div>
+      </div>
     </div>
+    <div :style="{ width: `${960 + varianceWidth}px`, height: `${470 + varianceHeight}px` }">
+      <playground-plane
+        :defaultTemplate="defaultTemplate"
+        :defaultNewSFC="defaultNewSFC"
+        :componentsFiles="componentsFiles"
+        playGroundPlaneWidth="100%"
+        playGroundPlaneReplHeight="100%"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import playgroundPlane from '@/components/playground-plane/index.js'
+import { ref, defineAsyncComponent } from 'vue'
 
 const defaultTemplate = '<template/>'
 
-const defaultNewSFC = `<template></template>
+const defaultNewSFC =
+  `<template></template>
 <script setup lang="ts">
 
-</` + `script>
+</` +
+  `script>
 <style>
 </style>`
 
-const file1 = `<template>
+const file1 =
+  `<template>
   <div class="youyuxi">
        <test1 style="margin-bottom: 10px"/>
        <test2 style="margin-bottom: 10px"/>
@@ -52,7 +58,8 @@ import test3 from "./test3.vue"
 const count:Ref<number> = ref(1)
 const msg = ref("🥵赞美尤雨溪，赐予我们伟大的Vue")
 
-</` + `script>
+</` +
+  `script>
 
 <style>
 html, body {
@@ -67,7 +74,8 @@ html, body {
 }
 </style>`
 
-const file2 = `<template>
+const file2 =
+  `<template>
   <div @click="count++">点击加1,当前为：{{ count }}</div>
 </template>
 <script setup>
@@ -76,7 +84,8 @@ const count = ref(1)
 </` + 'script>'
 
 const file3 = '<template><div style="color: pink">这个是test1组件</div></template>\n'
-const file4 = `<template>
+const file4 =
+  `<template>
     <div>
         <div ref="target" style="width: 400px; height: 200px; border: 1px solid #000">
             <div>vueuse使用演示，目前版本控制于@10.1.0</div>
@@ -101,7 +110,8 @@ export default {
     }
   }
 }
-</` + `script>
+</` +
+  `script>
 <style></style>`
 
 const componentsFiles = {
@@ -112,10 +122,11 @@ const componentsFiles = {
 }
 
 export default {
+  name: 'view-demo-playground',
   components: {
-    playgroundPlane
+    playgroundPlane: defineAsyncComponent(() => import('@/components/playground-plane/index.jsx'))
   },
-  setup () {
+  setup() {
     return {
       varianceWidth: ref(0),
       varianceHeight: ref(0),
@@ -125,11 +136,10 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
-    .play-ground {
-        height: 100vh;
-    }
+.play-ground {
+  height: 100vh;
+}
 </style>

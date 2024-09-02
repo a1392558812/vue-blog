@@ -1,10 +1,10 @@
 <script lang="jsx">
-import vMdPreview from '@/components/v-md-preview/index.js'
+import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'Markdown',
+  name: 'markdown-priview-vuecode-priview',
   components: {
-    vMdPreview
+    vMdPreview: defineAsyncComponent(() => import('@/components/v-md-preview/index.jsx'))
   },
   props: {
     loading: {
@@ -20,23 +20,15 @@ export default {
       default: ''
     }
   },
-  setup (props) {
+  setup(props) {
     return {}
   },
-  render () {
+  render() {
     return (
       <>
-        <div class='title flex align-items-center justify-content-center'>
-          { this.title }
-        </div>
-        <div class='relative markdown' v-loading={this.loading}>
-            {
-                this.loading
-                  ? null
-                  : <v-md-preview
-                      class='width100'
-                      text={this.htmlMD}/>
-            }
+        <div class="title flex align-items-center justify-content-center">{this.title}</div>
+        <div class="relative markdown" v-loading={this.loading}>
+          {this.loading ? null : <v-md-preview class="width100" text={this.htmlMD} />}
         </div>
       </>
     )
@@ -45,15 +37,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .markdown {
-      width: 100%;
-      padding-bottom: 100px;
-    }
-    .title {
-      box-sizing: border-box;
-      color: var(--global-text-color);
-      padding: 20px 30px;
-      font-size: 18px;
-      font-weight: 600;
-    }
+.markdown {
+  width: 100%;
+  padding-bottom: 100px;
+}
+.title {
+  box-sizing: border-box;
+  color: var(--global-text-color);
+  padding: 20px 30px;
+  font-size: 18px;
+  font-weight: 600;
+}
 </style>

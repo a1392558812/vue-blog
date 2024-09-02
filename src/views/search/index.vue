@@ -1,5 +1,9 @@
 <template>
-  <div style="color: var(--global-text-color)" class="bg-white relative width100 height100 flex flex-direction-row" v-loading="!menuList.length">
+  <div
+    style="color: var(--global-text-color)"
+    class="bg-white relative width100 height100 flex flex-direction-row"
+    v-loading="!menuList.length"
+  >
     <layout-left-sidebar
       :left-sidebar-w="leftSidebarW"
       :if-show-menu="ifShowMenu"
@@ -11,32 +15,32 @@
     <div class="width100 height100 flex flex-direction-column" v-if="menuList.length">
       <div class="search-title width100 flex align-items-center justify-content-center">
         <div class="flex align-items-baseline">
-          <p style="margin-right: 10px">
-            搜索结果
-          </p>
-          <p class="search-total">
-            (共计{{ searchResult.length }}条)
-          </p>
+          <p style="margin-right: 10px">搜索结果</p>
+          <p class="search-total">(共计{{ searchResult.length }}条)</p>
         </div>
       </div>
       <ul class="search-content flex-1">
-        <li
-          v-for="(item, index) in searchResult"
-          :key="index"
-          class="search-item"
-        >
-            <a class="search-item-label cursor-pointer" :href="`/#/?indexPage=${item.indexPage}`" @click="function(e){ gotoDetails(item, e) }">
-                <linkTag class="display-inline" v-if="item.link" />
-                {{ item.name }}
-            </a>
+        <li v-for="(item, index) in searchResult" :key="index" class="search-item">
+          <a
+            class="search-item-label cursor-pointer"
+            :href="`/#/?indexPage=${item.indexPage}`"
+            @click="
+              function (e) {
+                gotoDetails(item, e)
+              }
+            "
+          >
+            <linkTag class="display-inline" v-if="item.link" />
+            {{ item.name }}
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </template>
 
-<script setup="props" name="search">
-import { defineProps, ref, watch, computed } from 'vue'
+<script setup="props">
+import { ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -44,9 +48,9 @@ import layoutLeftSidebar from '@/components/left-sidebar/index.vue'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import linkTag from '@/components/left-sidebar/components/link-tag.vue'
 
-import {
-  SET_MENUS_INIT
-} from '@/store/actionType'
+import { SET_MENUS_INIT } from '@/store/actionType'
+
+defineOptions({ name: 'view-search' })
 
 defineProps(leftSidebarProps)
 
@@ -106,11 +110,11 @@ watch(
   },
   { immediate: true }
 )
-
 </script>
 
 <style scoped lang="scss">
-.search-title,.search-page {
+.search-title,
+.search-page {
   padding: 20px 0;
   font-size: 25px;
   border-bottom: 1px solid var(--global-border-color);
@@ -131,11 +135,11 @@ watch(
     font-size: 16px;
     padding: 10px 20px;
     .search-item-label {
-        color: var(--global-text-color);
-        &:hover {
-            color: var(--global-primary-color);
-            text-decoration: underline;
-        }
+      color: var(--global-text-color);
+      &:hover {
+        color: var(--global-primary-color);
+        text-decoration: underline;
+      }
     }
   }
 }

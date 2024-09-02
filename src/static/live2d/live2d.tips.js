@@ -1,10 +1,9 @@
 /** live2d 加载类 */
 import '@/static/live2d/waifu.scss'
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 export default class Live2d_tips {
-  constructor (config) {
-    const { modelSrc, modelId, modelSite, actionTime, actionText, musicListId } =
-      config
+  constructor(config) {
+    const { modelSrc, modelId, modelSite, actionTime, actionText, musicListId } = config
 
     this.modelSrc = modelSrc
     this.width = modelSite.width
@@ -32,18 +31,18 @@ export default class Live2d_tips {
     }
   }
 
-  executor () {
+  executor() {
     this.loadWidget()
   }
 
-  loadWidget () {
+  loadWidget() {
     if (this.modelSrc) {
       console.log(`location found ${this.modelSrc}`)
     } else {
       console.log('network to loading')
     }
     const vnode = createApp({
-      render () {
+      render() {
         return (
           <div id="live2d-widget" class="waifu ui-draggable ui-draggable-handle">
             <div class="live2d-tips"></div>
@@ -66,9 +65,8 @@ export default class Live2d_tips {
 
     let userAction = false
     let textTimer
-    let actionTimer;
-
-    (function welcomeWidget () {
+    let actionTimer
+    ;(function welcomeWidget() {
       const now = new Date().getHours()
       let text
 
@@ -114,74 +112,60 @@ export default class Live2d_tips {
     const musicArr = []
     let audio = null
 
-    document
-      .querySelector('#live2d-widget #live2d')
-      .addEventListener('click', () => {
-        hitokoto('动画')
-      })
-    document
-      .querySelector('#live2d-widget #live2d')
-      .addEventListener('mouseover', () => {
-        const tools = document.querySelector('#live2d-widget .live2d-tools')
+    document.querySelector('#live2d-widget #live2d').addEventListener('click', () => {
+      hitokoto('动画')
+    })
+    document.querySelector('#live2d-widget #live2d').addEventListener('mouseover', () => {
+      const tools = document.querySelector('#live2d-widget .live2d-tools')
 
-        tools.classList.add('active')
-      })
+      tools.classList.add('active')
+    })
     document
       .querySelector('#live2d-widget .live2d-tools')
       .addEventListener('mouseover', function () {
         this.classList.add('active')
       })
-    document
-      .querySelector('#live2d-widget #live2d')
-      .addEventListener('mouseout', () => {
-        const tools = document.querySelector('#live2d-widget .live2d-tools')
+    document.querySelector('#live2d-widget #live2d').addEventListener('mouseout', () => {
+      const tools = document.querySelector('#live2d-widget .live2d-tools')
 
-        tools.classList.remove('active')
-      })
-    document
-      .querySelector('.live2d-tools .fa-camera-retro')
-      .addEventListener('click', () => {
-        showMessage('卡哇伊，合影留念吧~', 6000, 9)
-        Live2D.captureName = 'photo.png'
-        Live2D.captureFrame = true
-      })
-    document
-      .querySelector('.live2d-tools .fa-music')
-      .addEventListener('click', () => {
-        // 调用hitokoto提供的api
-        fetch163Playlist(this.musicListId)
-          .then((data) => {
-            for (const music in data) {
-              musicArr.push(data[music].url)
-            }
-            return musicArr
-          })
-          .then((music) => {
-            if (audio) {
-              audio.load()
-            }
-            audio = new Audio(randSection(music))
-            audio.play()
-          })
-          .catch(console.error)
-      })
-    document
-      .querySelector('.live2d-tools .fa-info-circle')
-      .addEventListener('click', () => {
-        showMessage('Go go go~', 6000, 9)
-        open('https://www.live2d.com/en/')
-      })
-    document
-      .querySelector('.live2d-tools .fa-times')
-      .addEventListener('click', function () {
-        const live2d = document.querySelector('#live2d-widget')
+      tools.classList.remove('active')
+    })
+    document.querySelector('.live2d-tools .fa-camera-retro').addEventListener('click', () => {
+      showMessage('卡哇伊，合影留念吧~', 6000, 9)
+      Live2D.captureName = 'photo.png'
+      Live2D.captureFrame = true
+    })
+    document.querySelector('.live2d-tools .fa-music').addEventListener('click', () => {
+      // 调用hitokoto提供的api
+      fetch163Playlist(this.musicListId)
+        .then((data) => {
+          for (const music in data) {
+            musicArr.push(data[music].url)
+          }
+          return musicArr
+        })
+        .then((music) => {
+          if (audio) {
+            audio.load()
+          }
+          audio = new Audio(randSection(music))
+          audio.play()
+        })
+        .catch(console.error)
+    })
+    document.querySelector('.live2d-tools .fa-info-circle').addEventListener('click', () => {
+      showMessage('Go go go~', 6000, 9)
+      open('https://www.live2d.com/en/')
+    })
+    document.querySelector('.live2d-tools .fa-times').addEventListener('click', function () {
+      const live2d = document.querySelector('#live2d-widget')
 
-        live2d.style.bottom = '-500px'
-        setTimeout(() => {
-          live2d.style.display = 'none'
-          document.querySelector('.live2d-toggle').classList.add('active')
-        }, 2000)
-      })
+      live2d.style.bottom = '-500px'
+      setTimeout(() => {
+        live2d.style.display = 'none'
+        document.querySelector('.live2d-toggle').classList.add('active')
+      }, 2000)
+    })
     document.querySelector('.live2d-toggle').addEventListener('click', () => {
       document.querySelector('.live2d-toggle').classList.remove('active')
       const live2d = document.querySelector('#live2d-widget')
@@ -192,7 +176,7 @@ export default class Live2d_tips {
       }, 0)
     })
 
-    function hitokoto (typeName) {
+    function hitokoto(typeName) {
       let type
       switch (typeName) {
         case '动画':
@@ -280,18 +264,17 @@ export default class Live2d_tips {
       }
     }
 
-    function randSection (obj) {
-      return Array.isArray(obj)
-        ? obj[Math.floor(Math.random() * obj.length)]
-        : obj
+    function randSection(obj) {
+      return Array.isArray(obj) ? obj[Math.floor(Math.random() * obj.length)] : obj
     }
 
-    function showMessage (text, timeout, protery) {
+    function showMessage(text, timeout, protery) {
       if (
         !text ||
-        (sessionStorage.getItem('tips-text') &&
-          sessionStorage.getItem('tips-text') > protery)
-      ) { return }
+        (sessionStorage.getItem('tips-text') && sessionStorage.getItem('tips-text') > protery)
+      ) {
+        return
+      }
 
       if (textTimer) {
         clearTimeout(textTimer)
@@ -328,7 +311,7 @@ export default class Live2d_tips {
     loadModel()
   }
 
-  setSite () {
+  setSite() {
     const live2d = document.querySelector('#live2d-widget')
     setTimeout(() => {
       live2d.style.bottom = this.vOffset + 'px'

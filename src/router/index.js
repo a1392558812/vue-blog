@@ -8,38 +8,27 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () =>
-      import(/* webpackChunkName: "home" */ '../views/home/index.vue')
+    component: () => import('../views/home/index.vue')
   },
   {
     path: '/search',
     name: 'search',
-    component: () =>
-      import(/* webpackChunkName: "search" */ '../views/search/index.vue')
+    component: () => import('../views/search/index.vue')
   },
   {
     path: '/bookmarks',
     name: 'bookmarks',
-    component: () =>
-      import(
-        /* webpackChunkName: "bookmarks" */ '../views/bookmarks/index.vue'
-      )
+    component: () => import('../views/bookmarks/index.vue')
   },
   {
     path: '/demo',
     name: 'demo',
-    component: () =>
-      import(
-        /* webpackChunkName: "demo" */ '../views/demo/index.vue'
-      ),
+    component: () => import('../views/demo/index.vue'),
     children: [
       {
         path: '',
         name: 'demo-index',
-        component: () =>
-          import(
-            /* webpackChunkName: "demo-index" */ '../views/demo/index/index.vue'
-          )
+        component: () => import('../views/demo/index/index.vue')
       },
       ...demoList
     ]
@@ -47,20 +36,12 @@ const routes = [
   {
     path: '/404',
     name: '404',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "404" */ '../views/404/index.vue')
+    component: () => import('../views/404/index.vue')
   },
   {
     path: '/error',
     name: 'Error',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "error" */ '../views/error/index.vue')
+    component: () => import('../views/error/index.vue')
   }
 ]
 

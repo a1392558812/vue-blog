@@ -4,6 +4,7 @@ import 'nprogress/nprogress.css'
 
 // axios请求拦截器，
 axios.interceptors.request.use((config) => {
+  console.log('config', config)
   // 在request函数中展示进度条
   NProgress.start()
   // 配置自己的一些请求之前的处理,例如添加token等
@@ -21,11 +22,12 @@ axios.interceptors.response.use((config) => {
 export default {
   get: (url) => {
     return new Promise((resolve, reject) => {
-      axios.get(url)
-        .then(res => {
+      axios
+        .get(url)
+        .then((res) => {
           resolve(res)
         })
-        .catch(e => {
+        .catch((e) => {
           NProgress.done()
           reject(e)
         })

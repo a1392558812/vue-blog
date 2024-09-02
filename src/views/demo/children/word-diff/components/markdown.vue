@@ -13,7 +13,7 @@ VMdPreview.use(createCopyCodePlugin())
 VMdPreview.use(createLineNumbertPlugin())
 
 export default {
-  name: 'Markdown',
+  name: 'word-diff-markdown',
   components: {
     VMdPreview
   },
@@ -23,17 +23,15 @@ export default {
       default: ''
     }
   },
-  setup (props) {
+  setup(props) {
     const preview = ref(null) // markdown引用
 
     return {
       preview
     }
   },
-  render () {
-    return (
-        <v-md-preview ref='preview' text={this.markdownText}/>
-    )
+  render() {
+    return <v-md-preview ref="preview" text={this.markdownText} />
   }
 }
 </script>

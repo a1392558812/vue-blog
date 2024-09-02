@@ -1,16 +1,19 @@
 <template>
-    <section data-auto-animate>
-        <h2 data-id="code-title">狠狠的Hook</h2>
-        <pre data-id="code-animation">
+  <section data-auto-animate>
+    <h2 data-id="code-title">狠狠的Hook</h2>
+    <pre data-id="code-animation">
             <code class="hljs javascript" data-trim data-line-numbers="|4,8-11|17|22-24">
                 {{ htmlStr }}
             </code>
         </pre>
-    </section>
+  </section>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+
+defineOptions({ name: 'view-demo-filmstrip-section7' })
+
 const htmlStr = ref(`
         import React, { useState } from 'react';
         function Example() {

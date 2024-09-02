@@ -1,31 +1,64 @@
 <template>
-    <div class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row" v-loading="!menuList.length">
-        <layout-left-sidebar :left-sidebar-w="leftSidebarW" :if-show-menu="ifShowMenu" :if-larger="ifLarger" :header-h="headerH" :toggle-menu="toggleMenu" @itemClick="itemClick"/>
-        <div :style="ifLarger ? {
-      width: `calc(100% - ${leftSidebarW})`,
-    } : { width: '100%' }" class="relative height100">
-            <!-- 背景图 -->
-            <div class="bg-image overflow-hidden width100 height100 absolute" />
-            <div class="home overflow-y-auto relative width100 height100">
-                <template v-if="menuList.length">
-                    <!-- 标题 -->
-                    <div v-if="!markdownType" class="title width100 flex align-items-center justify-content-center">
-                        {{ title }}
-                    </div>
-                    <!-- md格式 -->
-                    <markdown-type v-if="markdownType" :title="title" :markdown-title-width="markdownTitleWidth" :loading="loading" :if-larger="ifLarger" :header-h="headerH" :html-m-d="htmlMD" />
-                    <!-- 图片格式   -->
-                    <image-type v-else-if="imageType" :html-m-d="htmlMD" :loading="loading" @image-load="loading = false" />
-                    <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
-                    <div v-else-if="linkType" class="link">
-                        <a :href="htmlMD">链接： {{ htmlMD }}</a>
-                    </div>
-                    <!-- 其他格式 -->
-                    <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
-                </template>
-            </div>
-        </div>
+  <div
+    class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row"
+    v-loading="!menuList.length"
+  >
+    <layout-left-sidebar
+      :left-sidebar-w="leftSidebarW"
+      :if-show-menu="ifShowMenu"
+      :if-larger="ifLarger"
+      :header-h="headerH"
+      :toggle-menu="toggleMenu"
+      @itemClick="itemClick"
+    />
+    <div
+      :style="
+        ifLarger
+          ? {
+              width: `calc(100% - ${leftSidebarW})`
+            }
+          : { width: '100%' }
+      "
+      class="relative height100"
+    >
+      <!-- 背景图 -->
+      <div class="bg-image overflow-hidden width100 height100 absolute" />
+      <div class="home overflow-y-auto relative width100 height100">
+        <template v-if="menuList.length">
+          <!-- 标题 -->
+          <div
+            v-if="!markdownType"
+            class="title width100 flex align-items-center justify-content-center"
+          >
+            {{ title }}
+          </div>
+          <!-- md格式 -->
+          <markdown-type
+            v-if="markdownType"
+            :title="title"
+            :markdown-title-width="markdownTitleWidth"
+            :loading="loading"
+            :if-larger="ifLarger"
+            :header-h="headerH"
+            :html-m-d="htmlMD"
+          />
+          <!-- 图片格式   -->
+          <image-type
+            v-else-if="imageType"
+            :html-m-d="htmlMD"
+            :loading="loading"
+            @image-load="loading = false"
+          />
+          <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
+          <div v-else-if="linkType" class="link">
+            <a :href="htmlMD">链接： {{ htmlMD }}</a>
+          </div>
+          <!-- 其他格式 -->
+          <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
+        </template>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -51,7 +84,7 @@ import imageType from './components/home/image-type.vue'
 import markdownType from './components/home/markdown-type.vue'
 
 export default {
-  name: 'Home',
+  name: 'view-home',
   components: {
     layoutLeftSidebar,
     markdownType,
@@ -61,7 +94,7 @@ export default {
   props: {
     ...leftSidebarProps
   },
-  setup (props) {
+  setup(props) {
     const router = useRouter()
     const route = useRoute()
     const store = useStore()
@@ -95,10 +128,15 @@ export default {
       scrollTop()
     }
     const itemMarkdownTypeClick = (urlLink) => {
-      axios.get(urlLink)
+      console.log('itemMarkdownTypeClick', urlLink)
+
+      axios
+        .get(urlLink)
         .then((response) => {
           loading.value = false
-          htmlMD.value = (markdownTypeList.find(item => item.suffix === fileSuffix.value.toLocaleLowerCase())).formatFun(response.data)
+          htmlMD.value = markdownTypeList
+            .find((item) => item.suffix === fileSuffix.value.toLocaleLowerCase())
+            .formatFun(response.data)
           scrollTop()
         })
         .catch(() => {
@@ -137,7 +175,7 @@ export default {
       const pageIndexArr = indexPage.split('-')
       try {
         let result = { children: menuList.value }
-        pageIndexArr.forEach(index => {
+        pageIndexArr.forEach((index) => {
           result = result.children[+index]
         })
         // 没有找到文章索引,跳转到首页即可
@@ -158,7 +196,9 @@ export default {
         }
         // 正常的路由跳转
         const urlSplitArr = result.url[result.url.length - 1].split('.')
-        fileSuffix.value = urlSplitArr[urlSplitArr.length - 1] ? urlSplitArr[urlSplitArr.length - 1] : ''
+        fileSuffix.value = urlSplitArr[urlSplitArr.length - 1]
+          ? urlSplitArr[urlSplitArr.length - 1]
+          : ''
         const urlLink = `./${result.url.join('/')}`
         title.value = result.url.join(' > ')
         loading.value = true
@@ -173,8 +213,8 @@ export default {
         // 其他类型
         itemOtherTypeClick(result.url, urlLink)
       } catch (e) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error(`${process.env.NODE_ENV}menuList解析: `, e)
+        if (import.meta.env.MODE === 'development') {
+          console.error(`${import.meta.env.MODE}menuList解析: `, e)
         } else {
           router.push('/error')
         }
@@ -185,13 +225,16 @@ export default {
       const urlLink = './README.md'
       fileSuffix.value = 'md'
       loading.value = true
-      axios.get(urlLink).then((response) => {
-        loading.value = false
-        htmlMD.value = response.data
-      }).catch(_ => {
-        loading.value = false
-        htmlMD.value = '寄拉！'
-      })
+      axios
+        .get(urlLink)
+        .then((response) => {
+          loading.value = false
+          htmlMD.value = response.data
+        })
+        .catch((_) => {
+          loading.value = false
+          htmlMD.value = '寄拉！'
+        })
     }
 
     // 页面即将初始化
@@ -228,48 +271,47 @@ export default {
       itemClick
     }
   }
-
 }
 </script>
 <style lang="scss" scoped>
-    .content-inner {
-      font-size: 15px;
-      color: var(--global-primary-color);
+.content-inner {
+  font-size: 15px;
+  color: var(--global-primary-color);
 
-      .bg-image {
-        background-attachment: fixed;
-        background-image: url('~@/assets/images/huge.jpg');
-        background-size: calc(864px / 1.7) calc(836px / 1.7);
-        background-repeat: no-repeat;
-        background-position: center center;
-        opacity: 0.15;
-        z-index: 0;
-      }
+  .bg-image {
+    background-attachment: fixed;
+    background-image: url('@/assets/images/huge.jpg');
+    background-size: calc(864px / 1.7) calc(836px / 1.7);
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.15;
+    z-index: 0;
+  }
 
-      .home {
-        .title {
-          box-sizing: border-box;
-          padding: 0 30px;
-          padding: 20px 30px;
-          min-height: 70px;
-          font-size: 18px;
-          font-weight: 600;
-          color: var(--global-text-color);
-        }
-
-        .link {
-          padding: 20px;
-          a {
-            color: var(--global-text-color);
-          }
-        }
-      }
+  .home {
+    .title {
+      box-sizing: border-box;
+      padding: 0 30px;
+      padding: 20px 30px;
+      min-height: 70px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--global-text-color);
     }
 
-    .loading-wrap {
-      width: 100px;
-      height: 100px;
-      font-size: 17px;
-      transform: scale(0.7);
+    .link {
+      padding: 20px;
+      a {
+        color: var(--global-text-color);
+      }
     }
+  }
+}
+
+.loading-wrap {
+  width: 100px;
+  height: 100px;
+  font-size: 17px;
+  transform: scale(0.7);
+}
 </style>

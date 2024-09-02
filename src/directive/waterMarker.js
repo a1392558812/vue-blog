@@ -1,5 +1,5 @@
 const proportion = 150 / 200
-function addWaterMarker (str, parentNode, font, textColor, size = 500) {
+function addWaterMarker(str, parentNode, font, textColor, size = 500) {
   // 水印文字，父元素，字体，文字颜色
   const can = document.createElement('canvas')
   parentNode.appendChild(can)
@@ -18,7 +18,13 @@ function addWaterMarker (str, parentNode, font, textColor, size = 500) {
 
 const waterMarker = {
   mounted: function (el, binding) {
-    addWaterMarker(binding.value.text, el, binding.value.font, binding.value.textColor, binding.value.size)
+    addWaterMarker(
+      binding.value.text,
+      el,
+      binding.value.font,
+      binding.value.textColor,
+      binding.value.size
+    )
   }
 }
 
