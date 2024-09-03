@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "node --max_old_space_size=6000 node_modules/vite/bin/vite.js build",
+    "build": "node --max_old_space_size=8192 node_modules/vite/bin/vite.js build",
     "preview": "vite preview --host",
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
@@ -54,6 +54,7 @@
   "devDependencies": {
     "@rollup/plugin-inject": "^5.0.5",
     "@rushstack/eslint-patch": "^1.8.0",
+    "@vitejs/plugin-legacy": "^5.4.2",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/eslint-config-prettier": "^9.0.0",

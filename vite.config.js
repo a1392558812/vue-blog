@@ -8,6 +8,7 @@ import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
 import inject from '@rollup/plugin-inject'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
 export default defineConfig((config) => {
@@ -41,6 +42,20 @@ export default defineConfig((config) => {
           }
         }
       }),
+      legacy({
+        targets: [
+          'last 2 versions',
+          'iOS >= 10',
+          'Android >= 6',
+          'Chrome >= 49',
+          'Safari >= 10',
+          'Samsung >= 5',
+          'OperaMobile >= 46',
+        ],
+        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+        renderLegacyChunks: true,
+        polyfills: true
+      }),
       viteCompression({
         verbose: true, // 是否在控制台输出压缩结果
         disable: false, // 是否禁用压缩
@@ -58,6 +73,7 @@ export default defineConfig((config) => {
     )
   }
   return {
+    base: './',
     plugins,
     define: {
       'process.env': {}
