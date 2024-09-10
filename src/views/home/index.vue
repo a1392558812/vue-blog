@@ -23,23 +23,20 @@
     >
       <!-- 背景图 -->
       <div class="bg-image overflow-hidden width100 height100 absolute" />
-      <div class="home overflow-y-auto relative width100 height100">
+      <div class="home overflow-y-auto flex flex-direction-column relative width100 height100">
         <template v-if="menuList.length">
           <!-- 标题 -->
           <div
-            v-if="!markdownType"
-            class="title width100 flex align-items-center justify-content-center"
+            class="title relative bg-white width100 flex flex-shrink-0 align-items-center justify-content-center"
           >
             {{ title }}
           </div>
           <!-- md格式 -->
           <markdown-type
             v-if="markdownType"
-            :title="title"
             :markdown-title-width="markdownTitleWidth"
             :loading="loading"
             :if-larger="ifLarger"
-            :header-h="headerH"
             :html-m-d="htmlMD"
           />
           <!-- 图片格式   -->
@@ -297,6 +294,9 @@ export default {
       font-size: 18px;
       font-weight: 600;
       color: var(--global-text-color);
+      border-bottom: 1px solid var(--global-border-color);
+      box-shadow: 0px 0px 1px 0px var(--global-border-color);
+      z-index: 10;
     }
 
     .link {

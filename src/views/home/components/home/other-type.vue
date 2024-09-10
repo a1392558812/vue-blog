@@ -26,7 +26,7 @@ export default {
 
 <style scoped lang="scss">
 .other-type {
-  padding: 20px;
+  padding: 20px 20px 100px 20px;
   .downLoad-cell {
     margin-bottom: 5px;
     color: var(--global-text-color);

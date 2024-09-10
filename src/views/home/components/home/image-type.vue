@@ -102,6 +102,7 @@ export default {
 .image {
   padding-left: 30px;
   box-sizing: border-box;
+  padding-bottom: 100px;
 
   .image-wrap {
     margin-top: 20px;
