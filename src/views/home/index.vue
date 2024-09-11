@@ -294,9 +294,10 @@ export default {
       padding: 0 30px;
       padding: 20px 30px;
       min-height: 70px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--global-text-color);
+      border-bottom: 1px solid var(--global-border-color);
     }
 
     .link {

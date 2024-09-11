@@ -100,15 +100,13 @@ export default {
 
 <style scoped lang="scss">
 .image {
-  padding-left: 30px;
+  padding: 30px 30px 100px 30px;
   box-sizing: border-box;
-  padding-bottom: 100px;
-
   .image-wrap {
     margin-top: 20px;
   }
 
-  &-content {
+  .image-content {
     max-width: 200px;
     cursor: pointer;
     position: relative;
