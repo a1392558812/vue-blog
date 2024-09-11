@@ -179,10 +179,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.markdown {
-  width: 100%;
-  z-index: 0;
-}
 .title {
   box-sizing: border-box;
   color: var(--global-text-color);
