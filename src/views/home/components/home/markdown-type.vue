@@ -121,59 +121,57 @@ export default {
       <div class="width100 height100 relative overflow-hidden flex flex-direction-column">
         <div
           style={(() => {
-            const styleMap = {}
             if (this.ifLarger) {
               if (this.articleTitles.length) {
-                styleMap.minWidth = `calc(${this.markdownContentMinWidth} + ${this.markdownTitleWidth})`
-              } else {
-                styleMap.minWidth = `${this.markdownContentMinWidth}`
+                return {
+                  minWidth: `calc(${this.markdownContentMinWidth} + ${this.markdownTitleWidth})`
+                }
               }
+              return { minWidth: this.markdownContentMinWidth }
             }
-            return styleMap
+            return {}
           })()}
           class="width100 bg-white flex flex-shrink-0 align-items-center justify-content-center title"
         >
           {this.title}
         </div>
         {!this.loading ? (
-            <div class="width100 height100 relative flex overflow-auto markdown-content">
-              <div class="width100 height0" style={(() => {
-                    const styleMap = { width: '100%' }
-                    if (this.ifLarger) {
-                        styleMap.minWidth = this.markdownContentMinWidth
-                    }
-                    return styleMap
-                })()}>
-                <v-md-preview
-                  class="width100"
-                  ifLarger={this.ifLarger}
-                  onGetVMdPreviewRef={(valueRef) => {
-                    this.preview = valueRef
-                  }}
-                  text={this.htmlMarkStr}
-                />
-              </div>
-              {this.ifLarger ? (
-                <navigator-title
-                  ifLarger={this.ifLarger}
-                  markdownTitleWidth={this.markdownTitleWidth}
-                  articleTitles={this.articleTitles}
-                  onHandleAnchorClick={(anchor) => {
-                    this.handleAnchorClick(anchor)
-                  }}
-                />
-              ) : null}
+          <div class="width100 height100 relative flex overflow-auto markdown-content">
+            <div
+              class="width100 height0"
+              style={this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {}}
+            >
+              <v-md-preview
+                class="width100"
+                style="padding-bottom: 100px"
+                ifLarger={this.ifLarger}
+                onGetVMdPreviewRef={(valueRef) => {
+                  this.preview = valueRef
+                }}
+                text={this.htmlMarkStr}
+              />
             </div>
-          ) : (
-            <loadingComponent style="background-color: transparent" showModal={true}>
-              <div
-                style="font-weight: bold"
-                class="width100 height100 flex align-items-center justify-content-center"
-              >
-                加载中...
-              </div>
-            </loadingComponent>
-          )}
+            {this.ifLarger && this.articleTitles.length ? (
+              <navigator-title
+                ifLarger={this.ifLarger}
+                markdownTitleWidth={this.markdownTitleWidth}
+                articleTitles={this.articleTitles}
+                onHandleAnchorClick={(anchor) => {
+                  this.handleAnchorClick(anchor)
+                }}
+              />
+            ) : null}
+          </div>
+        ) : (
+          <loadingComponent style="background-color: transparent" showModal={true}>
+            <div
+              style="font-weight: bold"
+              class="width100 height100 flex align-items-center justify-content-center"
+            >
+              加载中...
+            </div>
+          </loadingComponent>
+        )}
       </div>
     )
   }
@@ -181,18 +179,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .markdown {
-      width: 100%;
-      z-index: 0;
-    }
-    .title {
-      box-sizing: border-box;
-      color: var(--global-text-color);
-      padding: 20px 30px;
-      font-size: 20px;
-      font-weight: 600;
-      border-bottom: 1px solid var(--global-border-color);
-      box-shadow: 0px 0px 1px 0px var(--global-border-color);
-      z-index: 1;
-    }
+.markdown {
+  width: 100%;
+  z-index: 0;
+}
+.title {
+  box-sizing: border-box;
+  color: var(--global-text-color);
+  padding: 20px 30px;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--global-border-color);
+  box-shadow: 0px 0px 1px 0px var(--global-border-color);
+  z-index: 1;
+}
 </style>

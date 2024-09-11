@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="articleTitles.length"
-    class="sticky flex-shrink-0 height100 markdown-title"
-  >
+  <div class="sticky flex-shrink-0 height100 markdown-title">
     <div class="width100 height100 markdown-title-inner">
       <div class="width100 text-align-center markdown-title-navigator">标题导航</div>
       <div class="markdown-title-wrap">
