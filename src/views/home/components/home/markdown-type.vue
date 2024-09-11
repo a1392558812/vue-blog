@@ -39,7 +39,7 @@ export default {
   setup(props) {
     const preview = ref(null) // markdown引用
     const articleTitles = ref([]) // markdown编辑器预览锚点标题
-    const markdownContentMinWidth = ref('850px') // markdown编辑器最小宽度
+    const markdownContentMinWidth = ref('550px') // markdown编辑器最小宽度
     const markdownMinHeight = ref('calc(100% - 170px)') // markdown区域的高度
     const htmlMarkStr = ref('')
 
@@ -109,7 +109,7 @@ export default {
         if (heading) {
           preview.value.scrollToTarget({
             target: heading,
-            scrollContainer: $('.home')[0]
+            scrollContainer: $('.markdown-content')[0]
           })
         }
         heading = null
@@ -118,52 +118,32 @@ export default {
   },
   render() {
     return (
-      <>
+      <div class="width100 height100 relative overflow-hidden flex flex-direction-column">
         <div
           style={(() => {
             const styleMap = {}
             if (this.ifLarger) {
               if (this.articleTitles.length) {
-                styleMap.width = `calc(100% - ${this.markdownTitleWidth})`
-                styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
+                styleMap.minWidth = `calc(${this.markdownContentMinWidth} + ${this.markdownTitleWidth})`
               } else {
-                styleMap.width = '100%'
                 styleMap.minWidth = `${this.markdownContentMinWidth}`
               }
-            } else {
-              styleMap.width = '100%'
             }
             return styleMap
           })()}
-          class="title flex align-items-center justify-content-center"
+          class="width100 bg-white flex flex-shrink-0 align-items-center justify-content-center title"
         >
           {this.title}
         </div>
-        <div
-          class="relative markdown"
-          style={{
-            minHeight: this.loading ? this.markdownMinHeight : 0,
-            ...(this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {})
-          }}
-        >
-          {!this.loading ? (
-            <div
-              style={(() => {
-                const styleMap = {}
-                if (this.ifLarger) {
-                  if (this.articleTitles.length) {
-                    styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
-                    styleMap.paddingRight = `${this.markdownTitleWidth}`
-                  } else {
-                    styleMap.minWidth = `calc(${this.markdownContentMinWidth})`
-                    styleMap.paddingRight = 0
-                  }
-                }
-                return styleMap
-              })()}
-              class="flex height100"
-            >
-              <div class="width100">
+        {!this.loading ? (
+            <div class="width100 height100 relative flex overflow-auto markdown-content">
+              <div class="width100 height0" style={(() => {
+                    const styleMap = { width: '100%' }
+                    if (this.ifLarger) {
+                        styleMap.minWidth = this.markdownContentMinWidth
+                    }
+                    return styleMap
+                })()}>
                 <v-md-preview
                   class="width100"
                   ifLarger={this.ifLarger}
@@ -194,25 +174,25 @@ export default {
               </div>
             </loadingComponent>
           )}
-        </div>
-      </>
+      </div>
     )
   }
 }
 </script>
 
 <style scoped lang="scss">
-.markdown {
-  width: 100%;
-  padding-bottom: 100px;
-  z-index: 0;
-}
-.title {
-  box-sizing: border-box;
-  color: var(--global-text-color);
-  padding: 20px 30px;
-  font-size: 20px;
-  font-weight: 600;
-  border-bottom: 1px solid var(--global-border-color);
-}
+    .markdown {
+      width: 100%;
+      z-index: 0;
+    }
+    .title {
+      box-sizing: border-box;
+      color: var(--global-text-color);
+      padding: 20px 30px;
+      font-size: 20px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--global-border-color);
+      box-shadow: 0px 0px 1px 0px var(--global-border-color);
+      z-index: 1;
+    }
 </style>

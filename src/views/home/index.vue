@@ -23,7 +23,7 @@
     >
       <!-- 背景图 -->
       <div class="bg-image overflow-hidden width100 height100 absolute" />
-      <div class="home overflow-y-auto relative width100 height100">
+      <div class="home overflow-auto relative width100 height100">
         <template v-if="menuList.length">
           <!-- 标题 -->
           <div
