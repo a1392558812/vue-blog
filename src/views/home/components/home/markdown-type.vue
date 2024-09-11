@@ -153,7 +153,7 @@ export default {
                 if (this.ifLarger) {
                   if (this.articleTitles.length) {
                     styleMap.minWidth = `calc(${this.markdownContentMinWidth} - ${this.markdownTitleWidth})`
-                    styleMap.paddingRight = 0
+                    styleMap.paddingRight = `${this.markdownTitleWidth}`
                   } else {
                     styleMap.minWidth = `calc(${this.markdownContentMinWidth})`
                     styleMap.paddingRight = 0
