@@ -21,7 +21,7 @@
         }}</span>
       </div>
     </div>
-    <div style="padding: 0 20px 20px 20px" class="flex-shrink-0 flex-1 overflow-auto">
+    <div style="padding: 0 20px 120px 20px" class="flex-shrink-0 flex-1 overflow-auto">
       <book-marks-item :data="htmlJson" />
     </div>
   </div>
@@ -103,6 +103,7 @@ export default {
 .bookmarks {
   .tips {
     padding: 10px 5px;
+    border-bottom: 1px solid var(--global-border-color);
     .tips-btn {
       font-size: 16px;
       font-weight: bold;

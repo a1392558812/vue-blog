@@ -200,5 +200,6 @@ export default {
 .heishou {
   width: 1em;
   height: 1em;
+  margin-right: 0.25rem;
 }
 </style>
