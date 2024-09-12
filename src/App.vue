@@ -10,7 +10,7 @@
       @toggleShowNavLink="toggleShowNavLink"
       @refreshView="refreshView"
     />
-    <div class="relative" :class="ifShowHeaderComponent ? 'content' : ''">
+    <div class="relative bg-white" :class="ifShowHeaderComponent ? 'content' : ''">
       <left-nav-link
         v-if="ifShowHeaderComponent"
         :show-nav-link="showNavLink"

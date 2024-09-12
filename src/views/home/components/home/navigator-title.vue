@@ -10,7 +10,16 @@
             class="markdown-title-item"
             :style="{ padding: `10px 0 10px ${anchor.indent * 10}px` }"
           >
-            <a style="cursor: pointer" @click="handleAnchorClick(anchor)">{{ anchor.title }}</a>
+            <a
+              style="cursor: pointer"
+              href="/"
+              @click="
+                function (e) {
+                  handleAnchorClick(e, anchor)
+                }
+              "
+              >{{ anchor.title }}</a
+            >
           </div>
         </div>
       </div>
@@ -18,26 +27,25 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'NavigatorTitle',
-  props: {
-    markdownTitleWidth: {
-      type: String,
-      default: '10px'
-    },
-    articleTitles: {
-      type: Array,
-      default: () => []
-    }
+<script setup>
+defineOptions({ name: 'NavigatorTitle' })
+
+defineProps({
+  markdownTitleWidth: {
+    type: String,
+    default: '10px'
   },
-  setup(props, { emit }) {
-    return {
-      handleAnchorClick: (anchor) => {
-        emit('handleAnchorClick', anchor)
-      }
-    }
+  articleTitles: {
+    type: Array,
+    default: () => []
   }
+})
+
+const emit = defineEmits(['handleAnchorClick'])
+
+const handleAnchorClick = (event, anchor) => {
+  event.preventDefault()
+  emit('handleAnchorClick', anchor)
 }
 </script>
 
