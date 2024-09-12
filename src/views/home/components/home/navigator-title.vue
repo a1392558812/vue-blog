@@ -4,7 +4,7 @@
       <div class="width100 text-align-center markdown-title-navigator">标题导航</div>
       <div class="markdown-title-wrap">
         <div class="overflow-y-hidden height100 relative markdown-title-main" ref="listContentRef">
-          <div>
+          <div class="markdown-title-list">
             <div
               v-for="(anchor, index) in articleTitles"
               :key="index"
@@ -131,14 +131,17 @@ onUnmounted(() => {
     }
     .markdown-title-wrap {
       height: 400px;
-      padding: 10px 15px;
+      padding: 15px 5px;
       border-bottom: 1px solid var(--global-border-color);
       .markdown-title-main {
-        padding-bottom: 15px;
+        padding: 0 15px 0 10px;
         box-sizing: border-box;
-        .markdown-title-item {
-          a {
-            color: var(--global-primary-color);
+        .markdown-title-list {
+          padding-bottom: 15px;
+          .markdown-title-item {
+            a {
+              color: var(--global-primary-color);
+            }
           }
         }
       }
