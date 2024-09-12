@@ -195,21 +195,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .left-sidebar {
-      width: v-bind(leftSidebarW);
-      font-size: 16px;
-      transition: transform 0.3s;
-      border-right: 1px solid var(--global-border-color);
-      box-sizing: border-box;
-      z-index: 10;
-      .search {
-        padding: 10px 20px;
-        border-bottom: 1px solid var(--global-border-color);
-      }
-      .left-sidebar-content {
-      }
-      .list-wrap {
-        padding: 0 20px;
-      }
-    }
+.left-sidebar {
+  width: v-bind(leftSidebarW);
+  font-size: 16px;
+  transition: transform 0.3s;
+  border-right: 1px solid var(--global-border-color);
+  box-sizing: border-box;
+  z-index: 10;
+  .search {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--global-border-color);
+  }
+  .left-sidebar-content {
+  }
+  .list-wrap {
+    padding: 0 20px;
+  }
+}
 </style>
