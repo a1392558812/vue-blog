@@ -9,3 +9,5 @@ __tests__
  
 # 忽略特定的文件扩展名
 src/static/
+
+public/
