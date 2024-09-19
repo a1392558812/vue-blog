@@ -141,16 +141,16 @@ export default {
               class="width100 height0"
               style={this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {}}
             >
-                <div style="padding-bottom: 100px">
-                    <v-md-preview
-                        class="width100"
-                        ifLarger={this.ifLarger}
-                        onGetVMdPreviewRef={(valueRef) => {
-                        this.preview = valueRef
-                        }}
-                        text={this.htmlMarkStr}
-                    />
-                </div>
+              <div style="padding-bottom: 100px">
+                <v-md-preview
+                  class="width100"
+                  ifLarger={this.ifLarger}
+                  onGetVMdPreviewRef={(valueRef) => {
+                    this.preview = valueRef
+                  }}
+                  text={this.htmlMarkStr}
+                />
+              </div>
             </div>
             {this.ifLarger && this.articleTitles.length ? (
               <navigator-title
