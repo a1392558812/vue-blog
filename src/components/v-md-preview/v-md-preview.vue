@@ -291,12 +291,8 @@ export default {
     .copy-code-mode .v-md-copy-code-btn {
       background-color: #3d3d3d;
     }
-    ul {
-      li {
-        a {
-          word-break: break-all;
-        }
-      }
+    * {
+      word-break: break-all;
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="sticky flex-shrink-0 height100 markdown-title">
-    <div class="width100 height100 markdown-title-inner">
+    <div class="width100 height100 overflow-y-auto overflow-x-hidden; markdown-title-inner">
       <div class="width100 text-align-center markdown-title-navigator">标题导航</div>
       <div class="markdown-title-wrap">
         <div class="overflow-y-hidden height100 relative markdown-title-main" ref="listContentRef">
@@ -12,7 +12,8 @@
               :style="{ padding: `10px 0 10px ${anchor.indent * 10}px` }"
             >
               <a
-                style="cursor: pointer"
+                class="cursor-pointer"
+                :title="anchor.title"
                 href="/"
                 @click="
                   function (e) {
@@ -118,8 +119,6 @@ onUnmounted(() => {
   border-left: 1px solid var(--global-border-color);
   z-index: 1;
   .markdown-title-inner {
-    overflow-y: auto;
-    overflow-x: hidden;
     word-wrap: break-word;
     word-break: break-all;
     .markdown-title-navigator {
