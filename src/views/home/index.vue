@@ -75,7 +75,12 @@ import {
 } from '@/store/actionType'
 
 import axios from '@/common/axios/index.js'
-import { markdownTypeCheck, markdownTypeList, imgTypeCheck } from '@/common/util/methods'
+import {
+  markdownTypeCheck,
+  markdownTypeList,
+  imgTypeCheck,
+  cancelablePromise
+} from '@/common/util/methods'
 
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 import layoutLeftSidebar from '@/components/left-sidebar/index.vue'
@@ -105,6 +110,8 @@ export default {
     const downloadName = ref('文件')
     const loading = ref(true)
 
+    let lastAxiosCancelFun = () => {}
+
     // markdown类型
     const markdownType = computed(() => markdownTypeCheck(fileSuffix.value))
     // img类型
@@ -129,9 +136,10 @@ export default {
     }
     const itemMarkdownTypeClick = (urlLink) => {
       console.log('itemMarkdownTypeClick', urlLink)
-
-      axios
-        .get(urlLink)
+      const { promise, cancel } = cancelablePromise(axios.get(urlLink))
+      lastAxiosCancelFun({ type: 'cancel' })
+      lastAxiosCancelFun = cancel
+      promise
         .then((response) => {
           loading.value = false
           htmlMD.value = markdownTypeList
@@ -139,7 +147,9 @@ export default {
             .formatFun(response.data)
           scrollTop()
         })
-        .catch(() => {
+        .catch((err) => {
+          if (err.type && err.type === 'cancel') return
+          console.log('err', err)
           htmlMD.value = '网络寄了，我哭哭~~'
           fileSuffix.value = 'md'
           loading.value = false
@@ -225,13 +235,16 @@ export default {
       const urlLink = './README.md'
       fileSuffix.value = 'md'
       loading.value = true
-      axios
-        .get(urlLink)
+      const { promise, cancel } = cancelablePromise(axios.get(urlLink))
+      lastAxiosCancelFun({ type: 'cancel' })
+      lastAxiosCancelFun = cancel
+      promise
         .then((response) => {
           loading.value = false
           htmlMD.value = response.data
         })
-        .catch((_) => {
+        .catch((err) => {
+          if (err.type && err.type === 'cancel') return
           loading.value = false
           htmlMD.value = '寄拉！'
         })

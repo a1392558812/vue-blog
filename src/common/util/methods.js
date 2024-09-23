@@ -184,3 +184,32 @@ export const asyncLoadCss = (linkUrl) => {
     }
   })
 }
+
+/* 取消promise */
+export const cancelablePromise = (promise) => {
+  let cancel
+  const targetPromise = (promise) => {
+    return new Promise((resolve, reject) => {
+      promise
+        .then((res) => {
+          resolve(res)
+          cancel()
+        })
+        .catch((err) => {
+          reject(err)
+          cancel()
+        })
+    })
+  }
+
+  const wrappedPromise = Promise.race([
+    targetPromise(promise),
+    new Promise((resolve, reject) => {
+      cancel = reject
+    })
+  ])
+  return {
+    promise: wrappedPromise,
+    cancel
+  }
+}
