@@ -313,6 +313,24 @@ export const demoList = [
       demoName: 'css自定义滚动条生成器'
     },
     component: () => import('../views/demo/children/css-scrollbar/index.vue')
+  },
+  {
+    path: 'css-to-tailwind',
+    name: 'css-to-tailwind',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css-to-tailwind'
+    },
+    component: () => import('../views/demo/children/css-to-tailwind/index.vue')
+  },
+  {
+    path: 'css-to-unocss',
+    name: 'css-to-unocss',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css-to-unocss'
+    },
+    component: () => import('../views/demo/children/css-to-unocss/index.vue')
   }
 ]
 
