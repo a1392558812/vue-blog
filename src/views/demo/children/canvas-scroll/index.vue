@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, onUnmounted } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { baseUrlFun } from '@/common/util/methods'
 
@@ -31,8 +31,6 @@ export default {
     const scrollWrapRef = ref(null)
     const scrollRef = ref(null)
 
-    const canvasImg = new Image()
-
     const canvas2dContext = () => scrollCanvasRef.value.getContext('2d')
     const currentFrame = (i) =>
       `${baseUrlFun()}demo-static/canvas-scroll/large_${i.toString().padStart(4, '0')}.jpg`
@@ -41,29 +39,46 @@ export default {
       (() => {
         const list = []
         for (let i = 0; i <= 121; i++) {
-          list.push({ url: currentFrame(i) })
+          const url = currentFrame(i)
+          const imageDom = new Image()
+          imageDom.src = url
+          const currentImg = {
+            url,
+            imageDom,
+            ifLoad: false
+          }
+          list.push(currentImg)
+          imageDom.onload = () => {
+            imageList.value[i].ifLoad = true
+            imageDom.onload = null
+          }
         }
         return list
       })()
     )
 
-    const preloadImages = () => {
-      for (let i = 0; i < imageList.value.length; i++) {
-        let preloadImg = new Image()
-        preloadImg.src = imageList.value[i].url
-        ;(() => {
-          preloadImg.onload = () => {
-            preloadImg = null
-          }
-        })(i)
-      }
-    }
-
     const drawImage = (index) => {
-      canvasImg.src = currentFrame(index)
-      canvasImg.onload = () => {
-        canvas2dContext().drawImage(canvasImg, 0, 0)
+      const target = imageList.value[index]
+      if (target.ifLoad === false) {
+        const imageDom = new Image()
+        imageDom.src = target.url
+        imageDom.onload = () => {
+          imageList.value[index].ifLoad = true
+          imageDom.onload = null
+        }
+        const stopWatch = watch(
+          () => imageList.value[index].ifLoad,
+          (newV) => {
+            console.log('watch', target)
+            if (newV) {
+              drawImage(index)
+              stopWatch()
+            }
+          }
+        )
+        return
       }
+      canvas2dContext().drawImage(imageList.value[index].imageDom, 0, 0)
     }
 
     const { y } = useScroll(scrollWrapRef, {
@@ -76,12 +91,15 @@ export default {
       }
     })
 
-    preloadImages()
     onMounted(() => {
-      drawImage(0, true)
+      drawImage(0)
       setTimeout(() => {
         loading.value = false
       }, 2500)
+    })
+
+    onUnmounted(() => {
+      imageList.value = []
     })
     return {
       scrollCanvasRef,
