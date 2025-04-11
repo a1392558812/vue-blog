@@ -331,6 +331,15 @@ export const demoList = [
       demoName: 'css-to-unocss'
     },
     component: () => import('../views/demo/children/css-to-unocss/index.vue')
+  },
+  {
+    path: 'breakout-ball',
+    name: 'breakout-ball',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'breakout-ball'
+    },
+    component: () => import('../views/demo/children/breakout-ball/index.vue')
   }
 ]
 
