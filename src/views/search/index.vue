@@ -1,7 +1,7 @@
 <template>
   <div
     style="color: var(--global-text-color)"
-    class="bg-white relative width100 height100 flex flex-direction-row"
+    class="bg-style relative w-[100%] h-[100%] flex flex-row"
     v-loading="!menuList.length"
   >
     <layout-left-sidebar
@@ -12,9 +12,9 @@
       :toggle-menu="toggleMenu"
       @itemClick="itemClick"
     />
-    <div class="width100 height100 flex flex-direction-column" v-if="menuList.length">
-      <div class="search-title width100 flex align-items-center justify-content-center">
-        <div class="flex align-items-baseline">
+    <div class="w-[100%] h-[100%] flex flex-col" v-if="menuList.length">
+      <div class="search-title w-[100%] flex items-center justify-center">
+        <div class="flex items-baseline">
           <p style="margin-right: 10px">搜索结果</p>
           <p class="search-total">(共计{{ searchResult.length }}条)</p>
         </div>
@@ -30,7 +30,7 @@
               }
             "
           >
-            <linkTag class="display-inline" v-if="item.link" />
+            <linkTag class="inline" v-if="item.link" />
             {{ item.name }}
           </a>
         </li>

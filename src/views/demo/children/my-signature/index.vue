@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-items-center justify-content-center my-signature">
+  <div class="flex items-center justify-center my-signature">
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"

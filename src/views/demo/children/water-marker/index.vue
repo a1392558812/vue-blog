@@ -5,7 +5,7 @@
       textColor: 'rgba(255, 45, 26, 0.3)',
       size: 250
     }"
-    class="width100"
+    class="w-[100%]"
     style="height: 100vh"
   ></div>
 </template>

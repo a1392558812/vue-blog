@@ -15,11 +15,11 @@ export default defineAsyncComponent({
     return (
       <div
         style="font-size: 12px; font-weight: 900; height: 100%;"
-        class="flex width100 align-items-center justify-content-center"
+        class="flex w-[100%] items-center justify-center"
       >
-        <div class="width100 height100 relative loading-wrap">
+        <div class="w-[100%] h-[100%] relative loading-wrap">
           <loadingComponent style="background: transparent" showModal={true}>
-            <div class="width100 height100 flex align-items-center justify-content-center">
+            <div class="w-[100%] h-[100%] flex items-center justify-center">
               加载中...
             </div>
           </loadingComponent>

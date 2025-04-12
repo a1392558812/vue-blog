@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="addItem">添加一个item</button>
-    <div ref="content" class="flex align-items-center flex-wrap">
+    <div ref="content" class="flex items-center flex-wrap">
       <div
         class="item cursor-pointer"
         @click="deleteItem(index)"

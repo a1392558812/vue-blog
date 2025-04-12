@@ -1,19 +1,17 @@
 <template>
   <div
     :style="{ padding: ifLarger ? '0 50px 0 0' : '0 20px' }"
-    class="layout-header flex flex-direction-row-reverse justify-content-space-between align-items-center"
+    class="layout-header flex flex-row-reverse justify-between items-center"
   >
-    <div class="relative flex align-items-center justify-content-center bg-white">
+    <div class="relative flex items-center justify-center bg-style">
       <common-nav-link v-if="ifLarger" :if-larger="ifLarger" @goHome="goHome" />
       <commonm-btn v-else class="nav" :wave-active="true" @click="toggleShowNavLink">
         导航
       </commonm-btn>
-      <div
-        class="relative flex align-items-center justify-content-center flex-nowrap flex-shrink-0 popup-wrap"
-      >
+      <div class="relative flex items-center justify-center flex-nowrap shrink-0 popup-wrap">
         <commonm-btn
           style="margin-right: 1em"
-          class="flex-shrink-0"
+          class="shrink-0"
           :wave-active="true"
           @btnClick="showPopup = !showPopup"
         >
@@ -23,7 +21,7 @@
           title="我的github主页"
           href="https://github.com/a1392558812/myShare"
           target="_blank"
-          class="cursor-pointer flex align-items-center justify-content-center github-link"
+          class="cursor-pointer flex items-center justify-center github-link"
         >
           <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
             <path

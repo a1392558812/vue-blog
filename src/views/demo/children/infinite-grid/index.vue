@@ -1,9 +1,7 @@
 <template>
   <div ref="infiniteScroll" class="infinite-wrap overflow-y-auto">
-    <div class="text-label flex align-items-center justify-content-center">
-      瀑布流高度会等比缩放
-    </div>
-    <div style="margin-bottom: 20px" class="flex align-items-center justify-content-center">
+    <div class="text-label flex items-center justify-center">瀑布流高度会等比缩放</div>
+    <div style="margin-bottom: 20px" class="flex items-center justify-center">
       <div style="margin-right: 20px">当前瀑布流类型:</div>
       <div
         class="scroll-item cursor-pointer"
@@ -29,7 +27,7 @@
       :sizeRange="[200, Infinity]"
     >
       <div
-        class="item flex flex-direction-column justify-content-center"
+        class="item flex flex-col justify-center"
         v-for="(item, index) in list"
         :style="item.style"
         :key="index"
@@ -45,9 +43,7 @@
         </div>
       </div>
     </component>
-    <div class="text-label flex align-items-center justify-content-center" v-if="loading">
-      loading...
-    </div>
+    <div class="text-label flex items-center justify-center" v-if="loading">loading...</div>
   </div>
 </template>
 <script>

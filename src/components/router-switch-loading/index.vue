@@ -8,7 +8,7 @@ export default {
     // 默认加载图标render方法
     const loadingDefaultIconSlot = () => {
       return (
-        <div class="flex align-items-center justify-content-center spinner-wrap">
+        <div class="flex items-center justify-center spinner-wrap">
           <div class="sk-folding-cube">
             <div class="sk-cube1 sk-cube">🐮</div>
             <div class="sk-cube2 sk-cube">🐮</div>
@@ -61,7 +61,7 @@ export default {
         {this.loading ? (
           <div
             style={this.maskStyle}
-            class="fixed flex align-items-center justify-content-center router-switch-loading"
+            class="fixed flex items-center justify-center router-switch-loading"
           >
             <div>
               <div style={this.loadingStyle}>{this.loadingText}</div>

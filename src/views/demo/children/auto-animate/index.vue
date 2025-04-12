@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-direction-column align-items-center justify-content-center">
+  <div class="flex flex-col items-center justify-center">
     <div class="title">auto-animate自动过渡动画</div>
     <test1 style="margin-bottom: 20px; width: 500px" />
     <test2 style="margin-bottom: 20px; width: 500px" />

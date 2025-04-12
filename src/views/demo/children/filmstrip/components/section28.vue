@@ -3,7 +3,7 @@
     <h2>打印为PDF</h2>
     <p class="cursor-pointer print-btn" @click="goToPrint">打印为Pdf一下</p>
     <div
-      class="fixed flex align-items-center justify-content-center section-toast"
+      class="fixed flex items-center justify-center section-toast"
       @click="toastShow = false"
       v-if="toastShow"
     >

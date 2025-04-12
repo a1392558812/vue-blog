@@ -3,10 +3,10 @@
     <div v-html="'<请求数据为模拟生成的:输入： @xxx 触发>'"></div>
     <div class="flex">
       <vue-tributeVue :options="tributeOption">
-        <div class="line-height-1 tribute-input" type="text" />
+        <div class="lh-none tribute-input" type="text" />
       </vue-tributeVue>
       <div>
-        <div class="display-block tribute-btn">
+        <div class="block tribute-btn">
           <span>异步加载</span>
           <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
         </div>

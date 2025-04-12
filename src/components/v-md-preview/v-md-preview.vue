@@ -83,9 +83,7 @@ export default {
       render(
         createVNode(
           <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
-            <div class="width100 height100 flex align-items-center justify-content-center">
-              加载中...
-            </div>
+            <div class="w-[100%] h-[100%] flex items-center justify-center">加载中...</div>
           </loadingComponent>,
           { showModal: true }
         ),
@@ -127,7 +125,7 @@ export default {
               // 没有渲染容器
               if (!mountNode[0]) {
                 mountNode.html(
-                  '<div style="font-size: 16px; font-weight: blod; height: 100%" class="flex align-items-center justify-content-center">组件解析失败，请刷新重试...</div>'
+                  '<div style="font-size: 16px; font-weight: blod; height: 100%" class="flex items-center justify-center">组件解析失败，请刷新重试...</div>'
                 )
                 mountNode = null
                 return

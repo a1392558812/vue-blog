@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-auto excel-preview-edit">
-    <div style="margin: 20px" class="flex flex-direction-column">
+    <div style="margin: 20px" class="flex flex-col">
       <div>
         <div class="loading-status" v-if="loadScript === 0 || loadCss === 0">
           加载excel解析组件中...

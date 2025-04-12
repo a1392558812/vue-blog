@@ -7,7 +7,7 @@
         <vue-tributeVue :options="tributeOption" @initTribute="initTribute">
           <div
             ref="vueTributeVue"
-            class="line-height-1 tribute-input"
+            class="lh-none tribute-input"
             type="text"
             @tribute-replaced="(e) => customTribute('tribute-replaced', e)"
             @tribute-active-true="(e) => customTribute('tribute-active-true', e)"
@@ -23,11 +23,9 @@
         </div>
       </div>
       <div>
-        <button class="display-block tribute-btn" @click="handleClick">主动触发@菜单</button>
-        <button class="display-block tribute-btn" @click="handleAddClick1">
-          2500ms后添加新数据方式
-        </button>
-        <button class="display-block tribute-btn" @click="handleAddClick2">显示视图内容</button>
+        <button class="block tribute-btn" @click="handleClick">主动触发@菜单</button>
+        <button class="block tribute-btn" @click="handleAddClick1">2500ms后添加新数据方式</button>
+        <button class="block tribute-btn" @click="handleAddClick2">显示视图内容</button>
       </div>
     </div>
     <toast ref="toastRefDom"></toast>

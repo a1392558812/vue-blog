@@ -1,5 +1,5 @@
 <template>
-  <div id="page" class="overflow-hidden">
+  <div id="page" class="overflow-hidden relative">
     <layout-header
       v-if="ifShowHeaderComponent"
       :if-larger="ifLarger"
@@ -10,7 +10,7 @@
       @toggleShowNavLink="toggleShowNavLink"
       @refreshView="refreshView"
     />
-    <div class="relative bg-white" :class="ifShowHeaderComponent ? 'content' : ''">
+    <div class="relative bg-style" :class="ifShowHeaderComponent ? 'content' : ''">
       <left-nav-link
         v-if="ifShowHeaderComponent"
         :show-nav-link="showNavLink"
@@ -105,6 +105,11 @@ export default {
 }
 </script>
 <style lang="scss">
+::view-transition-new(root),
+::view-transition-old(root) {
+  /* 关闭默认动画 */
+  animation: none;
+}
 body,
 * {
   &::-webkit-scrollbar {
@@ -150,7 +155,6 @@ body,
 <style scoped lang="scss">
 #page {
   height: 100vh;
-  position: relative;
   .loading-wrap {
     width: 100px;
     height: 100px;

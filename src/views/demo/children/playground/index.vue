@@ -1,9 +1,6 @@
 <template>
   <div class="play-ground overflow-auto">
-    <div
-      class="flex flex-direction-column align-items-center"
-      :style="{ width: `${960 + varianceWidth}px` }"
-    >
+    <div class="flex flex-col items-center" :style="{ width: `${960 + varianceWidth}px` }">
       <div>代码块演示厂</div>
       <div style="margin-bottom: 10px">
         <div>目前已支持vueuse，可调试查看Import Map</div>

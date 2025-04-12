@@ -1,6 +1,6 @@
 <template>
   <div
-    class="content-inner bg-white overflow-hidden width100 height100 flex flex-direction-row"
+    class="content-inner bg-style overflow-hidden w-[100%] h-[100%] flex flex-row"
     v-loading="!menuList.length"
   >
     <layout-left-sidebar
@@ -19,17 +19,14 @@
             }
           : { width: '100%' }
       "
-      class="relative height100"
+      class="relative h-[100%]"
     >
       <!-- 背景图 -->
-      <div class="bg-image overflow-hidden width100 height100 absolute" />
-      <div class="home overflow-auto relative width100 height100">
+      <div class="bg-image overflow-hidden w-[100%] h-[100%] absolute" />
+      <div class="home overflow-auto relative w-[100%] h-[100%]">
         <template v-if="menuList.length">
           <!-- 标题 -->
-          <div
-            v-if="!markdownType"
-            class="title width100 flex align-items-center justify-content-center"
-          >
+          <div v-if="!markdownType" class="title w-[100%] flex items-center justify-center">
             {{ title }}
           </div>
           <!-- md格式 -->

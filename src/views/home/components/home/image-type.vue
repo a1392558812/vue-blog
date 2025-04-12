@@ -57,7 +57,7 @@ export default {
   render() {
     return (
       <>
-        <div class="image width100">
+        <div class="image w-[100%]">
           <div>预览 / 点击查看详情</div>
           <div class="image-wrap flex">
             <div
@@ -84,7 +84,7 @@ export default {
         {this.showPopup ? (
           /* 图片大屏展示 */
           <div
-            className="popup flex align-items-center justify-content-center relative"
+            className="popup flex items-center justify-center relative"
             onClick={() => {
               this.showPopup = false
             }}

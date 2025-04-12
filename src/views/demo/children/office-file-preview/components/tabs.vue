@@ -30,7 +30,7 @@ export default {
   },
   render() {
     return (
-      <div class="flex flex-direction-column height100">
+      <div class="flex flex-col h-[100%]">
         <div class="flex tabs">
           {this.tabsList.map((item, index) => {
             return (

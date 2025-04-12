@@ -32,8 +32,8 @@ export default {
                 onClick={this.handelClick}
                 class={`absolute popup ${this.ifLarger ? 'popup-pc' : 'fixed popup-phone'}`}
               >
-                <div class="popup-inner flex flex-direction-column">
-                  <p class="title flex align-items-center justify-content-center">{noticeTitle}</p>
+                <div class="popup-inner flex flex-col">
+                  <p class="title flex items-center justify-center">{noticeTitle}</p>
                   <p class="cell">如有疑问联系我QQ:1392558812</p>
                   {notice.map((item, index) => (
                     <p key={index} class="cell">

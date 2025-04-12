@@ -10,7 +10,7 @@
       <div class="infinite-scroll-item" v-for="(item, index) in dataList" :key="index">
         <div>{{ item.name }}</div>
       </div>
-      <div v-if="loading" class="flex align-items-center justify-content-center">加载中.....</div>
+      <div v-if="loading" class="flex items-center justify-center">加载中.....</div>
     </div>
   </div>
 </template>

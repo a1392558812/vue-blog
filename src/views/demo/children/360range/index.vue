@@ -1,5 +1,5 @@
 <template>
-  <div class="width100 height100 relative panorama-wrap">
+  <div class="w-[100%] h-[100%] relative panorama-wrap">
     <vr-component @select-marker="selectMarker" />
     <toast ref="toastRefDom" />
   </div>

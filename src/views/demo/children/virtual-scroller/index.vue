@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-direction-column relative virtual-scroller">
-    <div class="flex align-items-center justify-content-center virtual-scroller-header">
+  <div class="flex flex-col relative virtual-scroller">
+    <div class="flex items-center justify-center virtual-scroller-header">
       <div style="margin-right: 10px">当前记录条数: {{ list.length }}</div>
       <button v-if="loading">加载中...</button>
       <template v-else>
@@ -31,7 +31,7 @@
         <template #before>
           <div
             style="margin-bottom: 20px"
-            class="dynamic-scroller-slot flex align-items-center justify-content-center"
+            class="dynamic-scroller-slot flex items-center justify-center"
           >
             🥵插槽头部🥵
           </div>
@@ -43,7 +43,7 @@
             :size-dependencies="[item.width, item.hegiht]"
             :data-index="index"
           >
-            <div class="dynamic-scroller-item flex align-items-center justify-content-center">
+            <div class="dynamic-scroller-item flex items-center justify-center">
               <div
                 :id="`item-${index}`"
                 class="dynamic-scroller-item-content"
@@ -68,16 +68,14 @@
         <template #after>
           <div
             style="margin-top: 20px"
-            class="dynamic-scroller-slot flex align-items-center justify-content-center"
+            class="dynamic-scroller-slot flex items-center justify-center"
           >
             🥵{{ loading ? 'loading....' : '插槽底部' }}🥵
           </div>
         </template>
       </DynamicScroller>
     </div>
-    <div class="flex align-items-center justify-content-center virtual-scroller-bottom">
-      #footer
-    </div>
+    <div class="flex items-center justify-center virtual-scroller-bottom">#footer</div>
     <toast ref="toastRef" />
   </div>
 </template>

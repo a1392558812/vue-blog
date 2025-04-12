@@ -3,14 +3,10 @@
     <div :style="{ fontWeight: 'bold', color: '#FB7299' }" class="content">
       在线字符串解析为vue模板演示
     </div>
-    <button v-if="!refreshinput" class="display-block" @click="createRender">
+    <button v-if="!refreshinput" class="block" @click="createRender">
       在下方textarea输入<i style="color: red">***.vue格式</i>代码,点击生成组件
     </button>
-    <textarea
-      v-if="!refreshinput"
-      class="display-block textarea"
-      v-model="inputTemplate"
-    ></textarea>
+    <textarea v-if="!refreshinput" class="block textarea" v-model="inputTemplate"></textarea>
     <div>
       <component v-if="refreshinput" :is="'customComponent'"></component>
     </div>

@@ -1,24 +1,24 @@
 <template>
   <div class="diff-warp overflow-y-auto">
-    <div class="flex justify-content-space-between">
-      <div class="flex-1 flex-direction-column align-items-center justify-content-center">
-        <p class="text-align-center">str1（编辑）:</p>
-        <textarea class="width100 diff-textarea" v-model="str1" />
+    <div class="flex justify-between">
+      <div class="flex-1 flex-col items-center justify-center">
+        <p class="text-center">str1（编辑）:</p>
+        <textarea class="w-[100%] diff-textarea" v-model="str1" />
         <div style="border-bottom: 1px solid #000">预览【 ↓ 】：</div>
         <markdown class="markdown" style="white-space: pre-wrap" :markdownText="computedStr1" />
       </div>
       <div
-        class="flex-1 flex-direction-column align-items-center justify-content-center"
+        class="flex-1 flex-col items-center justify-center"
         style="border-left: 1px solid #000; border-right: 1px solid #000"
       >
-        <p class="text-align-center">str2（编辑）:</p>
-        <textarea class="width100 diff-textarea" v-model="str2" />
+        <p class="text-center">str2（编辑）:</p>
+        <textarea class="w-[100%] diff-textarea" v-model="str2" />
         <div style="border-bottom: 1px solid #000">预览【 ↓ 】：</div>
         <markdown class="markdown" style="white-space: pre-wrap" :markdownText="computedStr2" />
       </div>
-      <div class="flex-1 flex-direction-column align-items-center justify-content-center">
-        <p class="text-align-center">str1与str2对比:</p>
-        <textarea class="width100 diff-textarea" disabled />
+      <div class="flex-1 flex-col items-center justify-center">
+        <p class="text-center">str1与str2对比:</p>
+        <textarea class="w-[100%] diff-textarea" disabled />
         <div style="border-bottom: 1px solid #000">预览【 ↓ 】：</div>
         <markdown class="markdown" style="white-space: pre-wrap" :markdownText="str3" />
       </div>

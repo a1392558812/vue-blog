@@ -26,9 +26,9 @@ export default {
   render() {
     return (
       <>
-        <div class="title flex align-items-center justify-content-center">{this.title}</div>
+        <div class="title flex items-center justify-center">{this.title}</div>
         <div class="relative markdown" v-loading={this.loading}>
-          {this.loading ? null : <v-md-preview class="width100" text={this.htmlMD} />}
+          {this.loading ? null : <v-md-preview class="w-[100%]" text={this.htmlMD} />}
         </div>
       </>
     )

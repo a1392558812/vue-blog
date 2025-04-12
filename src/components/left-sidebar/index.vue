@@ -43,9 +43,9 @@ export default {
 
     // 左侧菜单的样式
     const sidebarClassName = computed(() => {
-      let classname = 'left-sidebar flex-shrink-0 bg-white height100'
+      let classname = 'left-sidebar shrink-0 bg-style h-[100%]'
       if (!props.ifLarger) {
-        classname = `${classname} absolute ${props.ifShowMenu ? 'translateX-0' : 'translateX-100'}`
+        classname = `${classname} absolute ${props.ifShowMenu ? 'translate-x-[0]' : 'translate-x-[100%]'}`
       } else {
         classname = `${classname}`
       }
@@ -146,7 +146,7 @@ export default {
     return (
       <div class={this.sidebarClassName}>
         {this.menuList.length ? (
-          <div class="flex height100 relative flex-direction-column left-sidebar-content">
+          <div class="flex h-[100%] relative flex-col left-sidebar-content">
             <leftSidebarSearch
               class="search"
               toggleMenu={this.toggleMenu}
@@ -157,13 +157,13 @@ export default {
             />
             <div
               key={this.ifLarger}
-              class={`flex-1 flex-shrink-0 relative list-wrap ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'}`}
+              class={`flex-1 shrink-0 relative list-wrap ${this.ifLarger ? 'overflow-y-hidden' : 'overflow-y-auto'}`}
             >
               <div
                 ref={(node) => {
                   this.listContentRef = node
                 }}
-                class={`list-content height100 ${this.ifLarger ? 'overflow-y-hidden' : ''}`}
+                class={`list-content h-[100%] ${this.ifLarger ? 'overflow-y-hidden' : ''}`}
               >
                 <div style={{ padding: '0 0 50px 0' }}>
                   {this.menuList.map((item, index) => {

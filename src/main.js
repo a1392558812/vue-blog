@@ -5,6 +5,7 @@ import router from './router'
 import 'jquery'
 import './assets/common.scss'
 import './assets/reset.css'
+import 'virtual:uno.css'
 
 import loading from './components/loading/loading.vue'
 import createLoadingLikeDirective from './directive/loading'

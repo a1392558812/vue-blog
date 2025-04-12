@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-wrap" style="padding: 10px">
-    <div class="flex-shrink-0 filed">
+    <div class="shrink-0 filed">
       <div>输入css代码</div>
-      <textarea class="width100" style="height: 300px; resize: none" v-model="cssCode" />
+      <textarea class="w-[100%]" style="height: 300px; resize: none" v-model="cssCode" />
     </div>
 
-    <div class="flex-shrink-0 filed" style="width: 1200px">
+    <div class="shrink-0 filed" style="width: 1200px">
       <div>输出css代码</div>
-      <div class="width100 overflow-auto" style="height: 300px">
+      <div class="w-[100%] overflow-auto" style="height: 300px">
         <div style="margin-bottom: 10px; padding: 10px">
-          <div class="width100" style="word-wrap: break-word">{{ result[0] }}</div>
+          <div class="w-[100%]" style="word-wrap: break-word">{{ result[0] }}</div>
         </div>
       </div>
     </div>

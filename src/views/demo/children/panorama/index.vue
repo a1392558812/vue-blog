@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-hidden panorama">
-    <iframe class="width100 height100" :src="iframeSrc"></iframe>
+    <iframe class="w-[100%] h-[100%]" :src="iframeSrc"></iframe>
   </div>
 </template>
 <script>

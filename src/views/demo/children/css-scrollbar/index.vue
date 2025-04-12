@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-content-center align-items-stretch">
+  <div class="flex justify-center items-stretch">
     <div class="form-input">
       <div
-        class="flex align-items-center form-filed"
+        class="flex items-center form-filed"
         v-for="(item, index) in [
           { label: 'box宽', key: 'width' },
           { label: 'box高', key: 'height' },
@@ -24,7 +24,7 @@
         />
       </div>
       <div
-        class="flex align-items-center form-filed"
+        class="flex items-center form-filed"
         v-for="(item, index) in [
           { label: '滚动条轨道颜色', key: 'scrollbarTrackColor' },
           { label: '滚动条滑块颜色', key: 'scrollbarThumbColor' },

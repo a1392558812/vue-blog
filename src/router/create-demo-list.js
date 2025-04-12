@@ -340,6 +340,15 @@ export const demoList = [
       demoName: 'breakout-ball'
     },
     component: () => import('../views/demo/children/breakout-ball/index.vue')
+  },
+  {
+    path: 'snake',
+    name: 'snake',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '斯内克！！！'
+    },
+    component: () => import('../views/demo/children/snake/index.vue')
   }
 ]
 

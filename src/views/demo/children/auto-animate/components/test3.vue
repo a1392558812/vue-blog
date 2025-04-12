@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="toggle">切换</button>
-    <div class="relative width100" ref="parent">
+    <div class="relative w-[100%]" ref="parent">
       <div
         class="absolute"
         v-for="(item, index) in styleList"

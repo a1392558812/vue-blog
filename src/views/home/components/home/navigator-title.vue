@@ -1,9 +1,9 @@
 <template>
-  <div class="sticky flex-shrink-0 height100 markdown-title">
-    <div class="width100 height100 overflow-y-auto overflow-x-hidden; markdown-title-inner">
-      <div class="width100 text-align-center markdown-title-navigator">标题导航</div>
+  <div class="sticky shrink-0 h-[100%] markdown-title">
+    <div class="w-[100%] h-[100%] overflow-y-auto overflow-x-hidden; markdown-title-inner">
+      <div class="w-[100%] text-center markdown-title-navigator">标题导航</div>
       <div class="markdown-title-wrap">
-        <div class="overflow-y-hidden height100 relative markdown-title-main" ref="listContentRef">
+        <div class="overflow-y-hidden h-[100%] relative markdown-title-main" ref="listContentRef">
           <div class="markdown-title-list">
             <div
               v-for="(anchor, index) in articleTitles"

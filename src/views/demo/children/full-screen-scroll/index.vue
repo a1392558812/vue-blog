@@ -1,31 +1,21 @@
 <template>
   <div>
-    <div class="fixed flex flex-direction-row-reverse align-items-center width100 fullpage-header">
-      <button class="line-height-1 display-block fullpage-header-btn" @click="handle1">
-        向上滚1屏幕
-      </button>
-      <button class="line-height-1 display-block fullpage-header-btn" @click="handle2">
+    <div class="fixed flex flex-row-reverse items-center w-[100%] fullpage-header">
+      <button class="lh-none block fullpage-header-btn" @click="handle1">向上滚1屏幕</button>
+      <button class="lh-none block fullpage-header-btn" @click="handle2">
         移动到5屏第3个slide
       </button>
     </div>
     <div id="fullpage" class="relative">
-      <div class="height100 flex align-items-center justify-content-center section">第1屏</div>
-      <div class="height100 flex align-items-center justify-content-center section">第2屏</div>
-      <div class="height100 flex align-items-center justify-content-center section">第3屏</div>
-      <div class="height100 flex align-items-center justify-content-center section">第4屏</div>
-      <div class="height100 overflow-auto section">
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide1">
-          抽象屏 1
-        </div>
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide2">
-          抽象屏 2
-        </div>
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide3">
-          抽象屏 3
-        </div>
-        <div class="flex align-items-center justify-content-center slide" data-anchor="slide4">
-          抽象屏 4
-        </div>
+      <div class="h-[100%] flex items-center justify-center section">第1屏</div>
+      <div class="h-[100%] flex items-center justify-center section">第2屏</div>
+      <div class="h-[100%] flex items-center justify-center section">第3屏</div>
+      <div class="h-[100%] flex items-center justify-center section">第4屏</div>
+      <div class="h-[100%] overflow-auto section">
+        <div class="flex items-center justify-center slide" data-anchor="slide1">抽象屏 1</div>
+        <div class="flex items-center justify-center slide" data-anchor="slide2">抽象屏 2</div>
+        <div class="flex items-center justify-center slide" data-anchor="slide3">抽象屏 3</div>
+        <div class="flex items-center justify-center slide" data-anchor="slide4">抽象屏 4</div>
       </div>
     </div>
   </div>

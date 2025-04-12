@@ -1,6 +1,6 @@
 <template>
-  <div class="width100 height100 relative scene-wrap">
-    <div class="relative width100 height100 scene-content">
+  <div class="w-[100%] h-[100%] relative scene-wrap">
+    <div class="relative w-[100%] h-[100%] scene-content">
       <Renderer
         ref="renderer"
         resize
@@ -77,9 +77,9 @@
       </Renderer>
     </div>
     <teleport to="body">
-      <div ref="targetToast" class="line-height-1 absolute align-center toast">
+      <div ref="targetToast" class="lh-none absolute align-center toast">
         <div class="absolute align-center toast-content">吉尼太美-baby</div>
-        <div class="width100 height100 absolute toast-bg"></div>
+        <div class="w-[100%] h-[100%] absolute toast-bg"></div>
       </div>
     </teleport>
   </div>

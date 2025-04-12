@@ -1,5 +1,5 @@
 <template>
-  <div class="width100 overflow-y-auto tribute-main">
+  <div class="w-[100%] overflow-y-auto tribute-main">
     <tribute class="tribute" />
     <asyncTribute class="tribute" />
     <pre class="overflow-y-auto pre">

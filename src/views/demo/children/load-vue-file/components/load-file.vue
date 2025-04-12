@@ -3,7 +3,7 @@
     <div :style="{ fontWeight: 'bold', color: '#FB7299' }" class="content">
       远程加载vue文件演示,请求内容可打开F12控制台[网络]看
     </div>
-    <div class="flex align-items-center justify-content-center">
+    <div class="flex items-center justify-center">
       <div class="content" style="margin-right: 20px">
         <div>父组件</div>
         <div>

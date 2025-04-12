@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-items-stretch justify-content-center css-triangle">
+  <div class="flex items-stretch justify-center css-triangle">
     <div class="css-triangle-filed">
       <div class="css-triangle-params">
         <span>方向：</span>
@@ -61,10 +61,10 @@
         />
       </div>
       <div class="css-triangle-params" style="margin-bottom: 0">
-        <pre class="width100"><code class="display-block width100">{{ triangleStyle }}</code></pre>
+        <pre class="w-[100%]"><code class="block w-[100%]">{{ triangleStyle }}</code></pre>
       </div>
     </div>
-    <div class="flex align-items-center justify-content-center css-triangle-output-wrap">
+    <div class="flex items-center justify-center css-triangle-output-wrap">
       <div class="css-triangle-output" :style="triangleStyle"></div>
     </div>
     <div>

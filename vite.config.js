@@ -8,6 +8,7 @@ import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
 import inject from '@rollup/plugin-inject'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import UnoCSS from 'unocss/vite'
 // import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
@@ -17,6 +18,7 @@ export default defineConfig((config) => {
     vue(),
     vueJsx(),
     vueDevTools(),
+    UnoCSS(),
     inject({
       $: 'jquery',
       jQuery: 'jquery',

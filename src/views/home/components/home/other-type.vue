@@ -3,7 +3,7 @@
     <div class="downLoad-cell">链接： {{ htmlMD }}</div>
     <div class="downLoad-cell">文件名： {{ downloadName }}</div>
     <div class="downLoad-cell downLoad-wrap flex">
-      <a class="display-block downLoad" :href="htmlMD" :download="downloadName">下载</a>
+      <a class="block downLoad" :href="htmlMD" :download="downloadName">下载</a>
     </div>
   </div>
 </template>

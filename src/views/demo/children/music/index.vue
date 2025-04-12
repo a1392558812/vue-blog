@@ -4,12 +4,12 @@
       backgroundColor: 'black',
       height: '100vh'
     }"
-    class="width100 height100 overflow-hidden overflow-y-auto"
-    :class="ifLarger ? 'flex align-items-center justify-content-center flex-direction-column' : ''"
+    class="w-[100%] h-[100%] overflow-hidden overflow-y-auto"
+    :class="ifLarger ? 'flex items-center justify-center flex-col' : ''"
   >
     <div
       v-if="ifLarger"
-      class="navigatorBack cursor-pointer flex flex-direction-column align-items-center justify-content-center"
+      class="navigatorBack cursor-pointer flex flex-col items-center justify-center"
       @click="randomList = randomListFun()"
     >
       <div class="title-wrap">
@@ -25,13 +25,13 @@
         ...(ifLarger ? { height: '550px' } : {}),
         borderRadius: ifLarger ? '20px' : 'none'
       }"
-      class="music-wrap overflow-hidden relative flex align-items-center"
-      :class="ifLarger ? ' justify-content-around' : 'flex-direction-column justify-content-center'"
+      class="music-wrap overflow-hidden relative flex items-center"
+      :class="ifLarger ? ' justify-around' : 'flex-col justify-center'"
     >
       <!-- 背景图 -->
       <div
         :style="{ borderRadius: ifLarger ? '20px' : 'none' }"
-        class="music-wrap-bg width100 height100 absolute overflow-hidden"
+        class="music-wrap-bg w-[100%] h-[100%] absolute overflow-hidden"
       >
         <div
           class="music-wrap-bg-content absolute"
@@ -48,7 +48,7 @@
         type="translate"
       >
         <kinesis-element
-          class="wave5-wrap width100 height100"
+          class="wave5-wrap w-[100%] h-[100%]"
           :style="item.styleChild"
           :transform-origin="item.transformOrigin"
           :max-scale="1.25"
@@ -69,7 +69,7 @@
           <kinesis-audio
             :max-scale="1.5"
             :min-scale="0.5"
-            class="width100 height100 wave1"
+            class="w-[100%] h-[100%] wave1"
             :audio-index="5"
             :strength="90"
             type="scale"
@@ -81,7 +81,7 @@
           <kinesis-audio
             :max-scale="1.1"
             :min-scale="0.5"
-            class="width100 height100 wave2"
+            class="w-[100%] h-[100%] wave2"
             :audio-index="15"
             :strength="60"
             type="scale"
@@ -121,7 +121,7 @@
         <kinesis-element class="wave3-wrap absolute" :strength="25" type="depth">
           <kinesis-audio
             transform-origin="100% 100%"
-            class="width100 height100 wave3"
+            class="w-[100%] h-[100%] wave3"
             :audio-index="15"
             :strength="65"
             type="scale"
@@ -146,13 +146,13 @@
         </transition>
         <!-- 波形进度条与控制按钮 -->
         <div
-          class="flex align-items-center relative flex justify-content-space-between"
-          :class="ifLarger ? '' : 'flex-direction-column'"
+          class="flex items-center relative flex justify-between"
+          :class="ifLarger ? '' : 'flex-col'"
         >
           <!-- 是否加载生成波形图中 -->
           <div
             v-show="!ifInitWavesurfer"
-            class="absolute width100 height100 flex align-items-center justify-content-center"
+            class="absolute w-[100%] h-[100%] flex items-center justify-center"
           >
             <div class="spinner">
               <div class="bounce1" />
@@ -162,7 +162,7 @@
           </div>
           <!-- 控制按钮 -->
           <div
-            class="flex align-items-center justify-content-center"
+            class="flex items-center justify-center"
             :style="
               ifLarger
                 ? { visibility: ifInitWavesurfer ? 'visible' : 'hidden' }
@@ -202,7 +202,7 @@
               </svg>
             </div>
             <div
-              class="music-button cursor-pointer flex align-items-center justify-content-center"
+              class="music-button cursor-pointer flex items-center justify-center"
               @click="playAudio = !playAudio"
             >
               <!-- 播放 -->

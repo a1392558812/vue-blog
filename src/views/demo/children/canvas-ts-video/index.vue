@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-direction-column align-items-center justify-content-center">
+  <div class="flex flex-col items-center justify-center">
     <div>
       <canvas width="426" height="240" ref="canvasRef" class="canvas-view"></canvas>
       <div>
@@ -13,18 +13,18 @@
             }
           "
         >
-          <span class="display-inline-block label">暂停/播放</span>
+          <span class="inline-block label">暂停/播放</span>
         </button>
         <button class="video-btn" @click="setCurrentTime">
-          <span class="display-inline-block label">在第</span>
+          <span class="inline-block label">在第</span>
           <input
-            class="display-inline-block label"
+            class="inline-block label"
             @click.stop="() => {}"
             type="number"
             v-model="inputValue"
             @input="onInput"
           />
-          <span class="display-inline-block label">秒处播放播放</span>
+          <span class="inline-block label">秒处播放播放</span>
         </button>
       </div>
     </div>

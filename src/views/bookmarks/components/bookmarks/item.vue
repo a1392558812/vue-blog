@@ -47,9 +47,7 @@ export default {
                     data.icon ? (
                       <img className="link-img" src={data.icon} />
                     ) : (
-                      <div className="link-img flex align-items-center justify-content-space-between">
-                        🥵
-                      </div>
+                      <div className="link-img flex items-center justify-between">🥵</div>
                     )
                   }
                   <a className="link-item" href={data.href}>
@@ -58,7 +56,7 @@ export default {
                 </div>
               ) : (
                 // 如果 data.href 为空，渲染一个文本项，并带有可点击切换的图标
-                <div className="flex align-items-center">
+                <div className="flex items-center">
                   <div className="title-item" onClick={() => handelClick(data)}>
                     <span className="cursor-pointer ">{data.name}</span>
                   </div>
@@ -96,7 +94,7 @@ export default {
             {
               // 判断是否渲染子内容，条件为 level 有定义并且 data 对象有 child 属性且 child 属性不为空
               ifRender() && data.child && data.child.length ? (
-                <div className={`content ${!level ? true : data.ifShow ? '' : 'display-none'}`}>
+                <div className={`content ${!level ? true : data.ifShow ? '' : 'hidden'}`}>
                   {
                     // 循环渲染子项，并且每一项都递归调用 renderFun 函数
                     data.child.map((item, index) => {

@@ -8,7 +8,7 @@
       class="play-ground-plane-wrap"
       :style="{ width: playGroundPlaneWidth, height: playGroundPlaneReplHeight }"
     >
-      <div class="header flex align-items-center justify-content-space-between">
+      <div class="header flex items-center justify-between">
         <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
           <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
             <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
@@ -16,11 +16,11 @@
             <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
           </g>
         </svg>
-        <div class="header-icon flex align-items-center">
+        <div class="header-icon flex items-center">
           <div
             style="height: 1.7em"
             v-if="isSupported && memory"
-            class="flex align-items-center relative memory-icon-wrap"
+            class="flex items-center relative memory-icon-wrap"
           >
             <svg
               class="cursor-pointer header-icon-item"
@@ -42,16 +42,16 @@
               ></path>
             </svg>
             <div class="absolute align-center-x memory-icon">
-              <div class="white-space-nowrap cursor-pointer header-icon-item">
+              <div class="whitespace-nowrap cursor-pointer header-icon-item">
                 Used: {{ sizeFixed(memory.usedJSHeapSize) }}
               </div>
-              <div class="white-space-nowrap cursor-pointer header-icon-item">
+              <div class="whitespace-nowrap cursor-pointer header-icon-item">
                 Allocated: {{ sizeFixed(memory.totalJSHeapSize) }}
               </div>
-              <div class="white-space-nowrap cursor-pointer header-icon-item">
+              <div class="whitespace-nowrap cursor-pointer header-icon-item">
                 Limit: {{ sizeFixed(memory.jsHeapSizeLimit) }}
               </div>
-              <div class="white-space-nowrap cursor-pointer header-icon-item">FPS: {{ fps }}</div>
+              <div class="whitespace-nowrap cursor-pointer header-icon-item">FPS: {{ fps }}</div>
             </div>
           </div>
 

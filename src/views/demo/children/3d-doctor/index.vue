@@ -1,7 +1,7 @@
 <template>
   <div class="relative canvas-wrap">
     <div id="canvas"></div>
-    <div class="absolute line-height-1 tips">
+    <div class="absolute lh-none tips">
       模型有3mb的大小，github加载很慢，能不能加载出来听天由命吧
     </div>
   </div>

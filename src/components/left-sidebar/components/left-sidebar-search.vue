@@ -2,7 +2,7 @@
   <div ref="target" style="z-index: 1" class="relative cell list-cell">
     <div
       title="整理菜单"
-      class="absolute align-center-y flex align-items-center justify-content-center cursor-pointer menu-list-close"
+      class="absolute align-center-y flex items-center justify-center cursor-pointer menu-list-close"
       @click="menuListCloseAll"
     >
       <svg
@@ -25,7 +25,7 @@
         ></path>
       </svg>
     </div>
-    <div class="relative width100 height100 flex align-items-center justify-content-space-between">
+    <div class="relative w-[100%] h-[100%] flex items-center justify-between">
       <div class="relative">
         <div class="input relative">
           <svg
@@ -49,19 +49,17 @@
           </svg>
           <input
             v-model="inputValue"
-            class="display-block search-input"
+            class="block search-input"
             type="text"
             @focus="ifShowSearchDropDown = true"
           />
         </div>
-        <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute bg-white drop-down">
+        <ul v-if="searchResult.length && ifShowSearchDropDown" class="absolute bg-style drop-down">
           <li
             v-for="item in searchResult"
             :key="item"
             class="cursor-pointer drop-down-item"
-            :class="
-              item.goSearch ? 'flex align-items-center justify-content-center more-content' : ''
-            "
+            :class="item.goSearch ? 'flex items-center justify-center more-content' : ''"
           >
             <a
               class="drop-down-item-label"
@@ -72,7 +70,7 @@
                 }
               "
             >
-              <linkTag class="display-inline" v-if="item.link" />
+              <linkTag class="inline" v-if="item.link" />
               <span>{{ item.name }}</span>
             </a>
           </li>

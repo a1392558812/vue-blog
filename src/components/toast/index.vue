@@ -2,7 +2,7 @@
   <div class="absolute toast-wrap">
     <transition-group :duration="550" name="nested">
       <div class="toast overflow-hidden" v-for="item in toastArr" :key="item.id">
-        <div class="flex align-items-center line-height-1 toast-content">
+        <div class="flex items-center lh-none toast-content">
           <div style="margin-right: 20px">{{ item.content }}</div>
           <svg
             @click="closeToast(item.id, item.setTimeoutId)"
@@ -26,7 +26,7 @@
             ></path>
           </svg>
         </div>
-        <div class="width100 duration">
+        <div class="w-[100%] duration">
           <div
             v-if="item.showDurationLine"
             :style="{

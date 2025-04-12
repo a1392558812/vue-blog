@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="!ifLarger"
-    :class="showNavLink ? 'translateX-0' : 'translateX-100'"
-    class="absolute height100 bg-white flex-shrink-0 left-nav-link"
+    :class="showNavLink ? 'translate-x-[0]' : 'translate-x-[100%]'"
+    class="absolute h-[100%] bg-style shrink-0 left-nav-link"
   >
     <common-nav-link
       :if-larger="ifLarger"

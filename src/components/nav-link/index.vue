@@ -31,22 +31,58 @@ export default {
       router.push(item.url)
     }
 
-    const toggleTheme = () => {
+    const toggleTheme = (e) => {
       const theme = localStorage.getItem('--global-theme')
-      if (themeType[theme]) {
-        if (theme === 'light') {
-          localStorage.setItem('--global-theme', 'dark')
-          store.dispatch(SET_THEME, 'dark')
-          return
-        }
-        if (theme === 'dark') {
-          localStorage.setItem('--global-theme', 'light')
-          store.dispatch(SET_THEME, 'light')
-        }
-      } else {
-        localStorage.setItem('--global-theme', 'dark')
-        store.dispatch(SET_THEME, 'dark')
-      }
+      document.startViewTransition(() => {
+        // 执行切换主题的操作
+        const transition = document.startViewTransition(() => {
+          // 动画过渡切换主题色
+          if (themeType[theme]) {
+            if (theme === 'light') {
+              localStorage.setItem('--global-theme', 'dark')
+              store.dispatch(SET_THEME, 'dark')
+              return
+            }
+            if (theme === 'dark') {
+              localStorage.setItem('--global-theme', 'light')
+              store.dispatch(SET_THEME, 'light')
+              return
+            }
+          } else {
+            localStorage.setItem('--global-theme', 'dark')
+            store.dispatch(SET_THEME, 'dark')
+          }
+        })
+
+        // document.startViewTransition 的ready 返回一个 Promise
+        transition.ready.then(() => {
+          // 获取鼠标的坐标
+          const { clientX, clientY } = e
+
+          // 计算最大半径
+          const radius = Math.hypot(
+            Math.max(clientX, innerWidth - clientX),
+            Math.max(clientY, innerHeight - clientY)
+          )
+
+          // 圆形动画扩散开始
+          document.documentElement.animate(
+            [
+              {
+                clipPath: `circle(0% at ${clientX}px ${clientY}px)`
+              },
+              {
+                clipPath: `circle(${radius}px at ${clientX}px ${clientY}px)`
+              }
+            ],
+            // 设置时间，已经目标伪元素
+            {
+              duration: 300,
+              pseudoElement: '::view-transition-new(root)'
+            }
+          )
+        })
+      })
     }
 
     const linkList = ref([
@@ -84,7 +120,7 @@ export default {
       <a
         key={index}
         style={{ marginRight: index < linkList.value.length - 1 ? '15px' : '' }}
-        class="go-home display-block flex-shrink-0 cursor-pointer flex align-items-center justify-content-start"
+        class="go-home block shrink-0 cursor-pointer flex items-center justify-start"
         href={`/#${item.url}`}
         onClick={(e) => {
           handleClick(item, e)
@@ -106,11 +142,11 @@ export default {
   render() {
     return (
       <>
-        <div class={`flex ${this.ifLarger ? 'align-items-center' : 'flex-direction-column'}`}>
+        <div class={`flex ${this.ifLarger ? 'items-center' : 'flex-col'}`}>
           {this.ifLarger ? (
             <div class="go-home-list relative">
-              <div class="go-home flex flex-nowrap align-items-center justify-content-center cursor-pointer">
-                <span class="flex-shrink-0">导航</span>
+              <div class="go-home flex flex-nowrap items-center justify-center cursor-pointer">
+                <span class="shrink-0">导航</span>
                 <svg
                   style="margin-left: .25em;width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +164,7 @@ export default {
                     return target.name.length + 1
                   })()}em`
                 }}
-                class="bg-white box-sizing width100 absolute go-home-list-content"
+                class="bg-style box-sizing w-[100%] absolute go-home-list-content"
               >
                 {this.linkList.map((item, index) => {
                   return this.commonLink(item, index)
@@ -143,7 +179,7 @@ export default {
             </div>
           )}
 
-          <div class="flex flex-shrink-0">
+          <div class="flex shrink-0">
             <commonmBtn style={{ height: '1em', marginRight: '1em' }} onClick={this.toggleTheme}>
               切换主题
             </commonmBtn>

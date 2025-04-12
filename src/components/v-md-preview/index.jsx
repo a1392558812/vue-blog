@@ -3,7 +3,7 @@ import { baseUrlFun, asyncLoadJs } from '@/common/util/methods.js'
 import loadingComponent from '@/components/loading/loading.vue'
 
 const wrapComponent = (
-  <div style="min-height: 800px; font-size: 12px; font-weight: bold" class="width100 relative">
+  <div style="min-height: 800px; font-size: 12px; font-weight: bold" class="w-[100%] relative">
     <slot />
   </div>
 )
@@ -22,7 +22,7 @@ export default defineAsyncComponent({
   },
   errorComponent: () => {
     return (
-      <wrapComponent class="flex align-items-center justify-content-center">
+      <wrapComponent class="flex items-center justify-center">
         <div style="font-size: 2.2rem; font-weight: 600; line-height: 1.25; color: var(--global-markdown-body-text-color)">
           加载错误，刷新浏览器试试
         </div>
@@ -35,7 +35,7 @@ export default defineAsyncComponent({
         <loadingComponent style="background-color: transparent" showModal={true}>
           <div
             style="font-weight: bold"
-            class="width100 height100 flex align-items-center justify-content-center"
+            class="w-[100%] h-[100%] flex items-center justify-center"
           >
             加载中...
           </div>

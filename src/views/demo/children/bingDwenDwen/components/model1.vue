@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="width100 notice">这是一个纯css的冰墩墩,掘金大佬做的，</div>
-    <div class="width100 notice">觉得好看就放这里来了。</div>
-    <div class="width100 notice">一时没想好这个页做点啥。</div>
+    <div class="w-[100%] notice">这是一个纯css的冰墩墩,掘金大佬做的，</div>
+    <div class="w-[100%] notice">觉得好看就放这里来了。</div>
+    <div class="w-[100%] notice">一时没想好这个页做点啥。</div>
     <div id="bingdundun" style="z-index: 0">
       <div class="body" />
       <div class="earLeft" />

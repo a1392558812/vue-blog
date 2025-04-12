@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-content-center align-items-stretch">
+  <div class="flex justify-center items-stretch">
     <div class="box-form">
       <div
         v-for="(item, index) in [
@@ -12,7 +12,7 @@
           { label: '虚线中实线占比', key: 'borderRate' }
         ]"
         :key="index"
-        class="flex align-items-center form-filed"
+        class="flex items-center form-filed"
       >
         <div>{{ item.label }}：</div>
         <input
@@ -25,7 +25,7 @@
           "
         />
       </div>
-      <div class="flex align-items-center form-filed">
+      <div class="flex items-center form-filed">
         <div>虚线颜色：</div>
         <input v-model="params.borderColor" type="color" />
       </div>
@@ -42,9 +42,9 @@
         ]"
         :key="index"
         class="output-from-filed"
-      ><code class="display-block width100">{{ item.label }} {{ item.value }}</code></pre>
+      ><code class="block w-[100%]">{{ item.label }} {{ item.value }}</code></pre>
     </div>
-    <div class="flex align-items-center justify-content-center output-result">
+    <div class="flex items-center justify-center output-result">
       <div :style="boxStyle" class="relative border-box-wrap">
         <div :style="borderTopStyle"></div>
         <div :style="borderLeftStyle"></div>

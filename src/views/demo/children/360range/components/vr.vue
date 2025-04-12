@@ -1,6 +1,6 @@
 <template>
-  <div class="width100 height100">
-    <div id="viewer" class="width100 height100"></div>
+  <div class="w-[100%] h-[100%]">
+    <div id="viewer" class="w-[100%] h-[100%]"></div>
     <div id="custom-tooltip-0"></div>
     <div id="custom-tooltip-1"></div>
   </div>
@@ -40,7 +40,7 @@ export default {
               content: `
                       <div class="custom-tooltip-content-wrap">
                         <div class="custom-tooltip-content">提示：这里是黑手之山！</div>
-                        <img class="line-height-1 custom-tooltip-image" src='${tooltipImg1}'/>
+                        <img class="lh-none custom-tooltip-image" src='${tooltipImg1}'/>
                       </div>
                       `,
               toastContent: 'toastContent1',
@@ -64,7 +64,7 @@ export default {
               content: `
                       <div class="custom-tooltip-content-wrap">
                         <div class="custom-tooltip-content">哈哈！这里还是黑手之山！</div>
-                        <img class="line-height-1 display-block custom-tooltip-image" src='${tooltipImg2}'/>
+                        <img class="lh-none block custom-tooltip-image" src='${tooltipImg2}'/>
                       </div>
                       `,
               toastContent: 'toastContent2',

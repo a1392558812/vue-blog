@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-direction-column justify-content-center">
+  <div class="flex flex-col justify-center">
     <div class="notice">转载自掘金大佬</div>
     <div class="notice">
       作者：奶油小泡芙,链接：<a class="link" href="https://juejin.cn/post/7086866648451252254"
         >https://juejin.cn/post/7086866648451252254</a
       >
     </div>
-    <div class="relative flex align-items-center justify-content-center naruto-wrap">
+    <div class="relative flex items-center justify-center naruto-wrap">
       <div id="naruto" class="absolute align-center-x">
         <section class="head"></section>
         <section class="torso"></section>

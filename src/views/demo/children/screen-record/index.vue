@@ -3,36 +3,29 @@
     <div
       v-if="!isSupported"
       style="width: 600px; height: 600px"
-      class="flex align-items-center justify-content-center"
+      class="flex items-center justify-center"
     >
       浏览器不支持
     </div>
     <div v-else>
       <div class="flex">
         <div class="video-player-wrap">
-          <div class="video-label flex align-items-center">
+          <div class="video-label flex items-center">
             <span style="margin-right: 10px">录制预览</span>
             <button @click="enabled ? stopRecorderVideo() : startRecorderVideo()">
               {{ enabled ? '结束录制' : '开始录制' }}
             </button>
           </div>
-          <video
-            class="display-block video-player"
-            ref="videoRef"
-            muted
-            download
-            autoplay
-            controls
-          ></video>
+          <video class="block video-player" ref="videoRef" muted download autoplay controls></video>
         </div>
         <div class="video-player-wrap">
-          <div class="video-label flex align-items-center">
+          <div class="video-label flex items-center">
             <span
               >预览：<a :href="videoDownloadSrc" download>{{ videoDownloadSrc }}</a></span
             >
           </div>
           <video
-            class="display-block video-player"
+            class="block video-player"
             :src="videoDownloadSrc"
             muted
             download

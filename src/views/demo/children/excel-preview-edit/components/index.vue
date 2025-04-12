@@ -1,15 +1,15 @@
 <template>
   <div class="flex">
     <div class="luckysheet-wrap">
-      <div class="relative width100 height100">
+      <div class="relative w-[100%] h-[100%]">
         <div id="luckysheet"></div>
       </div>
     </div>
     <div class="flex-1">
-      <div class="display-block control-btn">
+      <div class="block control-btn">
         <input id="uploadBtn" type="file" @change="loadExcel" />
       </div>
-      <div class="display-block control-btn">
+      <div class="block control-btn">
         <span style="margin-right: 1em">加载远程文件:</span>
         <select style="margin-right: 1em" v-model="selected" @change="selectExcel">
           <option disabled value="">选择远程文件</option>
@@ -18,12 +18,12 @@
           </option>
         </select>
       </div>
-      <button class="display-block control-btn" @click="downloadExcel">下载当前xlsx</button>
-      <button class="display-block control-btn" @click="setCellValue">设置3行4列的数据为69</button>
-      <button class="display-block control-btn" @click="setRangeValue">
+      <button class="block control-btn" @click="downloadExcel">下载当前xlsx</button>
+      <button class="block control-btn" @click="setCellValue">设置3行4列的数据为69</button>
+      <button class="block control-btn" @click="setRangeValue">
         设置(第3行-第4行)与(第3列-第4列)交界处的数据
       </button>
-      <button class="display-block control-btn" @click="insertImage">设置(5,5)处插入图片</button>
+      <button class="block control-btn" @click="insertImage">设置(5,5)处插入图片</button>
     </div>
     <div v-show="isMaskShow" id="tip">Downloading</div>
   </div>

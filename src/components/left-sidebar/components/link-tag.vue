@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-shrink-0 cell-item-link">
+  <div class="shrink-0 cell-item-link">
     <span>{{ tagText }}</span>
   </div>
 </template>

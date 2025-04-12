@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white height100 error">
+  <div class="bg-style h-[100%] error">
     <div class="error-tip">你又进行了什么操作才进了这个页面</div>
     <router-link replace to="/">
       <img class="error-img" :src="imgSrc" alt="" />

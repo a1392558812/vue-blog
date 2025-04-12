@@ -1,7 +1,7 @@
 <template>
   <div class="relative canvas-wrap">
     <div id="canvas"></div>
-    <div class="absolute line-height-1 tips">
+    <div class="absolute lh-none tips">
       <p style="margin-bottom: 10px">模型拢共大小30Mb，github这网速，慢慢加载吧</p>
       <p style="margin-bottom: 10px">这个是学习threejs大佬“暮志未晚”的,</p>
       <p>详情指路：<a href="http://www.wjceo.com/">http://www.wjceo.com/</a></p>

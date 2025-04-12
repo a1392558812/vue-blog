@@ -8,7 +8,7 @@
         <a
           href="#/themes"
           style="margin-right: 30px"
-          class="display-inline-block"
+          class="inline-block"
           v-for="(item, index) in themeList"
           :key="index"
           @click="onSetTheme(item)"

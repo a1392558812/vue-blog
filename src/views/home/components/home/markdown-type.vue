@@ -118,7 +118,7 @@ export default {
   },
   render() {
     return (
-      <div class="width100 height100 relative overflow-hidden flex flex-direction-column">
+      <div class="w-[100%] h-[100%] relative overflow-hidden flex flex-col">
         <div
           style={(() => {
             if (this.ifLarger) {
@@ -131,19 +131,19 @@ export default {
             }
             return {}
           })()}
-          class="width100 bg-white flex flex-shrink-0 align-items-center justify-content-center title"
+          class="w-[100%] bg-style flex shrink-0 items-center justify-center title"
         >
           {this.title}
         </div>
         {!this.loading ? (
-          <div class="width100 height100 relative flex overflow-auto markdown-content">
+          <div class="w-[100%] h-[100%] relative flex overflow-auto markdown-content">
             <div
-              class="width100 height0"
+              class="w-[100%] h-0"
               style={this.ifLarger ? { minWidth: this.markdownContentMinWidth } : {}}
             >
               <div style="padding-bottom: 100px">
                 <v-md-preview
-                  class="width100"
+                  class="w-[100%]"
                   ifLarger={this.ifLarger}
                   onGetVMdPreviewRef={(valueRef) => {
                     this.preview = valueRef
@@ -166,7 +166,7 @@ export default {
           <loadingComponent style="background-color: transparent" showModal={true}>
             <div
               style="font-weight: bold"
-              class="width100 height100 flex align-items-center justify-content-center"
+              class="w-[100%] h-[100%] flex items-center justify-center"
             >
               加载中...
             </div>

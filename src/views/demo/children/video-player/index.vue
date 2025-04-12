@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-items-center justify-content-center video-wrap">
+  <div class="flex items-center justify-center video-wrap">
     <div class="nPlayer-wrap" ref="nPlayerWrapRef"></div>
   </div>
 </template>

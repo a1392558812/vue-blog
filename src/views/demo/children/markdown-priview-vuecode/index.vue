@@ -1,5 +1,5 @@
 <template>
-  <div class="width100 overflow-y-auto markdown-priview-vuecode">
+  <div class="w-[100%] overflow-y-auto markdown-priview-vuecode">
     <div style="min-width: 1000px">
       <div class="vuepress-markdown-body">
         <h1>拓展markdown功能，解析里面的vue代码演示功能</h1>
@@ -10,10 +10,7 @@
           >字符串👇👇👇:
         </p>
         <div class="code-textarea-wrap" v-if="!loading">
-          <textarea
-            class="height100 width100 display-block code-textarea"
-            v-model="htmlMD"
-          ></textarea>
+          <textarea class="h-[100%] w-[100%] block code-textarea" v-model="htmlMD"></textarea>
         </div>
         <p>下面是自定义markdown解析: 👇👇👇</p>
       </div>

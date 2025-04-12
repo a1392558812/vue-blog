@@ -58,7 +58,7 @@ export default {
       if (rowDetails.value.link) {
         className = `link-cell ${className}`
       } else {
-        className = `${className} ${renderList.value.length ? 'list-cell' : 'display-block item-cell'}`
+        className = `${className} ${renderList.value.length ? 'list-cell' : 'block item-cell'}`
       }
       if (nowActive.value === rowDetails.value.indexPage && !rowDetails.value.children) {
         className = `item-active ${className}`
@@ -112,7 +112,7 @@ export default {
           <span style="margin-left: 0.5em">{this.rowDetails.name}</span>
           {this.renderList.length ? (
             <svg
-              class="icon flex-shrink-0 overflow-hidden"
+              class="icon shrink-0 overflow-hidden"
               style={{
                 transform: `rotate(${this.rowDetails.ifShow ? 90 : 0}deg)`,
                 transition: 'all 0.3s',
@@ -134,7 +134,7 @@ export default {
           ) : null}
           {this.rowDetails.link ? <linkTag /> : null}
           {this.rowDetails.topping ? (
-            <div class="flex-shrink-0 flex align-items-center justify-content-center topping">
+            <div class="shrink-0 flex items-center justify-center topping">
               <span>置顶</span>
             </div>
           ) : null}
