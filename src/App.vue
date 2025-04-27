@@ -155,12 +155,6 @@ body,
 <style scoped lang="scss">
 #page {
   height: 100vh;
-  .loading-wrap {
-    width: 100px;
-    height: 100px;
-    font-size: 17px;
-    transform: scale(0.7);
-  }
   .content {
     height: calc(100vh - v-bind(headerH));
     margin-top: v-bind(headerH);

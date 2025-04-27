@@ -1,25 +1,31 @@
 <template>
   <div class="w-[100%] h-[100%] bg-style overflow-auto">
     <template v-if="ifLarger">
-      <div class="demo-view flex flex-wrap">
+      <div class="py-[20px] px-[10px] mb-[150px] flex flex-wrap">
         <div
-          class="lh-none demo-view-item"
+          class="lh-[1.5] text-[16px] py-[10px] text-[var(--global-primary-color)]"
           style="width: 33.33%"
           v-for="(item, index) in demoList"
           :key="index"
         >
-          <a class="cursor-pointer" :href="`/#${item.path}`" target="_blank">{{
-            `${index + 1}、 ` + item.name
-          }}</a>
+          <a
+            class="cursor-pointer text-[var(--global-primary-color)]"
+            :href="`/#${item.path}`"
+            target="_blank"
+            >{{ `${index + 1}、 ` + item.name }}</a
+          >
         </div>
       </div>
     </template>
     <template v-else>
-      <div class="demo-view">
-        <div class="lh-none demo-view-item" v-for="(item, index) in demoList" :key="index">
-          <a class="cursor-pointer" :href="`/#${item.path}`" target="_blank">{{
-            `${index + 1}、 ` + item.name
-          }}</a>
+      <div class="py-[20px] px-[10px] mb-[150px]">
+        <div class="lh-[1.5] text-[16px] py-[10px]" v-for="(item, index) in demoList" :key="index">
+          <a
+            class="cursor-pointer text-[var(--global-primary-color)]"
+            :href="`/#${item.path}`"
+            target="_blank"
+            >{{ `${index + 1}、 ` + item.name }}</a
+          >
         </div>
       </div>
     </template>
@@ -34,17 +40,4 @@ defineProps(leftSidebarProps)
 
 const demoList = demoMenuList()
 </script>
-<style lang="scss" scoped>
-.demo-view {
-  padding: 20px 10px;
-  margin-bottom: 150px;
-  .demo-view-item {
-    font-size: 16px;
-    padding: 10px 0;
-    color: var(--global-primary-color);
-    a {
-      color: var(--global-primary-color);
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

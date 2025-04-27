@@ -13,16 +13,22 @@
       @itemClick="itemClick"
     />
     <div class="w-[100%] h-[100%] flex flex-col" v-if="menuList.length">
-      <div class="search-title w-[100%] flex items-center justify-center">
+      <div
+        class="px-[0] py-[20px] text-[25px] [border-bottom:1px_solid_var(--global-border-color)] w-[100%] flex items-center justify-center"
+      >
         <div class="flex items-baseline">
           <p style="margin-right: 10px">搜索结果</p>
-          <p class="search-total">(共计{{ searchResult.length }}条)</p>
+          <p class="text-[13px] text-[#999999]">(共计{{ searchResult.length }}条)</p>
         </div>
       </div>
-      <ul class="search-content flex-1">
-        <li v-for="(item, index) in searchResult" :key="index" class="search-item">
+      <ul class="overflow-y-scroll pl-[10px] pr-[10px] py-[30px] flex-1">
+        <li
+          v-for="(item, index) in searchResult"
+          :key="index"
+          class="text-[16px] px-[20px] py-[10px]"
+        >
           <a
-            class="search-item-label cursor-pointer"
+            class="text-[var(--global-text-color)] hover:text-[var(--global-primary-color)] hover:underline cursor-pointer"
             :href="`/#/?indexPage=${item.indexPage}`"
             @click="
               function (e) {
@@ -112,35 +118,4 @@ watch(
 )
 </script>
 
-<style scoped lang="scss">
-.search-title,
-.search-page {
-  padding: 20px 0;
-  font-size: 25px;
-  border-bottom: 1px solid var(--global-border-color);
-  .search-total {
-    font-size: 13px;
-    color: #999999;
-  }
-  .search-page-item {
-    font-size: 13px;
-    color: #999999;
-  }
-}
-
-.search-content {
-  overflow-y: scroll;
-  padding: 30px 10px 200px 10px;
-  .search-item {
-    font-size: 16px;
-    padding: 10px 20px;
-    .search-item-label {
-      color: var(--global-text-color);
-      &:hover {
-        color: var(--global-primary-color);
-        text-decoration: underline;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

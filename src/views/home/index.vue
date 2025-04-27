@@ -1,6 +1,6 @@
 <template>
   <div
-    class="content-inner bg-style overflow-hidden w-[100%] h-[100%] flex flex-row"
+    class="content-inner bg-style text-[var(--global-primary-color)] text-[15px] overflow-hidden w-[100%] h-[100%] flex flex-row"
     v-loading="!menuList.length"
   >
     <layout-left-sidebar
@@ -26,7 +26,10 @@
       <div class="home overflow-auto relative w-[100%] h-[100%]">
         <template v-if="menuList.length">
           <!-- 标题 -->
-          <div v-if="!markdownType" class="title w-[100%] flex items-center justify-center">
+          <div
+            v-if="!markdownType"
+            class="w-[100%] flex items-center justify-center box-border px-[30px] py-[0] min-h-[70px] text-20px font-600 text-[var(--global-text-color)] border-b-1px border-b-solid border-b-[var(--global-border-color)]"
+          >
             {{ title }}
           </div>
           <!-- md格式 -->
@@ -47,8 +50,8 @@
             @image-load="loading = false"
           />
           <!-- 链接格式,有 一些浏览器阻止页面打开新页面 -->
-          <div v-else-if="linkType" class="link">
-            <a :href="htmlMD">链接： {{ htmlMD }}</a>
+          <div v-else-if="linkType" class="p-[20px]">
+            <a :href="htmlMD" class="text-[var(--global-text-color)]">链接： {{ htmlMD }}</a>
           </div>
           <!-- 其他格式 -->
           <other-type v-else :download-name="downloadName" :html-m-d="htmlMD" />
@@ -285,9 +288,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content-inner {
-  font-size: 15px;
-  color: var(--global-primary-color);
-
   .bg-image {
     background-attachment: fixed;
     background-image: url('@/assets/images/huge.jpg');
@@ -297,32 +297,5 @@ export default {
     opacity: 0.15;
     z-index: 0;
   }
-
-  .home {
-    .title {
-      box-sizing: border-box;
-      padding: 0 30px;
-      padding: 20px 30px;
-      min-height: 70px;
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--global-text-color);
-      border-bottom: 1px solid var(--global-border-color);
-    }
-
-    .link {
-      padding: 20px;
-      a {
-        color: var(--global-text-color);
-      }
-    }
-  }
-}
-
-.loading-wrap {
-  width: 100px;
-  height: 100px;
-  font-size: 17px;
-  transform: scale(0.7);
 }
 </style>

@@ -337,7 +337,7 @@ export const demoList = [
     name: 'breakout-ball',
     meta: {
       ifShowHeaderComponent: false,
-      demoName: 'breakout-ball'
+      demoName: '打砖块 game'
     },
     component: () => import('../views/demo/children/breakout-ball/index.vue')
   },
@@ -346,9 +346,36 @@ export const demoList = [
     name: 'snake',
     meta: {
       ifShowHeaderComponent: false,
-      demoName: '斯内克！！！'
+      demoName: '斯内克！！！game'
     },
     component: () => import('../views/demo/children/snake/index.vue')
+  },
+  {
+    path: 'chess-game',
+    name: 'chess-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '象棋！！！game'
+    },
+    component: () => import('../views/demo/children/chess-game/index.vue')
+  },
+  {
+    path: 'gobang-game',
+    name: 'gobang-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '五子棋（乌兹不行）game'
+    },
+    component: () => import('../views/demo/children/gobang-game/index.vue')
+  },
+  {
+    path: 'jump-game',
+    name: 'jump-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '平台跳一跳 game'
+    },
+    component: () => import('../views/demo/children/jump-game/index.vue')
   }
 ]
 

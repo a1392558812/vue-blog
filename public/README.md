@@ -20,7 +20,15 @@
 
 ### 3级标题 3级标题 3级标题 3级标题
 
-### 3级标题 3级标题 3级标题 3级标题
+
+<!-- <vue3-sfc>
+<vue3-file name="App.vue">
+<template>
+  <div>test</div>
+</template>
+</vue3-file>
+</vue3-sfc> -->
+
 
 ### 3级标题 3级标题 3级标题 3级标题
 
