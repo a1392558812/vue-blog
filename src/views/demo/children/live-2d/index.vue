@@ -20,21 +20,28 @@
 </template>
 <script>
 import { initModel, live2d_settings as live2dSettings } from '@/static/live2d/waifu-tips'
+import { asyncLoadJs, asyncLoadCss, baseUrlFun } from '@/common/util//methods'
 import waifuTips from '@/static/live2d/waifu-tips.json'
 
 import { onMounted, onBeforeUnmount } from 'vue'
 export default {
   name: 'view-demo-live2d',
   setup() {
-    live2dSettings.canSwitchTextures = false
-    live2dSettings.waifuSize = '280x500'
-    live2dSettings.homePageUrl = window.location.origin + window.location.pathname
-    live2dSettings.hitokotoAPI = 'hitokoto.cn'
-    live2dSettings.waifuDraggable = 'unlimited'
+    const promiseList = [
+      asyncLoadJs(baseUrlFun() + 'demo-static/live2d/live2d.js'),
+      asyncLoadCss(baseUrlFun() + 'demo-static/live2d/waifu.min.css')
+    ]
+
     onMounted(() => {
-      initModel(waifuTips)
+      Promise.all(promiseList).then(() => {
+        live2dSettings.canSwitchTextures = false
+        live2dSettings.waifuSize = '280x500'
+        live2dSettings.homePageUrl = window.location.origin + window.location.pathname
+        live2dSettings.hitokotoAPI = 'hitokoto.cn'
+        live2dSettings.waifuDraggable = 'unlimited'
+        initModel(waifuTips)
+      })
     })
-    onBeforeUnmount(() => {})
   }
 }
 </script>

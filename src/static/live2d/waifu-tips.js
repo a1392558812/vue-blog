@@ -1,5 +1,3 @@
-import './live2d'
-import '@/static/live2d/waifu.scss'
 import '@/static/jquery-ui/jquery-ui.js'
 import { isArray } from '@/common/util/typeCheck'
 const modelList = [
@@ -74,7 +72,6 @@ export const live2d_settings = Array() /*
     　　　　 |.从"　　_　　 ,,,, / |./ 　 |             网页添加 Live2D 看板娘
     　　　　 ﾚ'| i＞.､,,__　_,.イ / 　.i 　|                    https://www.fghrsh.net/post/123.html
     　　　　　 ﾚ'| | / k_７_/ﾚ'ヽ,　ﾊ.　|           
-    　　　　　　 | |/i 〈|/　 i　,.ﾍ |　i　|    Thanks
     　　　　　　.|/ /　ｉ： 　 ﾍ!　　＼　|          journey-ad / https://github.com/journey-ad/live2d_src
     　　　 　 　 kヽ>､ﾊ 　 _,.ﾍ､ 　 /､!            xiazeyu / https://github.com/xiazeyu/live2d-widget.js
     　　　　　　 !'〈//｀Ｔ´', ＼ ｀'7'ｰr'          Live2d Cubism SDK WebGL 2.1 Projrct & All model authors.

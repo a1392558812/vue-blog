@@ -45,7 +45,7 @@ export default {
     const sidebarClassName = computed(() => {
       let classname = 'left-sidebar shrink-0 bg-style h-[100%]'
       if (!props.ifLarger) {
-        classname = `${classname} absolute ${props.ifShowMenu ? 'translate-x-[0]' : 'translate-x-[100%]'}`
+        classname = `${classname} absolute ${props.ifShowMenu ? 'translate-x-[0]' : 'translate-x-[-100%]'}`
       } else {
         classname = `${classname}`
       }
