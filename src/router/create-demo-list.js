@@ -376,6 +376,15 @@ export const demoList = [
       demoName: '平台跳一跳 game'
     },
     component: () => import('../views/demo/children/jump-game/index.vue')
+  },
+  {
+    path: 'flip-card-game',
+    name: 'flip-card-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '翻卡片 game'
+    },
+    component: () => import('../views/demo/children/flip-card-game/index.vue')
   }
 ]
 

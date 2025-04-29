@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
+import { VitePWA } from 'vite-plugin-pwa'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -23,6 +24,52 @@ export default defineConfig((config) => {
       $: 'jquery',
       jQuery: 'jquery',
       'windows.jQuery': 'jquery'
+    }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+
+      pwaAssets: {
+        disabled: false,
+        config: true
+      },
+
+      manifest: {
+        name: 'awen-blog',
+        short_name: 'awen-blog',
+        description: 'awen-blog',
+        theme_color: '#ffffff'
+      },
+
+      workbox: {
+        globPatterns: ['**/*.*'],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        maximumFileSizeToCacheInBytes: 30000000, // 30MB
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/[^\s/$.?#].[^\s]*$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // <== 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          }
+        ]
+      },
+
+      devOptions: {
+        enabled: false,
+        navigateFallback: 'index.html',
+        suppressWarnings: true,
+        type: 'module'
+      }
     })
   ]
   if (config.mode === 'production') {
@@ -38,6 +85,9 @@ export default defineConfig((config) => {
           if (id.includes('node_modules/@vue-office/')) {
             const list = id.toString().split('node_modules/')[1].split('/')
             return list[0] + '-' + list[1]
+          }
+          if (id.includes('@vite-plugin-pwa/')) {
+            return '@vite-plugin-pwa'
           }
           if (id.includes('node_modules')) {
             return id.toString().split('node_modules/')[1].split('/')[0].toString()
