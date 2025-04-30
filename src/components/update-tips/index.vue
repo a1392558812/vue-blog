@@ -7,10 +7,10 @@
       <span>{{ title || '内容有更新' }}</span>
     </div>
     <div class="flex items-center justify-center">
-      <commonmBtn class="mr-[20px]" v-if="needRefresh" @click="updateServiceWorker">
+      <commonmBtn class="mr-[20px]" v-if="needRefresh" @btnClick="updateServiceWorker">
         重新加载
       </commonmBtn>
-      <commonmBtn @click="close">关闭</commonmBtn>
+      <commonmBtn @btnClick="close">关闭</commonmBtn>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ const swActivated = ref(false)
  */
 function registerPeriodicSync(swUrl, r) {
   if (period <= 0) return
-
+  console.log(`[PWA] registerPeriodicSync`)
   setInterval(async () => {
     if ('onLine' in navigator && !navigator.onLine) return
 
@@ -51,18 +51,35 @@ function registerPeriodicSync(swUrl, r) {
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
   immediate: true,
   onRegisteredSW(swUrl, r) {
+    console.log('onRegisteredSW')
     if (period <= 0) return
     if (r?.active?.state === 'activated') {
+      console.log('[PWA] Service worker already activated')
       swActivated.value = true
       registerPeriodicSync(swUrl, r)
     } else if (r?.installing) {
+      console.log('[PWA] Service worker installing')
       r.installing.addEventListener('statechange', (e) => {
         /** @type {ServiceWorker} */
         const sw = e.target
         swActivated.value = sw.state === 'activated'
         if (swActivated.value) registerPeriodicSync(swUrl, r)
       })
+    } else {
+      console.log('[PWA] Service worker not found')
     }
+  },
+  onNeedRefresh() {
+    console.log('[PWA] onNeedRefresh')
+  },
+  onOfflineReady() {
+    console.log('[PWA] onOfflineReady')
+  },
+  onRegistered() {
+    console.log('[PWA] onRegistered')
+  },
+  onRegisterError(error) {
+    console.log('[PWA] onRegisterError', error)
   }
 })
 

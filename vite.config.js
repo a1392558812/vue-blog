@@ -28,7 +28,7 @@ export default defineConfig((config) => {
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-
+      includeAssets: ['**/*.*'],
       pwaAssets: {
         disabled: false,
         config: true
@@ -38,7 +38,51 @@ export default defineConfig((config) => {
         name: 'awen-blog',
         short_name: 'awen-blog',
         description: 'awen-blog',
-        theme_color: '#ffffff'
+        theme_color: '#ffffff',
+        screenshots: [
+          {
+            src: 'screenshots/IMG_1920x1080.png',
+            sizes: '1920x1080'
+          },
+          {
+            src: 'screenshots/IMG_320x320.png',
+            sizes: '320x320'
+          },
+          {
+            src: 'screenshots/IMG_1920x1080.png',
+            sizes: '1920x1080',
+            form_factor: 'wide'
+          },
+          {
+            src: 'screenshots/IMG_1080x1920.png',
+            sizes: '1080x1920',
+            form_factor: 'narrow'
+          }
+        ],
+        icons: [
+          {
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'maskable-icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
       },
 
       workbox: {
@@ -65,7 +109,7 @@ export default defineConfig((config) => {
       },
 
       devOptions: {
-        enabled: false,
+        enabled: true,
         navigateFallback: 'index.html',
         suppressWarnings: true,
         type: 'module'
