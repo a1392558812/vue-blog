@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { VitePWA } from 'vite-plugin-pwa'
+import prismjs from 'vite-plugin-prismjs'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -19,6 +20,23 @@ export default defineConfig((config) => {
     vue(),
     vueJsx(),
     vueDevTools(),
+    prismjs({
+      languages: [
+        'json',
+        'javascript',
+        'typescript',
+        'html',
+        'css',
+        'scss',
+        'less',
+        'markdown',
+        'tsx',
+        'jsx',
+        'python',
+        'bash',
+        'shell'
+      ]
+    }),
     UnoCSS(),
     inject({
       $: 'jquery',
