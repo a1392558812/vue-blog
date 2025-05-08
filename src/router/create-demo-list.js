@@ -385,6 +385,15 @@ export const demoList = [
       demoName: '翻卡片 game'
     },
     component: () => import('../views/demo/children/flip-card-game/index.vue')
+  },
+  {
+    path: 'canvas-editor',
+    name: 'canvas-editor',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '报表单子'
+    },
+    component: () => import('../views/demo/children/canvas-editor/index.vue')
   }
 ]
 
