@@ -394,6 +394,24 @@ export const demoList = [
       demoName: '报表单子'
     },
     component: () => import('../views/demo/children/canvas-editor/index.vue')
+  },
+  {
+    path: 'image-base64',
+    name: 'image-base64',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '图片转base64'
+    },
+    component: () => import('../views/demo/children/image-base64/index.vue')
+  },
+  {
+    path: 'css2scss-scss2css',
+    name: 'css2scss-scss2css',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css2scss-scss2css'
+    },
+    component: () => import('../views/demo/children/css2scss-scss2css/index.vue')
   }
 ]
 

@@ -1,20 +1,46 @@
 <template>
-  <div v-if="ifShow" class="dialog-wrap" @click="dialogOutClose">
-    <div class="dialog" @click.stop="() => {}">
-      <div v-if="showHeader" class="header">{{ title }}</div>
+  <div
+    v-if="ifShow"
+    class="fixed left-[0] top-[0] w-screen h-screen bg-[rgba(0,_0,_0,_0.6)]"
+    @click="dialogOutClose"
+  >
+    <div
+      class="p-[10px] rounded-[10px] absolute left-2/4 top-2/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#fff] flex flex-col items-center justify-center"
+      @click.stop="() => {}"
+    >
+      <div
+        v-if="showHeader"
+        class="w-full flex flex-shrink-0 justify-between mb-[10px] text-[20px]"
+      >
+        {{ title }}
+      </div>
       <slot name="content">
-        <div class="content">{{ content }}</div>
+        <div class="flex-1">{{ content }}</div>
       </slot>
-      <div v-if="showFooter" class="footer">
-        <div class="footer-btn" @click="dialogConfirm">确定</div>
-        <div class="footer-btn" @click="dialogClose">关闭</div>
+      <div v-if="showFooter" class="mt-[10px] w-full flex flex-shrink-0 justify-end">
+        <div
+          class="px-[20px] py-[10px] rounded-[5px] bg-[#f5f5f5] cursor-pointer border-[1px] border-solid border-[#ccc] ml-[10px]"
+          @click="dialogConfirm"
+        >
+          确定
+        </div>
+        <div
+          class="px-[20px] py-[10px] rounded-[5px] bg-[#f5f5f5] cursor-pointer border-[1px] border-solid border-[#ccc] ml-[10px]"
+          @click="dialogClose"
+        >
+          关闭
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+defineOptions({
+  name: 'custom-dialog'
+})
 
 const props = defineProps({
   showHeader: {
@@ -101,56 +127,4 @@ defineExpose({
 })
 </script>
 
-<style scoped lang="scss">
-.dialog-wrap {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-  .dialog {
-    padding: 10px;
-    border-radius: 10px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 500px;
-    background: #fff;
-    z-index: 1100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .header {
-      width: 100%;
-      display: flex;
-      flex-shrink: 0;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-    .content {
-      flex: 1;
-    }
-    .footer {
-      margin-top: 10px;
-      width: 100%;
-      display: flex;
-      flex-shrink: 0;
-      justify-content: flex-end;
-      .footer-btn {
-        padding: 10px 20px;
-        border-radius: 5px;
-        background: #f5f5f5;
-        cursor: pointer;
-        border: 1px solid #ccc;
-        margin-left: 10px;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

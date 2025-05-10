@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import dialog from './dialog.vue'
 let instance
 function mountComponent(RootComponent, options) {
-  console.log('mountComponent', RootComponent, options)
   let warp = {
     render() {
       return <RootComponent {...options} />

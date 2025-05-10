@@ -191,6 +191,9 @@ export default defineConfig((config) => {
   return {
     base: './',
     plugins,
+    server: {
+      port: 5200
+    },
     define: {
       'process.env': {}
     },
