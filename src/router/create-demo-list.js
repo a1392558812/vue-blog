@@ -202,7 +202,7 @@ export const demoList = [
     name: 'word-diff',
     meta: {
       ifShowHeaderComponent: false,
-      demoName: '文字diff对比'
+      demoName: 'diff对比工具'
     },
     component: () => import('../views/demo/children/word-diff/index.vue')
   },
@@ -412,6 +412,15 @@ export const demoList = [
       demoName: 'css2scss-scss2css'
     },
     component: () => import('../views/demo/children/css2scss-scss2css/index.vue')
+  },
+  {
+    path: 'image-cropping',
+    name: 'image-cropping',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '图片缩放、裁剪、改格式'
+    },
+    component: () => import('../views/demo/children/image-cropping/index.vue')
   }
 ]
 

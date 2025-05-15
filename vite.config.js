@@ -194,6 +194,9 @@ export default defineConfig((config) => {
     server: {
       port: 5200
     },
+    optimizeDeps: {
+      exclude: ['@vue/repl']
+    },
     define: {
       'process.env': {}
     },

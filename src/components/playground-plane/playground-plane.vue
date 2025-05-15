@@ -175,6 +175,26 @@ export default {
     headHTML: {
       type: String,
       default:
+        `<script src="${baseUrl + 'demo-static/playground-plane/@unocss/runtime/preset-icons.global.js'}"><` +
+        '/script>' +
+        `<script src="${baseUrl + 'demo-static/playground-plane/@unocss/runtime/mini.global.js'}"><` +
+        '/script>' +
+        `<script src="${baseUrl + 'demo-static/playground-plane/@unocss/runtime/uno.global.js'}"><` +
+        '/script>' +
+        `<script>
+            window.__unocss = {
+              presets: [
+                () =>
+                  window.__unocss_runtime.presets.presetIcons({
+                    scale: 1.2,
+                    cdn: 'https://esm.sh/',
+                  }),
+              ],
+            }
+        <` +
+        '/script>' +
+        `<script src="${baseUrl + 'demo-static/playground-plane/@unocss/runtime/core.global.js'}"><` +
+        '/script>' +
         '<script src="" data-text="此处添加script脚本标签或者"><' +
         '/script>' +
         '<link href="" data-text="此处添加link标签引入资源"/>'
@@ -214,7 +234,8 @@ export default {
     vueImportMap: {
       type: Object,
       default: () => ({
-        runtimeDev: baseUrl + 'demo-static/playground-plane/vue@3.4.27/dist/vue.esm-browser.js'
+        runtimeDev: baseUrl + 'demo-static/playground-plane/vue@3.4.27/dist/vue.esm-browser.js',
+        runtimeProd: baseUrl + 'demo-static/playground-plane/vue@3.4.27/dist/vue.esm-browser.js'
       })
     },
     otherImportsMap: {

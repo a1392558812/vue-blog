@@ -37,7 +37,11 @@ const defaultNewSFC =
 
 const file1 =
   `<template>
-  <div class="youyuxi">
+  <div class="youyuxi bg-[pink]">
+       <div>
+         <i class="inline-block w-[19px] h-[19px] i-carbon-logo-github" i-carbon-logo-github></i>
+         集成unocss
+       </div>
        <test1 style="margin-bottom: 10px"/>
        <test2 style="margin-bottom: 10px"/>
        <test3 style="margin-bottom: 10px"/>

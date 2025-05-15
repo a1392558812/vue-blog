@@ -1,14 +1,5 @@
 <script lang="jsx">
-import {
-  ref,
-  watch,
-  nextTick,
-  createApp,
-  onBeforeUnmount,
-  render,
-  createVNode,
-  defineAsyncComponent
-} from 'vue'
+import { ref, watch, nextTick, createApp, onBeforeUnmount, defineAsyncComponent } from 'vue'
 
 import Prism from 'prismjs'
 
@@ -80,18 +71,20 @@ export default {
     const loadingHtmlStr = (() => {
       let loadingHtmlNode = $('<div></div>')
       // 渲染loading组件
-      render(
-        createVNode(
-          <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
-            <div class="w-[100%] h-[100%] flex items-center justify-center">加载中...</div>
-          </loadingComponent>,
-          { showModal: true }
-        ),
-        loadingHtmlNode[0]
+      let app = createApp(
+        <loadingComponent style="font-weight: bold; font-size: 12px; background: transparent">
+          <div class="w-[100%] h-[100%] flex items-center justify-center">加载中...</div>
+        </loadingComponent>,
+        { showModal: true }
       )
+      app.mount(loadingHtmlNode[0])
+
       // 获取loading组件html
       const loadingHtmlStr = loadingHtmlNode.html()
+      console.log('loadingHtmlStr', loadingHtmlStr)
+      app.unmount()
       loadingHtmlNode = null
+      app = null
       return loadingHtmlStr
     })()
 
