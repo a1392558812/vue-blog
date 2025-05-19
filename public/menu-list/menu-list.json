@@ -84,6 +84,9 @@
         ]
     },
     {
+      "name": "/src/assets/images/huge.jpg"
+    },
+    {
         "name": "test2",
         "children": [
             {

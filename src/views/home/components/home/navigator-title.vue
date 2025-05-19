@@ -1,18 +1,31 @@
 <template>
-  <div class="sticky shrink-0 h-[100%] markdown-title">
-    <div class="w-[100%] h-[100%] overflow-y-auto overflow-x-hidden; markdown-title-inner">
-      <div class="w-[100%] text-center markdown-title-navigator">标题导航</div>
-      <div class="markdown-title-wrap">
-        <div class="overflow-y-hidden h-[100%] relative markdown-title-main" ref="listContentRef">
-          <div class="markdown-title-list">
+  <div
+    class="sticky shrink-0 h-[100%] top-[0] right-[0] [border-left:1px_solid_var(--global-border-color)] box-border bg-[var(--global-background-color)] markdown-title"
+  >
+    <div
+      class="w-[100%] h-[100%] overflow-y-auto overflow-x-hidden [word-wrap:break-word] break-all"
+    >
+      <div
+        class="w-[100%] text-center px-[0] py-[20px] text-[20px] text-[#f5662e] [font-weight:600] [border-bottom:1px_solid_var(--global-border-color)]"
+      >
+        标题导航
+      </div>
+      <div
+        class="h-[400px] px-[5px] py-[15px] [border-bottom:1px_solid_var(--global-border-color)]"
+      >
+        <div
+          class="overflow-y-hidden h-[100%] relative pl-[10px] pr-[15px] py-[0] box-border"
+          ref="listContentRef"
+        >
+          <div class="pb-[15px]">
             <div
               v-for="(anchor, index) in articleTitles"
               :key="index"
-              class="cursor-pointer markdown-title-item"
+              class="cursor-pointer"
               :style="{ padding: `10px 0 10px ${anchor.indent * 10}px` }"
             >
               <a
-                class="cursor-pointer"
+                class="cursor-pointer text-[var(--global-primary-color)]"
                 :title="anchor.title"
                 href="/"
                 @click="
@@ -111,40 +124,6 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .markdown-title {
-  box-sizing: border-box;
   width: v-bind(markdownTitleWidth);
-  background-color: var(--global-background-color);
-  top: 0;
-  right: 0;
-  border-left: 1px solid var(--global-border-color);
-  z-index: 1;
-  .markdown-title-inner {
-    word-wrap: break-word;
-    word-break: break-all;
-    .markdown-title-navigator {
-      padding: 20px 0;
-      font-size: 20px;
-      color: #f5662e;
-      font-weight: bold;
-      border-bottom: 1px solid var(--global-border-color);
-    }
-    .markdown-title-wrap {
-      height: 400px;
-      padding: 15px 5px;
-      border-bottom: 1px solid var(--global-border-color);
-      .markdown-title-main {
-        padding: 0 15px 0 10px;
-        box-sizing: border-box;
-        .markdown-title-list {
-          padding-bottom: 15px;
-          .markdown-title-item {
-            a {
-              color: var(--global-primary-color);
-            }
-          }
-        }
-      }
-    }
-  }
 }
 </style>

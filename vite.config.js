@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 import { VitePWA } from 'vite-plugin-pwa'
 import prismjs from 'vite-plugin-prismjs'
+import { codeInspectorPlugin } from 'code-inspector-plugin'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -132,6 +133,13 @@ export default defineConfig((config) => {
         suppressWarnings: true,
         type: 'module'
       }
+    }),
+    codeInspectorPlugin({
+      bundler: 'vite',
+      editor: 'code',
+      // 当前热键： ctrl + alt + 点击 触发
+      hotKeys: ['ctrlKey', 'altKey'], // 触发源码定位功能的组合键，为空数组则会关闭组合键触发功能。(ctrlKey 对应 Mac 中的 control 键；altKey 对应 Mac 中的 option 键；metaKey 对应 Mac 中的 command 键)
+      dev: () => config.mode === 'development'
     })
   ]
   if (config.mode === 'production') {

@@ -1,5 +1,5 @@
 <template>
-  <div id="page" class="overflow-hidden relative">
+  <div id="page" class="h-[100vh] overflow-hidden relative">
     <layout-header
       v-if="ifShowHeaderComponent"
       :if-larger="ifLarger"
@@ -133,7 +133,6 @@ body,
 </style>
 <style scoped lang="scss">
 #page {
-  height: 100vh;
   .content {
     height: calc(100vh - v-bind(headerH));
     margin-top: v-bind(headerH);

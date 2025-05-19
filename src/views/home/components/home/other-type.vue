@@ -1,9 +1,14 @@
 <template>
-  <div class="other-type">
-    <div class="downLoad-cell">链接： {{ htmlMD }}</div>
-    <div class="downLoad-cell">文件名： {{ downloadName }}</div>
-    <div class="downLoad-cell downLoad-wrap flex">
-      <a class="block downLoad" :href="htmlMD" :download="downloadName">下载</a>
+  <div class="pl-[20px] pr-[20px] py-[20px]">
+    <div class="mb-[5px] text-[var(--global-text-color)]">链接： {{ htmlMD }}</div>
+    <div class="mb-[5px] text-[var(--global-text-color)]">文件名： {{ downloadName }}</div>
+    <div class="mb-[5px] text-[var(--global-text-color)] downLoad-wrap flex">
+      <a
+        class="block bg-[var(--global-primary-color)] text-[var(--global-primary-button-text-color)] no-underline leading-[1] text-[14px] px-[15px] py-[8px] rounded-[5px]"
+        :href="htmlMD"
+        :download="downloadName"
+        >下载</a
+      >
     </div>
   </div>
 </template>
@@ -24,23 +29,4 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.other-type {
-  padding: 20px 20px 100px 20px;
-  .downLoad-cell {
-    margin-bottom: 5px;
-    color: var(--global-text-color);
-  }
-  .downLoad-wrap {
-    .downLoad {
-      text-decoration: none;
-      color: var(--global-text-color);
-      background-color: var(--global-border-color);
-      line-height: 1;
-      font-size: 14px;
-      padding: 8px 15px;
-      border-radius: 5px;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

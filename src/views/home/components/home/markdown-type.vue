@@ -40,7 +40,6 @@ export default {
     const preview = ref(null) // markdown引用
     const articleTitles = ref([]) // markdown编辑器预览锚点标题
     const markdownContentMinWidth = ref('550px') // markdown编辑器最小宽度
-    const markdownMinHeight = ref('calc(100% - 170px)') // markdown区域的高度
     const htmlMarkStr = ref('')
 
     // 锚点标题动态设定
@@ -65,12 +64,6 @@ export default {
       }
     }
 
-    // markdown部分高度动态设定
-    const setMarkdownMinHeight = () => {
-      console.log('markdown部分高度动态设定')
-      markdownMinHeight.value = `calc(100% - ${100 + $('.home .title').outerHeight()}px)`
-    }
-
     // 锚点标题动态设定
     watch(
       () => props.htmlMD,
@@ -85,22 +78,10 @@ export default {
       { immediate: true }
     )
 
-    // markdown部分高度动态设定
-    watch(
-      () => props.title,
-      () => {
-        setMarkdownMinHeight()
-      }
-    )
-
-    // 初始化markdown部分高度动态设定
-    onMounted(setMarkdownMinHeight)
-
     return {
       preview,
       htmlMarkStr,
       articleTitles,
-      markdownMinHeight,
       markdownContentMinWidth,
       handleAnchorClick: (anchor) => {
         const { lineIndex } = anchor
@@ -131,7 +112,7 @@ export default {
             }
             return {}
           })()}
-          class="w-[100%] bg-style flex shrink-0 items-center justify-center title"
+          class="w-[100%] bg-style text-[var(--global-text-color)] flex shrink-0 items-center justify-center box-border px-[30px] py-[20px] text-[20px] [font-weight:600] [border-bottom:1px_solid_var(--global-border-color)] [box-shadow:0px_0px_1px_0px_var(--global-border-color)] z-[1] markdown-type-title"
         >
           {this.title}
         </div>
@@ -178,15 +159,4 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.title {
-  box-sizing: border-box;
-  color: var(--global-text-color);
-  padding: 20px 30px;
-  font-size: 20px;
-  font-weight: 600;
-  border-bottom: 1px solid var(--global-border-color);
-  box-shadow: 0px 0px 1px 0px var(--global-border-color);
-  z-index: 1;
-}
-</style>
+<style scoped lang="scss"></style>

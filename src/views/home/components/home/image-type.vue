@@ -57,17 +57,25 @@ export default {
   render() {
     return (
       <>
-        <div class="image w-[100%]">
-          <div>预览 / 点击查看详情</div>
-          <div class="image-wrap flex">
+        <div class="pl-[30px] pr-[30px] py-[30px] box-border w-[100%]">
+          <div
+            class="cursor-pointer hover:underline"
+            onClick={() => {
+              this.showPopup = true
+            }}
+          >
+            预览 / 点击查看详情
+          </div>
+          <div class="mt-[20px] flex">
             <div
               style={this.loading ? { display: 'none' } : {}}
-              className="image-content"
+              class="max-w-[200px] cursor-pointer relative overflow-hidden p-[10px] rounded-[10px]"
               onClick={() => {
                 this.showPopup = true
               }}
             >
               <img
+                class="block w-full relative z-[3]"
                 title={this.htmlMD}
                 onLoad={this.imageLoad}
                 onError={this.imageLoad}
@@ -84,12 +92,12 @@ export default {
         {this.showPopup ? (
           /* 图片大屏展示 */
           <div
-            className="popup flex items-center justify-center relative"
+            className="fixed left-[0] top-[0] w-[100vw] h-[100vh] overflow-auto z-[100] bg-[rgba(0,_0,_0,_0.7)] flex items-center justify-center"
             onClick={() => {
               this.showPopup = false
             }}
           >
-            <img src={this.htmlMD} alt={this.htmlMD} />
+            <img class="max-w-[90%]" src={this.htmlMD} alt={this.htmlMD} />
           </div>
         ) : null}
       </>
@@ -99,85 +107,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.image {
-  padding: 30px 30px 100px 30px;
-  box-sizing: border-box;
-  .image-wrap {
-    margin-top: 20px;
-  }
-
-  .image-content {
-    max-width: 200px;
-    cursor: pointer;
-    position: relative;
+.loading {
+  &::after {
+    content: '...';
     overflow: hidden;
-    padding: 10px;
-    border-radius: 10px;
-
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -2;
-      left: -50%;
-      top: -50%;
-      width: 200%;
-      height: 200%;
-      background-color: var(--global-background-color);
-      background-repeat: no-repeat;
-      background-size: 50% 50%;
-      background-position: 0 0;
-      background-image: conic-gradient(#399953, #399953);
-      animation: rotate 4s linear infinite;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      left: 6px;
-      top: 6px;
-      width: calc(100% - 12px);
-      height: calc(100% - 12px);
-      background: white;
-      border-radius: 5px;
-    }
-
-    img {
-      display: block;
-      width: 100%;
-      z-index: 2;
-    }
-  }
-
-  &-btn {
-    margin: 0 10px 10px 0;
-  }
-
-  .loading {
-    &::after {
-      content: '...';
-      overflow: hidden;
-      display: inline-block;
-      vertical-align: bottom;
-      animation: ellipsis-dot 1s infinite 0.3s;
-      animation-fill-mode: fowards;
-      width: 1.25em;
-    }
-  }
-}
-
-.popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.7);
-
-  img {
-    max-width: 90%;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: ellipsis-dot 1s infinite 0.3s;
+    animation-fill-mode: fowards;
+    width: 1.25em;
   }
 }
 
@@ -196,12 +134,6 @@ export default {
 
   100% {
     content: '...';
-  }
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(1turn);
   }
 }
 </style>
