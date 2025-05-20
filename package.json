@@ -86,6 +86,7 @@
     "sass-embedded": "^1.77.8",
     "terser": "^5.31.6",
     "vite": "^5.3.1",
+    "vite-plugin-build-info": "^0.1.2",
     "vite-plugin-chunk-split": "^0.5.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-pwa": "^1.0.0",
