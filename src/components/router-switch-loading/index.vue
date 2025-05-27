@@ -1,5 +1,5 @@
 <script lang="jsx">
-import { ref } from 'vue'
+import { ref, shallowRef } from 'vue'
 export default {
   name: 'components-router-switch-loading',
   setup(props, { expose }) {
@@ -21,7 +21,7 @@ export default {
 
     const loadingTextDefaultStyle = () => ({})
     const loadingMaskStyle = () => ({})
-    const loadingIconSlot = ref(loadingDefaultIconSlot)
+    const loadingIconSlot = shallowRef(loadingDefaultIconSlot)
     const loading = ref(false)
 
     const loadingText = ref(defaultLoadingText)
@@ -58,6 +58,7 @@ export default {
   render() {
     return (
       <div>
+        {this.loading}
         {this.loading ? (
           <div
             style={this.maskStyle}

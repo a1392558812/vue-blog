@@ -143,7 +143,8 @@ export default defineConfig((config) => {
       dev: () => config.mode === 'development'
     }),
     vitePluginAppinfo({
-      showBuildUser: true
+      showBuildUser: true,
+      enableLog: true
     })
   ]
   if (config.mode === 'production') {

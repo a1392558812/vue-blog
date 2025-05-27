@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { isArray } from '@/common/util/typeCheck'
 import { demoList } from './create-demo-list'
-import routerSwitenLoading from '@/components/router-switch-loading/index'
-const { startLoading, endLoading } = routerSwitenLoading()
+import routerSwitchLoading from '@/components/router-switch-loading/index.jsx'
+
+const routerSwitchLoadingInstance = routerSwitchLoading()
 
 const routes = [
   {
@@ -67,11 +68,11 @@ const ruoterCheck = (list, path, parentPath = '') => {
 }
 let initialeEntry = true // 是否初次进入博客，展示加载路由动画
 router.beforeEach((guard) => {
-  console.log('beforeEach', guard)
+  console.log('beforeEach', routerSwitchLoadingInstance)
   if (initialeEntry) {
     initialeEntry = false
   } else {
-    startLoading({})
+    routerSwitchLoadingInstance.startLoading({})
   }
 
   if (!ruoterCheck(routes, guard.path)) {
@@ -79,7 +80,7 @@ router.beforeEach((guard) => {
   }
 })
 router.afterEach((to, from) => {
-  console.log('afterEach')
-  endLoading()
+  console.log('afterEach', routerSwitchLoadingInstance)
+  routerSwitchLoadingInstance.endLoading()
 })
 export default router
