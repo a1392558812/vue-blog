@@ -421,6 +421,15 @@ export const demoList = [
       demoName: '图片缩放、裁剪、改格式'
     },
     component: () => import('../views/demo/children/image-cropping/index.vue')
+  },
+  {
+    path: 'page-scroll',
+    name: 'page-scroll',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'page-scroll'
+    },
+    component: () => import('../views/demo/children/page-scroll/index.vue')
   }
 ]
 
