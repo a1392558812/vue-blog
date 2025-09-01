@@ -430,6 +430,33 @@ export const demoList = [
       demoName: 'page-scroll'
     },
     component: () => import('../views/demo/children/page-scroll/index.vue')
+  },
+  {
+    path: 'color-generator',
+    name: 'color-generator',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '配色生成器'
+    },
+    component: () => import('../views/demo/children/color-generator/index.vue')
+  },
+  {
+    path: 'tetris-game',
+    name: 'tetris-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'tetris-game'
+    },
+    component: () => import('../views/demo/children/tetris-game/index.vue')
+  },
+  {
+    path: 'bezier-animation',
+    name: 'bezier-animation',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'bezier-animation'
+    },
+    component: () => import('../views/demo/children/bezier-animation/index.vue')
   }
 ]
 

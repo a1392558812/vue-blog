@@ -10,14 +10,22 @@
       <div class="w-[100%] overflow-auto" style="height: 300px">
         <div style="margin-bottom: 10px; padding: 10px">
           <div class="w-[100%]" style="word-wrap: break-word">{{ result[0] }}</div>
+          <button @click="onCopy(result[0])">复制</button>
         </div>
       </div>
     </div>
+
+    <toast ref="toastRefDom" />
   </div>
 </template>
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import * as unocssTransform from 'transform-to-unocss-core'
+import toast from '@/components/toast/index.vue'
+import { useClipboard } from '@vueuse/core'
+
+const { copy, copied, isSupported } = useClipboard()
+const toastRefDom = ref(null)
 
 const cssCode = ref(`
 .content-body {
@@ -47,6 +55,21 @@ const result = computed(() => {
     return ['代码输入格式有误']
   }
 })
+
+const onCopy = (toCopyStr) => {
+  console.log('onCopy', toCopyStr)
+  if (!isSupported) {
+    return alert('浏览器不支持复制功能')
+  }
+  copy(toCopyStr).then(() => {
+    toastRefDom.value.addToast({
+      contentWrapStyle: { background: 'rgba(0, 0, 0, 0.8)', color: '#fff' },
+      contentStyle: { color: '#fff' },
+      content: copied.value ? `复制成功` : `复制失败`
+    })
+  })
+
+}
 </script>
 <style lang="scss" scoped>
 .filed {
