@@ -1,62 +1,103 @@
 <template>
-  <div class="hanzi">
-    <div>突出汉字偏旁</div>
-    <div id="character-target-div1"></div>
-    <div>
-      <div>自定义汉字</div>
-      <input v-model="inputValue" />
-      <button @click="handelCreate">确定生成</button>
-      <div id="character-target-div4"></div>
-    </div>
-    <div class="flex">
-      <div class="chart-wrap">
-        <div>描红书写该字</div>
-        <div class="character-box" id="character-target-div2"></div>
-        <button @click="reWrite1">重写</button>
-        <div>
-          <span style="color: red">错误提示：</span>
-          <span>{{ charAnimation2info1 }}</span>
+  <div class="h-screen overflow-auto bg-gradient-to-br from-indigo-50 to-purple-50">
+    <div class="w-[1200px] mx-auto px-4 py-12">
+      <!-- 页面标题 -->
+      <div class="mb-8 text-center">
+        <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+          汉字书写演示
+        </h1>
+        <p class="mt-3 text-lg text-gray-600">
+          展示汉字书写、描红、盲写等多种交互方式
+        </p>
+      </div>
+
+      <div class="py-2 mb-2 text-gray-500">网络偶尔可能波动，在线字体是从cdn上引入的</div>
+
+      <div class="hanzi">
+        <!-- 突出汉字偏旁 -->
+        <div class="mb-8 p-5 bg-white rounded-xl shadow-md">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">突出汉字偏旁</h2>
+          <div id="character-target-div1" class="flex flex-wrap gap-3 justify-center"></div>
         </div>
-        <div>
-          <span style="color: #50ec7b">每步写完提示：</span>
-          <span>{{ charAnimation2info2 }}</span>
+
+        <!-- 自定义汉字 -->
+        <div class="mb-8 p-5 bg-white rounded-xl shadow-md">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">自定义汉字</h2>
+          <div class="flex items-center gap-3 mb-4">
+            <input v-model="inputValue"
+              class="flex-1 p-3 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-sans text-gray-800 bg-white"
+              type="text" placeholder="请输入要展示的汉字" />
+            <button @click="handelCreate"
+              class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200">
+              确定生成
+            </button>
+          </div>
+          <div id="character-target-div4" class="flex flex-wrap gap-3 justify-center"></div>
         </div>
-        <div>
-          <span style="color: #337ab7">字写完提示：</span>
-          <span>{{ charAnimation2info3 }}</span>
+
+        <!-- 各种汉字展示 -->
+        <div class="grid grid-cols-6 gap-[10px]">
+          <!-- 描红书写 -->
+          <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">描红书写该字</h3>
+            <div class="character-box mx-auto mb-3" id="character-target-div2"></div>
+            <button @click="reWrite1"
+              class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200">
+              重写
+            </button>
+            <div class="mt-4 space-y-2 text-sm">
+              <div>
+                <span class="text-red-500 font-medium">错误提示：</span>
+                <span class="text-gray-700">{{ charAnimation2info1 }}</span>
+              </div>
+              <div>
+                <span class="text-green-500 font-medium">每步写完提示：</span>
+                <span class="text-gray-700">{{ charAnimation2info2 }}</span>
+              </div>
+              <div>
+                <span class="text-blue-500 font-medium">字写完提示：</span>
+                <span class="text-gray-700">{{ charAnimation2info3 }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 醇香的“醇”字盲写 -->
+          <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">醇香的“醇”字盲写</h3>
+            <div class="character-box mx-auto" id="character-target-div3"></div>
+          </div>
+
+          <!-- 加载本地服务器的汉字 -->
+          <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">加载本地服务器的汉字</h3>
+            <div class="character-box mx-auto mb-2" id="character-target-div5"></div>
+            <div class="text-xs text-gray-500 text-center">（为了演示只提供个“福”字）</div>
+          </div>
+
+          <!-- 静态汉字无笔画 -->
+          <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">静态汉字无笔画</h3>
+            <div class="character-box mx-auto" id="character-target-div6"></div>
+          </div>
+
+          <!-- 静态汉字无笔画 -->
+          <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">静态汉字无笔画</h3>
+            <div id="character-target-div7" class="flex flex-wrap justify-center"></div>
+          </div>
+
+          <!-- 带网格的静态汉字 -->
+          <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">带网格的静态汉字</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" class="character-box mx-auto"
+              id="character-target-div8">
+              <line x1="0" y1="0" x2="150" y2="150" stroke="#DDD" />
+              <line x1="150" y1="0" x2="0" y2="150" stroke="#DDD" />
+              <line x1="75" y1="0" x2="75" y2="150" stroke="#DDD" />
+              <line x1="0" y1="75" x2="150" y2="75" stroke="#DDD" />
+            </svg>
+          </div>
         </div>
-      </div>
-      <div class="chart-wrap">
-        <div>醇香的“醇”字盲写</div>
-        <div class="character-box" id="character-target-div3"></div>
-      </div>
-      <div class="chart-wrap">
-        <div>加载本地服务器的汉字</div>
-        <div class="character-box" id="character-target-div5"></div>
-        <div>（为了演示只提供个“福”字）打开f12查看</div>
-      </div>
-      <div class="chart-wrap">
-        <div>静态汉字无笔画</div>
-        <div class="character-box" id="character-target-div6"></div>
-      </div>
-      <div style="margin-right: 20px; width: 300px">
-        <div>静态汉字无笔画</div>
-        <div id="character-target-div7"></div>
-      </div>
-      <div class="chart-wrap">
-        <div>静态汉字无笔画</div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="150"
-          height="150"
-          class="character-box"
-          id="character-target-div8"
-        >
-          <line x1="0" y1="0" x2="150" y2="150" stroke="#DDD" />
-          <line x1="150" y1="0" x2="0" y2="150" stroke="#DDD" />
-          <line x1="75" y1="0" x2="75" y2="150" stroke="#DDD" />
-          <line x1="0" y1="75" x2="150" y2="75" stroke="#DDD" />
-        </svg>
       </div>
     </div>
   </div>
@@ -252,13 +293,36 @@ export default {
 <style lang="scss" scoped>
 .hanzi {
   .chart-wrap {
-    margin-right: 20px;
     width: 150px;
+    min-width: 150px;
   }
+
   .character-box {
     width: 150px;
     height: 150px;
-    border: 1px solid #000;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    border-radius: 4px;
   }
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

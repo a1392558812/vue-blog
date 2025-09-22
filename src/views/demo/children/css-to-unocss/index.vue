@@ -1,16 +1,41 @@
 <template>
-  <div class="flex flex-wrap" style="padding: 10px">
-    <div class="shrink-0 filed">
-      <div>输入css代码</div>
-      <textarea class="w-[100%]" style="height: 300px; resize: none" v-model="cssCode" />
-    </div>
+  <div class="min-h-screen bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+      <header class="mb-8 text-center">
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-2">CSS 转 UnoCSS 工具</h1>
+        <p class="text-gray-500">将普通CSS代码转换为UnoCSS类名</p>
+      </header>
 
-    <div class="shrink-0 filed" style="width: 1200px">
-      <div>输出css代码</div>
-      <div class="w-[100%] overflow-auto" style="height: 300px">
-        <div style="margin-bottom: 10px; padding: 10px">
-          <div class="w-[100%]" style="word-wrap: break-word">{{ result[0] }}</div>
-          <button @click="onCopy(result[0])">复制</button>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- 输入区域 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+          <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
+            <h2 class="font-semibold text-gray-700">输入CSS代码</h2>
+          </div>
+          <div class="p-[20px]">
+            <textarea v-model="cssCode"
+              class="w-[calc(100%-15px*2)] h-[600px] p-[15px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none resize-none font-mono text-sm"
+              placeholder="请输入CSS代码..." />
+          </div>
+        </div>
+
+        <!-- 输出区域 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+          <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
+            <h2 class="font-semibold text-gray-700">输出UnoCSS代码</h2>
+          </div>
+          <div class="p-4">
+            <div
+              class="w-full h-[600px] p-3 border border-gray-300 rounded-lg overflow-auto font-mono text-sm bg-gray-50">
+              <div class="mb-4" style="word-wrap: break-word">
+                {{ result[0] }}
+              </div>
+              <button @click="onCopy(result[0])"
+                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                复制代码
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -18,6 +43,7 @@
     <toast ref="toastRefDom" />
   </div>
 </template>
+
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import * as unocssTransform from 'transform-to-unocss-core'
@@ -57,7 +83,6 @@ const result = computed(() => {
 })
 
 const onCopy = (toCopyStr) => {
-  console.log('onCopy', toCopyStr)
   if (!isSupported) {
     return alert('浏览器不支持复制功能')
   }
@@ -68,12 +93,7 @@ const onCopy = (toCopyStr) => {
       content: copied.value ? `复制成功` : `复制失败`
     })
   })
-
 }
 </script>
-<style lang="scss" scoped>
-.filed {
-  width: 600px;
-  border: 1px solid #000;
-}
-</style>
+
+<style lang="scss" scoped></style>

@@ -1,52 +1,81 @@
 <template>
-  <div>
-    <div class="toggle-btn-wrap">
-      <div
-        class="toggle-btn"
-        :style="editMode === 'preview' ? { background: 'pink' } : {}"
-        @click="editMode = 'preview'"
-      >
-        preview模式
-      </div>
-      <div
-        class="toggle-btn"
-        :style="editMode === 'edit' ? { background: 'pink' } : {}"
-        @click="editMode = 'edit'"
-      >
-        edit模式
-      </div>
-      <div v-if="editMode === 'edit'" class="toggle-btn">
-        <label style="margin-right: 10px">编辑器宽度: {{ contentWrapWidth }}%</label>
-        <input style="width: 40px" type="number" :value="contentWrapWidth" @input="onInput" />
+  <div class="w-full h-full flex flex-col">
+    <!-- 模式切换按钮 -->
+    <div class="toggle-btn-wrap shrink-0 flex items-center p-2 gap-2">
+      <button
+        class="toggle-btn px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 flex items-center justify-center"
+        :class="editMode === 'preview' ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-gray-700 border-[1px] border-solid border-gray-300 hover:bg-gray-50'"
+        @click="editMode = 'preview'">
+        预览模式
+      </button>
+      <button
+        class="toggle-btn px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 flex items-center justify-center"
+        :class="editMode === 'edit' ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-gray-700 border-[1px] border-solid border-gray-300 hover:bg-gray-50'"
+        @click="editMode = 'edit'">
+        编辑模式
+      </button>
+      <div v-if="editMode === 'edit'" class="toggle-btn flex items-center gap-2">
+        <label class="text-sm text-gray-600">编辑器宽度: {{ contentWrapWidth }}%</label>
+        <input
+          class="w-12 h-8 px-2 border-[1px] border-solid border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+          type="number" :value="contentWrapWidth" @input="onInput" />
       </div>
     </div>
-    <div class="iframe-wrap">
-      <div
-        v-if="editMode === 'edit'"
-        class="content-wrap"
-        :style="{ width: `${contentWrapWidth}%` }"
-      >
-        <div class="textarea-warp">
-          <div class="textarea-title">template</div>
-          <textarea class="textarea-item" v-model="templateValueComputed" />
+
+    <!-- 编辑器和预览区域 -->
+    <div class="iframe-wrap flex flex-1 w-full">
+      <div v-if="editMode === 'edit'"
+        class="content-wrap flex flex-col mr-4 rounded-lg overflow-hidden border-[1px] border-solid border-gray-200 shadow-sm"
+        :style="{ width: `${contentWrapWidth}%` }">
+        <!-- Template 编辑区 -->
+        <div class="textarea-warp w-full">
+          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+            template
+          </div>
+          <textarea
+            class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] bg-white border-b border-gray-200 focus:outline-none resize-none font-mono text-sm"
+            v-model="templateValueComputed" />
         </div>
-        <div class="textarea-warp">
-          <div class="textarea-title">script</div>
-          <textarea class="textarea-item" v-model="scriptValueComputed" />
+
+        <!-- Script 编辑区 -->
+        <div class="textarea-warp w-full">
+          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+            script
+          </div>
+          <textarea
+            class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] bg-white border-b border-gray-200 focus:outline-none resize-none font-mono text-sm"
+            v-model="scriptValueComputed" />
         </div>
-        <div class="textarea-warp">
-          <div class="textarea-title">css</div>
-          <textarea class="textarea-item" v-model="cssValueComputed" />
+
+        <!-- CSS 编辑区 -->
+        <div class="textarea-warp w-full">
+          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+            css
+          </div>
+          <textarea
+            class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] bg-white border-b border-gray-200 focus:outline-none resize-none font-mono text-sm"
+            v-model="cssValueComputed" />
         </div>
-        <div class="textarea-warp">
-          <div class="textarea-title">imports</div>
-          <textarea class="textarea-item" v-model="importsComputed" />
+
+        <!-- Imports 编辑区 -->
+        <div class="textarea-warp w-full">
+          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+            imports
+          </div>
+          <textarea
+            class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] border-none bg-white focus:outline-none resize-none font-mono text-sm"
+            v-model="importsComputed" />
         </div>
       </div>
-      <iframe :style="{ flex: 1 }" class="iframe-item" ref="iframeRef"></iframe>
+
+      <!-- 预览iframe -->
+      <iframe :style="{ flex: 1 }"
+        class="iframe-item rounded-lg border-[1px] border-solid border-gray-200 shadow-sm bg-white"
+        ref="iframeRef"></iframe>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
 
@@ -175,17 +204,17 @@ watch(
         new Blob(
           [
             `<style>
-html, body{ padding: 0; margin: 0 }
-${props.cssValue}
-</style>
+html, body{ padding: 0; margin: 0 }` +
+            (props.cssValue ? '\n' + props.cssValue : '') +
+            `</style>
 <script type="importmap">
   {
     "imports": ` +
-              JSON.stringify(props.imports) +
-              `
+            JSON.stringify(props.imports) +
+            `
   }
 </` +
-              `script>
+            `script>
 
 <div id="app"></div>
 
@@ -204,13 +233,11 @@ ${props.cssValue}
 
   ;app.mount('#app')
 <` +
-              '/script>'
+            '/script>'
           ],
           { type: 'text/html;charset=UTF-8' }
         )
       )
-
-      console.log('watch-data', { newList, oldList, blob, iframeRefBlob })
 
       iframeRef.value.src = iframeRefBlob
     })
@@ -232,72 +259,25 @@ onUnmounted(() => {
   destroyBlob()
 })
 </script>
+
 <style scoped lang="scss">
-.toggle-btn-wrap {
-  display: flex;
-  margin-bottom: 10px;
-  .toggle-btn {
-    font-size: 14px;
-    line-height: 1;
-    padding: 0 10px;
-    height: 30px;
-    border: 1px solid #000;
-    cursor: pointer;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* 自定义滚动条样式 */
+.textarea-item::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.iframe-wrap {
-  width: 100%;
-  display: flex;
-  .content-wrap {
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px;
-    border: 1px solid #000;
-    .textarea-warp {
-      width: 100%;
-      border-bottom: none;
-      .textarea-title {
-        width: 100%;
-        padding: 10px 20px;
-        font-size: 16px;
-        line-height: 1;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 1px solid #000;
-      }
-      .textarea-item {
-        padding: 10px;
-        display: block;
-        resize: none;
-        width: 100%;
-        height: 350px;
-        overflow: auto;
-        flex-shrink: 0;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 1px solid #000;
-        &:focus-visible {
-          outline: none;
-          border-bottom: 1px solid #000;
-        }
-      }
-    }
-  }
-  .iframe-item {
-    flex-shrink: 0;
-    min-width: 0;
-    padding: 0;
-    margin: 0;
-    display: block;
-    border-width: 1px;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    border: 1px solid #000;
-  }
+.textarea-item::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.textarea-item::-webkit-scrollbar-thumb {
+  background: rgba(79, 70, 229, 0.5);
+  border-radius: 3px;
+}
+
+.textarea-item::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 70, 229, 0.7);
 }
 </style>

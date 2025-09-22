@@ -1,23 +1,41 @@
 <template>
   <div class="load-vue-file">
-    <div :style="{ fontWeight: 'bold', color: '#FB7299' }" class="content">
-      远程加载vue文件演示,请求内容可打开F12控制台[网络]看
+    <!-- 标题区域 -->
+    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md">
+      远程加载vue文件演示,请求内容可打开F12控制台[网络]查看
     </div>
-    <div class="flex items-center justify-center">
-      <div class="content" style="margin-right: 20px">
-        <div>父组件</div>
-        <div>
-          在此输入传入远程组件的值：<input style="padding: 5px 10px" v-model="inputValue" />
+
+    <!-- 组件内容区域 -->
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- 父组件控制区 -->
+      <div class="bg-gray-50 p-5 rounded-xl shadow-sm border border-gray-100 flex-1">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">父组件</h3>
+
+        <!-- 输入区域 -->
+        <div class="mb-4">
+          <label class="block text-gray-700 mb-2">在此输入传入远程组件的值：</label>
+          <input v-model="inputValue"
+            class="box-content w-[calc(100%-20px*2)] px-[20px] py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            placeholder="请输入要传递的值..." />
         </div>
-        <div>此处显示子组件emit的值： {{ emitValue }}</div>
+
+        <!-- 输出区域 -->
+        <div class="bg-white p-3 rounded-lg border border-gray-200">
+          <p class="text-gray-700">此处显示子组件emit的值：</p>
+          <p class="text-lg font-semibold text-indigo-600 mt-1">{{ emitValue || '暂无数据' }}</p>
+        </div>
       </div>
-      <div class="content">
-        <div>远程加载的子组件</div>
-        <component
-          :is="'customComponent'"
-          :inputValue="inputValue"
-          @loadFileValue="loadFileValue"
-        ></component>
+
+      <!-- 远程加载子组件区 -->
+      <div class="bg-gray-50 p-5 rounded-xl shadow-sm border border-gray-100 flex-1">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">远程加载的子组件</h3>
+
+        <!-- 组件显示区域 -->
+        <div class="bg-white p-6 rounded-lg border border-gray-200 min-h-[150px] flex items-center justify-center">
+          <component :is="'customComponent'" :inputValue="inputValue" @loadFileValue="loadFileValue" v-if="isLoading">
+          </component>
+          <div v-else class="text-gray-500">加载中...</div>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +84,7 @@ export default {
         compiledCache: {
           set(key, str) {
             // naive storage space management
-            for (;;) {
+            for (; ;) {
               try {
                 // doc: https://developer.mozilla.org/en-US/docs/Web/API/Storage
                 window.localStorage.setItem(key, str)
@@ -91,21 +109,18 @@ export default {
           return notFind
         }
       })
-      console.log(
-        'result',
-        result.then((res) => {
-          console.log('res', res)
-        })
-      )
       return result
     })
   },
   setup() {
     const inputValue = Vue.ref('')
     const emitValue = Vue.ref('')
+    const isLoading = Vue.ref(true)
+
     return {
       inputValue,
       emitValue,
+      isLoading,
       loadFileValue: (val) => {
         emitValue.value = val
       }
@@ -116,8 +131,24 @@ export default {
 <style scoped lang="scss">
 .load-vue-file {
   font-size: 16px;
-  width: 400px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
+
+/* 组件加载动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .content {
   padding: 10px;
   border: 1px solid #000;

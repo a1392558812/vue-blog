@@ -1,33 +1,67 @@
 <template>
   <div>
-    <div v-html="'<视图不会主动更新>'"></div>
-    <div>测试数据：（@test1）（@test2）（@test3）（@test4）（@t****）</div>
-    <div class="flex">
-      <div>
-        <vue-tributeVue :options="tributeOption" @initTribute="initTribute">
-          <div
-            ref="vueTributeVue"
-            class="lh-none tribute-input"
-            type="text"
-            @tribute-replaced="(e) => customTribute('tribute-replaced', e)"
-            @tribute-active-true="(e) => customTribute('tribute-active-true', e)"
-            @tribute-active-false="(e) => customTribute('tribute-active-false', e)"
-            @tribute-no-match="(e) => customTribute('tribute-no-match', e)"
-          />
-        </vue-tributeVue>
-        <div class="overflow-y-auto tribute-innerHtml" v-show="vueTributeVueInnerHtml">
-          <p style="color: cadetblue">
-            所选取的值赋值于span标签的 data-*属性上，解析data-*拼接字符串即可
-          </p>
-          <p>{{ vueTributeVueInnerHtml }}</p>
-        </div>
-      </div>
-      <div>
-        <button class="block tribute-btn" @click="handleClick">主动触发@菜单</button>
-        <button class="block tribute-btn" @click="handleAddClick1">2500ms后添加新数据方式</button>
-        <button class="block tribute-btn" @click="handleAddClick2">显示视图内容</button>
+    <div class="mb-4 p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md">
+      <div v-html="'<视图不会主动更新>'"></div>
+    </div>
+
+    <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+      <p class="text-gray-700 font-medium mb-2">测试数据：</p>
+      <div class="bg-white p-3 rounded-md border border-gray-200">
+        <span class="inline-block px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm mx-1 my-1">@test1</span>
+        <span class="inline-block px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm mx-1 my-1">@test2</span>
+        <span class="inline-block px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm mx-1 my-1">@test3</span>
+        <span class="inline-block px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm mx-1 my-1">@test4</span>
+        <span class="inline-block px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm mx-1 my-1">@t****</span>
       </div>
     </div>
+
+    <div class="flex items-start space-y-6 md:space-y-0 md:space-x-6">
+      <div class="flex-1 bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+        <label class="block w-full text-gray-700 font-medium mb-2">同步提及输入框</label>
+        <div class="w-full">
+          <vue-tributeVue :options="tributeOption" @initTribute="initTribute">
+            <div ref="vueTributeVue"
+              class="w-[calc(100%-20px*2)] h-auto px-[20px] py-3 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-sans text-gray-800 bg-white overflow-auto tribute-input"
+              type="text" @tribute-replaced="(e) => customTribute('tribute-replaced', e)"
+              @tribute-active-true="(e) => customTribute('tribute-active-true', e)"
+              @tribute-active-false="(e) => customTribute('tribute-active-false', e)"
+              @tribute-no-match="(e) => customTribute('tribute-no-match', e)" />
+          </vue-tributeVue>
+          <div
+            class="overflow-y-auto bg-white p-4 rounded-lg border border-gray-200 mt-4 max-h-[300px] tribute-innerHtml"
+            v-show="vueTributeVueInnerHtml">
+            <p class="text-sm text-indigo-600 font-medium mb-2">
+              所选取的值赋值于span标签的 data-*属性上，解析data-*拼接字符串即可
+            </p>
+            <pre class="font-mono text-sm text-gray-800 whitespace-pre-wrap">
+              {{ vueTributeVueInnerHtml }}
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+        <p class="text-gray-700 font-medium mb-3">操作按钮</p>
+        <div class="space-y-3">
+          <button
+            class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 tribute-btn"
+            @click="handleClick">
+            主动触发@菜单
+          </button>
+          <button
+            class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 tribute-btn"
+            @click="handleAddClick1">
+            2500ms后添加新数据方式
+          </button>
+          <button
+            class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 tribute-btn"
+            @click="handleAddClick2">
+            显示视图内容
+          </button>
+        </div>
+      </div>
+    </div>
+
     <toast ref="toastRefDom"></toast>
   </div>
 </template>
@@ -82,7 +116,6 @@ export default {
       handleAddClick1: () => {
         debounce(
           () => {
-            console.log('???')
             tribute.append(0, newListCreate())
           },
           2500,
@@ -90,7 +123,6 @@ export default {
         )
       },
       handleAddClick2: () => {
-        console.log('tribute实例', tribute)
         vueTributeVueInnerHtml.value = vueTributeVue.value.innerHTML
       },
       initTribute: (result) => {
@@ -134,20 +166,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tribute-input {
-  width: 500px;
-  font-size: 16px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 0.5em;
+/* 自定义滚动条样式 */
+.tribute-input::-webkit-scrollbar,
+.tribute-innerHtml::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-.tribute-innerHtml {
-  width: 500px;
-  max-height: 500px;
-  word-break: break-all;
+
+.tribute-input::-webkit-scrollbar-track,
+.tribute-innerHtml::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
 }
-.tribute-btn {
-  margin: 0 0 1em 1em;
-  padding: 0.5em;
+
+.tribute-input::-webkit-scrollbar-thumb,
+.tribute-innerHtml::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.tribute-input::-webkit-scrollbar-thumb:hover,
+.tribute-innerHtml::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
 </style>

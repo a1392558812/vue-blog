@@ -454,9 +454,27 @@ export const demoList = [
     name: 'bezier-animation',
     meta: {
       ifShowHeaderComponent: false,
-      demoName: 'bezier-animation'
+      demoName: 'bezier-贝塞尔曲线生成'
     },
     component: () => import('../views/demo/children/bezier-animation/index.vue')
+  },
+  {
+    path: 'fruit-game',
+    name: 'fruit-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '切水果'
+    },
+    component: () => import('../views/demo/children/fruit-game/index.vue')
+  },
+  {
+    path: 'css-gradient-color',
+    name: 'css-gradient-color',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: 'css渐变颜色生成器'
+    },
+    component: () => import('../views/demo/children/css-gradient-color/index.vue')
   }
 ]
 

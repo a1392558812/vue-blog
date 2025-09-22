@@ -1,14 +1,25 @@
 <template>
   <div>
-    <div v-html="'<请求数据为模拟生成的:输入： @xxx 触发>'"></div>
-    <div class="flex">
-      <vue-tributeVue :options="tributeOption">
-        <div class="lh-none tribute-input" type="text" />
-      </vue-tributeVue>
-      <div>
-        <div class="block tribute-btn">
-          <span>异步加载</span>
-          <span v-if="searchText">,加载text内容为:{{ searchText }}</span>
+    <div class="mb-4 p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md">
+      <div v-html="'<请求数据为模拟生成的:输入： @xxx 触发>'"></div>
+    </div>
+
+    <div class="">
+      <div class=" bg-gray-50 p-4 mb-4 rounded-lg border border-gray-200 shadow-sm">
+        <label class="block text-gray-700 font-medium mb-2">异步提及输入框</label>
+        <vue-tributeVue :options="tributeOption">
+          <div
+            class="w-[calc(100%-20px*2)] h-auto px-[20px] py-3 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-sans text-gray-800 bg-white overflow-auto tribute-input"
+            type="text" />
+        </vue-tributeVue>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="p-3 bg-indigo-100 rounded-lg">
+          <div class="block tribute-btn text-indigo-800 font-medium">
+            <span>异步加载</span>
+            <span v-if="searchText" class="text-indigo-600">,加载text内容为:{{ searchText }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -109,16 +120,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tribute-input {
-  width: 500px;
-  font-size: 16px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 0.5em;
+/* 自定义滚动条样式 */
+.tribute-input::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-.tribute-btn {
-  margin: 0 0 1em 1em;
-  font-size: 16px;
-  padding: 0.5em;
+
+.tribute-input::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.tribute-input::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.tribute-input::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
 </style>
