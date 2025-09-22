@@ -475,6 +475,15 @@ export const demoList = [
       demoName: 'css渐变颜色生成器'
     },
     component: () => import('../views/demo/children/css-gradient-color/index.vue')
+  },
+  {
+    path: 'stack-game',
+    name: 'stack-game',
+    meta: {
+      ifShowHeaderComponent: false,
+      demoName: '叠砖块game'
+    },
+    component: () => import('../views/demo/children/stack-game/index.vue')
   }
 ]
 
