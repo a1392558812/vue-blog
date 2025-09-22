@@ -11,7 +11,7 @@
             输入CSS代码
           </div>
           <textarea
-            class="w-full h-[600px] p-4 border-0 focus:ring-2 focus:ring-blue-200 resize-none outline-none text-gray-800"
+            class="w-[calc(100%-20px*2)] h-[600px] px-[20px] py-4 border-0 focus:ring-2 focus:ring-blue-200 resize-none outline-none text-gray-800"
             v-model="cssCode" placeholder="请输入CSS代码..." />
         </div>
 
@@ -22,7 +22,7 @@
             输入主题配置（JSON）
           </div>
           <textarea
-            class="w-full h-[600px] p-4 border-0 focus:ring-2 focus:ring-purple-200 resize-none outline-none text-gray-800"
+            class="w-[calc(100%-20px*2)] h-[600px] px-[20px] py-4 border-0 focus:ring-2 focus:ring-purple-200 resize-none outline-none text-gray-800"
             v-model="customTheme" placeholder='请输入JSON格式主题配置，无需配置可填"{}"' />
         </div>
 
@@ -32,7 +32,7 @@
           <div class="bg-green-600 text-white px-4 py-3 font-medium">
             输出结果
           </div>
-          <div class="w-full h-[600px] overflow-auto p-4 text-gray-800">
+          <div class="w-[calc(100%-20px*2)] h-[600px] px-[20px] py-4 overflow-auto text-gray-800">
             <div v-for="(item, index) in result" class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-100"
               :key="index">
               <div v-for="(key, keyIndex) in Object.keys(item)" :key="`${index}-${keyIndex}`" class="mb-2">

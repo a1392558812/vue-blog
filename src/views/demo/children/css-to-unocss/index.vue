@@ -26,7 +26,7 @@
           </div>
           <div class="p-4">
             <div
-              class="w-full h-[600px] p-3 border border-gray-300 rounded-lg overflow-auto font-mono text-sm bg-gray-50">
+              class="w-[calc(100%-20px*2)] h-[600px] px-[20px] py-3 border border-gray-300 rounded-lg overflow-auto font-mono text-sm bg-gray-50">
               <div class="mb-4" style="word-wrap: break-word">
                 {{ result[0] }}
               </div>
