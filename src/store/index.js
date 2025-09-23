@@ -8,7 +8,8 @@ import {
   SET_MENUS_INIT_RENDER,
   SET_MENUS_INIT,
   SET_MENUS_CLOSE_ALL,
-  SET_NOW_ACTIVE
+  SET_NOW_ACTIVE,
+  SET_DEMO_ROUTE
 } from './actionType'
 import themeType from '@/static/theme/type'
 
@@ -67,7 +68,8 @@ export default createStore({
       nowActive: null,
       menuList: []
     },
-    theme: 'light' // light / dark
+    theme: 'light', // light / dark
+    demoRoute: []
   },
   getters,
   mutations: {
@@ -122,6 +124,9 @@ export default createStore({
       } else {
         targetRow.ifShow = true
       }
+    },
+    [SET_DEMO_ROUTE](state, demoRoute) {
+      state.demoRoute = demoRoute
     }
   },
   actions: {
@@ -173,6 +178,9 @@ export default createStore({
     },
     [SET_MENUS_INIT_RENDER]({ commit }, row) {
       commit(SET_MENUS_INIT_RENDER, row)
+    },
+    [SET_DEMO_ROUTE]({ commit }, demoRoute) {
+      commit(SET_DEMO_ROUTE, demoRoute)
     }
   },
   modules: {}

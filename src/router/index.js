@@ -1,11 +1,14 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { isArray } from '@/common/util/typeCheck'
-import { demoList } from './create-demo-list'
 import routerSwitchLoading from '@/components/router-switch-loading/index.jsx'
+import { useStore } from 'vuex'
+import axios from '@/common/axios/index.js'
+import { SET_DEMO_ROUTE } from '@/store/actionType'
+import { setDemoRouteList, addDemoRouteList } from '@/router/dynamic-demo-route-list'
 
 const routerSwitchLoadingInstance = routerSwitchLoading()
 
-const routes = [
+let routes = [
   {
     path: '/',
     name: 'home',
@@ -20,19 +23,6 @@ const routes = [
     path: '/bookmarks',
     name: 'bookmarks',
     component: () => import('../views/bookmarks/index.vue')
-  },
-  {
-    path: '/demo',
-    name: 'demo',
-    component: () => import('../views/demo/index.vue'),
-    children: [
-      {
-        path: '',
-        name: 'demo-index',
-        component: () => import('../views/demo/index/index.vue')
-      },
-      ...demoList
-    ]
   },
   {
     path: '/404',
@@ -67,7 +57,8 @@ const ruoterCheck = (list, path, parentPath = '') => {
   return flag
 }
 let initialeEntry = true // 是否初次进入博客，展示加载路由动画
-router.beforeEach((guard) => {
+
+router.beforeEach(async (guard, form, next) => {
   console.log('beforeEach', routerSwitchLoadingInstance)
   if (initialeEntry) {
     initialeEntry = false
@@ -75,8 +66,29 @@ router.beforeEach((guard) => {
     routerSwitchLoadingInstance.startLoading({})
   }
 
-  if (!ruoterCheck(routes, guard.path)) {
-    router.replace('/404').then()
+  const store = useStore()
+  const ifHasAddRoute = store.state.demoRoute && store.state.demoRoute.length
+
+  console.log('ifHasAddRoute', ifHasAddRoute, guard)
+
+  if (!ifHasAddRoute) {
+    const res = await axios.get('./route-list.json')
+    const asyncRoutes = res.data || []
+    const demoRoute = setDemoRouteList(asyncRoutes)
+
+    routes = routes.concat(addDemoRouteList(router, demoRoute))
+    await store.dispatch(SET_DEMO_ROUTE, demoRoute.list)
+  }
+
+  const checkoutRes = ruoterCheck(routes, guard.path)
+  console.log('current routes', checkoutRes, routes)
+  if (checkoutRes) {
+    return ifHasAddRoute ? next() : next({ ...guard })
+  } else {
+    return next({
+      path: '/404',
+      replace: true
+    })
   }
 })
 router.afterEach((to, from) => {

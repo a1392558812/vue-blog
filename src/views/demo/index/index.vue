@@ -18,9 +18,9 @@
             class="p-5 rounded-xl bg-[var(--global-background-color)] shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
             v-for="(item, index) in demoList" :key="index">
             <a class="text-[14px] block w-full text-left cursor-pointer font-medium text-[var(--global-primary-color)] hover:text-teal-600 transition-colors duration-200"
-              :href="`/#${item.path}`" target="_blank">
+              :href="`/#/demo/${item.path}`" target="_blank">
               <span class="text-lg font-semibold text-teal-700 mr-2">{{ index + 1 }}、</span>
-              {{ item.name }}
+              {{ item.meta.demoName }}
             </a>
           </div>
         </div>
@@ -29,9 +29,9 @@
         <div class="bg-[var(--global-background-color)] rounded-xl shadow-md p-6">
           <div class="py-4 border-b border-gray-100 last:border-0" v-for="(item, index) in demoList" :key="index">
             <a class="text-[14px] cursor-pointer text-[var(--global-primary-color)] hover:text-teal-600 transition-colors duration-200 inline-block"
-              :href="`/#${item.path}`" target="_blank">
+              :href="`/#/demo/${item.path}`" target="_blank">
               <span class="font-semibold text-teal-700 mr-2">{{ index + 1 }}、</span>
-              {{ item.name }}
+              {{ item.meta.demoName }}
             </a>
           </div>
         </div>
@@ -40,12 +40,22 @@
   </div>
 </template>
 <script setup>
-import { demoMenuList } from '@/router/create-demo-list'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
 
 defineOptions({ name: 'view-demo-index' })
 defineProps(leftSidebarProps)
 
-const demoList = demoMenuList()
+const demoList = computed(() => {
+  if (store.state.demoRoute && store.state.demoRoute.length) {
+    return store.state.demoRoute
+  }
+  return []
+})
+
+console.log('demoList', demoList)
 </script>
 <style lang="scss" scoped></style>

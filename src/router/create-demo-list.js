@@ -486,14 +486,3 @@ export const demoList = [
     component: () => import('../views/demo/children/stack-game/index.vue')
   }
 ]
-
-export const demoMenuList = () => {
-  const list = []
-  demoList.forEach((item) => {
-    list.push({
-      name: item.meta.demoName,
-      path: `/demo/${item.path}`
-    })
-  })
-  return list
-}
