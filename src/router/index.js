@@ -72,7 +72,7 @@ router.beforeEach(async (guard, form, next) => {
   console.log('ifHasAddRoute', ifHasAddRoute, guard)
 
   if (!ifHasAddRoute) {
-    const res = await axios.get('./route-list.json')
+    const res = await axios.get('./route-list/demo.json')
     const asyncRoutes = res.data || []
     const demoRoute = setDemoRouteList(asyncRoutes)
 

@@ -15,7 +15,7 @@
         <div class="mb-4">
           <label class="block text-gray-700 mb-2">在此输入传入远程组件的值：</label>
           <input v-model="inputValue"
-            class="box-content w-[calc(100%-20px*2)] px-[20px] py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            class="box-content w-[calc(100%-20px*2)] px-[20px] py-2 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
             placeholder="请输入要传递的值..." />
         </div>
 

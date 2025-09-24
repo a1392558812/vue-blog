@@ -1,0 +1,21 @@
+[
+  {
+    "path":"stack-game",
+    "component":"stack-game",
+    "name":"stack-game",
+    "meta":{
+      "demoName":"叠砖块game",
+      "ifShowHeaderComponent":false
+     }
+  },
+  {
+    "path":"test",
+    "component":"test",
+    "name":"test",
+    "fileType":"vue",
+    "meta":{
+      "demoName":"test",
+      "ifShowHeaderComponent":false
+     }
+  }
+]

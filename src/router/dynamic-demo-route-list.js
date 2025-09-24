@@ -1,7 +1,7 @@
 import Layout from '@/views/demo/index/index.vue'
 
 const loadView = (view) => {
-  return () => import(/* @vite-ignore */ `/src/views/demo/children/${view}/index.vue`)
+  return () => import(`../views/demo/children/${view}/index.vue`)
 }
 export const setDemoRouteList = (list = []) => {
   const newModuleRoute = []
@@ -11,7 +11,11 @@ export const setDemoRouteList = (list = []) => {
     if (item.component === 'Layout') {
       component = Layout
     } else {
-      component = loadView(item.component)
+      if (item.fileType === 'vue') {
+        component = () => import('../views/demo/async-view/index.vue')
+      } else {
+        component = loadView(item.component)
+      }
     }
 
     let children

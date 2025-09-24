@@ -22,14 +22,14 @@
 </template>
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
-import '@/static/fullPage/dist/fullpage.extensions.min.js'
-import '@/static/fullPage/dist/fullpage.css'
+import fullpage from 'fullpage.js'
+import 'fullpage.js/dist/fullpage.css'
 
 console.log('fullpage', window.fullpage)
 
 let fullpageResult
 const initFullpage = () => {
-  fullpageResult = new window.fullpage('#fullpage', {
+  fullpageResult = new fullpage('#fullpage', {
     autoScrolling: true,
     navigation: true,
     licenseKey: '',
