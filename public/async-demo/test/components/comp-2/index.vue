@@ -1,6 +1,8 @@
 <template>
   <div class="child-2">子组件2</div>
 </template>
+<script setup>
+</script>
 <style>
 .child-2 {
   color: green;

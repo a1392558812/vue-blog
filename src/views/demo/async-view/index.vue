@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="customComponent" />
+    <component :is="customComponent" :fileList="fileList" :markdownComponent="markdownComponent" />
   </div>
 </template>
 <script setup lang="jsx">
@@ -11,6 +11,7 @@ import axios from '@/common/axios/index.js'
 import { useRoute } from 'vue-router'
 import loading from '@/components/loading/loading.vue'
 import { compileString } from 'sass'
+import { isArray, isObject } from '@/common/util/typeCheck'
 
 defineOptions({
   name: 'async-view'
@@ -19,6 +20,15 @@ defineOptions({
 const useRouteStore = useRoute()
 let path = useRouteStore.path.split('/demo')[1]
 path = path.split('/')[1]
+
+/**
+ * interface {
+ *   path: string,
+ *   suffix: string,
+ *   content: string
+ * }
+ */
+const fileList = Vue.ref([])
 
 console.log('useRouteStore', path)
 
@@ -29,12 +39,14 @@ console.log('useRouteStore', path)
 * @returns {string} 处理后的字符串
 * @throws {Error} 如果第一个参数不是字符串或第二个参数不是函数，则抛出错误
 */
-const processScssStyles = (vueString, callback) => {
+const processScssStyles = async (vueString, callback) => {
+
   if (typeof vueString !== 'string' || typeof callback !== 'function') {
     throw new Error('第一个参数必须是字符串，第二个参数必须是函数');
   }
 
   const scssStyleRegex = /<style\s+(?=(?:[^>]*?\s+)?lang\s*=\s*"scss")([\s\S]*?)>([\s\S]*?)<\/style>/gi;
+  const useUrlRegex = /@use\s+(?:url\s*\(\s*["']([^"']+)['"]\s*\)|["']([^"']+)["'])/gi;
 
   let result = vueString;
   let match;
@@ -67,8 +79,24 @@ const processScssStyles = (vueString, callback) => {
   // 反向处理匹配结果，避免替换后索引偏移
   for (let i = matches.length - 1; i >= 0; i--) {
     const { fullMatch, cleanedAttrs, content, isScoped, index: matchIndex } = matches[i];
+    let resContent = content
 
-    const processedContent = callback(content, isScoped, index);
+    if (useUrlRegex.test(content)) {
+      const url = content.match(useUrlRegex)[0].split('@use')[1].trim().replace(/["']/g, '')
+      console.log('url', url)
+      if (url) {
+        const res = await axios.get(url)
+        fileList.value.push({
+          path: url,
+          suffix: 'scss',
+          content: res.data
+        })
+        resContent = content.replace(useUrlRegex, res.data)
+      }
+    }
+
+    console.log('resContent', resContent)
+    const processedContent = callback(resContent, isScoped, index);
     index++;
 
     const newStyleTag = cleanedAttrs
@@ -79,10 +107,18 @@ const processScssStyles = (vueString, callback) => {
       newStyleTag +
       result.substring(matchIndex + fullMatch.length);
   }
-
+  console.log('result', result)
   return result;
 }
 
+const getFileErrorContentTemplate = (title, errorMessage) => `
+<template>
+  <div style="background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 30px; color: red; word-break: break-all; padding: 0 60px;">
+    <div>${title}</div>
+    <div>${errorMessage}</div>
+  </div>
+</template>
+`
 const getVueFile = () => {
   return loadModule(`./async-demo/${path}/index.vue`, {
     moduleCache: {
@@ -90,30 +126,48 @@ const getVueFile = () => {
     },
     getFile(url) {
       return new Promise((resolve, reject) => {
-        const fileUrl = url
-        axios.get(fileUrl).then((res) => {
+        axios.get(url).then((res) => {
           let processScssStylesResultFlag = true
-          let vueContent = processScssStyles(res.data || '', (content, isScoped, index) => {
-            try {
-              const cssStr = compileString(content, { style: 'expanded' })
-              if (cssStr.css) {
-                processScssStylesResultFlag = true
-                return cssStr.css
-              } else {
+          let errorMessage = ''
+          console.log('res.data', url, res.data)
+          fileList.value.push({
+            path: url,
+            suffix: 'html',
+            content: res.data
+          })
+          if (res.data) {
+            return processScssStyles(res.data, (content, isScoped, index) => {
+              try {
+                const cssStr = compileString(content, { style: 'expanded' })
+                if (cssStr.css) {
+                  processScssStylesResultFlag = true
+                  return cssStr.css
+                }
+
                 processScssStylesResultFlag = false
+                errorMessage = 'scss编译失败为空'
+                return ''
+
+              } catch (error) {
+                console.error('compileString', error)
+                processScssStylesResultFlag = false
+                errorMessage = (isArray(error) || isObject(error)) ? JSON.stringify(error) : error
                 return ''
               }
-            } catch (error) {
-              console.error('compileString', error)
-              processScssStylesResultFlag = false
-              return ''
-            }
-          })
+            }).then((vueContent) => {
+              vueContent = processScssStylesResultFlag ? vueContent : getFileErrorContentTemplate('scss编译失败', errorMessage)
+              console.log('vueContent', vueContent)
+              resolve(vueContent)
+            }).catch((err) => {
+              console.error('processScssStyles-error', err)
+              const content = getFileErrorContentTemplate('解析编译失败', (isArray(err) || isObject(err)) ? JSON.stringify(err) : err)
+              resolve(content)
+            })
+          }
 
-          vueContent = processScssStylesResultFlag ? vueContent : `<template><div style="background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 30px; color: red"><div>scss编译失败</div><div>请检查scss语法是否有误</div></div></template>`
-          console.log('res', vueContent)
-          resolve(vueContent)
+          reject(res)
         }).catch((err) => {
+          console.error('res', err)
           reject(err)
         })
       })
@@ -125,7 +179,7 @@ const getVueFile = () => {
     },
     log(type, ...args) {
       if (type === 'error') {
-        console.log('✍✍error ---> args', ...args)
+        console.error('✍✍error ---> args', ...args)
         alert('组件解析发生意外，请打开控制台查看')
       }
     },
@@ -174,6 +228,8 @@ const customComponent = Vue.defineAsyncComponent({
   errorComponent: getErrorFile,
   loadingComponent: getLoadingFile
 })
+
+const markdownComponent = () => Vue.defineAsyncComponent(() => import('@/components/v-md-preview/index.jsx'))
 
 </script>
 <style lang="scss">
