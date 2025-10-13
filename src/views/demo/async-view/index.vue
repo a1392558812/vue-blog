@@ -42,7 +42,7 @@ const errorComponent = () => (<div style="background: rgba(0, 0, 0, 0.7); positi
 
 
 const getTargetPathFileListIndex = (path) => {
-  return fileList.value.findIndex(item => item.path === path) !== -1
+  return fileList.value.findIndex(item => item.path === path)
 }
 
 const pushFileList = ({ path, suffix, content }) => {
@@ -64,6 +64,7 @@ const getVueFile = () => {
       const suffix = url.split('.').pop()
       return new Promise((resolve, reject) => {
         const index = getTargetPathFileListIndex(url)
+        console.log('index', index)
         const promise = (index === -1) ? axios.get(url) : Promise.resolve({ data: fileList.value[index].content })
 
         promise.then((res) => {
