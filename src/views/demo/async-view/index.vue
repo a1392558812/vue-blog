@@ -40,21 +40,38 @@ const errorComponent = () => (<div style="background: rgba(0, 0, 0, 0.7); positi
   <div>{errorComponentData.errorMessage}</div>
 </div>)
 
-
-const getTargetPathFileListIndex = (path) => {
-  return fileList.value.findIndex(item => item.path === path)
-}
-
-const pushFileList = ({ path, suffix, content }) => {
-  const index = getTargetPathFileListIndex(path)
-  if (index === -1) {
-    fileList.value.push({
-      path,
-      suffix,
-      content
-    })
+/**
+ * 
+ * @param options {
+ *   path: string,
+ *   suffix: string,
+ *   content: string
+ * }
+ */
+const getAndUpdateTargetPathFile = (options) => {
+  if (!options.path) throw new Error('path不能为空')
+  let target = fileList.value.find(item => item.path === options.path)
+  if (!target) {
+    target = {
+      path: options.path,
+      suffix: options.suffix,
+      content: options.content || '',
+      promise: axios.get(options.path),
+    }
+    fileList.value.push(target)
+  } else {
+    if (!target.content) {
+      if (options.content) {
+        target.content = options.content
+      }
+      if (options.suffix) {
+        target.suffix = options.suffix
+      }
+    }
   }
+  return target
 }
+
 const getVueFile = () => {
   return loadModule(`./async-demo/${path}/index.vue`, {
     moduleCache: {
@@ -63,17 +80,18 @@ const getVueFile = () => {
     getFile(url) {
       const suffix = url.split('.').pop()
       return new Promise((resolve, reject) => {
-        const index = getTargetPathFileListIndex(url)
-        console.log('index', index)
-        const promise = (index === -1) ? axios.get(url) : Promise.resolve({ data: fileList.value[index].content })
+        const target = getAndUpdateTargetPathFile({
+          path: url,
+          suffix,
+          content: '',
+        })
 
-        promise.then((res) => {
+        target.promise.then((res) => {
           console.log('res.data', { url, data: res.data })
           if (res.data) {
             if (suffix === 'js') {
-              pushFileList({
+              getAndUpdateTargetPathFile({
                 path: url,
-                suffix,
                 content: res.data
               })
 
@@ -85,11 +103,12 @@ const getVueFile = () => {
               })
             }
 
-            pushFileList({
+            getAndUpdateTargetPathFile({
               path: url,
               suffix: 'html',
               content: res.data
             })
+
             return resolve(res.data)
           }
 
@@ -112,21 +131,21 @@ const getVueFile = () => {
         let url = urlList[0].split('@use')[1].trim().replace(/["']/g, '')
 
         if (url) {
-          const index = getTargetPathFileListIndex(url)
-          let result
-          if (index !== -1) {
-            result = fileList.value[index].content
-          } else {
-            const res = await axios.get(url)
-            if (!res.data) throw new Error(`获取${url}失败`)
-            result = res.data
-            pushFileList({
-              path: url,
-              suffix: 'scss',
-              content: res.data
-            })
-          }
-          content = content.replace(useUrlRegex, result)
+          const target = getAndUpdateTargetPathFile({
+            path: url,
+            suffix: 'scss',
+            content: '',
+          })
+
+          const res = await target.promise
+          if (!res.data) throw new Error(`获取${url}失败`)
+
+          getAndUpdateTargetPathFile({
+            path: url,
+            content: res.data,
+          })
+
+          content = content.replace(useUrlRegex, res.data)
         }
       }
 
