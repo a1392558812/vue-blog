@@ -1,7 +1,9 @@
 <template>
   <div class="nested-components">
     <!-- 标题区域 -->
-    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md">
+    <div
+      class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md"
+    >
       组件嵌套演示
     </div>
 
@@ -17,7 +19,8 @@
         <h3 class="text-lg font-semibold text-gray-800 mb-3">请编辑main组件内容:</h3>
         <textarea
           class="w-[calc(100%-20px*2)] box-content h-[120px] px-[20px] py-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-mono text-sm bg-white resize-none"
-          v-model="inputValue1"></textarea>
+          v-model="inputValue1"
+        ></textarea>
       </div>
 
       <!-- Foo组件输入 -->
@@ -25,7 +28,8 @@
         <h3 class="text-lg font-semibold text-gray-800 mb-3">请编辑foo组件内容:</h3>
         <textarea
           class="w-[calc(100%-20px*2)] box-content h-[120px] px-[20px] py-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-mono text-sm bg-white resize-none"
-          v-model="inputValue2"></textarea>
+          v-model="inputValue2"
+        ></textarea>
       </div>
 
       <!-- Bar组件输入 -->
@@ -33,7 +37,8 @@
         <h3 class="text-lg font-semibold text-gray-800 mb-3">请编辑bar组件内容:</h3>
         <textarea
           class="w-[calc(100%-20px*2)] box-content h-[120px] px-[20px] py-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-mono text-sm bg-white resize-none"
-          v-model="inputValue3"></textarea>
+          v-model="inputValue3"
+        ></textarea>
       </div>
 
       <!-- CSS输入 -->
@@ -41,7 +46,8 @@
         <h3 class="text-lg font-semibold text-gray-800 mb-3">请编辑bar组件css内容:</h3>
         <textarea
           class="w-[calc(100%-20px*2)] box-content h-[120px] px-[20px] py-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-mono text-sm bg-white resize-none"
-          v-model="inputValue4"></textarea>
+          v-model="inputValue4"
+        ></textarea>
       </div>
 
       <!-- 操作区域 -->
@@ -51,8 +57,10 @@
         <!-- 生成按钮 -->
         <div v-if="!ifShowComponents" class="text-center py-6">
           <p class="mb-4 text-gray-600">编写完点击生成</p>
-          <button @click="generateComponents"
-            class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+          <button
+            @click="generateComponents"
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+          >
             生成组件
           </button>
         </div>
@@ -60,8 +68,9 @@
         <!-- 组件预览 -->
         <div v-else class="min-h-[300px] bg-gray-50 p-6 rounded-lg border border-gray-200">
           <div class="bg-white p-1 rounded-lg border border-gray-200 shadow-sm mb-4 inline-block">
-            <span class="px-3 py-1 text-sm bg-indigo-100 text-indigo-800 rounded-md">嵌套组件结构: Main &gt; Foo &gt;
-              Bar</span>
+            <span class="px-3 py-1 text-sm bg-indigo-100 text-indigo-800 rounded-md"
+              >嵌套组件结构: Main &gt; Foo &gt; Bar</span
+            >
           </div>
 
           <div class="transition-all duration-500" :key="componentKey">
@@ -70,8 +79,10 @@
           </div>
 
           <!-- 重新生成按钮 -->
-          <button @click="resetRender"
-            class="mt-6 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all duration-200">
+          <button
+            @click="resetRender"
+            class="mt-6 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all duration-200"
+          >
             重新生成
           </button>
         </div>
@@ -108,7 +119,8 @@ const input3 =
   'components: {},created() {console.log("bar created")},mounted() {console.log("bar mounted")}}' +
   '<' +
   '/script>'
-const styleCss = '.bar-comp { color: blue; border: 2px solid blue; margin: 10px; padding: 15px; border-radius: 8px; text-align: center; font-size: 18px; }'
+const styleCss =
+  '.bar-comp { color: blue; border: 2px solid blue; margin: 10px; padding: 15px; border-radius: 8px; text-align: center; font-size: 18px; }'
 
 export default {
   name: 'load-vue-file-nested-components',

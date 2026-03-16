@@ -11,7 +11,9 @@ function getInstance() {
 
   createApp({
     name: 'router-switch-loading',
-    render() { return instance }
+    render() {
+      return instance
+    }
   }).mount(divNode)
 
   // 插入子节点

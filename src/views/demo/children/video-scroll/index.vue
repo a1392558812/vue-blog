@@ -6,7 +6,7 @@
     class="relative scroll-video-wrap"
   >
     <div style="left: 0; top: 0" class="fixed">
-      <div>github-page资源访问较慢，这里做2.5s缓冲</div>
+      <div>github-page资源访问较慢，这里做2.5s缓冲，资源加载完成后，滚动鼠标滚轮查看效果</div>
     </div>
     <div ref="scrollRef" class="relative scroll-target"></div>
     <video

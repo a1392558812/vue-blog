@@ -1,5 +1,7 @@
 <template>
-  <div class="box-content h-[calc(100vh-40px*2)] py-[40px] overflow-auto bg-gradient-to-br from-indigo-50 to-purple-50">
+  <div
+    class="box-content h-[calc(100vh-40px*2)] py-[40px] overflow-auto bg-gradient-to-br from-indigo-50 to-purple-50"
+  >
     <div class="max-w-7xl mx-auto">
       <!-- 组件容器 -->
       <div class="space-y-12">

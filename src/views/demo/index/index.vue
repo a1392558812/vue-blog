@@ -16,9 +16,14 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div
             class="p-5 rounded-xl bg-[var(--global-background-color)] shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
-            v-for="(item, index) in demoList" :key="index">
-            <a class="text-[14px] block w-full text-left cursor-pointer font-medium text-[var(--global-primary-color)] hover:text-teal-600 transition-colors duration-200"
-              :href="`/#/demo/${item.path}`" target="_blank">
+            v-for="(item, index) in demoList"
+            :key="index"
+          >
+            <a
+              class="text-[14px] block w-full text-left cursor-pointer font-medium text-[var(--global-primary-color)] hover:text-teal-600 transition-colors duration-200"
+              :href="`/#/demo/${item.path}`"
+              target="_blank"
+            >
               <span class="text-lg font-semibold text-teal-700 mr-2">{{ index + 1 }}、</span>
               {{ item.meta.demoName }}
             </a>
@@ -27,9 +32,16 @@
       </template>
       <template v-else>
         <div class="bg-[var(--global-background-color)] rounded-xl shadow-md p-6">
-          <div class="py-4 border-b border-gray-100 last:border-0" v-for="(item, index) in demoList" :key="index">
-            <a class="text-[14px] cursor-pointer text-[var(--global-primary-color)] hover:text-teal-600 transition-colors duration-200 inline-block"
-              :href="`/#/demo/${item.path}`" target="_blank">
+          <div
+            class="py-4 border-b border-gray-100 last:border-0"
+            v-for="(item, index) in demoList"
+            :key="index"
+          >
+            <a
+              class="text-[14px] cursor-pointer text-[var(--global-primary-color)] hover:text-teal-600 transition-colors duration-200 inline-block"
+              :href="`/#/demo/${item.path}`"
+              target="_blank"
+            >
               <span class="font-semibold text-teal-700 mr-2">{{ index + 1 }}、</span>
               {{ item.meta.demoName }}
             </a>

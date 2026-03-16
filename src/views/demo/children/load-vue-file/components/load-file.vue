@@ -1,7 +1,9 @@
 <template>
   <div class="load-vue-file">
     <!-- 标题区域 -->
-    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md">
+    <div
+      class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md"
+    >
       远程加载vue文件演示,请求内容可打开F12控制台[网络]查看
     </div>
 
@@ -14,9 +16,11 @@
         <!-- 输入区域 -->
         <div class="mb-4">
           <label class="block text-gray-700 mb-2">在此输入传入远程组件的值：</label>
-          <input v-model="inputValue"
+          <input
+            v-model="inputValue"
             class="box-content w-[calc(100%-20px*2)] px-[20px] py-2 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-            placeholder="请输入要传递的值..." />
+            placeholder="请输入要传递的值..."
+          />
         </div>
 
         <!-- 输出区域 -->
@@ -31,8 +35,15 @@
         <h3 class="text-xl font-semibold text-gray-800 mb-4">远程加载的子组件</h3>
 
         <!-- 组件显示区域 -->
-        <div class="bg-white p-6 rounded-lg border border-gray-200 min-h-[150px] flex items-center justify-center">
-          <component :is="'customComponent'" :inputValue="inputValue" @loadFileValue="loadFileValue" v-if="isLoading">
+        <div
+          class="bg-white p-6 rounded-lg border border-gray-200 min-h-[150px] flex items-center justify-center"
+        >
+          <component
+            :is="'customComponent'"
+            :inputValue="inputValue"
+            @loadFileValue="loadFileValue"
+            v-if="isLoading"
+          >
           </component>
           <div v-else class="text-gray-500">加载中...</div>
         </div>
@@ -53,7 +64,7 @@ export default {
   name: 'load-vue-file-load-file',
   components: {
     customComponent: Vue.defineAsyncComponent(() => {
-      const result = loadModule('demo-static/load-vue-file/myComponent.vue', {
+      const result = loadModule(`demo-static/load-vue-file/myComponent.vue`, {
         moduleCache: {
           vue: Vue
         },
@@ -63,9 +74,11 @@ export default {
             axios
               .get(fileUrl)
               .then((res) => {
+                console.log('myComponent-success', res)
                 resolve(res.data)
               })
               .catch((err) => {
+                console.log('myComponent-err', err)
                 resolve(err)
               })
           })
@@ -76,15 +89,16 @@ export default {
           document.head.insertBefore(style, ref)
         },
         log(type, ...args) {
+          console.log('✍✍log', { type, args })
           if (type === 'error') {
-            console.log('✍✍error ---> args', ...args)
             alert('组件解析发生意外，请打开控制台查看')
           }
         },
         compiledCache: {
           set(key, str) {
+            console.log('✍✍compiledCache-set', { key, str })
             // naive storage space management
-            for (; ;) {
+            for (;;) {
               try {
                 // doc: https://developer.mozilla.org/en-US/docs/Web/API/Storage
                 window.localStorage.setItem(key, str)
@@ -96,11 +110,14 @@ export default {
             }
           },
           get(key) {
-            return window.localStorage.getItem(key)
+            const result = window.localStorage.getItem(key)
+            console.log('✍✍compiledCache-get', { key, result })
+            return result || undefined
           }
         },
         // 自定义处理模块
         handleModule(type, source, path, options) {
+          console.log('✍✍handleModule', { type, source, path, options })
           if (source && source()) {
             if (type === '.vue') {
               return Promise.resolve(options.moduleCache[options.path])
@@ -109,6 +126,7 @@ export default {
           return notFind
         }
       })
+      console.log('result', result)
       return result
     })
   },

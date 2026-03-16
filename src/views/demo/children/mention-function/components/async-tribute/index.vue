@@ -1,16 +1,19 @@
 <template>
   <div>
-    <div class="mb-4 p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md">
+    <div
+      class="mb-4 p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md"
+    >
       <div v-html="'<请求数据为模拟生成的:输入： @xxx 触发>'"></div>
     </div>
 
     <div class="">
-      <div class=" bg-gray-50 p-4 mb-4 rounded-lg border border-gray-200 shadow-sm">
+      <div class="bg-gray-50 p-4 mb-4 rounded-lg border border-gray-200 shadow-sm">
         <label class="block text-gray-700 font-medium mb-2">异步提及输入框</label>
         <vue-tributeVue :options="tributeOption">
           <div
             class="w-[calc(100%-20px*2)] h-auto px-[20px] py-3 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-sans text-gray-800 bg-white overflow-auto tribute-input"
-            type="text" />
+            type="text"
+          />
         </vue-tributeVue>
       </div>
 

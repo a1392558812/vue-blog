@@ -4,74 +4,103 @@
     <div class="toggle-btn-wrap shrink-0 flex items-center p-2 gap-2">
       <button
         class="toggle-btn px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 flex items-center justify-center"
-        :class="editMode === 'preview' ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-gray-700 border-[1px] border-solid border-gray-300 hover:bg-gray-50'"
-        @click="editMode = 'preview'">
+        :class="
+          editMode === 'preview'
+            ? 'bg-purple-600 text-white shadow-md'
+            : 'bg-white text-gray-700 border-[1px] border-solid border-gray-300 hover:bg-gray-50'
+        "
+        @click="editMode = 'preview'"
+      >
         预览模式
       </button>
       <button
         class="toggle-btn px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 flex items-center justify-center"
-        :class="editMode === 'edit' ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-gray-700 border-[1px] border-solid border-gray-300 hover:bg-gray-50'"
-        @click="editMode = 'edit'">
+        :class="
+          editMode === 'edit'
+            ? 'bg-purple-600 text-white shadow-md'
+            : 'bg-white text-gray-700 border-[1px] border-solid border-gray-300 hover:bg-gray-50'
+        "
+        @click="editMode = 'edit'"
+      >
         编辑模式
       </button>
       <div v-if="editMode === 'edit'" class="toggle-btn flex items-center gap-2">
         <label class="text-sm text-gray-600">编辑器宽度: {{ contentWrapWidth }}%</label>
         <input
           class="w-12 h-8 px-2 border-[1px] border-solid border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-          type="number" :value="contentWrapWidth" @input="onInput" />
+          type="number"
+          :value="contentWrapWidth"
+          @input="onInput"
+        />
       </div>
     </div>
 
     <!-- 编辑器和预览区域 -->
     <div class="iframe-wrap flex flex-1 w-full">
-      <div v-if="editMode === 'edit'"
+      <div
+        v-if="editMode === 'edit'"
         class="content-wrap flex flex-col mr-4 rounded-lg overflow-hidden border-[1px] border-solid border-gray-200 shadow-sm"
-        :style="{ width: `${contentWrapWidth}%` }">
+        :style="{ width: `${contentWrapWidth}%` }"
+      >
         <!-- Template 编辑区 -->
         <div class="textarea-warp w-full">
-          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+          <div
+            class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200"
+          >
             template
           </div>
           <textarea
             class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] bg-white border-b border-gray-200 focus:outline-none resize-none font-mono text-sm"
-            v-model="templateValueComputed" />
+            v-model="templateValueComputed"
+          />
         </div>
 
         <!-- Script 编辑区 -->
         <div class="textarea-warp w-full">
-          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+          <div
+            class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200"
+          >
             script
           </div>
           <textarea
             class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] bg-white border-b border-gray-200 focus:outline-none resize-none font-mono text-sm"
-            v-model="scriptValueComputed" />
+            v-model="scriptValueComputed"
+          />
         </div>
 
         <!-- CSS 编辑区 -->
         <div class="textarea-warp w-full">
-          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+          <div
+            class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200"
+          >
             css
           </div>
           <textarea
             class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] bg-white border-b border-gray-200 focus:outline-none resize-none font-mono text-sm"
-            v-model="cssValueComputed" />
+            v-model="cssValueComputed"
+          />
         </div>
 
         <!-- Imports 编辑区 -->
         <div class="textarea-warp w-full">
-          <div class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200">
+          <div
+            class="textarea-title bg-gray-100 px-4 py-2 font-medium text-gray-700 border-b border-gray-200"
+          >
             imports
           </div>
           <textarea
             class="textarea-item w-[calc(100%-20px*2)] h-[119px] py-3 px-[20px] border-none bg-white focus:outline-none resize-none font-mono text-sm"
-            v-model="importsComputed" />
+            v-model="importsComputed"
+          />
         </div>
       </div>
 
       <!-- 预览iframe -->
-      <iframe :style="{ flex: 1 }"
+      <iframe
+        :style="{ flex: 1 }"
         class="iframe-item rounded-lg border-[1px] border-solid border-gray-200 shadow-sm bg-white"
-        ref="iframeRef"></iframe>
+        ref="iframeRef"
+      ></iframe>
     </div>
   </div>
 </template>
@@ -205,16 +234,16 @@ watch(
           [
             `<style>
 html, body{ padding: 0; margin: 0 }` +
-            (props.cssValue ? '\n' + props.cssValue : '') +
-            `</style>
+              (props.cssValue ? '\n' + props.cssValue : '') +
+              `</style>
 <script type="importmap">
   {
     "imports": ` +
-            JSON.stringify(props.imports) +
-            `
+              JSON.stringify(props.imports) +
+              `
   }
 </` +
-            `script>
+              `script>
 
 <div id="app"></div>
 
@@ -233,7 +262,7 @@ html, body{ padding: 0; margin: 0 }` +
 
   ;app.mount('#app')
 <` +
-            '/script>'
+              '/script>'
           ],
           { type: 'text/html;charset=UTF-8' }
         )

@@ -1,11 +1,16 @@
 <template>
-  <div class="box-content h-[100%-20px*2] overflow-auto bg-gradient-to-br from-blue-50 to-violet-50 p-[20px]">
+  <div
+    class="box-content h-[100%-20px*2] overflow-auto bg-gradient-to-br from-blue-50 to-violet-50 p-[20px]"
+  >
     <!-- 沙箱容器 -->
     <div class="max-w-7xl mx-auto">
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+      <div
+        class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl"
+      >
         <!-- 工具栏 -->
         <div
-          class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-100 to-violet-100 border-b border-blue-200">
+          class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-100 to-violet-100 border-b border-blue-200"
+        >
           <div class="flex items-center space-x-2">
             <div class="h-3 w-3 rounded-full bg-red-500"></div>
             <div class="h-3 w-3 rounded-full bg-yellow-500"></div>
@@ -17,8 +22,13 @@
 
         <!-- 代码编辑器 -->
         <div class="playground2 overflow-auto">
-          <codeEdit mode="edit" v-model:imports="imports" v-model:templateValue="templateValue"
-            v-model:cssValue="cssValue" v-model:scriptValue="scriptValue"></codeEdit>
+          <codeEdit
+            mode="edit"
+            v-model:imports="imports"
+            v-model:templateValue="templateValue"
+            v-model:cssValue="cssValue"
+            v-model:scriptValue="scriptValue"
+          ></codeEdit>
         </div>
       </div>
     </div>

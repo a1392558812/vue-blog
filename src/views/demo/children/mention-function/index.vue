@@ -3,20 +3,26 @@
     <div class="w-[1200px] mx-auto px-4 py-12">
       <!-- 页面标题 -->
       <div class="text-center mb-10">
-        <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h1
+          class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"
+        >
           @提及功能的同步和异步实现方式
         </h1>
       </div>
 
       <div class="w-full overflow-y-auto">
         <!-- 同步提及组件 -->
-        <div class="mb-10 bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+        <div
+          class="mb-10 bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
+        >
           <h2 class="text-2xl font-semibold text-gray-800 mb-4">同步提及功能</h2>
           <tribute class="tribute" />
         </div>
 
         <!-- 异步提及组件 -->
-        <div class="mb-10 bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+        <div
+          class="mb-10 bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
+        >
           <h2 class="text-2xl font-semibold text-gray-800 mb-4">异步提及功能</h2>
           <asyncTribute class="tribute" />
         </div>
@@ -24,7 +30,9 @@
         <!-- 配置说明 -->
         <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
           <h2 class="text-2xl font-semibold text-gray-800 mb-4">配置参数说明</h2>
-          <pre class="overflow-y-auto bg-gray-50 p-4 rounded-lg border border-gray-200 font-mono text-sm max-h-96">
+          <pre
+            class="overflow-y-auto bg-gray-50 p-4 rounded-lg border border-gray-200 font-mono text-sm max-h-96"
+          >
             {
               // 开始查找的符号或字符串
               trigger: '@',

@@ -1,7 +1,9 @@
 <template>
   <div class="load-string">
     <!-- 标题区域 -->
-    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md">
+    <div
+      class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-lg mb-6 shadow-md"
+    >
       在线字符串解析为vue模板演示
     </div>
 
@@ -9,15 +11,19 @@
     <div class="space-y-6">
       <!-- 初始状态：输入框 -->
       <div v-if="!refreshinput" class="space-y-4">
-        <button @click="createRender"
-          class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:shadow-lg">
-          在下方textarea输入<i style="color: #FFD700">***.vue格式</i>代码,点击生成组件
+        <button
+          @click="createRender"
+          class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:shadow-lg"
+        >
+          在下方textarea输入<i style="color: #ffd700">***.vue格式</i>代码,点击生成组件
         </button>
 
         <div class="relative">
-          <textarea v-model="inputTemplate"
+          <textarea
+            v-model="inputTemplate"
             class="box-content w-[calc(100%-20px*2)] px-[20px] h-[250px] py-4 border-2 border-gray-300 rounded-xl shadow-sm focus:ring-3 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-mono text-sm bg-gray-50 resize-none"
-            placeholder="请输入Vue组件代码..."></textarea>
+            placeholder="请输入Vue组件代码..."
+          ></textarea>
           <div class="absolute bottom-3 right-3 text-xs text-gray-500">
             {{ inputTemplate.length }} 字符
           </div>
@@ -33,8 +39,10 @@
         </div>
 
         <!-- 重新生成按钮 -->
-        <button @click="resetRender"
-          class="mt-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all duration-200">
+        <button
+          @click="resetRender"
+          class="mt-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all duration-200"
+        >
           重新生成
         </button>
       </div>

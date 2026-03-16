@@ -4,7 +4,9 @@
     <div class="mx-auto" :style="{ width: `${1200 + varianceWidth}px` }">
       <!-- 标题区域 -->
       <div class="text-center mb-6">
-        <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600">
+        <h1
+          class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600"
+        >
           代码块演示厂
         </h1>
         <p class="text-gray-600 mt-2">Vue 组件在线编辑与预览环境</p>
@@ -12,7 +14,8 @@
 
       <!-- 控制面板 -->
       <div
-        class="flex flex-col items-center bg-white rounded-xl shadow-md p-6 mb-6 transition-all duration-300 hover:shadow-lg">
+        class="flex flex-col items-center bg-white rounded-xl shadow-md p-6 mb-6 transition-all duration-300 hover:shadow-lg"
+      >
         <div class="mb-4 text-gray-700">目前已支持vueuse，可调试查看Import Map</div>
 
         <div class="mb-2 font-medium text-gray-700">演示框尺寸</div>
@@ -20,28 +23,41 @@
         <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
           <div class="flex items-center gap-2 flex-1">
             <label class="text-sm text-gray-600 min-w-[50px]">增宽:</label>
-            <input type="number" v-model="varianceWidth"
+            <input
+              type="number"
+              v-model="varianceWidth"
               class="flex-1 px-3 py-2 border-2 border-solid border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-center"
-              placeholder="0" />
+              placeholder="0"
+            />
             <span class="text-sm text-gray-500">px</span>
           </div>
 
           <div class="flex items-center gap-2 flex-1">
             <label class="text-sm text-gray-600 min-w-[50px]">增高:</label>
-            <input type="number" v-model="varianceHeight"
+            <input
+              type="number"
+              v-model="varianceHeight"
               class="flex-1 px-3 py-2 border-2 border-solid border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-center"
-              placeholder="0" />
+              placeholder="0"
+            />
             <span class="text-sm text-gray-500">px</span>
           </div>
         </div>
       </div>
 
       <!-- 代码编辑区域 -->
-      <div class="rounded-xl overflow-hidden shadow-lg bg-white transition-all duration-300 hover:shadow-xl"
-        :style="{ width: `${1200 + varianceWidth}px`, height: `${550 + varianceHeight}px` }">
+      <div
+        class="rounded-xl overflow-hidden shadow-lg bg-white transition-all duration-300 hover:shadow-xl"
+        :style="{ width: `${1200 + varianceWidth}px`, height: `${550 + varianceHeight}px` }"
+      >
         <!-- 代码编辑器组件 -->
-        <playground-plane :defaultTemplate="defaultTemplate" :defaultNewSFC="defaultNewSFC"
-          :componentsFiles="componentsFiles" playGroundPlaneWidth="100%" playGroundPlaneReplHeight="100%" />
+        <playground-plane
+          :defaultTemplate="defaultTemplate"
+          :defaultNewSFC="defaultNewSFC"
+          :componentsFiles="componentsFiles"
+          playGroundPlaneWidth="100%"
+          playGroundPlaneReplHeight="100%"
+        />
       </div>
     </div>
   </div>
@@ -167,7 +183,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.play-ground {}
+.play-ground {
+}
 
 /* 自定义滚动条样式 */
 ::-webkit-scrollbar {

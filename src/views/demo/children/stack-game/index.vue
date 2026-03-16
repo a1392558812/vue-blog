@@ -1,21 +1,33 @@
 <template>
   <div
     class="w-screen h-screen relative overflow-hidden flex items-center justify-center bg-[linear-gradient(135deg,_#1a1a2e_0%,_#16213e_100%)]"
-    ref="containerRef">
+    ref="containerRef"
+  >
     <div class="absolute top-[20px] left-[0] right-[0] text-center text-[white] z-10">
-      <div class="text-[24px] [font-weight:bold] m-[5px] [text-shadow:2px_2px_4px_rgba(0,_0,_0,_0.5)] ">得分: {{ score }}
+      <div
+        class="text-[24px] [font-weight:bold] m-[5px] [text-shadow:2px_2px_4px_rgba(0,_0,_0,_0.5)]"
+      >
+        得分: {{ score }}
       </div>
-      <div class="text-[24px] [font-weight:bold] m-[5px] [text-shadow:2px_2px_4px_rgba(0,_0,_0,_0.5)]">关卡: {{ level }}
+      <div
+        class="text-[24px] [font-weight:bold] m-[5px] [text-shadow:2px_2px_4px_rgba(0,_0,_0,_0.5)]"
+      >
+        关卡: {{ level }}
       </div>
       {{ isGameOver }}
       <div class="text-[18px] mt-[10px] opacity-80" v-if="!isGameOver">点击或按空格键堆叠方块</div>
-      <div class="bg-[rgba(0,_0,_0,_0.8)] p-[30px] rounded-[15px] [box-shadow:0_10px_30px_rgba(0,_0,_0,_0.5)] "
-        v-if="isGameOver">
+      <div
+        class="bg-[rgba(0,_0,_0,_0.8)] p-[30px] rounded-[15px] [box-shadow:0_10px_30px_rgba(0,_0,_0,_0.5)]"
+        v-if="isGameOver"
+      >
         <div class="text-[36px] [font-weight:bold] text-[#ff6b6b] mb-[15px]">游戏结束!</div>
         <div class="text-[24px] mb-[20px]">最终得分: {{ score }}</div>
         <button
           class="bg-[#4ecdc4] text-[white] border-none px-[30px] py-[15px] text-[18px] rounded-[30px] cursor-pointer [transition:all_0.3s_ease] [font-weight:bold] hover:bg-[#45b7d1] hover:scale-105"
-          @click.prevent.stop="restartGame">重新开始</button>
+          @click.prevent.stop="restartGame"
+        >
+          重新开始
+        </button>
       </div>
     </div>
   </div>
@@ -234,7 +246,7 @@ const stackCube = () => {
     // 使用finalSize确保新方块的大小不超过下方方块，多出来的部分被完全裁掉
     const geometry = new THREE.BoxGeometry(finalSize, cubeSize, cubeSize * 4)
     const material = new THREE.MeshStandardMaterial({
-      color: (currentCube.material).color,
+      color: currentCube.material.color,
       roughness: 0.5,
       metalness: 0.2
     })
@@ -403,7 +415,6 @@ const restartGame = () => {
       duration: 0.5,
       ease: 'power2.inOut'
     })
-
 
     gsap.to(controls.target, {
       y: 0,

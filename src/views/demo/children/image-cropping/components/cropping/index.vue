@@ -3,35 +3,61 @@
     <div class="flex gap-2">
       <div class="bg-white rounded-xl w-[500px] shadow-md p-4 mb-6">
         <div
-          class="w-full aspect-square bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
-          <vueCropper ref="cropperRef" :img="fileList[0] ? fileList[0].path : ''" :info="false" :fixed="false"
-            :fixedNumber="[1, 1]" :autoCropWidth="vueCropperOption.autoCropWidth"
-            :autoCropHeight="vueCropperOption.autoCropHeight" :autoCrop="vueCropperOption.autoCrop"
-            :canMove="vueCropperOption.canMove" :canMoveBox="vueCropperOption.canMoveBox" :outputSize="1"
-            :outputType="vueCropperOption.outputType" :centerBox="vueCropperOption.centerBox"
-            :limitMinSize="vueCropperOption.limitMinSize" @cropMoving="onCropMoving" @imgMoving="onImgMoving"
-            @realTime="onRealTime"></vueCropper>
+          class="w-full aspect-square bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden"
+        >
           <div v-if="!fileList[0]?.path" class="text-center text-gray-500">
             <p>请选择一张图片开始裁剪</p>
           </div>
+          <vueCropper
+            v-else
+            ref="cropperRef"
+            :img="fileList[0] ? fileList[0].path : ''"
+            :info="false"
+            :fixed="false"
+            :fixedNumber="[1, 1]"
+            :autoCropWidth="vueCropperOption.autoCropWidth"
+            :autoCropHeight="vueCropperOption.autoCropHeight"
+            :autoCrop="vueCropperOption.autoCrop"
+            :canMove="vueCropperOption.canMove"
+            :canMoveBox="vueCropperOption.canMoveBox"
+            :outputSize="1"
+            :outputType="vueCropperOption.outputType"
+            :centerBox="vueCropperOption.centerBox"
+            :limitMinSize="vueCropperOption.limitMinSize"
+            @cropMoving="onCropMoving"
+            @imgMoving="onImgMoving"
+            @realTime="onRealTime"
+          ></vueCropper>
         </div>
       </div>
 
-      <div class="bg-white rounded-xl w-[500px] shadow-md p-6" v-if="fileList[0] ? fileList[0].path : ''">
+      <div
+        class="bg-white rounded-xl w-[500px] shadow-md p-6"
+        v-if="fileList[0] ? fileList[0].path : ''"
+      >
         <h2 class="text-xl font-semibold text-gray-800 mb-4">裁剪设置</h2>
 
         <div class="space-y-4">
           <div class="flex items-center space-x-2">
             <span class="text-gray-700 w-24">图片质量:</span>
-            <input type="range" :max="100" :min="10" v-model="vueCropperOption.outputSize"
-              class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
-            <span class="text-gray-600 min-w-12 text-right">{{ +vueCropperOption.outputSize / 100 }}</span>
+            <input
+              type="range"
+              :max="100"
+              :min="10"
+              v-model="vueCropperOption.outputSize"
+              class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+            <span class="text-gray-600 min-w-12 text-right">{{
+              +vueCropperOption.outputSize / 100
+            }}</span>
           </div>
 
           <div class="flex items-center space-x-2">
             <span class="text-gray-700 w-24">图片格式:</span>
-            <select v-model="vueCropperOption.outputType"
-              class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <select
+              v-model="vueCropperOption.outputType"
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
               <option value="jpg">image/jpg</option>
               <option value="png">image/png</option>
               <option value="jpeg">image/jpeg</option>
@@ -43,47 +69,67 @@
             <span class="text-gray-700 w-24">裁剪框宽：</span>
             <input
               class="flex-1 px-3 py-2 border-1 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              type="number" v-model="vueCropperOption.cropW" @input="onCropperSizeChange" />
+              type="number"
+              v-model="vueCropperOption.cropW"
+              @input="onCropperSizeChange"
+            />
           </div>
 
           <div class="flex items-center space-x-2">
             <span class="text-gray-700 w-24">裁剪框高：</span>
             <input
               class="flex-1 px-3 py-2 border-1 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              type="number" v-model="vueCropperOption.cropH" @input="onCropperSizeChange" />
+              type="number"
+              v-model="vueCropperOption.cropH"
+              @input="onCropperSizeChange"
+            />
           </div>
 
           <div class="flex items-center space-x-2">
             <span class="text-gray-700 w-24">缩放比例：</span>
-            <input type="number" v-model="vueCropperOption.scaling" @input="onScaling"
-              class="flex-1 px-3 py-2 border-1 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <input
+              type="number"
+              v-model="vueCropperOption.scaling"
+              @input="onScaling"
+              class="flex-1 px-3 py-2 border-1 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
             <span class="text-gray-500 text-sm">(比例切勿太大，以免卡死)</span>
           </div>
 
           <div class="text-gray-600 text-sm p-3 bg-gray-50 rounded-lg">
-            结果生成图片的宽 x 高：{{ vueCropperOption.cropW * vueCropperOption.scaling }}px * {{ vueCropperOption.cropH *
-              vueCropperOption.scaling }}px
+            结果生成图片的宽 x 高：{{ vueCropperOption.cropW * vueCropperOption.scaling }}px *
+            {{ vueCropperOption.cropH * vueCropperOption.scaling }}px
           </div>
 
           <div class="flex flex-wrap gap-3 pt-2">
-            <button @click="$refs.cropperRef.changeScale(-1)"
-              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+            <button
+              @click="cropperRef.changeScale(-1)"
+              class="px-4 py-2 cursor-pointer bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+            >
               缩小
             </button>
-            <button @click="$refs.cropperRef.changeScale(1)"
-              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+            <button
+              @click="cropperRef.changeScale(1)"
+              class="px-4 py-2 cursor-pointer bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+            >
               放大
             </button>
-            <button @click="$refs.cropperRef.rotateLeft()"
-              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+            <button
+              @click="cropperRef.rotateLeft()"
+              class="px-4 py-2 cursor-pointer bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+            >
               左旋
             </button>
-            <button @click="$refs.cropperRef.rotateRight()"
-              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+            <button
+              @click="cropperRef.rotateRight()"
+              class="px-4 py-2 cursor-pointer bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+            >
               右旋
             </button>
-            <button @click="confirmCropper"
-              class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm">
+            <button
+              @click="confirmCropper"
+              class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
+            >
               确定裁剪
             </button>
           </div>
@@ -93,16 +139,22 @@
       <div class="bg-white rounded-xl w-[500px]" v-if="resultImage.path">
         <div class="bg-white rounded-xl shadow-md p-6">
           <h2 class="text-xl font-semibold text-gray-800 mb-4">裁剪预览</h2>
-          <a class="block w-full aspect-square bg-gray-50 rounded-lg border-1 border-solid border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
-            target="_blank" title="预览" :href="resultImage.path">
+          <a
+            class="block w-full aspect-square bg-gray-50 rounded-lg border-1 border-solid border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+            target="_blank"
+            title="预览"
+            :href="resultImage.path"
+          >
             <img :src="resultImage.path" class="w-full h-full object-contain" />
           </a>
           <div class="mt-4 text-gray-600 text-sm p-3 bg-gray-50 rounded-lg">
-            图片的宽 x 高：{{ vueCropperOption.cropW * vueCropperOption.scaling }}px * {{ vueCropperOption.cropH *
-              vueCropperOption.scaling }}px
+            图片的宽 x 高：{{ vueCropperOption.cropW * vueCropperOption.scaling }}px *
+            {{ vueCropperOption.cropH * vueCropperOption.scaling }}px
           </div>
-          <button @click="onDownload"
-            class="w-full mt-4 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm">
+          <button
+            @click="onDownload"
+            class="w-full mt-4 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm"
+          >
             下载图片
           </button>
         </div>

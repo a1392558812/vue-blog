@@ -35,13 +35,15 @@ const fileList = Vue.ref([])
 
 console.log('useRouteStore', path)
 
-const errorComponent = () => (<div style="background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 30px; color: red; word-break: break-all; padding: 0 60px;">
-  <div>{errorComponentData.title}</div>
-  <div>{errorComponentData.errorMessage}</div>
-</div>)
+const errorComponent = () => (
+  <div style="background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 30px; color: red; word-break: break-all; padding: 0 60px;">
+    <div>{errorComponentData.title}</div>
+    <div>{errorComponentData.errorMessage}</div>
+  </div>
+)
 
 /**
- * 
+ *
  * @param options {
  *   path: string,
  *   suffix: string,
@@ -50,13 +52,13 @@ const errorComponent = () => (<div style="background: rgba(0, 0, 0, 0.7); positi
  */
 const getAndUpdateTargetPathFile = (options) => {
   if (!options.path) throw new Error('path不能为空')
-  let target = fileList.value.find(item => item.path === options.path)
+  let target = fileList.value.find((item) => item.path === options.path)
   if (!target) {
     target = {
       path: options.path,
       suffix: options.suffix,
       content: options.content || '',
-      promise: axios.get(options.path),
+      promise: axios.get(options.path)
     }
     fileList.value.push(target)
   } else {
@@ -83,7 +85,7 @@ const getVueFile = () => {
         const target = getAndUpdateTargetPathFile({
           path: url,
           suffix,
-          content: '',
+          content: ''
         })
 
         target.promise.then((res) => {
@@ -97,9 +99,9 @@ const getVueFile = () => {
 
               return resolve({
                 getContentData: (asBinary) => {
-                  return res.data;
+                  return res.data
                 },
-                type: ".mjs",
+                type: '.mjs'
               })
             }
 
@@ -122,7 +124,7 @@ const getVueFile = () => {
       if (lang !== 'scss') throw new Error(`不支持该语言${lang}处理器`)
 
       let content = cssContent
-      const useUrlRegex = /@use\s+(?:url\s*\(\s*["']([^"']+)['"]\s*\)|["']([^"']+)["'])/gi;
+      const useUrlRegex = /@use\s+(?:url\s*\(\s*["']([^"']+)['"]\s*\)|["']([^"']+)["'])/gi
       const urlList = content.match(useUrlRegex)
 
       console.log('urlList', urlList)
@@ -134,7 +136,7 @@ const getVueFile = () => {
           const target = getAndUpdateTargetPathFile({
             path: url,
             suffix: 'scss',
-            content: '',
+            content: ''
           })
 
           const res = await target.promise
@@ -142,7 +144,7 @@ const getVueFile = () => {
 
           getAndUpdateTargetPathFile({
             path: url,
-            content: res.data,
+            content: res.data
           })
 
           content = content.replace(useUrlRegex, res.data)
@@ -164,7 +166,7 @@ const getVueFile = () => {
     },
     log(type, ...args) {
       console[type](args)
-    },
+    }
     // compiledCache: {
     //   set(key, str) {
     //     // naive storage space management
@@ -189,7 +191,7 @@ const getVueFile = () => {
     // }
   }).catch((err) => {
     errorComponentData.title = '编译失败'
-    errorComponentData.errorMessage = (err instanceof Error) ? err.toString() : String(err)
+    errorComponentData.errorMessage = err instanceof Error ? err.toString() : String(err)
     console.error('getVueFile-fail', err)
     throw err
   })
@@ -197,7 +199,7 @@ const getVueFile = () => {
 
 const getLoadingFile = () => {
   console.log('getLoadingFile', loading)
-  return (<loading showModal={true} style="position: fixed" />)
+  return <loading showModal={true} style="position: fixed" />
 }
 
 const customComponent = Vue.defineAsyncComponent({
@@ -206,8 +208,8 @@ const customComponent = Vue.defineAsyncComponent({
   loadingComponent: getLoadingFile
 })
 
-const markdownComponent = () => Vue.defineAsyncComponent(() => import('@/components/v-md-preview/index.jsx'))
-
+const markdownComponent = () =>
+  Vue.defineAsyncComponent(() => import('@/components/v-md-preview/index.jsx'))
 </script>
 <style lang="scss">
 html,

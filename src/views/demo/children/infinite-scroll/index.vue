@@ -3,7 +3,9 @@
     <div class="w-[1200px] mx-auto px-4 py-12">
       <!-- 页面标题 -->
       <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h1
+          class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"
+        >
           无限滚动演示
         </h1>
       </div>
@@ -49,18 +51,19 @@
           <div class="bg-white p-6 rounded-xl shadow-md mb-6">
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-xl font-semibold text-gray-800">无限滚动列表</h2>
-              <button @click="refreshList"
-                class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all duration-200">
+              <button
+                @click="refreshList"
+                class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all duration-200"
+              >
                 刷新数据
               </button>
             </div>
-            <div class="text-sm text-gray-500 mb-4">
-              向下滚动到底部加载更多数据...
-            </div>
+            <div class="text-sm text-gray-500 mb-4">向下滚动到底部加载更多数据...</div>
             <div ref="infiniteScroll" class="overflow-auto infinite-scroll bg-gray-50 rounded-lg">
               <div class="infinite-scroll-item" v-for="(item, index) in dataList" :key="index">
                 <div
-                  class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150 flex items-center justify-between">
+                  class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150 flex items-center justify-between"
+                >
                   <span class="font-medium text-gray-800">{{ item.name }}</span>
                   <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs">
                     #{{ index + 1 }}
@@ -68,7 +71,9 @@
                 </div>
               </div>
               <div v-if="loading" class="flex items-center justify-center p-6">
-                <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600 mr-3"></div>
+                <div
+                  class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600 mr-3"
+                ></div>
                 <span class="text-gray-600">加载中...</span>
               </div>
             </div>

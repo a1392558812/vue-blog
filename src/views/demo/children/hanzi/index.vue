@@ -3,12 +3,12 @@
     <div class="w-[1200px] mx-auto px-4 py-12">
       <!-- 页面标题 -->
       <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h1
+          class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"
+        >
           汉字书写演示
         </h1>
-        <p class="mt-3 text-lg text-gray-600">
-          展示汉字书写、描红、盲写等多种交互方式
-        </p>
+        <p class="mt-3 text-lg text-gray-600">展示汉字书写、描红、盲写等多种交互方式</p>
       </div>
 
       <div class="py-2 mb-2 text-gray-500">网络偶尔可能波动，在线字体是从cdn上引入的</div>
@@ -24,11 +24,16 @@
         <div class="mb-8 p-5 bg-white rounded-xl shadow-md">
           <h2 class="text-xl font-semibold text-gray-800 mb-4">自定义汉字</h2>
           <div class="flex items-center gap-3 mb-4">
-            <input v-model="inputValue"
+            <input
+              v-model="inputValue"
               class="flex-1 p-3 border-2 border-solid border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 font-sans text-gray-800 bg-white"
-              type="text" placeholder="请输入要展示的汉字" />
-            <button @click="handelCreate"
-              class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200">
+              type="text"
+              placeholder="请输入要展示的汉字"
+            />
+            <button
+              @click="handelCreate"
+              class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200"
+            >
               确定生成
             </button>
           </div>
@@ -41,8 +46,10 @@
           <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
             <h3 class="text-lg font-medium text-gray-800 mb-3">描红书写该字</h3>
             <div class="character-box mx-auto mb-3" id="character-target-div2"></div>
-            <button @click="reWrite1"
-              class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200">
+            <button
+              @click="reWrite1"
+              class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200"
+            >
               重写
             </button>
             <div class="mt-4 space-y-2 text-sm">
@@ -89,8 +96,13 @@
           <!-- 带网格的静态汉字 -->
           <div class="chart-wrap bg-white p-5 rounded-xl shadow-md">
             <h3 class="text-lg font-medium text-gray-800 mb-3">带网格的静态汉字</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" class="character-box mx-auto"
-              id="character-target-div8">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="150"
+              height="150"
+              class="character-box mx-auto"
+              id="character-target-div8"
+            >
               <line x1="0" y1="0" x2="150" y2="150" stroke="#DDD" />
               <line x1="150" y1="0" x2="0" y2="150" stroke="#DDD" />
               <line x1="75" y1="0" x2="75" y2="150" stroke="#DDD" />

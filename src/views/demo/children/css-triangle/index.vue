@@ -1,25 +1,32 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 p-8">
     <div class="w-[1500px] mx-auto">
-
       <div class="flex flex-wrap gap-6 justify-center">
         <!-- 参数设置卡片 -->
         <div
-          class="bg-white rounded-xl shadow-lg p-6 flex-1 shrink-0 transform hover:shadow-xl transition-shadow duration-300">
+          class="bg-white rounded-xl shadow-lg p-6 flex-1 shrink-0 transform hover:shadow-xl transition-shadow duration-300"
+        >
           <h2 class="text-xl font-semibold mb-6 text-gray-800">参数设置</h2>
 
           <div class="space-y-4">
             <!-- 方向选择 -->
             <div class="flex items-center space-x-4">
               <label for="direction" class="w-24 text-gray-700 font-medium">方向：</label>
-              <select id="direction" v-model="params.direction"
-                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all bg-white">
-                <option v-for="(item, index) in [
-                  { label: '上', value: 'top' },
-                  { label: '下', value: 'bottom' },
-                  { label: '左', value: 'left' },
-                  { label: '右', value: 'right' }
-                ]" :value="item.value" :key="index">
+              <select
+                id="direction"
+                v-model="params.direction"
+                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all bg-white"
+              >
+                <option
+                  v-for="(item, index) in [
+                    { label: '上', value: 'top' },
+                    { label: '下', value: 'bottom' },
+                    { label: '左', value: 'left' },
+                    { label: '右', value: 'right' }
+                  ]"
+                  :value="item.value"
+                  :key="index"
+                >
                   {{ item.label }}
                 </option>
               </select>
@@ -29,11 +36,19 @@
             <div class="flex items-center space-x-4">
               <label for="width" class="w-24 text-gray-700 font-medium">宽：</label>
               <div class="relative flex-1">
-                <input id="width"
+                <input
+                  id="width"
                   class="w-[calc(100%-20px-30px)] box-content pl-[20px] pr-[30px] py-2 border-[1px] border-solid border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                  type="number" :value="params.width" @input="onInput($event, 'width')" placeholder="请输入三角形的宽" min="0"
-                  max="100" />
-                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 leading-[1]">px</span>
+                  type="number"
+                  :value="params.width"
+                  @input="onInput($event, 'width')"
+                  placeholder="请输入三角形的宽"
+                  min="0"
+                  max="100"
+                />
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 leading-[1]"
+                  >px</span
+                >
               </div>
             </div>
 
@@ -41,11 +56,19 @@
             <div class="flex items-center space-x-4">
               <label for="height" class="w-24 text-gray-700 font-medium">高：</label>
               <div class="relative flex-1">
-                <input id="height"
+                <input
+                  id="height"
                   class="w-[calc(100%-20px-30px)] box-content pl-[20px] pr-[30px] py-2 border-[1px] border-solid border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                  type="number" :value="params.height" @input="onInput($event, 'height')" placeholder="请输入三角形的高" min="0"
-                  max="100" />
-                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 leading-[1]">px</span>
+                  type="number"
+                  :value="params.height"
+                  @input="onInput($event, 'height')"
+                  placeholder="请输入三角形的高"
+                  min="0"
+                  max="100"
+                />
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 leading-[1]"
+                  >px</span
+                >
               </div>
             </div>
 
@@ -53,11 +76,19 @@
             <div class="flex items-center space-x-4">
               <label for="angle" class="w-24 text-gray-700 font-medium">旋转角度：</label>
               <div class="relative flex-1">
-                <input id="angle"
+                <input
+                  id="angle"
                   class="w-[calc(100%-20px-30px)] box-content pl-[20px] pr-[30px] py-2 border-[1px] border-solid border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                  type="number" :value="params.angle" @input="onInput($event, 'angle')" placeholder="请输入旋转角度" min="0"
-                  max="360" />
-                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 leading-[1]">°</span>
+                  type="number"
+                  :value="params.angle"
+                  @input="onInput($event, 'angle')"
+                  placeholder="请输入旋转角度"
+                  min="0"
+                  max="360"
+                />
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 leading-[1]"
+                  >°</span
+                >
               </div>
             </div>
           </div>
@@ -65,7 +96,8 @@
 
         <!-- 预览和代码卡片 -->
         <div
-          class="bg-white rounded-xl shadow-lg p-6 flex-1 shrink-0 max-w-md transform hover:shadow-xl transition-shadow duration-300">
+          class="bg-white rounded-xl shadow-lg p-6 flex-1 shrink-0 max-w-md transform hover:shadow-xl transition-shadow duration-300"
+        >
           <h2 class="text-xl font-semibold mb-4 text-gray-800">效果预览</h2>
 
           <!-- 三角形预览区域 -->
@@ -79,8 +111,10 @@
             <div class="bg-gray-900 rounded-lg p-4 text-white h-48 overflow-auto">
               <pre class="whitespace-pre-wrap font-mono text-sm">{{ formatTriangleStyle() }}</pre>
             </div>
-            <button @click="copyToClipboard(formatTriangleStyle())"
-              class="absolute top-10 right-2 bg-teal-500 hover:bg-teal-600 text-white px-2 py-1 rounded text-xs transition-colors">
+            <button
+              @click="copyToClipboard(formatTriangleStyle())"
+              class="absolute top-10 right-2 bg-teal-500 hover:bg-teal-600 text-white px-2 py-1 rounded text-xs transition-colors"
+            >
               复制
             </button>
           </div>
@@ -88,7 +122,8 @@
 
         <!-- 示例和说明卡片 -->
         <div
-          class="bg-white rounded-xl shadow-lg p-6 flex-1 shrink-0 transform hover:shadow-xl transition-shadow duration-300">
+          class="bg-white rounded-xl shadow-lg p-6 flex-1 shrink-0 transform hover:shadow-xl transition-shadow duration-300"
+        >
           <h2 class="text-xl font-semibold mb-4 text-gray-800">CSS border 原理</h2>
 
           <div class="flex flex-col items-center mb-6">
@@ -106,8 +141,10 @@
             <div class="bg-gray-900 rounded-lg p-4 text-white h-32 overflow-auto">
               <pre class="whitespace-pre-wrap font-mono text-sm">{{ formatBoxStyle() }}</pre>
             </div>
-            <button @click="copyToClipboard(formatBoxStyle())"
-              class="absolute top-10 right-2 bg-teal-500 hover:bg-teal-600 text-white px-2 py-1 rounded text-xs transition-colors">
+            <button
+              @click="copyToClipboard(formatBoxStyle())"
+              class="absolute top-10 right-2 bg-teal-500 hover:bg-teal-600 text-white px-2 py-1 rounded text-xs transition-colors"
+            >
               复制
             </button>
           </div>
@@ -115,8 +152,10 @@
       </div>
 
       <!-- 复制提示 -->
-      <div v-if="showCopyTip"
-        class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in">
+      <div
+        v-if="showCopyTip"
+        class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in"
+      >
         复制成功！
       </div>
     </div>

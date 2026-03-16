@@ -4,12 +4,16 @@
       <!-- 模式切换按钮 -->
       <div class="flex justify-center mb-10">
         <div class="inline-flex rounded-lg shadow-sm" role="group">
-          <button @click="mode = 'scssToCss'"
-            class="px-8 py-3 text-lg font-medium text-white bg-blue-600 rounded-l-lg border-none focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:bg-blue-700">
+          <button
+            @click="mode = 'scssToCss'"
+            class="px-8 py-3 text-lg font-medium text-white bg-blue-600 rounded-l-lg border-none focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:bg-blue-700"
+          >
             SCSS 转 CSS
           </button>
-          <button @click="mode = 'cssToScss'"
-            class="px-8 py-3 text-lg font-medium text-white bg-gray-600 rounded-r-lg border-none focus:z-10 focus:ring-2 focus:ring-gray-500 transition-all duration-300 hover:bg-gray-700">
+          <button
+            @click="mode = 'cssToScss'"
+            class="px-8 py-3 text-lg font-medium text-white bg-gray-600 rounded-r-lg border-none focus:z-10 focus:ring-2 focus:ring-gray-500 transition-all duration-300 hover:bg-gray-700"
+          >
             CSS 转 SCSS
           </button>
         </div>
@@ -29,19 +33,18 @@
               <div class="relative w-full">
                 <textarea
                   class="box-content w-[calc(100%-20px*2)] h-[400px] p-[20px] bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none shadow-sm"
-                  v-model="scssCode" placeholder="在此输入SCSS代码..." />
+                  v-model="scssCode"
+                  placeholder="在此输入SCSS代码..."
+                />
               </div>
             </div>
 
             <!-- 操作按钮 -->
             <div class="flex items-center justify-center">
-              <button @click="onCompile"
-                class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
+              <button
+                @click="onCompile"
+                class="px-6 py-3 cursor-pointer bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105"
+              >
                 编译生成
               </button>
             </div>
@@ -54,17 +57,16 @@
               </div>
               <div class="relative w-full">
                 <div class="absolute top-0 right-0 p-2">
-                  <button @click="copyToClipboard(resultCss)"
-                    class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
+                  <button
+                    @click="copyToClipboard(resultCss)"
+                    class="text-gray-600 cursor-pointer hover:text-gray-900 transition-colors"
+                  >
+                    复制
                   </button>
                 </div>
                 <pre
-                  class="box-content w-[calc(100%-20px*2)] h-[400px] p-[20px] bg-gray-800 text-gray-100 rounded-lg text-sm font-mono overflow-auto shadow-sm whitespace-pre-wrap break-all">
+                  class="box-content w-[calc(100%-20px*2)] h-[400px] p-[20px] bg-gray-800 text-gray-100 rounded-lg text-sm font-mono overflow-auto shadow-sm whitespace-pre-wrap break-all"
+                >
                   {{ resultCss || '编译结果将显示在这里...' }}
                 </pre>
               </div>
@@ -87,19 +89,18 @@
               <div class="relative w-full">
                 <textarea
                   class="box-content w-[calc(100%-20px*2)] h-[400px] p-4 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none resize-none shadow-sm"
-                  v-model="cssCode" placeholder="在此输入CSS代码..." />
+                  v-model="cssCode"
+                  placeholder="在此输入CSS代码..."
+                />
               </div>
             </div>
 
             <!-- 操作按钮 -->
             <div class="flex items-center justify-center">
-              <button @click="onReCompile"
-                class="px-6 py-3 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform hover:scale-105">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
+              <button
+                @click="onReCompile"
+                class="px-6 py-3 cursor-pointer bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform hover:scale-105"
+              >
                 编译生成
               </button>
             </div>
@@ -112,17 +113,16 @@
               </div>
               <div class="relative w-full">
                 <div class="absolute top-0 right-0 p-2">
-                  <button @click="copyToClipboard(resultScss)"
-                    class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
+                  <button
+                    @click="copyToClipboard(resultScss)"
+                    class="text-gray-600 cursor-pointer hover:text-gray-900 transition-colors"
+                  >
+                    复制
                   </button>
                 </div>
                 <pre
-                  class="box-content w-[calc(100%-20px*2)] h-[400px] p-[20px] bg-gray-800 text-gray-100 rounded-lg text-sm font-mono overflow-auto shadow-sm whitespace-pre-wrap break-all">
+                  class="box-content w-[calc(100%-20px*2)] h-[400px] p-[20px] bg-gray-800 text-gray-100 rounded-lg text-sm font-mono overflow-auto shadow-sm whitespace-pre-wrap break-all"
+                >
                   {{ resultScss || '编译结果将显示在这里...' }}
                 </pre>
               </div>
@@ -135,11 +135,17 @@
       <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg shadow-sm">
         <div class="flex">
           <div class="flex-shrink-0">
-            <svg class="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
+            <svg
+              class="h-5 w-5 text-blue-500"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clip-rule="evenodd" />
+                clip-rule="evenodd"
+              />
             </svg>
           </div>
           <div class="ml-3">
@@ -152,7 +158,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { compileString } from 'sass'
 import { ref } from 'vue'
 import css2pre from 'css2pre/lib/css2pre'
@@ -238,7 +244,7 @@ const onReCompile = () => {
 }
 
 // 复制到剪贴板功能
-const copyToClipboard = (text: string) => {
+const copyToClipboard = (text) => {
   if (!text) return
   navigator.clipboard.writeText(text).then(() => {
     console.log('复制成功')

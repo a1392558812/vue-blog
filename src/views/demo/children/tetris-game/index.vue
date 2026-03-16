@@ -3,33 +3,42 @@
     <h2>俄罗斯方块游戏</h2>
     <div class="flex flex-col bg-[#333] border-[2px] border-solid border-[#444] mb-[10px]">
       <div v-for="(row, y) in boardWithCurrent" :key="y" class="flex">
-        <div v-for="(cell, x) in row" :key="x"
-          class="w-[24px] h-[24px] border-[1px] border-solid border-[#555] bg-[#222]" :style="cell ? {
-            background: '#1abc9c'
-          } : {}">
-        </div>
+        <div
+          v-for="(cell, x) in row"
+          :key="x"
+          class="w-[24px] h-[24px] border-[1px] border-solid border-[#555] bg-[#222]"
+          :style="
+            cell
+              ? {
+                  background: '#1abc9c'
+                }
+              : {}
+          "
+        ></div>
       </div>
     </div>
     <div class="mt-[8px]">
       <p>得分: {{ score }}</p>
-      <button class="mt-[6px] px-[12px] py-[4px] border-none bg-[#1abc9c] text-[#fff] rounded-[4px] cursor-pointer"
-        @click="restartGame">重新开始</button>
+      <button
+        class="mt-[6px] px-[12px] py-[4px] border-none bg-[#1abc9c] text-[#fff] rounded-[4px] cursor-pointer"
+        @click="restartGame"
+      >
+        重新开始
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted, computed } from 'vue';
+import { ref, reactive, onMounted, onUnmounted, computed } from 'vue'
 
-const ROWS = 20;
-const COLS = 10;
+const ROWS = 20
+const COLS = 10
 
 // 俄罗斯方块形状
 const SHAPES = [
   // I
-  [
-    [1, 1, 1, 1]
-  ],
+  [[1, 1, 1, 1]],
   // O
   [
     [1, 1],
@@ -60,37 +69,37 @@ const SHAPES = [
     [0, 0, 1],
     [1, 1, 1]
   ]
-];
+]
 
 function getRandomShape() {
-  const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-  return JSON.parse(JSON.stringify(shape));
+  const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)]
+  return JSON.parse(JSON.stringify(shape))
 }
 
 function rotate(shape) {
   // 逆时针旋转矩阵
-  return shape[0].map((_, i) => shape.map(row => row[i])).reverse();
+  return shape[0].map((_, i) => shape.map((row) => row[i])).reverse()
 }
 
-const board = ref([]);
-const score = ref(0);
+const board = ref([])
+const score = ref(0)
 
 const current = reactive({
   shape: [],
   x: 0,
   y: 0
-});
+})
 
 let gameInterval
 
 function initBoard() {
-  board.value = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+  board.value = Array.from({ length: ROWS }, () => Array(COLS).fill(0))
 }
 
 function spawnShape() {
-  current.shape = getRandomShape();
-  current.x = Math.floor((COLS - current.shape[0].length) / 2);
-  current.y = 0;
+  current.shape = getRandomShape()
+  current.x = Math.floor((COLS - current.shape[0].length) / 2)
+  current.y = 0
 }
 
 function checkCollision(shape, x, y) {
@@ -98,94 +107,89 @@ function checkCollision(shape, x, y) {
     for (let j = 0; j < shape[i].length; j++) {
       if (
         shape[i][j] &&
-        (
-          y + i >= ROWS ||
-          x + j < 0 ||
-          x + j >= COLS ||
-          board.value[y + i][x + j]
-        )
+        (y + i >= ROWS || x + j < 0 || x + j >= COLS || board.value[y + i][x + j])
       ) {
-        return true;
+        return true
       }
     }
   }
-  return false;
+  return false
 }
 
 function placeShape() {
   current.shape.forEach((row, i) => {
     row.forEach((cell, j) => {
       if (cell && current.y + i >= 0) {
-        board.value[current.y + i][current.x + j] = cell;
+        board.value[current.y + i][current.x + j] = cell
       }
-    });
-  });
+    })
+  })
 }
 
 function clearLines() {
-  let linesCleared = 0;
+  let linesCleared = 0
   for (let i = ROWS - 1; i >= 0; i--) {
-    if (board.value[i].every(cell => cell)) {
-      board.value.splice(i, 1);
-      board.value.unshift(Array(COLS).fill(0));
-      linesCleared++;
-      i++; // 检查新的一行
+    if (board.value[i].every((cell) => cell)) {
+      board.value.splice(i, 1)
+      board.value.unshift(Array(COLS).fill(0))
+      linesCleared++
+      i++ // 检查新的一行
     }
   }
-  score.value += linesCleared * 100;
+  score.value += linesCleared * 100
 }
 
 function gameTick() {
   if (!checkCollision(current.shape, current.x, current.y + 1)) {
-    current.y++;
+    current.y++
   } else {
-    placeShape();
-    clearLines();
-    spawnShape();
+    placeShape()
+    clearLines()
+    spawnShape()
     if (checkCollision(current.shape, current.x, current.y)) {
       // 游戏结束
-      clearInterval(gameInterval);
-      alert('游戏结束！');
+      clearInterval(gameInterval)
+      alert('游戏结束！')
     }
   }
 }
 
 function moveLeft() {
   if (!checkCollision(current.shape, current.x - 1, current.y)) {
-    current.x--;
+    current.x--
   }
 }
 
 function moveRight() {
   if (!checkCollision(current.shape, current.x + 1, current.y)) {
-    current.x++;
+    current.x++
   }
 }
 
 function moveDown() {
   if (!checkCollision(current.shape, current.x, current.y + 1)) {
-    current.y++;
+    current.y++
   }
 }
 
 function rotateShape() {
-  const newShape = rotate(current.shape);
+  const newShape = rotate(current.shape)
   if (!checkCollision(newShape, current.x, current.y)) {
-    current.shape = newShape;
+    current.shape = newShape
   }
 }
 
 function restartGame() {
-  score.value = 0;
-  initBoard();
-  spawnShape();
-  clearInterval(gameInterval);
-  gameInterval = setInterval(gameTick, 500);
+  score.value = 0
+  initBoard()
+  spawnShape()
+  clearInterval(gameInterval)
+  gameInterval = setInterval(gameTick, 500)
 }
 
 function drawCurrentShape() {
   // 先克隆棋盘
-  const tempBoard = board.value.map(row => [...row]);
+  const tempBoard = board.value.map((row) => [...row])
   current.shape.forEach((row, i) => {
     row.forEach((cell, j) => {
       if (
@@ -195,41 +199,41 @@ function drawCurrentShape() {
         current.x + j >= 0 &&
         current.x + j < COLS
       ) {
-        tempBoard[current.y + i][current.x + j] = cell;
+        tempBoard[current.y + i][current.x + j] = cell
       }
-    });
-  });
-  return tempBoard;
+    })
+  })
+  return tempBoard
 }
 
 onMounted(() => {
-  restartGame();
-  window.addEventListener('keydown', handleKey);
-});
+  restartGame()
+  window.addEventListener('keydown', handleKey)
+})
 
 onUnmounted(() => {
-  clearInterval(gameInterval);
-  window.removeEventListener('keydown', handleKey);
-});
+  clearInterval(gameInterval)
+  window.removeEventListener('keydown', handleKey)
+})
 
 function handleKey(e) {
   switch (e.code) {
     case 'ArrowLeft':
-      moveLeft();
-      break;
+      moveLeft()
+      break
     case 'ArrowRight':
-      moveRight();
-      break;
+      moveRight()
+      break
     case 'ArrowDown':
-      moveDown();
-      break;
+      moveDown()
+      break
     case 'ArrowUp':
-      rotateShape();
-      break;
+      rotateShape()
+      break
   }
 }
 
-const boardWithCurrent = computed(drawCurrentShape);
+const boardWithCurrent = computed(drawCurrentShape)
 </script>
 
 <style>

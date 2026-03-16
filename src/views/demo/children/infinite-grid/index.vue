@@ -23,7 +23,7 @@
       :useFit="false"
       :gap="20"
       ref="infiniteGrid"
-      class="container"
+      class="infinite-container"
       :sizeRange="[200, Infinity]"
     >
       <div
@@ -164,7 +164,7 @@ export default {
     padding: 3px 10px;
     border-radius: 10px;
   }
-  .container {
+  .infinite-container {
     min-height: calc(100% + 10px);
     .item {
       border: 1px solid #000;

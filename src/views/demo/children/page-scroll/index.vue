@@ -8,9 +8,15 @@
       <div class="nav-content">
         <span class="nav-logo">Awen's Scroll</span>
         <div class="nav-links">
-          <a href="#section1" class="nav-link" :class="{ active: activeSection === 'section1' }">Section 1</a>
-          <a href="#section2" class="nav-link" :class="{ active: activeSection === 'section2' }">Section 2</a>
-          <a href="#section3" class="nav-link" :class="{ active: activeSection === 'section3' }">Section 3</a>
+          <a href="#section1" class="nav-link" :class="{ active: activeSection === 'section1' }"
+            >Section 1</a
+          >
+          <a href="#section2" class="nav-link" :class="{ active: activeSection === 'section2' }"
+            >Section 2</a
+          >
+          <a href="#section3" class="nav-link" :class="{ active: activeSection === 'section3' }"
+            >Section 3</a
+          >
         </div>
       </div>
     </nav>
@@ -65,7 +71,6 @@
           <p>卡片详情：这是一个动态内容卡片，当你滚动页面时，它会显示出来。</p>
           <div class="card-icon"></div>
           <div class="section-decoration"></div>
-
         </div>
       </section>
 
@@ -75,7 +80,6 @@
           <p>卡片详情：这是一个动态内容卡片，当你滚动页面时，它会显示出来。</p>
           <div class="card-icon"></div>
           <div class="section-decoration"></div>
-
         </div>
       </section>
 
@@ -85,7 +89,6 @@
           <p>卡片详情：这是一个动态内容卡片，当你滚动页面时，它会显示出来。</p>
           <div class="card-icon"></div>
           <div class="section-decoration"></div>
-
         </div>
       </section>
     </div>
@@ -93,43 +96,43 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { gsap } from 'gsap';
-import { ScrollTrigger, TextPlugin, MotionPathPlugin } from 'gsap/all';
+import { onMounted, ref } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger, TextPlugin, MotionPathPlugin } from 'gsap/all'
 
-gsap.registerPlugin(ScrollTrigger, TextPlugin, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger, TextPlugin, MotionPathPlugin)
 
-const isScrolled = ref(false);
-const mousePosition = ref({ x: 0, y: 0 });
-const windowSize = ref({ width: window.innerWidth, height: window.innerHeight });
-const scrollProgress = ref(0);
-const activeSection = ref('section1');
+const isScrolled = ref(false)
+const mousePosition = ref({ x: 0, y: 0 })
+const windowSize = ref({ width: window.innerWidth, height: window.innerHeight })
+const scrollProgress = ref(0)
+const activeSection = ref('section1')
 
 // 鼠标移动处理函数
 const handleMouseMove = (e) => {
   // 计算鼠标位置的百分比
-  const xPercent = (e.clientX / windowSize.value.width - 0.5) * 20;
-  const yPercent = (e.clientY / windowSize.value.height - 0.5) * 20;
-  mousePosition.value = { x: xPercent, y: yPercent };
+  const xPercent = (e.clientX / windowSize.value.width - 0.5) * 20
+  const yPercent = (e.clientY / windowSize.value.height - 0.5) * 20
+  mousePosition.value = { x: xPercent, y: yPercent }
 
   // 创建光标粒子
-  createCursorParticles(e);
-};
+  createCursorParticles(e)
+}
 
 // 创建光标粒子效果
 const createCursorParticles = (e) => {
-  const particle = document.createElement('div');
-  particle.classList.add('cursor-particle');
+  const particle = document.createElement('div')
+  particle.classList.add('cursor-particle')
 
   // 设置随机大小和位置
-  const size = gsap.utils.random(5, 15);
-  particle.style.width = `${size}px`;
-  particle.style.height = `${size}px`;
-  particle.style.left = `${e.clientX}px`;
-  particle.style.top = `${e.clientY}px`;
+  const size = gsap.utils.random(5, 15)
+  particle.style.width = `${size}px`
+  particle.style.height = `${size}px`
+  particle.style.left = `${e.clientX}px`
+  particle.style.top = `${e.clientY}px`
 
   // 添加到容器
-  document.querySelector('.parallax-container').appendChild(particle);
+  document.querySelector('.parallax-container').appendChild(particle)
 
   // 粒子动画
   gsap.to(particle, {
@@ -140,26 +143,26 @@ const createCursorParticles = (e) => {
     duration: gsap.utils.random(0.5, 1.5),
     ease: 'power2.out',
     onComplete: () => particle.remove()
-  });
-};
+  })
+}
 
 onMounted(() => {
   // 创建粒子背景
-  createStars();
+  createStars()
   // 创建深度线条
-  createDepthLines();
+  createDepthLines()
 
   // 创建流星效果
   const createMeteor = () => {
-    const meteor = document.createElement('div');
-    meteor.classList.add('meteor');
+    const meteor = document.createElement('div')
+    meteor.classList.add('meteor')
 
     // 随机位置和角度
-    const startX = gsap.utils.random(-100, window.innerWidth + 100);
-    const startY = gsap.utils.random(-100, 200);
-    const angle = gsap.utils.random(30, 60); // 流星角度
-    const length = gsap.utils.random(100, 300); // 流星长度
-    const duration = gsap.utils.random(0.8, 2); // 动画时长
+    const startX = gsap.utils.random(-100, window.innerWidth + 100)
+    const startY = gsap.utils.random(-100, 200)
+    const angle = gsap.utils.random(30, 60) // 流星角度
+    const length = gsap.utils.random(100, 300) // 流星长度
+    const duration = gsap.utils.random(0.8, 2) // 动画时长
 
     // 设置初始位置和旋转
     gsap.set(meteor, {
@@ -168,39 +171,40 @@ onMounted(() => {
       rotation: angle,
       height: length,
       opacity: 0
-    });
+    })
 
     // 添加到容器
-    document.querySelector('.parallax-container').appendChild(meteor);
+    document.querySelector('.parallax-container').appendChild(meteor)
 
     // 流星动画
     gsap.to(meteor, {
       opacity: 1,
       scaleX: 1.5,
-      x: `+=${Math.cos(angle * Math.PI / 180) * length * 6}`,
-      y: `+=${Math.sin(angle * Math.PI / 180) * length * 6}`,
+      x: `+=${Math.cos((angle * Math.PI) / 180) * length * 6}`,
+      y: `+=${Math.sin((angle * Math.PI) / 180) * length * 6}`,
       duration: duration,
       ease: 'power4.out',
       onComplete: () => meteor.remove()
-    });
-  };
+    })
+  }
 
   // 定时生成流星
   gsap.ticker.add(() => {
-    if (Math.random() < 0.01) { // 增加流星出现频率
-      createMeteor();
+    if (Math.random() < 0.01) {
+      // 增加流星出现频率
+      createMeteor()
     }
-  });
+  })
 
   // 窗口大小变化监听
   window.addEventListener('resize', () => {
-    windowSize.value = { width: window.innerWidth, height: window.innerHeight };
-  });
+    windowSize.value = { width: window.innerWidth, height: window.innerHeight }
+  })
 
   // 视差层动画
-  const layers = document.querySelectorAll('.parallax-layer');
-  layers.forEach(layer => {
-    const speed = layer.dataset.speed;
+  const layers = document.querySelectorAll('.parallax-layer')
+  layers.forEach((layer) => {
+    const speed = layer.dataset.speed
     gsap.to(layer, {
       y: () => -(ScrollTrigger.maxScroll(window) * (1 - speed)),
       ease: 'none',
@@ -211,11 +215,12 @@ onMounted(() => {
         scrub: true,
         invalidateOnRefresh: true
       }
-    });
-  });
+    })
+  })
 
   // 导航链接动画
-  gsap.fromTo('.nav-link',
+  gsap.fromTo(
+    '.nav-link',
     { color: 'rgba(255, 255, 255, 0.8)', y: 10, opacity: 0 },
     {
       color: '#6366f1',
@@ -231,10 +236,10 @@ onMounted(() => {
         toggleActions: 'play none none reverse'
       }
     }
-  );
+  )
 
   // 导航链接悬停效果
-  document.querySelectorAll('.nav-link').forEach(link => {
+  document.querySelectorAll('.nav-link').forEach((link) => {
     gsap.to(link, {
       duration: 0.3,
       scale: 1.1,
@@ -242,40 +247,44 @@ onMounted(() => {
       textShadow: '0 0 10px rgba(236, 72, 153, 0.5)',
       ease: 'power2.out',
       paused: true,
-      onMouseEnter: function () { this.play(); },
-      onMouseLeave: function () { this.reverse(); }
-    });
-  });
+      onMouseEnter: function () {
+        this.play()
+      },
+      onMouseLeave: function () {
+        this.reverse()
+      }
+    })
+  })
 
   // 鼠标移动视差效果
   const animateMouseParallax = () => {
     // 应用鼠标视差到所有视差层
-    layers.forEach(layer => {
-      const speed = parseFloat(layer.dataset.speed);
-      const depth = speed * 15;
+    layers.forEach((layer) => {
+      const speed = parseFloat(layer.dataset.speed)
+      const depth = speed * 15
       gsap.set(layer, {
         x: mousePosition.value.x * depth,
         y: mousePosition.value.y * depth
-      });
-    });
+      })
+    })
 
     // 文本层鼠标视差
     gsap.set('.title-word', (i, target) => {
-      const speed = parseFloat(target.dataset.speed);
+      const speed = parseFloat(target.dataset.speed)
       return {
         x: mousePosition.value.x * speed * 30,
         y: mousePosition.value.y * speed * 30,
         rotationY: mousePosition.value.x * speed * 5,
         rotationX: -mousePosition.value.y * speed * 5,
         transformPerspective: 800
-      };
-    });
+      }
+    })
 
-    requestAnimationFrame(animateMouseParallax);
-  };
+    requestAnimationFrame(animateMouseParallax)
+  }
 
   // 启动鼠标视差动画循环
-  animateMouseParallax();
+  animateMouseParallax()
 
   // 文字动画
   gsap.from('.title-word', {
@@ -284,7 +293,7 @@ onMounted(() => {
     stagger: 0.2,
     duration: 1.2,
     ease: 'power3.out'
-  });
+  })
 
   // 滚动触发文字动画
   gsap.from('.highlight', {
@@ -298,7 +307,7 @@ onMounted(() => {
       end: 'bottom 20%',
       scrub: true
     }
-  });
+  })
 
   // 浮动元素动画
   document.querySelectorAll('.float-item').forEach((item, index) => {
@@ -308,7 +317,7 @@ onMounted(() => {
       opacity: 0,
       scale: gsap.utils.random(0.5, 1.5),
       rotation: gsap.utils.random(-30, 30)
-    });
+    })
 
     gsap.to(item, {
       motionPath: {
@@ -333,7 +342,7 @@ onMounted(() => {
           opacity: 1,
           duration: 0.5,
           ease: 'power2.out'
-        });
+        })
       },
       onMouseOut: function () {
         gsap.to(this.targets()[0], {
@@ -341,10 +350,10 @@ onMounted(() => {
           opacity: gsap.utils.random(0.4, 0.8),
           duration: 0.5,
           ease: 'power2.in'
-        });
+        })
       }
-    });
-  });
+    })
+  })
 
   // 滚动指示器动画
   gsap.to('.scroll-indicator', {
@@ -353,7 +362,7 @@ onMounted(() => {
     yoyo: true,
     duration: 1.5,
     ease: 'sine.inOut'
-  });
+  })
 
   // 滚动进度条动画
   gsap.to('.scroll-progress', {
@@ -366,10 +375,11 @@ onMounted(() => {
       end: 'bottom bottom',
       scrub: true
     }
-  });
+  })
 
   // 导航栏滚动动画
-  gsap.fromTo('.floating-nav',
+  gsap.fromTo(
+    '.floating-nav',
     { y: -100, opacity: 0 },
     {
       y: 0,
@@ -383,7 +393,7 @@ onMounted(() => {
         scrub: true
       }
     }
-  );
+  )
 
   // 内容卡片动画
   document.querySelectorAll('.animated-card').forEach((card, index) => {
@@ -401,7 +411,7 @@ onMounted(() => {
         toggleActions: 'play none none reverse',
         once: true
       }
-    });
+    })
 
     // 卡片图标动画
     gsap.to(card.querySelector('.card-icon'), {
@@ -409,44 +419,49 @@ onMounted(() => {
       duration: 8,
       repeat: -1,
       ease: 'linear'
-    });
+    })
 
     // 卡片3D旋转和发光动画
-    gsap.fromTo(card, {
-      rotationY: -15,
-      rotationX: 5,
-      scale: 0.95,
-      boxShadow: '0 0 0 rgba(99, 102, 241, 0)'
-    }, {
-      rotationY: 0,
-      rotationX: 0,
-      scale: 1,
-      boxShadow: '0 0 30px rgba(99, 102, 241, 0.5)',
-      duration: 1.5,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: card,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse'
+    gsap.fromTo(
+      card,
+      {
+        rotationY: -15,
+        rotationX: 5,
+        scale: 0.95,
+        boxShadow: '0 0 0 rgba(99, 102, 241, 0)'
+      },
+      {
+        rotationY: 0,
+        rotationX: 0,
+        scale: 1,
+        boxShadow: '0 0 30px rgba(99, 102, 241, 0.5)',
+        duration: 1.5,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
       }
-    });
-  });
+    )
+  })
 
   // 监听滚动事件改变状态
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) isScrolled.value = true;
-    scrollProgress.value = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  });
-});
+    if (window.scrollY > 50) isScrolled.value = true
+    scrollProgress.value =
+      (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+  })
+})
 
 // 创建星空背景
 const createStars = () => {
-  const starsLayer = document.querySelector('.stars');
-  const count = 200;
+  const starsLayer = document.querySelector('.stars')
+  const count = 200
 
   for (let i = 0; i < count; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
+    const star = document.createElement('div')
+    star.classList.add('star')
 
     gsap.set(star, {
       position: 'absolute',
@@ -457,7 +472,7 @@ const createStars = () => {
       left: `${gsap.utils.random(0, 100)}%`,
       top: `${gsap.utils.random(0, 100)}%`,
       opacity: gsap.utils.random(0.2, 1)
-    });
+    })
 
     // 星星闪烁动画
     gsap.to(star, {
@@ -466,20 +481,20 @@ const createStars = () => {
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut'
-    });
+    })
 
-    starsLayer.appendChild(star);
+    starsLayer.appendChild(star)
   }
-};
+}
 
 // 创建深度线条
 const createDepthLines = () => {
-  const linesLayer = document.querySelector('.depth-lines');
-  const count = 20;
+  const linesLayer = document.querySelector('.depth-lines')
+  const count = 20
 
   for (let i = 0; i < count; i++) {
-    const line = document.createElement('div');
-    line.classList.add('depth-line');
+    const line = document.createElement('div')
+    line.classList.add('depth-line')
 
     gsap.set(line, {
       position: 'absolute',
@@ -489,7 +504,7 @@ const createDepthLines = () => {
       top: `${i * 5}%`,
       left: 0,
       transformOrigin: 'center left'
-    });
+    })
 
     // 线条动画
     gsap.to(line, {
@@ -498,14 +513,14 @@ const createDepthLines = () => {
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut'
-    });
+    })
 
-    linesLayer.appendChild(line);
+    linesLayer.appendChild(line)
   }
-};
+}
 
 // 各区域联动动画
-const sections = document.querySelectorAll('.content-section');
+const sections = document.querySelectorAll('.content-section')
 const sectionAnimation = gsap.timeline({
   scrollTrigger: {
     trigger: '.scroll-content',
@@ -514,36 +529,45 @@ const sectionAnimation = gsap.timeline({
     scrub: 1,
     onUpdate: (self) => {
       // 更新当前激活的区域
-      const scrollPosition = self.progress * sections.length;
-      const currentSection = Math.ceil(scrollPosition);
-      activeSection.value = `section${currentSection}`;
+      const scrollPosition = self.progress * sections.length
+      const currentSection = Math.ceil(scrollPosition)
+      activeSection.value = `section${currentSection}`
     }
   }
-});
+})
 
 // 为每个区域添加背景过渡效果
 sections.forEach((section, index) => {
-  const sectionNum = index + 1;
-  const nextSection = sections[index + 1];
-  const bgColor = index % 3 === 0 ? '#0f172a' : index % 3 === 1 ? '#1e293b' : '#0f172a';
+  const sectionNum = index + 1
+  const nextSection = sections[index + 1]
+  const bgColor = index % 3 === 0 ? '#0f172a' : index % 3 === 1 ? '#1e293b' : '#0f172a'
 
   // 区域背景颜色过渡
-  sectionAnimation.to('.parallax-container', {
-    backgroundColor: bgColor,
-    duration: 1
-  }, sectionNum / sections.length);
+  sectionAnimation.to(
+    '.parallax-container',
+    {
+      backgroundColor: bgColor,
+      duration: 1
+    },
+    sectionNum / sections.length
+  )
 
   // 区域间元素联动
   if (nextSection) {
-    sectionAnimation.fromTo(section.querySelector('.animated-card'), {
-      scale: 1
-    }, {
-      scale: 0.8,
-      opacity: 0.6,
-      duration: 0.5
-    }, sectionNum / sections.length + 0.2);
+    sectionAnimation.fromTo(
+      section.querySelector('.animated-card'),
+      {
+        scale: 1
+      },
+      {
+        scale: 0.8,
+        opacity: 0.6,
+        duration: 0.5
+      },
+      sectionNum / sections.length + 0.2
+    )
   }
-});
+})
 
 // 为装饰元素添加随滚动变化的动画
 gsap.to('.section-decoration', {
@@ -555,21 +579,21 @@ gsap.to('.section-decoration', {
     end: 'bottom bottom',
     scrub: true
   }
-});
+})
 
 // 文字逐字动画
-gsap.utils.toArray('.section-title').forEach(title => {
-  const text = title.dataset.text;
-  const chars = text.split('');
-  title.textContent = '';
+gsap.utils.toArray('.section-title').forEach((title) => {
+  const text = title.dataset.text
+  const chars = text.split('')
+  title.textContent = ''
 
   chars.forEach((char, i) => {
-    const span = document.createElement('span');
-    span.textContent = char === ' ' ? '\u00A0' : char;
-    span.style.opacity = '0';
-    span.style.display = 'inline-block';
-    title.appendChild(span);
-  });
+    const span = document.createElement('span')
+    span.textContent = char === ' ' ? '\u00A0' : char
+    span.style.opacity = '0'
+    span.style.display = 'inline-block'
+    title.appendChild(span)
+  })
 
   // 滚动触发文字动画
   gsap.to(title.querySelectorAll('span'), {
@@ -583,9 +607,8 @@ gsap.utils.toArray('.section-title').forEach(title => {
       start: 'top 80%',
       toggleActions: 'play none none reverse'
     }
-  });
-});
-
+  })
+})
 
 // 3D滚动旋转元素
 gsap.to('.animated-card', {
@@ -598,7 +621,7 @@ gsap.to('.animated-card', {
     end: 'bottom bottom',
     scrub: true
   }
-});
+})
 
 // 渐变背景滚动动画
 gsap.to('.gradient-overlay', {
@@ -610,7 +633,7 @@ gsap.to('.gradient-overlay', {
     end: 'bottom bottom',
     scrub: true
   }
-});
+})
 </script>
 <style>
 #app,
@@ -634,7 +657,12 @@ $medium-bg: #1e293b;
   .meteor {
     position: absolute;
     width: 3px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(135, 206, 235, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(135, 206, 235, 0.9) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
     pointer-events: none;
     z-index: 50;
     box-shadow: 0 0 6px rgba(135, 206, 235, 0.8);
@@ -651,7 +679,10 @@ $medium-bg: #1e293b;
     transform: translate(-50%, -50%);
     z-index: 9999;
     mix-blend-mode: screen;
-    transition: width 0.2s, height 0.2s, border-color 0.2s;
+    transition:
+      width 0.2s,
+      height 0.2s,
+      border-color 0.2s;
   }
 
   &:hover::after {
@@ -784,7 +815,11 @@ $medium-bg: #1e293b;
   }
 
   .foreground {
-    background-image: radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.4) 0%, transparent 40%),
+    background-image: radial-gradient(
+        circle at 20% 30%,
+        rgba(59, 130, 246, 0.4) 0%,
+        transparent 40%
+      ),
       radial-gradient(circle at 80% 60%, rgba(16, 185, 129, 0.3) 0%, transparent 40%);
     background-size: 120% 120%;
   }
@@ -796,7 +831,12 @@ $medium-bg: #1e293b;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba($dark-bg, 0.8) 0%, rgba($dark-bg, 0) 50%, rgba($dark-bg, 0.8) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba($dark-bg, 0.8) 0%,
+    rgba($dark-bg, 0) 50%,
+    rgba($dark-bg, 0.8) 100%
+  );
   pointer-events: none;
 }
 
@@ -958,7 +998,7 @@ $medium-bg: #1e293b;
         font-size: 1.2rem;
         opacity: 0.9;
         line-height: 1.6;
-        color: #9e9e9e; // 
+        color: #9e9e9e; //
       }
 
       &::before {

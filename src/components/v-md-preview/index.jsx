@@ -33,10 +33,7 @@ export default defineAsyncComponent({
     return (
       <wrapComponent>
         <loadingComponent style="background-color: transparent" showModal={true}>
-          <div
-            style="font-weight: bold"
-            class="w-[100%] h-[100%] flex items-center justify-center"
-          >
+          <div style="font-weight: bold" class="w-[100%] h-[100%] flex items-center justify-center">
             加载中...
           </div>
         </loadingComponent>

@@ -1,27 +1,45 @@
 <template>
   <div class="absolute toast-wrap">
     <transition-group :duration="550" name="nested">
-      <div class="toast overflow-hidden" v-for="item in toastArr" :style="item.contentWrapStyle" :key="item.id">
+      <div
+        class="toast overflow-hidden"
+        v-for="item in toastArr"
+        :style="item.contentWrapStyle"
+        :key="item.id"
+      >
         <div class="flex items-center lh-none toast-content">
           <div style="margin-right: 20px" :style="item.contentStyle">{{ item.content }}</div>
-          <svg @click="closeToast(item.id, item.setTimeoutId)" v-if="item.showCloseBtn" class="icon cursor-pointer"
+          <svg
+            @click="closeToast(item.id, item.setTimeoutId)"
+            v-if="item.showCloseBtn"
+            class="icon cursor-pointer"
             style="
               width: 1.0205078125em;
               height: 1em;
               vertical-align: middle;
               fill: currentColor;
               overflow: hidden;
-            " viewBox="0 0 1045 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1345">
+            "
+            viewBox="0 0 1045 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="1345"
+          >
             <path
               d="M282.517333 213.376l-45.354666 45.162667L489.472 512 237.162667 765.461333l45.354666 45.162667L534.613333 557.354667l252.096 253.269333 45.354667-45.162667-252.288-253.44 252.288-253.482666-45.354667-45.162667L534.613333 466.624l-252.096-253.226667z"
-              p-id="1346"></path>
+              p-id="1346"
+            ></path>
           </svg>
         </div>
         <div class="w-[100%] duration">
-          <div v-if="item.showDurationLine" :style="{
-            backgroundColor: item.durationBgColor,
-            animationDuration: `${item.hiddenTime}ms`
-          }" class="duration-line"></div>
+          <div
+            v-if="item.showDurationLine"
+            :style="{
+              backgroundColor: item.durationBgColor,
+              animationDuration: `${item.hiddenTime}ms`
+            }"
+            class="duration-line"
+          ></div>
         </div>
       </div>
     </transition-group>
