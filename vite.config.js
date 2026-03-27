@@ -46,7 +46,7 @@ export default defineConfig((config) => {
       'windows.jQuery': 'jquery'
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       injectRegister: 'auto',
       includeAssets: ['**/*.*'],
       pwaAssets: {
