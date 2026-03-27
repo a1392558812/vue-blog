@@ -1,0 +1,35 @@
+name: 手动构建并提交到 build-dist 分支
+
+# 仅手动触发（点一下才构建）
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: 设置 Node.js 23.11.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23.11.0
+          cache: "npm"
+
+      - name: 安装依赖
+        run: npm install
+
+      - name: 打包项目
+        run: npm run build
+
+      # 👇 核心：把打包产物提交到 build-dist 分支
+      - name: 部署到 build-dist 分支
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: build-dist   # 目标分支
+          folder: dist         # 打包目录
+          clean: true          # 清空旧文件
