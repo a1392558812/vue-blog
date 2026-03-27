@@ -110,7 +110,22 @@ export default defineConfig((config) => {
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         maximumFileSizeToCacheInBytes: 30000000, // 30MB
-        runtimeCaching: []
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/[^\s/$.?#].[^\s]*$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // <== 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          }
+        ]
       },
 
       devOptions: {
