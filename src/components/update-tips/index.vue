@@ -28,74 +28,27 @@ import commonmBtn from '@/components/commonm-btn/index.vue'
 const period = 60 * 60 * 1000
 
 /**
- * Service Worker 激活状态
- */
-const swActivated = ref(false)
-
-/**
- * 注册定期同步检查
- * 该函数会每小时检查一次 Service Worker 是否有更新
- * @param {string} swUrl - Service Worker 文件的 URL
- * @param {ServiceWorkerRegistration} r - Service Worker 注册对象
- */
-function registerPeriodicSync(swUrl, r) {
-  // 如果时间间隔小于等于 0，则不进行定期检查
-  if (period <= 0) return
-  console.log(`[PWA] 注册定期同步检查`)
-
-  // 设置定时器，定期检查更新
-  setInterval(async () => {
-    // 如果设备离线，则跳过检查
-    if ('onLine' in navigator && !navigator.onLine) return
-
-    // 发起请求检查 Service Worker 文件是否有更新
-    const resp = await fetch(swUrl, {
-      cache: 'no-store', // 不使用缓存
-      headers: {
-        cache: 'no-store',
-        'cache-control': 'no-cache' // 强制不使用缓存
-      }
-    })
-
-    // 如果请求成功，触发 Service Worker 更新
-    if (resp?.status === 200) await r.update()
-  }, period)
-}
-
-/**
  * 使用 PWA 注册钩子函数
  * 该函数会注册 Service Worker 并监听其状态变化
  */
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
-  /**
-   * Service Worker 注册成功后的回调
-   * @param {string} swUrl - Service Worker 文件的 URL
-   * @param {ServiceWorkerRegistration} r - Service Worker 注册对象
-   */
   onRegisteredSW(swUrl, r) {
-    console.log('Service Worker 注册成功')
-    if (period <= 0) return
+    r &&
+      setInterval(async () => {
+        if (r.installing || !navigator) return
 
-    // 检查 Service Worker 的状态
-    if (r?.active?.state === 'activated') {
-      console.log('[PWA] Service Worker 已经激活')
-      swActivated.value = true
-      // 注册定期同步检查
-      registerPeriodicSync(swUrl, r)
-    } else if (r?.installing) {
-      console.log('[PWA] Service Worker 正在安装')
-      // 监听 Service Worker 状态变化
-      r.installing.addEventListener('statechange', (e) => {
-        /** @type {ServiceWorker} */
-        const sw = e.target
-        // 更新激活状态
-        swActivated.value = sw.state === 'activated'
-        // 如果激活成功，注册定期同步检查
-        if (swActivated.value) registerPeriodicSync(swUrl, r)
-      })
-    } else {
-      console.log('[PWA] 未找到 Service Worker')
-    }
+        if ('connection' in navigator && !navigator.onLine) return
+
+        const resp = await fetch(swUrl, {
+          cache: 'no-store',
+          headers: {
+            cache: 'no-store',
+            'cache-control': 'no-cache'
+          }
+        })
+
+        if (resp?.status === 200) await r.update()
+      }, period)
   },
   onNeedRefresh() {
     console.log('[PWA] 发现新内容，需要刷新')
