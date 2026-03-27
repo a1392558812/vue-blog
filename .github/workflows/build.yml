@@ -26,10 +26,16 @@ jobs:
       - name: 打包项目
         run: npm run build
 
+      # 创建部署目录并复制整个 dist 文件夹
+      - name: 准备部署目录
+        run: |
+          mkdir -p deploy
+          cp -r dist deploy/
+
       # 👇 核心：把打包产物提交到 build-dist 分支
       - name: 部署到 build-dist 分支
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: build-dist   # 目标分支
-          folder: dist         # 打包目录
+          folder: deploy       # 使用包含 dist 文件夹的 deploy 目录作为部署目录
           clean: true          # 清空旧文件
