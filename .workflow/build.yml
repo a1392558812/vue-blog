@@ -2,7 +2,7 @@ version: '1.0'
 name: build
 displayName: build
 triggers:
-  trigger: auto
+  trigger: manual
 stages:
   - name: stage-efc25181
     displayName: 未命名
@@ -27,3 +27,27 @@ stages:
         notify: []
         strategy:
           retry: '0'
+      - step: publish@general_artifacts
+        name: publish_general_artifacts
+        displayName: 上传制品
+        dependArtifact: BUILD_ARTIFACT
+        artifactName: output
+        notify: []
+        strategy:
+          retry: '0'
+        dependsOn: build_nodejs
+      - step: release@gitee
+        name: release_gitee
+        displayName: Gitee Release
+        releaseName: build-dist
+        description: build-dist
+        tagName: build-dist
+        upstreamArtifact:
+          - BUILD_ARTIFACT
+        assertFiles: null
+        prerelease: false
+        allowUpdate: true
+        notify: []
+        strategy:
+          retry: '0'
+        dependsOn: publish_general_artifacts
