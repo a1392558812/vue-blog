@@ -8,7 +8,7 @@
       <span>{{ title || '内容有更新' }}</span>
     </div>
     <div class="flex items-center justify-center">
-      <commonmBtn class="mr-[20px]" v-if="needRefresh" @btnClick="updateServiceWorker()">
+      <commonmBtn class="mr-[20px]" v-if="needRefresh" @btnClick="handleUpdate">
         重新加载
       </commonmBtn>
       <commonmBtn @btnClick="close">关闭</commonmBtn>
@@ -21,34 +21,9 @@ import { computed, ref } from 'vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import commonmBtn from '@/components/commonm-btn/index.vue'
 
-/**
- * 定期检查更新的时间间隔（毫秒）
- * 这里设置为每小时检查一次
- */
-const period = 60 * 60 * 1000
-
-/**
- * 使用 PWA 注册钩子函数
- * 该函数会注册 Service Worker 并监听其状态变化
- */
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
   onRegisteredSW(swUrl, r) {
-    r &&
-      setInterval(async () => {
-        if (r.installing || !navigator) return
-
-        if ('connection' in navigator && !navigator.onLine) return
-
-        const resp = await fetch(swUrl, {
-          cache: 'no-store',
-          headers: {
-            cache: 'no-store',
-            'cache-control': 'no-cache'
-          }
-        })
-
-        if (resp?.status === 200) await r.update()
-      }, period)
+    console.log('[PWA] Service Worker 注册成功', { swUrl, r })
   },
   onNeedRefresh() {
     console.log('[PWA] 发现新内容，需要刷新')
@@ -63,6 +38,12 @@ const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
     console.log('[PWA] Service Worker 注册失败', error)
   }
 })
+
+const handleUpdate = () => {
+  updateServiceWorker(false).then(() => {
+    window.location.reload()
+  })
+}
 
 /**
  * 根据 PWA 状态计算提示标题
