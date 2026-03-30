@@ -11,13 +11,13 @@
       <commonmBtn class="mr-[20px]" v-if="needRefresh" @btnClick="handleUpdate">
         重新加载
       </commonmBtn>
-      <commonmBtn @btnClick="close">关闭</commonmBtn>
+      <commonmBtn @btnClick="closeDialog">关闭</commonmBtn>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import commonmBtn from '@/components/commonm-btn/index.vue'
 
@@ -45,20 +45,13 @@ const handleUpdate = () => {
   })
 }
 
-/**
- * 根据 PWA 状态计算提示标题
- */
 const title = computed(() => {
   if (offlineReady.value) return '应用已准备好离线工作'
   if (needRefresh.value) return '有新内容可用，点击重新加载按钮更新'
   return ''
 })
 
-/**
- * 关闭更新提示
- */
-function close() {
-  // 重置状态
+const closeDialog = () => {
   offlineReady.value = false
   needRefresh.value = false
 }
