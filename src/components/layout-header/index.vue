@@ -5,18 +5,18 @@
   >
     <div class="relative flex items-center justify-center bg-style">
       <common-nav-link v-if="ifLarger" :if-larger="ifLarger" @goHome="goHome" />
-      <commonm-btn v-else class="nav" :wave-active="true" @click="toggleShowNavLink">
+      <common-btn v-else class="nav" :wave-active="true" @click="toggleShowNavLink">
         导航
-      </commonm-btn>
+      </common-btn>
       <div class="relative flex items-center justify-center flex-nowrap shrink-0 popup-wrap">
-        <commonm-btn
+        <common-btn
           style="margin-right: 1em"
           class="shrink-0"
           :wave-active="true"
           @btnClick="showPopup = !showPopup"
         >
           通知
-        </commonm-btn>
+        </common-btn>
         <a
           title="我的github主页"
           href="https://github.com/a1392558812/myShare"
@@ -34,7 +34,7 @@
       </div>
     </div>
     <!-- 移动端显示的切换菜单栏按钮 -->
-    <commonm-btn v-if="!ifLarger && ifShowHeaderPopupBtn" :wave-active="true" @btnClick="menuOpen">
+    <common-btn v-if="!ifLarger && ifShowHeaderPopupBtn" :wave-active="true" @btnClick="menuOpen">
       <svg
         class="icon"
         style="
@@ -54,14 +54,14 @@
           p-id="2097"
         />
       </svg>
-    </commonm-btn>
+    </common-btn>
   </div>
 </template>
 
 <script>
 import { ref, toRefs } from 'vue'
 
-import commonmBtn from '@/components/commonm-btn/index.vue'
+import commonBtn from '@/components/common-btn/index.vue'
 import commonNavLink from '@/components/nav-link/index.vue'
 import noticePopup from './notice.vue'
 
@@ -70,7 +70,7 @@ import useGoHome from '@/hook/common/useGoHome'
 export default {
   name: 'components-layout-header',
   components: {
-    commonmBtn,
+    commonBtn,
     commonNavLink,
     noticePopup
   },
@@ -114,7 +114,7 @@ export default {
 
 <style scoped lang="scss">
 .layout-header {
-  z-index: 3;
+  z-index: 20;
   padding: 0 50px;
   box-sizing: border-box;
   position: fixed;

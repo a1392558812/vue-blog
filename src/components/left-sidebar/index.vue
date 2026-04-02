@@ -11,7 +11,7 @@ import debounce from '@/common/util/debounce.js'
 import leftSidebarProps from '@/common/props/left-sidebar-props/index.js'
 
 import leftSidebarItem from './components/left-sidebar-item.vue'
-import commonmBtn from '@/components/commonm-btn/index.vue'
+import commonBtn from '@/components/common-btn/index.vue'
 import leftSidebarSearch from './components/left-sidebar-search.vue'
 
 import {
@@ -31,7 +31,7 @@ export default {
   components: {
     leftSidebarItem,
     leftSidebarSearch,
-    commonmBtn
+    commonBtn
   },
   props: {
     ...leftSidebarProps

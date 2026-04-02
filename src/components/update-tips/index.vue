@@ -8,10 +8,10 @@
       <span>{{ title || '内容有更新' }}</span>
     </div>
     <div class="flex items-center justify-center">
-      <commonmBtn class="mr-[20px]" v-if="needRefresh" @btnClick="handleUpdate">
+      <commonBtn class="mr-[20px]" v-if="needRefresh" @btnClick="handleUpdate">
         重新加载
-      </commonmBtn>
-      <commonmBtn @btnClick="closeDialog">关闭</commonmBtn>
+      </commonBtn>
+      <commonBtn @btnClick="closeDialog">关闭</commonBtn>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
-import commonmBtn from '@/components/commonm-btn/index.vue'
+import commonBtn from '@/components/common-btn/index.vue'
 
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
   onRegisteredSW(swUrl, r) {

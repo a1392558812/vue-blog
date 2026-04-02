@@ -76,7 +76,7 @@
           </li>
         </ul>
       </div>
-      <commonm-btn @click="search"> 搜索 </commonm-btn>
+      <common-btn @click="search"> 搜索 </common-btn>
     </div>
   </div>
 </template>
@@ -87,13 +87,13 @@ import { useStore } from 'vuex'
 import { debouncedWatch, onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 
-import commonmBtn from '@/components/commonm-btn/index.vue'
+import commonBtn from '@/components/common-btn/index.vue'
 import linkTag from './link-tag.vue'
 
 export default {
   name: 'components-left-sidebar-search',
   components: {
-    commonmBtn,
+    commonBtn,
     linkTag
   },
   props: {

@@ -6,11 +6,11 @@ import { useStore } from 'vuex'
 import { SET_THEME } from '@/store/actionType'
 import themeType from '@/static/theme/type'
 
-import commonmBtn from '@/components/commonm-btn/index.vue'
+import commonBtn from '@/components/common-btn/index.vue'
 export default {
   name: 'components-nav-link',
   components: {
-    commonmBtn
+    commonBtn
   },
   props: {
     ifLarger: {
@@ -180,9 +180,9 @@ export default {
           )}
 
           <div class="flex shrink-0">
-            <commonmBtn style={{ height: '1em', marginRight: '1em' }} onClick={this.toggleTheme}>
+            <commonBtn style={{ height: '1em', marginRight: '1em' }} onClick={this.toggleTheme}>
               切换主题
-            </commonmBtn>
+            </commonBtn>
           </div>
         </div>
       </>
