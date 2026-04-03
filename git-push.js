@@ -36,7 +36,7 @@ const executeWithRetry = (command, description) => {
       return true
     }
 
-    console.log(`等待 2 秒后重试...`)
+    console.log(`2 秒后重试...`)
     const startTime = Date.now()
     while (Date.now() - startTime < 2000) {
       // 阻塞等待
