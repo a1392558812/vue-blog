@@ -32,6 +32,32 @@ jobs:
           mkdir -p deploy
           cp -r dist deploy/
 
+      # 创建 .gitignore 文件
+      - name: 创建 .gitignore 文件
+        run: |
+          cat > deploy/.gitignore << 'EOF'
+          # Logs
+          logs
+          *.log
+          npm-debug.log*
+          yarn-debug.log*
+          yarn-error.log*
+          pnpm-debug.log*
+          lerna-debug.log*
+
+          node_modules
+          .DS_Store
+          *.local
+
+          # Editor directories and files
+          .idea
+          *.suo
+          *.ntvs*
+          *.njsproj
+          *.sln
+          *.sw?
+          EOF
+
       # 👇 核心：把打包产物提交到 build-dist 分支
       - name: 部署到 build-dist 分支
         uses: JamesIves/github-pages-deploy-action@v4
