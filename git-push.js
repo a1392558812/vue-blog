@@ -1,4 +1,5 @@
 import { execSync } from 'child_process'
+import notifier from 'node-notifier'
 
 const getCurrentTime = () => {
   const now = new Date()
@@ -36,9 +37,9 @@ const executeWithRetry = (command, description) => {
       return true
     }
 
-    console.log(`2 秒后重试...`)
+    console.log(`5 秒后重试...`)
     const startTime = Date.now()
-    while (Date.now() - startTime < 2000) {
+    while (Date.now() - startTime < 5000) {
       // 阻塞等待
     }
   }
@@ -71,6 +72,10 @@ const main = () => {
   }
 
   console.log('\n=== 所有操作完成 ===')
+  notifier.notify({
+    title: '通知',
+    message: 'Git 提交完成！'
+  })
 }
 
 main()
