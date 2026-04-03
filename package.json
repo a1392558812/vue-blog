@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "push": "node git-push.js",
+    "dist": "node git-pull-dist.js",
     "dev": "vite --host",
     "build": "node --max_old_space_size=8192 node_modules/vite/bin/vite.js build",
     "preview": "vite preview --host",
