@@ -1,6 +1,5 @@
 import { execSync } from 'child_process'
 
-// 获取当前时间格式化字符串
 const getCurrentTime = () => {
   const now = new Date()
   const year = now.getFullYear()
@@ -38,7 +37,6 @@ const executeWithRetry = (command, description) => {
     }
 
     console.log(`等待 2 秒后重试...`)
-    // 等待2秒
     const startTime = Date.now()
     while (Date.now() - startTime < 2000) {
       // 阻塞等待
@@ -50,27 +48,23 @@ const executeWithRetry = (command, description) => {
 const main = () => {
   console.log('=== Git 自动提交脚本 ===\n')
 
-  // 步骤1: git add ./
   if (!executeCommand('git add ./', 'git add ./')) {
     console.error('添加文件失败，脚本终止')
     process.exit(1)
   }
 
-  // 步骤2: git commit
   const commitMessage = getCurrentTime()
   if (!executeCommand(`git commit -m "${commitMessage}"`, `git commit -m "${commitMessage}"`)) {
     console.error('提交失败，脚本终止')
     process.exit(1)
   }
 
-  // 步骤3: 推送到 Gitee (带重试)
   const giteeUrl = 'https://gitee.com/a1392558812/vue-blog.git'
   if (!executeWithRetry(`git push ${giteeUrl}`, `推送到 Gitee (${giteeUrl})`)) {
     console.error('推送到 Gitee 失败，脚本终止')
     process.exit(1)
   }
 
-  // 步骤4: 推送到 origin master (带重试)
   if (!executeWithRetry('git push origin master', '推送到 origin master')) {
     console.error('推送到 origin master 失败，脚本终止')
     process.exit(1)
