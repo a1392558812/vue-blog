@@ -1,4 +1,5 @@
 import { execSync } from 'child_process'
+import notifier from 'node-notifier'
 
 const executeCommand = (command, description) => {
   try {
@@ -43,31 +44,10 @@ const main = () => {
   }
 
   console.log('\n=== 拉取完成 ===')
-
-  // 桌面弹窗通知
-  try {
-    console.log('发送桌面通知...')
-    // 跨平台通知实现
-    if (process.platform === 'win32') {
-      // Windows 系统
-      execSync(
-        'powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms"); [System.Windows.Forms.MessageBox]::Show("Git 拉取 build-dist 分支完成！", "操作完成", 0)"',
-        { stdio: 'ignore' }
-      )
-    } else if (process.platform === 'darwin') {
-      // macOS 系统
-      execSync(
-        'osascript -e "display notification "Git 拉取 build-dist 分支完成！" with title "操作完成""',
-        { stdio: 'ignore' }
-      )
-    } else {
-      // Linux 系统
-      execSync('notify-send "操作完成" "Git 拉取 build-dist 分支完成！"', { stdio: 'ignore' })
-    }
-    console.log('通知发送成功')
-  } catch (error) {
-    console.log('通知发送失败，可能是系统不支持或未安装相关依赖')
-  }
+  notifier.notify({
+    title: '通知',
+    message: 'Git 拉取 build-dist 分支完成！'
+  })
 }
 
 main()
