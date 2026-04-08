@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky shrink-0 h-[100%] top-[0] right-[0] [border-left:1px_solid_var(--global-border-color)] box-border bg-[var(--global-background-color)] markdown-title"
+    class="sticky shrink-0 h-[100%] top-[0] right-[0] [border-left:1px_solid_var(--global-border-color)] box-border bg-[var(--global-background-color)] z-[1] markdown-title"
   >
     <div
       class="w-[100%] h-[100%] overflow-y-auto overflow-x-hidden [word-wrap:break-word] break-all"
